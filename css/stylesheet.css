@@ -1,0 +1,49 @@
+.no-padding{
+    padding: 0;
+}
+
+.no-margin{
+    margin: 0;
+}
+
+.sidebar{
+    width: 200px;
+    height: 600px;
+    border-right: solid 4px #552211;
+}
+
+.titlebar{
+    width: 1200px;
+    height: 60px;
+    border-bottom: inset 4px #552211;
+}
+
+.topbar{
+    width: 1000px;
+    height: 75px;
+    border-bottom: inset 4px #552211;
+}
+
+.btn-bar{
+    margin: 5px;
+    padding: 5px;
+    min-height: 65px;
+    min-width: 150px;
+    border-radius: 5px;
+}
+
+.avi-theme-1{
+    background-color: #ccaa88;
+    border-color: #552211;
+}
+
+.avi-theme-2{
+    background-color: #774433;
+    border-color: #552211;
+}
+
+.avi-theme-1-button{
+    border: outset #ffa051 2px;
+    background-color: burlywood;
+    color: #000055;
+}

@@ -20,6 +20,9 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap'],function($, FamilySearch, Bootstrap){
-
+    var canvas = $('#canvas');
+    var context = canvas[0].getContext('2d');
+    context.fillStyle = "#ADFF2F";
+    context.fillRect(0, 0, canvas.width(), canvas.height());
 });
 

@@ -13,9 +13,8 @@
 }
 
 .titlebar{
-    width: 1200px;
     height: 60px;
-    border-bottom: inset 4px #552211;
+    border-bottom: outset 4px #552211;
 }
 
 .topbar{

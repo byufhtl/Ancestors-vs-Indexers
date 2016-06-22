@@ -3,6 +3,7 @@ define(['model/IAncestor'],function() {
 
     function Render(canvas)
     {
+        console.log(canvas);
       this.canvas = canvas;
       this.ctx = canvas.getContext("2d");
       console.log(this.canvas);

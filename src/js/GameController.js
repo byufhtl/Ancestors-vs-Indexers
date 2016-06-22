@@ -1,4 +1,4 @@
-define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(LevelDefinition, Update, Render, IAncestor) {
+define(['jquery','LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function($,LevelDefinition, Update, Render, IAncestor) {
 
     function GameController(canvas) {
       this.canvas = canvas;
@@ -17,6 +17,10 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
       this.activeBuildings = [];
     }
 
+    GameController.prototype.handleClick = function(clickEvent){
+        var clickPt = {x:clickEvent.pageX - 200, y:clickEvent.pageY - 135};
+        console.log("You just clicked at " + JSON.stringify(clickPt));
+    };
 
     GameController.prototype.initializeGame = function(level, playerInfo)
     {
@@ -27,6 +31,7 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
         var levelDefinition = new LevelDefinition();
         this.level = levelDefinition.getLevel(level); // Information location
         this.lastTime = Date.now();
+        $('#canvas').click(this.handleClick);
     };
 
     GameController.prototype.loop = function()

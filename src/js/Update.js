@@ -1,4 +1,4 @@
-define(['IAncestor'],function() {
+define(['model/IAncestor'],function() {
 
 
     function Update()

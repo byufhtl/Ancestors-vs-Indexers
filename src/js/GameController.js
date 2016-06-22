@@ -1,4 +1,4 @@
-define(['LevelDefinition', 'Update', 'Render', 'IAncestor'],function(LevelDefinition, Update, Render, IAncestor) {
+define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(LevelDefinition, Update, Render, IAncestor) {
 
     function GameController() {
       this.myUpdate = new Update();

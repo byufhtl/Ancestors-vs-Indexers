@@ -1,4 +1,4 @@
-define(['IAncestor'],function(IAncestor) {
+define(['model/IAncestor'],function(IAncestor) {
 
     function LevelDefinition() {
 

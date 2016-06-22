@@ -1,10 +1,10 @@
 define(['IAncestor'],function() {
 
 
-    function Render()
+    function Render(canvas)
     {
-      this.canvas = $("#canvas").get(0);
-      this.ctx = this.canvas.getContext("2d");
+      this.canvas = canvas;
+      this.ctx = canvas.getContext("2d");
 
       this.bgReady = false;
       this.bgImage = new Image();
@@ -45,7 +45,7 @@ define(['IAncestor'],function() {
         {
           for (var i = 0; i < activeAncestors.length; i++)
           {
-            this.ctx.drawImage(this.indexerImg, 600, 0);
+            this.ctx.drawImage(this.indexerImg, activeAncestors[i].xCoord, activeAncestors[i].yCoord);
           }
         }
     };

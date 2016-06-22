@@ -1,12 +1,13 @@
 define(['LevelDefinition', 'Update', 'Render', 'IAncestor'],function(LevelDefinition, Update, Render, IAncestor) {
 
-    function GameController() {
+    function GameController(canvas) {
+      this.canvas = canvas;
       this.myUpdate = new Update();
-      this.myRender = new Render();
+      this.myRender = new Render(canvas);
 
       this.timeElapsed = 0;
       this.gameOver;
-      this.canvas;
+
       this.then;
       this.playerInfo;
       this.level = [];
@@ -37,7 +38,7 @@ define(['LevelDefinition', 'Update', 'Render', 'IAncestor'],function(LevelDefini
     	this.timeElapsed += delta/1000;
 
       this.myUpdate.update(this.activeAncestors, this.activeIndexers, delta/1000, this.level);
-      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeBuildings);
+      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeBuildings, this.canvas);
       if (this.timeElapsed < 10)
       {
         requestAnimationFrame(this.loop.bind(this));

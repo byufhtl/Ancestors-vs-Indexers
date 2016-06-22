@@ -18,8 +18,9 @@ define([],function() {
       this.indexerImg = new Image();
       this.indexerImg.onload = function() {
         self.indexerImgReady = true;
-      }
-      this.indexerImg.src = "src/img/ancestor.png";
+      };
+      this.indexerImg.src = "src/img/ancestors/peasant.png";
+
 
       this.recordImgReady = false;
       this.recordImg = new Image();

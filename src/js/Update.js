@@ -30,7 +30,7 @@ define(['model/IAncestor'],function() {
       for (var i = 0; i < activeAncestors.length; i++)
       {
         activeAncestors[i].xCoord -= modifier * activeAncestors[i].speed;
-        activeAncestors[i].xCoord -= modifier * activeAncestors[i].speed;
+
       }
     };
 

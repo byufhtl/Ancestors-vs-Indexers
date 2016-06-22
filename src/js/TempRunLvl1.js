@@ -5,9 +5,9 @@ define(['GameController'],function(GameController) {
 
     }
 
-    TempRunLvl1.prototype.run = function()
+    TempRunLvl1.prototype.run = function(canvas)
     {
-      myGameController = new GameController();
+      myGameController = new GameController(canvas);
       myGameController.initializeGame(0,0);
       myGameController.loop();
     }

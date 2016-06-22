@@ -1,4 +1,4 @@
-define(['model/IAncestor'],function() {
+define([],function() {
 
 
     function Render(canvas)
@@ -8,7 +8,7 @@ define(['model/IAncestor'],function() {
       console.log(this.canvas);
       this.bgReady = false;
       this.bgImage = new Image();
-      var self = this;
+      var self = this
       this.bgImage.onload = function () {
       	self.bgReady = true;
       };
@@ -18,15 +18,15 @@ define(['model/IAncestor'],function() {
       this.indexerImg = new Image();
       this.indexerImg.onload = function() {
         self.indexerImgReady = true;
-      };
+      }
       this.indexerImg.src = "src/img/ancestor.png";
 
       this.recordImgReady = false;
       this.recordImg = new Image();
       this.recordImg.onload = function() {
         self.recordImgReady = true;
-      };
-      this.recordImg.src = "src/img/record.png";
+      }
+      this.recordImg.src = "src/img/records/goldenRecord.png";
     }
 
 
@@ -50,6 +50,18 @@ define(['model/IAncestor'],function() {
         }
     };
 
+    Render.prototype.renderRecords = function(activeRecords)
+    {
+
+      var self = this;
+        if (this.recordImgReady)
+        {
+          for (var i = 0; i < activeRecords.length; i++)
+          {
+            this.ctx.drawImage(this.recordImg, activeRecords[i].xCoord, activeRecords[i].yCoord);
+          }
+        }
+    }
     Render.prototype.renderIndexers = function(activeIndexers)
     {
 
@@ -60,12 +72,13 @@ define(['model/IAncestor'],function() {
 
     };
 
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeBuildings)
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeRecords, activeBuildings)
     {
       this.renderBackground();
       this.renderAncestors(activeAncestors);
       this.renderIndexers(activeIndexers);
       this.renderBuildings(activeBuildings);
+      this.renderRecords(activeRecords);
       //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     };
 

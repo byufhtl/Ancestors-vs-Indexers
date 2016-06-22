@@ -6,6 +6,37 @@ define(['model/IAncestor'],function() {
       this.wave = 0;
       this.timer = 0;
       this.secondsBetweenWaves = 5;
+      this.spawnRecordTimer = 0;
+      this.timeToNextRecordSpawn = 0;
+    }
+
+    //check if record ready to spawn
+    Update.prototype.spawnRecord = function(activeRecords, timeElapsed)
+    {
+
+      this.spawnRecordTimer += timeElapsed;
+      if (this.spawnRecordTimer > this.timeToNextRecordSpawn)
+      {
+        console.log("spawning a record");
+        var collectableRecord = {};
+        collectableRecord.xCoord = Math.random() * 1000;
+        collectableRecord.yCoord = -100;
+        collectableRecord.speed = 20;
+        activeRecords.push(collectableRecord);
+
+        //reset spawn timer
+        this.spawnRecordTimer = 0;
+        //time to next spawn is 5-11 seconds
+        this.timeToNextRecordSpawn = Math.random() * 6 + 5;
+      }
+    }
+
+    Update.prototype.moveRecords = function(activeRecords, timeElapsed)
+    {
+      for (var i = 0; i < activeRecords.length; i++)
+      {
+        activeRecords[i].yCoord += timeElapsed * activeRecords[i].speed;
+      }
     }
 
     Update.prototype.checkAncestorSpawnTimes = function(level, activeAncestors, timeElapsed)
@@ -35,10 +66,12 @@ define(['model/IAncestor'],function() {
     };
 
 
-    Update.prototype.update = function(activeAncestors, activeIndexers, timeElapsed, level)
+    Update.prototype.update = function(activeAncestors, activeIndexers, activeRecords, timeElapsed, level)
     {
       this.updateAncestorsPosition(activeAncestors, timeElapsed);
       this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
+      this.spawnRecord(activeRecords, timeElapsed);
+      this.moveRecords(activeRecords, timeElapsed);
     };
 
 

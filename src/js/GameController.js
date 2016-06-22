@@ -15,6 +15,7 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
       this.activeAncestors = [];
       this.activeIndexers = [];
       this.activeBuildings = [];
+      this.activeRecords = [];
     }
 
 
@@ -37,9 +38,9 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
       this.lastTime = now;
     	this.timeElapsed += delta_s;
 
-      this.myUpdate.update(this.activeAncestors, this.activeIndexers, delta_s, this.level);
-      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeBuildings, this.canvas);
-      if (this.timeElapsed < 10) // game end condition.
+      this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeRecords, delta_s, this.level);
+      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeRecords, this.activeBuildings, this.canvas);
+      if (this.timeElapsed < 25) // game end condition.
       {
         requestAnimationFrame(this.loop.bind(this));
       }

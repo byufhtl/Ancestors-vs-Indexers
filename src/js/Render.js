@@ -28,6 +28,13 @@ define([],function() {
         self.recordImgReady = true;
       }
       this.recordImg.src = "src/img/records/goldenRecord.png";
+
+      this.lightbeamImgReady = false;
+      this.lightbeamImg = new Image();
+      this.lightbeamImg.onload = function() {
+        self.lightbeamImgReady = true;
+      }
+      this.lightbeamImg.src = "src/img/lightbeam.png";
     }
 
 
@@ -37,6 +44,14 @@ define([],function() {
         {
           this.ctx.drawImage(this.bgImage, 0, 0, this.bgImage.width, this.bgImage.height, 0, 0, this.canvas.width, this.canvas.height);
         }
+    };
+
+    Render.prototype.renderLightBeam = function()
+    {
+      if (this.lightbeamImgReady)
+      {
+        this.ctx.drawImage(this.lightbeamImg, 0, 0, this.lightbeamImg.width, this.lightbeamImg.height, 0, 0, this.canvas.width, this.canvas.height);
+      }
     };
 
     Render.prototype.renderAncestors = function(activeAncestors)
@@ -81,6 +96,7 @@ define([],function() {
       this.renderBuildings(activeBuildings);
       this.renderRecords(activeRecords);
       //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.renderLightBeam();
     };
 
 

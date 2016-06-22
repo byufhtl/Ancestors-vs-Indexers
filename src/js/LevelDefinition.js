@@ -3,7 +3,7 @@ define(['model/IAncestor'],function(IAncestor) {
     function LevelDefinition() {
       this.rowHeight = 600/6;
       this.rowWidth = 1000;
-      this.topMargin = 40;
+      this.topMargin = 105;
     }
 
     LevelDefinition.prototype.getLevel = function(levelNum)

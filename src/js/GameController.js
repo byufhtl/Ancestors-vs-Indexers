@@ -40,7 +40,7 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
 
       this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeRecords, delta_s, this.level);
       this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeRecords, this.activeBuildings, this.canvas);
-      if (this.timeElapsed < 25) // game end condition.
+      if (this.timeElapsed < 40) // game end condition.
       {
         requestAnimationFrame(this.loop.bind(this));
       }

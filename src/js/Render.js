@@ -19,7 +19,7 @@ define(['model/IAncestor'],function() {
       this.indexerImg.onload = function() {
         self.indexerImgReady = true;
       };
-      this.indexerImg.src = "src/img/ancestor.png";
+      this.indexerImg.src = "src/img/ancestors/peasant.png";
 
       this.recordImgReady = false;
       this.recordImg = new Image();

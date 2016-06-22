@@ -5,7 +5,7 @@ define(['model/IAncestor'],function() {
     {
       this.canvas = canvas;
       this.ctx = canvas.getContext("2d");
-
+      console.log(this.canvas);
       this.bgReady = false;
       this.bgImage = new Image();
       var self = this;
@@ -34,7 +34,7 @@ define(['model/IAncestor'],function() {
     {
         if (this.bgReady)
         {
-          this.ctx.drawImage(this.bgImage, 0, 0, this.bgImage.width, this.bgImage.height, 0, 0, canvas.width, canvas.height);
+          this.ctx.drawImage(this.bgImage, 0, 0, this.bgImage.width, this.bgImage.height, 0, 0, this.canvas.width, this.canvas.height);
         }
     };
 
@@ -66,6 +66,7 @@ define(['model/IAncestor'],function() {
       this.renderAncestors(activeAncestors);
       this.renderIndexers(activeIndexers);
       this.renderBuildings(activeBuildings);
+      //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     };
 
 

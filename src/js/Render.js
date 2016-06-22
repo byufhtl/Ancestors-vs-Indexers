@@ -8,7 +8,7 @@ define(['model/IAncestor'],function() {
 
       this.bgReady = false;
       this.bgImage = new Image();
-      var self = this
+      var self = this;
       this.bgImage.onload = function () {
       	self.bgReady = true;
       };
@@ -18,14 +18,14 @@ define(['model/IAncestor'],function() {
       this.indexerImg = new Image();
       this.indexerImg.onload = function() {
         self.indexerImgReady = true;
-      }
+      };
       this.indexerImg.src = "src/img/ancestor.png";
 
       this.recordImgReady = false;
       this.recordImg = new Image();
       this.recordImg.onload = function() {
         self.recordImgReady = true;
-      }
+      };
       this.recordImg.src = "src/img/record.png";
     }
 

@@ -8,7 +8,7 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
       this.timeElapsed = 0;
       this.gameOver;
 
-      this.then;
+      this.lastTime;
       this.playerInfo;
       this.level = [];
 
@@ -25,25 +25,25 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
         this.canvas = 0;
         this.playerInfo = playerInfo;
         var levelDefinition = new LevelDefinition();
-        this.level = levelDefinition.getLevel(level);
-        this.then = Date.now();
+        this.level = levelDefinition.getLevel(level); // Information location
+        this.lastTime = Date.now();
     };
 
     GameController.prototype.loop = function()
     {
       //console.log("running loop");
       var now = Date.now();
-    	var delta = now - this.then;
-      this.then = now;
-    	this.timeElapsed += delta/1000;
+    	var delta_s = (now - this.lastTime)/1000; // obtain time elapsed since last check and convert to seconds
+      this.lastTime = now;
+    	this.timeElapsed += delta_s;
 
-      this.myUpdate.update(this.activeAncestors, this.activeIndexers, delta/1000, this.level);
+      this.myUpdate.update(this.activeAncestors, this.activeIndexers, delta_s, this.level);
       this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeBuildings, this.canvas);
-      if (this.timeElapsed < 10)
+      if (this.timeElapsed < 10) // game end condition.
       {
         requestAnimationFrame(this.loop.bind(this));
       }
-    }
+    };
 
     return GameController;
 

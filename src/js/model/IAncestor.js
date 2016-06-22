@@ -9,6 +9,8 @@ define([],function() {
       this.yCoord = 300;
     }
 
+    console.log("IAncestor readout:", new IAncestor(0));
+
     IAncestor.prototype = {
         hp: this.hp,
         speed: this.speed,
@@ -17,6 +19,8 @@ define([],function() {
         xCoord: this.xCoord,
         yCoord: this.yCoord
     };
+
+    console.log("IAncestor readout 2:", new IAncestor(0));
 
     return IAncestor;
 

@@ -26,7 +26,7 @@ require.config({
 require(['jquery', 'familysearch', 'bootstrap', 'runLvl1'],function($, FamilySearch, Bootstrap, runLvl1){
     var canvas = document.createElement("canvas");
     canvas.width = 1000;
-    canvas.height = 525;
+    canvas.height = 600;
     $('#canvas').append(canvas);
 
     //var context = canvas[0].getContext('2d');

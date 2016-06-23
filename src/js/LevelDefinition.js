@@ -8,19 +8,9 @@ define(['model/IAncestor'],function(IAncestor) {
 
     LevelDefinition.prototype.getLevel = function(levelNum)
     {
-      switch(levelNum) {
-      case 0:
-          return this.level1();
-          break;
-      case 1:
-          return this.level2();
-          break;
-      case 2:
-          return this.level3();
-          break;
-      default:
-          return null;
-        }
+        var levelData = LevelDefinition.parseLevel(levelNum + 1);
+        this.setXYCoordinates(levelData);
+        return levelData;
     };
 
     LevelDefinition.prototype.setXYCoordinates = function(level)
@@ -37,41 +27,45 @@ define(['model/IAncestor'],function(IAncestor) {
       }
     };
 
-    LevelDefinition.prototype.level1 = function()
-    {
-      var level = [];
+    LevelDefinition.parseLevel = function(lvl){
+        var level = [];
 
-      var wave1 = [];
-      var wave1Zombie1 = new IAncestor(0);
-      wave1.push(wave1Zombie1);
-
-      var wave1Zombie2 = new IAncestor(1);
-      wave1.push(wave1Zombie2);
-
-      var wave1Zombie3 = new IAncestor(2);
-      wave1.push(wave1Zombie3);
-
-      var wave1Zombie4 = new IAncestor(4);
-      wave1.push(wave1Zombie4);
-      level.push(wave1);
-
-
-      var wave2 = [];
-      var wave2Zombie1 = new IAncestor(3);
-      wave2.push(wave2Zombie1);
-      level.push(wave2);
-      this.setXYCoordinates(level);
-      return level;
+        var level_scheme = LevelDefinition.levels[lvl];
+        if(level_scheme){
+            for(var i in level_scheme){
+                var wave_scheme = level_scheme[i];
+                var wave = [];
+                for(var j in wave_scheme){
+                    switch(wave_scheme[j]){
+                        case 'a':
+                            wave.push(new IAncestor(j));
+                            break;
+                        default:
+                    }
+                }
+                level.push(wave);
+            }
+            return level;
+        }
+        return null;
     };
 
-    LevelDefinition.prototype.level2 = function()
-    {
-
-    };
-
-    LevelDefinition.prototype.level3 = function()
-    {
-
+    LevelDefinition.levels = {
+        1: [
+            ['a', 'a', 'a', null, 'a'],
+            [null, null, null, 'a', null]
+        ],
+        2: [
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', null, null, 'a', 'a'],
+            ['a', 'a', null, null, null]
+        ],
+        3: [
+            ['a', null, 'a', 'a', null],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', null, 'a', 'a']
+        ]
     };
     return LevelDefinition;
 });

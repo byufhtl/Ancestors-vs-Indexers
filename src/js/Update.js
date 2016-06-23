@@ -113,6 +113,7 @@ define(['model/IAncestor'],function() {
       if (this.timer > this.secondsBetweenWaves)
       {
         this.wave++;
+          this.timer = 0;
       }
       if (level[this.wave] != null)
       {

@@ -7,8 +7,8 @@ define(['GameController'],function(GameController) {
 
     TempRunLvl1.prototype.run = function(canvas)
     {
-      myGameController = new GameController(canvas);
-      myGameController.initializeGame(0,{});
+      var myGameController = new GameController(canvas);
+      myGameController.initializeGame(2,{});
       myGameController.loop();
     };
 

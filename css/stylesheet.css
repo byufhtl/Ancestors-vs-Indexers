@@ -60,3 +60,7 @@
     color: #ff4477;
     border-color: #000055;
 }
+
+.right{
+    float: right;
+}

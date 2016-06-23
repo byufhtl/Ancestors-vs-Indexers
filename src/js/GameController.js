@@ -29,7 +29,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.canvas = 0;
         this.playerInfo = playerInfo;
         var levelDefinition = new LevelDefinition();
-        this.level = levelDefinition.getLevel(level); // Information location
+        this.level = levelDefinition.getLevel(level); // Wave information location
         this.lastTime = Date.now();
         this.clickManager = new ClickManager(this);
         this.clickManager.start();
@@ -45,7 +45,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
 
       this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, delta_s, this.level);
       this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeRecords, this.activeBuildings, this.canvas);
-      if (this.timeElapsed < 40) // game end condition.
+      if (this.timeElapsed < 70) // game end condition.
       {
         requestAnimationFrame(this.loop.bind(this));
       }

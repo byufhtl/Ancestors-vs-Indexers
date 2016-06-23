@@ -78,7 +78,7 @@ define([],function() {
             this.ctx.drawImage(this.recordImg, activeRecords[i].xCoord, activeRecords[i].yCoord);
           }
         }
-    }
+    };
     Render.prototype.renderIndexers = function(activeIndexers)
     {
       var self = this;

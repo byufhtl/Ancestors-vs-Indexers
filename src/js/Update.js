@@ -8,8 +8,9 @@ define(['model/IAncestor'],function() {
       this.secondsBetweenWaves = 5;
       this.spawnRecordTimer = 0;
       this.timeToNextRecordSpawn = 0;
-      this.projectileSpeed = 40;
+      this.projectileSpeed = 80;
     }
+
 
     //check if record ready to spawn
     Update.prototype.spawnRecord = function(activeRecords, timeElapsed)
@@ -67,20 +68,22 @@ define(['model/IAncestor'],function() {
       }
       for (var i = 0; i < activeIndexers.length; i++)
       {
+
         //check if there are any ancestors in the same lane as the indexer
-        if (ancestorPopulatedLanes.includes(activeIndexers.lane))
+        if (ancestorPopulatedLanes.includes(activeIndexers[i].lane))
         {
-          anctiveIndexers[i].throwTimer += timeElapsed;
+          activeIndexers[i].throwTimer += timeElapsed;
           if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay)
           {
             activeIndexers[i].throwTimer = 0;
             var tempProjectile = {
-              xCoord : activeIndexers[i].xCoord,
-              yCoord : activeIndexers[i].yCoord,
+              xCoord : activeIndexers[i].xCoord + 5,
+              yCoord : activeIndexers[i].yCoord + 20,
               type : activeIndexers[i].type,
               lane : activeIndexers[i].lane,
               dmg : activeIndexers[i].dmg
             }
+            activeProjectiles.push(tempProjectile);
           }
         }
       }
@@ -90,18 +93,19 @@ define(['model/IAncestor'],function() {
     {
       for (var i = 0; i < activeProjectiles.length; i++)
       {
-        for (var j = 0; j < activeAncestors.length; i++)
+        var keepChecking = true;
+        for (var j = 0; j < activeAncestors.length; j++)
         {
           //check if collision has occured
-          if ((activeProjectiles[i].xCoord + 10) >= activeAncestors[j].xCoord
+          if (keepChecking && (activeProjectiles[i].xCoord + 14) >= activeAncestors[j].xCoord
         && activeProjectiles[i].lane == activeAncestors[j].lane)
           {
             //deal damage
             activeAncestors[j].health -= activeProjectiles[i].damage;
             //remove projectile from gameOver
-            activeProjectiles.splice(i, 0);
+            activeProjectiles.splice(i, 1);
             i--;
-            break;
+            keepChecking = false;
           }
         }
       }

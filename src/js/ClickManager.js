@@ -17,7 +17,12 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
     ClickManager.prototype.getGridPoint = function(clickPt){
         var xPos = Math.floor((clickPt.xCoord - 100) / 100);
         var yPos = Math.floor((clickPt.yCoord - 100) / 100);
-        if (xPos < 0 || yPos < 0) return;
+        console.log("xPos: " + xPos);
+        console.log("yPos: " + yPos);
+        if (xPos < 0 || yPos < 0)
+        {
+          return;
+        }
         var coordinates = {row: xPos, column: yPos};
         return coordinates;
     };
@@ -41,7 +46,9 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
         });
 
         $('#indexers-button').click(function(){
+            console.log("folks!!!!!");
             var sidebarContainer = $('#sidebar');
+            sidebarContainer.empty();
             sidebarContainer.load("src/html/indexers.html", function(response){
                 console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
                 $('#button-1').click(function(){
@@ -57,11 +64,13 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
             var clickedRecord = false;
             for(var i = 0; i < records.length; ++i){
                 if(records[i].includesPoint(clickPt)){
+
                     console.log("You just clicked on the record at " + JSON.stringify(clickPt));
                     records.splice(i,1);
                     self.controller.resourcePoints += 10;
                     console.log("You just won 10 points! Now you have " + self.controller.resourcePoints + " points! Wow!");
                     --i;
+                    clickedRecord = true;
                     break;
                 }
             }
@@ -72,13 +81,14 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
                 if (self.controller.resourcePoints >= self.elementToPlace.cost)
                 {
                   var coordinates = self.getGridPoint(clickPt);
-                  if (!self.controller.gameBoardGrid[coordinates.row][coordinates.column])
+                  if (coordinates != null && !self.controller.gameBoardGrid[coordinates.row][coordinates.column])
                   {
                     console.log("making an indexer");
                     self.controller.gameBoardGrid[coordinates.row][coordinates.column] = true;
                     var tempIndexer = self.getNewIndexer(self.elementToPlace.type);
-                    tempIndexer.xCoord = coordinates.xPos * 100 + 100;
-                    tempIndexer.yCoord = coordinates.yPos * 100 + 100;
+                    tempIndexer.xCoord = coordinates.row * 100 + 100;
+                    tempIndexer.yCoord = coordinates.column * 100 + 100;
+                    tempIndexer.lane = coordinates.row;
                     self.controller.activeIndexers.push(tempIndexer);
                     self.controller.resourcePoints -= self.elementToPlace.cost;
                   }

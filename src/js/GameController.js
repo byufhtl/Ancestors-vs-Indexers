@@ -54,7 +54,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
     	this.timeElapsed += delta_s;
 
       this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, delta_s, this.level);
-      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeRecords, this.activeBuildings, this.canvas);
+      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas);
       if (this.timeElapsed < 40) // game end condition.
       {
         requestAnimationFrame(this.loop.bind(this));

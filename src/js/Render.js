@@ -36,6 +36,13 @@ define([],function() {
         self.lightbeamImgReady = true;
       }
       this.lightbeamImg.src = "src/img/lightbeam.png";
+
+      this.standardProjectileImgReady = false;
+      this.standProjectileImg = new Image();
+      this.standProjectileImg.onload = function() {
+        self.standardProjectileImgReady = true;
+      }
+      this.standProjectileImg.src = "src/img/records/brownRecord.png";
     }
 
 
@@ -91,17 +98,29 @@ define([],function() {
         }
     };
 
+    Render.prototype.renderProjectiles = function(activeProjectiles)
+    {
+      var self = this;
+        if (this.standardProjectileImgReady)
+        {
+          for (var i = 0; i < activeProjectiles.length; i++)
+          {
+            this.ctx.drawImage(this.standProjectileImg, activeProjectiles[i].xCoord, activeProjectiles[i].yCoord, this.standProjectileImg.width/3, this.standProjectileImg.height/3);
+          }
+        }
+    }
     Render.prototype.renderBuildings = function(activeBuildings)
     {
 
     };
 
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeRecords, activeBuildings)
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings)
     {
       this.renderBackground();
-      this.renderAncestors(activeAncestors);
       this.renderIndexers(activeIndexers);
+      this.renderAncestors(activeAncestors);
       this.renderBuildings(activeBuildings);
+      this.renderProjectiles(activeProjectiles);
       this.renderRecords(activeRecords);
       //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.renderLightBeam();

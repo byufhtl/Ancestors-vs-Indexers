@@ -19,11 +19,21 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       this.activeBuildings = [];
       this.activeRecords = [];
       this.activeProjectiles = [];
+
+      this.gameBoardGrid = [];
     }
 
 
     GameController.prototype.initializeGame = function(level, playerInfo)
     {
+        for (var i = 0; i < 5; i++)
+        {
+          this.gameBoardGrid[i] = false;
+          for (var j = 0; j < 9; j++)
+          {
+            this.gameBoardGrid[i][j] = false;
+          }
+        }
         this.timeElapsed = 0;
         this.gameOver = 0;
         this.canvas = 0;
@@ -44,8 +54,13 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
     	this.timeElapsed += delta_s;
 
       this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, delta_s, this.level);
+<<<<<<< HEAD
       this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeRecords, this.activeBuildings, this.canvas);
       if (this.timeElapsed < 70) // game end condition.
+=======
+      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas);
+      if (this.timeElapsed < 40) // game end condition.
+>>>>>>> 733ebc5154c376a5fbd2d193062c6b4a4bb671b0
       {
         requestAnimationFrame(this.loop.bind(this));
       }

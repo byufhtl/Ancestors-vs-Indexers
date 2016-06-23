@@ -8,6 +8,6 @@ define([],function() {
       this.damage = 1;
     }
 
-    return IAncestor;
+    return IIndexer;
 
 });

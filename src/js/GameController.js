@@ -49,6 +49,9 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       {
         requestAnimationFrame(this.loop.bind(this));
       }
+      else{
+          this.clickManager.stop();
+      }
     };
 
     return GameController;

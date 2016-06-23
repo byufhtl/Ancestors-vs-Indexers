@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/22/16.
  */
 
-define(['jquery', 'IIndexer'],function($, standardIndexer){
+define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardIndexer, Hobbyist){
 
     /**
      *
@@ -17,8 +17,6 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
     ClickManager.prototype.getGridPoint = function(clickPt){
         var xPos = Math.floor((clickPt.xCoord - 100) / 100);
         var yPos = Math.floor((clickPt.yCoord - 100) / 100);
-        console.log("xPos: " + xPos);
-        console.log("yPos: " + yPos);
         if (xPos < 0 || yPos < 0)
         {
           return;
@@ -29,9 +27,14 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
     };
 
     ClickManager.prototype.getNewIndexer = function(type){
-        if (type == "standardIndexer")
-        {
-          return new standardIndexer();
+
+        switch (type){
+            case "standardIndexer":
+                return new standardIndexer();
+                break;
+            case "hobbyistIndexer":
+                return new Hobbyist();
+                break;
         }
     };
 
@@ -42,20 +45,25 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
             var sidebarContainer = $('#sidebar');
             sidebarContainer.empty();
             sidebarContainer.load("src/html/buildings.html", function(response){
-                console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
+                console.log((response) ? ("Buildings sidebar loaded,") : ("Buildings sidebar did not load."));
             });
         });
 
         $('#indexers-button').click(function(){
-            console.log("folks!!!!!");
             var sidebarContainer = $('#sidebar');
             sidebarContainer.empty();
             sidebarContainer.load("src/html/indexers.html", function(response){
-                console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
+                console.log((response) ? ("Indexers sidebar loaded.") : ("Indexers sidebar did not load."));
                 $('#button-1').click(function(){
                   self.elementToPlace.type = "standardIndexer";
                   self.elementToPlace.cost = 20;
                 });
+                $('#button-2').click(function(){
+                    self.elementToPlace.type = "hobbyistIndexer";
+                    self.elementToPlace.cost = 30;
+                });
+                $('#button-1-img').click(function(){$('#button-1').click()});
+                $('#button-2-img').click(function(){$('#button-2').click()});
             });
         });
 
@@ -65,11 +73,9 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
             var clickedRecord = false;
             for(var i = 0; i < records.length; ++i){
                 if(records[i].includesPoint(clickPt)){
-
-                    console.log("You just clicked on the record at " + JSON.stringify(clickPt));
                     records.splice(i,1);
                     self.controller.resourcePoints += 10;
-                    console.log("You just won 10 points! Now you have " + self.controller.resourcePoints + " points! Wow!");
+                    $('#points').text(self.controller.resourcePoints);
                     --i;
                     clickedRecord = true;
                     break;
@@ -82,8 +88,6 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
                 if (self.controller.resourcePoints >= self.elementToPlace.cost)
                 {
                   var coordinates = self.getGridPoint(clickPt);
-                  console.log(coordinates.xPos);
-                  console.log(coordinates.yPos);
                   if (coordinates != null && !self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos])
                   {
                     self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos] = true;
@@ -93,6 +97,7 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
                     tempIndexer.lane = coordinates.yPos;
                     self.controller.activeIndexers.push(tempIndexer);
                     self.controller.resourcePoints -= self.elementToPlace.cost;
+                    $('#points').text(self.controller.resourcePoints);
                   }
                 }
               }

@@ -3,10 +3,8 @@ define([],function() {
 
     function Render(canvas)
     {
-        console.log(canvas);
       this.canvas = canvas;
       this.ctx = canvas.getContext("2d");
-      console.log(this.canvas);
       this.bgReady = false;
       this.bgImage = new Image();
       var self = this;
@@ -28,6 +26,13 @@ define([],function() {
             self.indexerImgReady = true;
         };
         this.indexerImg.src = "src/img/indexers/bow-indexer.png";
+
+        this.hobbyistImgReady = false;
+        this.hobbyistImg = new Image();
+        this.hobbyistImg.onload = function() {
+            self.hobbyistImgReady = true;
+        };
+        this.hobbyistImg.src = "src/img/indexers/hobbyist.png";
 
       this.recordImgReady = false;
       this.recordImg = new Image();
@@ -117,11 +122,17 @@ define([],function() {
     Render.prototype.renderIndexers = function(activeIndexers)
     {
       var self = this;
-        if (this.indexerImgReady)
+        if (this.indexerImgReady && this.hobbyistImgReady)
         {
           for (var i = 0; i < activeIndexers.length; i++)
           {
-            this.ctx.drawImage(this.indexerImg, activeIndexers[i].xCoord, activeIndexers[i].yCoord);
+              switch(activeIndexers[i].type){
+                  case "hobbyist":
+                      this.ctx.drawImage(this.hobbyistImg, activeIndexers[i].xCoord, activeIndexers[i].yCoord);
+                      break;
+                  default:
+                      this.ctx.drawImage(this.indexerImg, activeIndexers[i].xCoord, activeIndexers[i].yCoord);
+              }
           }
         }
     };
@@ -129,14 +140,20 @@ define([],function() {
     Render.prototype.renderProjectiles = function(activeProjectiles)
     {
       var self = this;
-        if (this.standardProjectileImgReady)
+        if (this.standardProjectileImgReady && this.recordImgReady)
         {
           for (var i = 0; i < activeProjectiles.length; i++)
           {
-            this.ctx.drawImage(this.standProjectileImg, activeProjectiles[i].xCoord, activeProjectiles[i].yCoord, this.standProjectileImg.width/3, this.standProjectileImg.height/3);
+              switch(activeProjectiles[i].type){
+                  case "strong":
+                      this.ctx.drawImage(this.recordImg, activeProjectiles[i].xCoord, activeProjectiles[i].yCoord, this.standProjectileImg.width/3, this.standProjectileImg.height/3);
+                      break;
+                  default:
+                      this.ctx.drawImage(this.standProjectileImg, activeProjectiles[i].xCoord, activeProjectiles[i].yCoord, this.standProjectileImg.width/3, this.standProjectileImg.height/3);
+              }
           }
         }
-    }
+    };
     Render.prototype.renderBuildings = function(activeBuildings)
     {
 

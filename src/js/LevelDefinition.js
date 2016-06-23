@@ -65,6 +65,23 @@ define(['model/IAncestor'],function(IAncestor) {
             ['a', 'a', 'a', 'a', 'a'],
             ['a', 'a', 'a', null, 'a'],
             ['a', 'a', null, 'a', 'a']
+        ],
+        4: [
+
+            ['a', null, 'a', 'a', null],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', null, 'a', 'a'],
+            ['a', null, 'a', 'a', null],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', null, 'a', 'a'],
+            [null, 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'a', null, 'a'],
+            ['a', null, 'a', 'a', null],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', null, 'a', 'a']
         ]
     };
     return LevelDefinition;

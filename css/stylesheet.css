@@ -32,7 +32,6 @@
 }
 
 .lbl-bar{
-
     margin: 5px;
     padding: 5px;
     height: 65px;
@@ -40,16 +39,14 @@
 }
 
 .img-lbl-bar{
-    position: inherit;
     margin: 0;
     padding: 0;
     width: 65px;
     height: 65px;
-    left: -5px;
-    top: -5px;
 }
 
 .btn-sidebar{
+    display: inline;
     width: 120px;
     height: 120px;
     border-radius: 15px;
@@ -71,6 +68,12 @@
     border: outset #ffa051 2px;
     background-color: burlywood;
     color: #000055;
+}
+
+.avi-theme-3-button{
+    background-color: #331111;
+    color: #ff4477;
+    border-color: #000055;
 }
 
 .avi-theme-3-button{

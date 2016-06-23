@@ -30,6 +30,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
 
     GameController.prototype.initializeGame = function(level, playerInfo)
     {
+      this.myUpdate = new Update();
         for (var i = 0; i < 9; i++)
         {
           this.gameBoardGrid[i] = false;
@@ -58,6 +59,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.playerInfo = playerInfo;
 
         var levelDefinition = new LevelDefinition();
+
         this.level = levelDefinition.getLevel(level); // Wave information location
         this.lastTime = Date.now();
         this.clickManager = new ClickManager(this);

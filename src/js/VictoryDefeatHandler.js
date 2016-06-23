@@ -14,11 +14,13 @@ define([],function() {
         sidebarContainer.empty();
         sidebarContainer.load("src/html/victory.html", function(response){
             console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
+            $('#nextLevelButton').click(function(){
+              console.log("PUSHED NEXT LEVEL BUTTON");
+                controller.initializeGame((controller.currentLevel + 1), {});
+                controller.loop();
+            });
         });
-        $('#nextLevelButton').click(function(){
-            controller.initializeGame(controller.level + 1);
-            controller.loop();
-        });
+
     }
 
     VictoryDefeatHandler.prototype.defeat = function(myRender)

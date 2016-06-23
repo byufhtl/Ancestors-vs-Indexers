@@ -41,30 +41,38 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
     ClickManager.prototype.start = function(){
         var self = this;
 
-        $('#structures-button').click(function(){
-            var sidebarContainer = $('#sidebar');
-            sidebarContainer.empty();
-            sidebarContainer.load("src/html/buildings.html", function(response){
-                console.log((response) ? ("Buildings sidebar loaded,") : ("Buildings sidebar did not load."));
+        var topbarContainer = $('#topbar');
+        topbarContainer.empty();
+        topbarContainer.load("src/html/topbar.html", function(response){
+          var sidebarContainer = $('#sidebar');
+          sidebarContainer.empty();
+          
+            $('#structures-button').click(function(){
+                var sidebarContainer = $('#sidebar');
+                sidebarContainer.empty();
+                sidebarContainer.load("src/html/buildings.html", function(response){
+                    console.log((response) ? ("Buildings sidebar loaded,") : ("Buildings sidebar did not load."));
+                });
             });
-        });
 
-        $('#indexers-button').click(function(){
-            var sidebarContainer = $('#sidebar');
-            sidebarContainer.empty();
-            sidebarContainer.load("src/html/indexers.html", function(response){
-                console.log((response) ? ("Indexers sidebar loaded.") : ("Indexers sidebar did not load."));
-                $('#button-1').click(function(){
-                  self.elementToPlace.type = "standardIndexer";
-                  self.elementToPlace.cost = 20;
+            $('#indexers-button').click(function(){
+                var sidebarContainer = $('#sidebar');
+                sidebarContainer.empty();
+                sidebarContainer.load("src/html/indexers.html", function(response){
+                    console.log((response) ? ("Indexers sidebar loaded.") : ("Indexers sidebar did not load."));
+                    $('#button-1').click(function(){
+                      self.elementToPlace.type = "standardIndexer";
+                      self.elementToPlace.cost = 20;
+                    });
+                    $('#button-2').click(function(){
+                        self.elementToPlace.type = "hobbyistIndexer";
+                        self.elementToPlace.cost = 30;
+                    });
+                    $('#button-1-img').click(function(){$('#button-1').click()});
+                    $('#button-2-img').click(function(){$('#button-2').click()});
                 });
-                $('#button-2').click(function(){
-                    self.elementToPlace.type = "hobbyistIndexer";
-                    self.elementToPlace.cost = 30;
-                });
-                $('#button-1-img').click(function(){$('#button-1').click()});
-                $('#button-2-img').click(function(){$('#button-2').click()});
             });
+
         });
 
         $('#canvas').click(function(clickEvent){

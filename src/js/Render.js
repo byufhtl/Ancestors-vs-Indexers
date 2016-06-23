@@ -48,6 +48,20 @@ define([],function() {
       };
       this.lightbeamImg.src = "src/img/lightbeam.png";
 
+      this.victoryImgReady = false;
+      this.victoryImg = new Image();
+      this.victoryImg.onload = function() {
+        self.victoryImgReady = true;
+      };
+      this.victoryImg.src = "src/img/victory.jpg";
+
+      this.deafeatImgReady = false;
+      this.defeatImg = new Image();
+      this.defeatImg.onload = function() {
+        self.defeatImgReady = true;
+      };
+      this.defeatImg.src = "src/img/defeat.jpg";
+
       this.standardProjectileImgReady = false;
       this.standProjectileImg = new Image();
       this.standProjectileImg.onload = function() {
@@ -56,7 +70,15 @@ define([],function() {
       this.standProjectileImg.src = "src/img/records/brownRecord.png";
     }
 
+    Render.prototype.renderVictory = function()
+    {
+          this.ctx.drawImage(this.victoryImg, 0, 0, this.victoryImg.width, this.victoryImg.height, 0, 0, this.canvas.width, this.canvas.height);
+    }
 
+    Render.prototype.renderDefeat = function()
+    {
+          this.ctx.drawImage(this.defeatImg, 0, 0, this.defeatImg.width, this.defeatImg.height, 0, 0, this.canvas.width, this.canvas.height);
+    }
     Render.prototype.renderBackground = function()
     {
         if (this.bgReady)

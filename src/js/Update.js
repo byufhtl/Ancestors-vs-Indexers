@@ -8,6 +8,7 @@ define(['model/IAncestor'],function() {
       this.secondsBetweenWaves = 5;
       this.spawnRecordTimer = 0;
       this.timeToNextRecordSpawn = 0;
+      this.projectileSpeed = 40;
     }
 
     //check if record ready to spawn
@@ -19,7 +20,7 @@ define(['model/IAncestor'],function() {
       {
         console.log("spawning a record");
         var collectableRecord = {};
-        collectableRecord.xCoord = Math.random() * 1000;
+        collectableRecord.xCoord = Math.random() * 900;
         collectableRecord.yCoord = -100;
         collectableRecord.speed = 20;
         activeRecords.push(collectableRecord);
@@ -38,6 +39,66 @@ define(['model/IAncestor'],function() {
         activeRecords[i].yCoord += timeElapsed * activeRecords[i].speed;
       }
     }
+
+    Update.prototype.moveProjectiles = function(activeProjectiles, timeElapsed)
+    {
+      for (var i = 0; i < activeProjectiles.length; i++)
+      {
+        activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
+      }
+    }
+
+    Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed)
+    {
+      var ancestorPopulatedLanes = [];
+      for (var i = 0; i < activeAncestors.length; i++)
+      {
+        if (!ancestorPopulatedLanes.includes(activeAncestors[i].lane))
+        {
+          ancestorPopulatedLanes.push(activeAncestors[i].lane);
+        }
+      }
+      for (var i = 0; i < activeIndexers.length; i++)
+      {
+        //check if there are any ancestors in the same lane as the indexer
+        if (ancestorPopulatedLanes.includes(activeIndexers.lane))
+        {
+          anctiveIndexers[i].throwTimer += timeElapsed;
+          if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay)
+          {
+            activeIndexers[i].throwTimer = 0;
+            var tempProjectile = {
+              xCoord : activeIndexers[i].xCoord,
+              yCoord : activeIndexers[i].yCoord,
+              type : activeIndexers[i].type,
+              lane : activeIndexers[i].lane,
+              dmg : activeIndexers[i].dmg
+            }
+          }
+        }
+      }
+    };
+
+    Update.prototype.checkProjectileCollision = function(activeProjectiles, activeAncestors)
+    {
+      for (var i = 0; i < activeProjectiles.length; i++)
+      {
+        for (var j = 0; j < activeAncestors.length; i++)
+        {
+          //check if collision has occured
+          if ((activeProjectiles[i].xCoord + 10) >= activeAncestors[j].xCoord
+        && activeProjectiles[i].lane == activeAncestors[j].lane)
+          {
+            //deal damage
+            activeAncestors[j].health -= activeProjectiles[i].damage;
+            //remove projectile from gameOver
+            activeProjectiles.splice(i, 0);
+            i--;
+            break;
+          }
+        }
+      }
+    };
 
     Update.prototype.checkAncestorSpawnTimes = function(level, activeAncestors, timeElapsed)
     {
@@ -61,17 +122,21 @@ define(['model/IAncestor'],function() {
       for (var i = 0; i < activeAncestors.length; i++)
       {
         activeAncestors[i].xCoord -= modifier * activeAncestors[i].speed;
-
       }
     };
 
 
-    Update.prototype.update = function(activeAncestors, activeIndexers, activeRecords, timeElapsed, level)
+    Update.prototype.update = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, timeElapsed, level)
     {
       this.updateAncestorsPosition(activeAncestors, timeElapsed);
       this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
+
       this.spawnRecord(activeRecords, timeElapsed);
       this.moveRecords(activeRecords, timeElapsed);
+
+      this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
+      this.moveProjectiles(activeProjectiles, timeElapsed);
+      this.checkProjectileCollision(activeProjectiles, activeAncestors);
     };
 
 

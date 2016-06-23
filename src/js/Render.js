@@ -80,7 +80,14 @@ define([],function() {
     }
     Render.prototype.renderIndexers = function(activeIndexers)
     {
-
+      var self = this;
+        if (this.indexerImgReady)
+        {
+          for (var i = 0; i < activeIndexers.length; i++)
+          {
+            this.ctx.drawImage(this.indexerImg, activeIndexers[i].xCoord, activeIndexers[i].yCoord);
+          }
+        }
     };
 
     Render.prototype.renderBuildings = function(activeBuildings)

@@ -23,7 +23,8 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
         {
           return;
         }
-        var coordinates = {row: xPos, column: yPos};
+        var coordinates = {yPos: yPos, xPos: xPos};
+
         return coordinates;
     };
 
@@ -81,14 +82,15 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
                 if (self.controller.resourcePoints >= self.elementToPlace.cost)
                 {
                   var coordinates = self.getGridPoint(clickPt);
-                  if (coordinates != null && !self.controller.gameBoardGrid[coordinates.row][coordinates.column])
+                  console.log(coordinates.xPos);
+                  console.log(coordinates.yPos);
+                  if (coordinates != null && !self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos])
                   {
-                    console.log("making an indexer");
-                    self.controller.gameBoardGrid[coordinates.row][coordinates.column] = true;
+                    self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos] = true;
                     var tempIndexer = self.getNewIndexer(self.elementToPlace.type);
-                    tempIndexer.xCoord = coordinates.row * 100 + 100;
-                    tempIndexer.yCoord = coordinates.column * 100 + 100;
-                    tempIndexer.lane = coordinates.row;
+                    tempIndexer.xCoord = coordinates.xPos * 100 + 100;
+                    tempIndexer.yCoord = coordinates.yPos * 100 + 100;
+                    tempIndexer.lane = coordinates.yPos;
                     self.controller.activeIndexers.push(tempIndexer);
                     self.controller.resourcePoints -= self.elementToPlace.cost;
                   }

@@ -101,7 +101,9 @@ define(['model/IAncestor'],function() {
         && activeProjectiles[i].lane == activeAncestors[j].lane)
           {
             //deal damage
-            activeAncestors[j].health -= activeProjectiles[i].damage;
+            console.log("hp remaining before: " + activeAncestors[i].hp);
+            activeAncestors[j].hp -= activeProjectiles[i].dmg;
+            console.log("hp remaining after: " + activeAncestors[i].hp);
             //remove projectile from gameOver
             activeProjectiles.splice(i, 1);
             i--;
@@ -110,6 +112,18 @@ define(['model/IAncestor'],function() {
         }
       }
     };
+
+    Update.prototype.checkDeadAncestors = function(activeAncestors)
+    {
+      for (var i = 0; i < activeAncestors.length; i++)
+      {
+        if (activeAncestors[i].hp <= 0)
+        {
+          activeAncestors.splice(i, 1);
+          i--;
+        }
+      }
+    }
 
     Update.prototype.checkAncestorSpawnTimes = function(level, activeAncestors, timeElapsed)
     {
@@ -140,6 +154,7 @@ define(['model/IAncestor'],function() {
     Update.prototype.update = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, timeElapsed, level)
     {
       this.updateAncestorsPosition(activeAncestors, timeElapsed);
+      this.checkDeadAncestors(activeAncestors);
       this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
 
       this.spawnRecord(activeRecords, timeElapsed);

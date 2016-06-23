@@ -19,11 +19,21 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       this.activeBuildings = [];
       this.activeRecords = [];
       this.activeProjectiles = [];
+
+      this.gameBoardGrid = [];
     }
 
 
     GameController.prototype.initializeGame = function(level, playerInfo)
     {
+        for (var i = 0; i < 5; i++)
+        {
+          this.gameBoardGrid[i] = false;
+          for (var j = 0; j < 9; j++)
+          {
+            this.gameBoardGrid[i][j] = false;
+          }
+        }
         this.timeElapsed = 0;
         this.gameOver = 0;
         this.canvas = 0;

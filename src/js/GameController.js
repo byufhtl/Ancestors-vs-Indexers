@@ -1,9 +1,11 @@
-define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(LevelDefinition, Update, Render, IAncestor) {
+define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/IAncestor'],
+    function($,LevelDefinition, ClickManager, Update, Render, IAncestor) {
 
     function GameController(canvas) {
       this.canvas = canvas;
       this.myUpdate = new Update();
       this.myRender = new Render(canvas);
+      this.resourcePoints = 0;
 
       this.timeElapsed = 0;
       this.gameOver;
@@ -29,6 +31,8 @@ define(['LevelDefinition', 'Update', 'Render', 'model/IAncestor'],function(Level
         var levelDefinition = new LevelDefinition();
         this.level = levelDefinition.getLevel(level); // Information location
         this.lastTime = Date.now();
+        this.clickManager = new ClickManager(this);
+        this.clickManager.start();
     };
 
     GameController.prototype.loop = function()

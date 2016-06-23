@@ -19,10 +19,17 @@ define(['model/IAncestor'],function() {
       if (this.spawnRecordTimer > this.timeToNextRecordSpawn)
       {
         console.log("spawning a record");
-        var collectableRecord = {};
-        collectableRecord.xCoord = Math.random() * 900;
-        collectableRecord.yCoord = -100;
-        collectableRecord.speed = 20;
+
+        var collectableRecord = {
+            xCoord: Math.random() * 1000,
+            yCoord: -100,
+            speed: 20,
+            includesPoint: function(pt){
+                return((pt.xCoord >= this.xCoord && pt.xCoord <= this.xCoord + 100)
+                    && (pt.yCoord >= this.yCoord && pt.yCoord <= this.yCoord + 100));
+            }
+        };
+
         activeRecords.push(collectableRecord);
 
         //reset spawn timer

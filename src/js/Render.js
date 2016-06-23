@@ -9,39 +9,45 @@ define([],function() {
       console.log(this.canvas);
       this.bgReady = false;
       this.bgImage = new Image();
-      var self = this
+      var self = this;
       this.bgImage.onload = function () {
       	self.bgReady = true;
       };
       this.bgImage.src = "src/img/background.png";
 
-      this.indexerImgReady = false;
-      this.indexerImg = new Image();
-      this.indexerImg.onload = function() {
-        self.indexerImgReady = true;
+      this.ancestorImgReady = false;
+      this.ancestorImg = new Image();
+      this.ancestorImg.onload = function() {
+        self.ancestorImgReady = true;
       };
-      this.indexerImg.src = "src/img/ancestors/peasant.png";
+      this.ancestorImg.src = "src/img/ancestors/peasant.png";
 
+        this.indexerImgReady = false;
+        this.indexerImg = new Image();
+        this.indexerImg.onload = function() {
+            self.indexerImgReady = true;
+        };
+        this.indexerImg.src = "src/img/indexers/bow-indexer.png";
 
       this.recordImgReady = false;
       this.recordImg = new Image();
       this.recordImg.onload = function() {
         self.recordImgReady = true;
-      }
+      };
       this.recordImg.src = "src/img/records/goldenRecord.png";
 
       this.lightbeamImgReady = false;
       this.lightbeamImg = new Image();
       this.lightbeamImg.onload = function() {
         self.lightbeamImgReady = true;
-      }
+      };
       this.lightbeamImg.src = "src/img/lightbeam.png";
 
       this.standardProjectileImgReady = false;
       this.standProjectileImg = new Image();
       this.standProjectileImg.onload = function() {
         self.standardProjectileImgReady = true;
-      }
+      };
       this.standProjectileImg.src = "src/img/records/brownRecord.png";
     }
 
@@ -65,11 +71,11 @@ define([],function() {
     Render.prototype.renderAncestors = function(activeAncestors)
     {
       var self = this;
-        if (this.indexerImgReady)
+        if (this.ancestorImgReady)
         {
           for (var i = 0; i < activeAncestors.length; i++)
           {
-            this.ctx.drawImage(this.indexerImg, activeAncestors[i].xCoord, activeAncestors[i].yCoord);
+            this.ctx.drawImage(this.ancestorImg, activeAncestors[i].xCoord, activeAncestors[i].yCoord);
           }
         }
     };

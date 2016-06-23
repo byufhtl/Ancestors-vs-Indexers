@@ -31,6 +31,24 @@
     border-radius: 5px;
 }
 
+.lbl-bar{
+
+    margin: 5px;
+    padding: 5px;
+    height: 65px;
+    border-radius: 5px;
+}
+
+.img-lbl-bar{
+    position: inherit;
+    margin: 0;
+    padding: 0;
+    width: 65px;
+    height: 65px;
+    left: -5px;
+    top: -5px;
+}
+
 .btn-sidebar{
     width: 120px;
     height: 120px;

@@ -5,7 +5,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       this.canvas = canvas;
       this.myUpdate = new Update();
       this.myRender = new Render(canvas);
-      this.resourcePoints = 0;
+      this.resourcePoints = 200;
 
       this.timeElapsed = 0;
       this.gameOver;
@@ -54,13 +54,8 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
     	this.timeElapsed += delta_s;
 
       this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, delta_s, this.level);
-<<<<<<< HEAD
-      this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeRecords, this.activeBuildings, this.canvas);
-      if (this.timeElapsed < 70) // game end condition.
-=======
       this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas);
-      if (this.timeElapsed < 40) // game end condition.
->>>>>>> 733ebc5154c376a5fbd2d193062c6b4a4bb671b0
+      if (this.timeElapsed < 70) // game end condition.
       {
         requestAnimationFrame(this.loop.bind(this));
       }

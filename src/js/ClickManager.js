@@ -34,6 +34,7 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
 
         $('#structures-button').click(function(){
             var sidebarContainer = $('#sidebar');
+            sidebarContainer.empty();
             sidebarContainer.load("src/html/buildings.html", function(response){
                 console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
             });
@@ -88,7 +89,8 @@ define(['jquery', 'IIndexer'],function($, standardIndexer){
     };
 
     ClickManager.prototype.stop = function(){
-
+        $('#structures-button').off('click');
+        $('#canvas').off('click');
     };
 
     return ClickManager;

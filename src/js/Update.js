@@ -123,7 +123,7 @@ define(['model/IAncestor'],function() {
           i--;
         }
       }
-    }
+    };
 
     Update.prototype.checkAncestorSpawnTimes = function(level, activeAncestors, timeElapsed)
     {

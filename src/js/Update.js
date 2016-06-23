@@ -9,8 +9,32 @@ define(['model/IAncestor'],function() {
       this.spawnRecordTimer = 0;
       this.timeToNextRecordSpawn = 0;
       this.projectileSpeed = 80;
+
+      this.doneSpawning = false;
+      this.ancestorsDefeated = false;
     }
 
+    Update.prototype.checkVictory = function(controller, activeAncestors)
+    {
+      //did you beat the level?
+      if (this.doneSpawning && activeAncestors.length == 0)
+      {
+        controller.victory = true;
+        controller.gameEnded = true;
+      }
+    }
+
+    Update.prototype.checkDefeat = function(controller, activeAncestors)
+    {
+      for (var i = 0; i < activeAncestors.length; i++)
+      {
+        if (activeAncestors[i].xCoord <= 0)
+        {
+          controller.victory = false;
+          controller.gameEnded = true;
+        }
+      }
+    }
 
     //check if record ready to spawn
     Update.prototype.spawnRecord = function(activeRecords, timeElapsed)
@@ -90,7 +114,7 @@ define(['model/IAncestor'],function() {
         {
           //check if collision has occured
           if (keepChecking && (activeProjectiles[i].xCoord + 14) >= activeAncestors[j].xCoord
-        && activeProjectiles[i].lane == activeAncestors[j].lane)
+        && activeProjectiles[i].lane == activeAncestors[j].lane && activeProjectiles[i].xCoord < (activeAncestors[j].xCoord + 40))
           {
             //deal damage
             activeAncestors[j].hp -= activeProjectiles[i].dmg;
@@ -131,6 +155,15 @@ define(['model/IAncestor'],function() {
         }
         level[this.wave] = [];
       }
+      if (!this.doneSpawning)
+      {
+        
+        if (this.wave > level.length)
+        {
+          this.doneSpawning = true;
+          console.log("done spawning");
+        }
+      }
     };
 
     Update.prototype.updateAncestorsPosition = function(activeAncestors, modifier)
@@ -142,7 +175,7 @@ define(['model/IAncestor'],function() {
     };
 
 
-    Update.prototype.update = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, timeElapsed, level)
+    Update.prototype.update = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, timeElapsed, level, controller)
     {
       this.updateAncestorsPosition(activeAncestors, timeElapsed);
       this.checkDeadAncestors(activeAncestors);
@@ -154,6 +187,9 @@ define(['model/IAncestor'],function() {
       this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
       this.moveProjectiles(activeProjectiles, timeElapsed);
       this.checkProjectileCollision(activeProjectiles, activeAncestors);
+
+      this.checkVictory(controller, activeAncestors);
+      this.checkDefeat(controller, activeAncestors);
     };
 
 

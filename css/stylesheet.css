@@ -31,6 +31,14 @@
     border-radius: 5px;
 }
 
+.btn-sidebar{
+    width: 120px;
+    height: 120px;
+    border-radius: 15px;
+    border-width: 2px;
+    margin: 5px;
+}
+
 .avi-theme-1{
     background-color: #ccaa88;
     border-color: #552211;
@@ -45,4 +53,10 @@
     border: outset #ffa051 2px;
     background-color: burlywood;
     color: #000055;
+}
+
+.avi-theme-3-button{
+    background-color: #331111;
+    color: #ff4477;
+    border-color: #000055;
 }

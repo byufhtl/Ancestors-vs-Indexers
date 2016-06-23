@@ -26,10 +26,10 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
 
     GameController.prototype.initializeGame = function(level, playerInfo)
     {
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 9; i++)
         {
           this.gameBoardGrid[i] = false;
-          for (var j = 0; j < 9; j++)
+          for (var j = 0; j < 5; j++)
           {
             this.gameBoardGrid[i][j] = false;
           }

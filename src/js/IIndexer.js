@@ -5,7 +5,7 @@ define([],function() {
       this.throwTimer = 0;
       this.lane;
       this.type = "standard";
-      this.damage = 1;
+      this.dmg = 1;
     }
 
     return IIndexer;

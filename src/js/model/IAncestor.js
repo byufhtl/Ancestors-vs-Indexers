@@ -11,14 +11,7 @@ define([],function() {
 
     console.log("IAncestor readout:", new IAncestor(0));
 
-    IAncestor.prototype = {
-        hp: this.hp,
-        speed: this.speed,
-        lane: this.lane,
-        animation: this.animation,
-        xCoord: this.xCoord,
-        yCoord: this.yCoord
-    };
+    
 
     console.log("IAncestor readout 2:", new IAncestor(0));
 

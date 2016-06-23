@@ -19,8 +19,6 @@ define(['model/IAncestor'],function() {
       this.spawnRecordTimer += timeElapsed;
       if (this.spawnRecordTimer > this.timeToNextRecordSpawn)
       {
-        console.log("spawning a record");
-
         var collectableRecord = {
             xCoord: Math.random() * 1000,
             yCoord: -100,
@@ -38,7 +36,7 @@ define(['model/IAncestor'],function() {
         //time to next spawn is 5-11 seconds
         this.timeToNextRecordSpawn = Math.random() * 6 + 5;
       }
-    }
+    };
 
     Update.prototype.moveRecords = function(activeRecords, timeElapsed)
     {
@@ -46,7 +44,7 @@ define(['model/IAncestor'],function() {
       {
         activeRecords[i].yCoord += timeElapsed * activeRecords[i].speed;
       }
-    }
+    };
 
     Update.prototype.moveProjectiles = function(activeProjectiles, timeElapsed)
     {
@@ -54,11 +52,10 @@ define(['model/IAncestor'],function() {
       {
         activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
       }
-    }
+    };
 
     Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed)
     {
-        console.log("I'm 'a shootin'!");
       var ancestorPopulatedLanes = [];
       for (var i = 0; i < activeAncestors.length; i++)
       {
@@ -77,13 +74,7 @@ define(['model/IAncestor'],function() {
           if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay)
           {
             activeIndexers[i].throwTimer = 0;
-            var tempProjectile = {
-              xCoord : activeIndexers[i].xCoord + 5,
-              yCoord : activeIndexers[i].yCoord + 20,
-              type : activeIndexers[i].type,
-              lane : activeIndexers[i].lane,
-              dmg : activeIndexers[i].dmg
-            };
+            var tempProjectile = activeIndexers[i].getProjectile();
             activeProjectiles.push(tempProjectile);
           }
         }

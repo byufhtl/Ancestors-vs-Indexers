@@ -1,10 +1,12 @@
-define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/IAncestor'],
-      function($,LevelDefinition, ClickManager, Update, Render, IAncestor) {
+define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler'],
+      function($,LevelDefinition, ClickManager, Update, Render, IAncestor, VictoryDefeatHandler) {
 
       function GameController(canvas) {
         this.canvas = canvas;
         this.myUpdate = new Update();
         this.myRender = new Render(canvas);
+        this.myVictoryDefeatHandler = new VictoryDefeatHandler();
+
         this.resourcePoints = 200;
 
         this.timeElapsed = 0;
@@ -36,10 +38,25 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
             this.gameBoardGrid[i][j] = false;
           }
         }
+        this.currentLevel = level;
+        this.resourcePoints = 200;
+
         this.timeElapsed = 0;
-        this.gameOver = 0;
-        this.canvas = 0;
+
+        this.lastTime;
+        this.playerInfo;
+        this.level = [];
+
+        this.activeAncestors = [];
+        this.activeIndexers = [];
+        this.activeBuildings = [];
+        this.activeRecords = [];
+        this.activeProjectiles = [];
+
+        this.gameEnded = false;
+        this.victory = null;
         this.playerInfo = playerInfo;
+
         var levelDefinition = new LevelDefinition();
         this.level = levelDefinition.getLevel(level); // Wave information location
         this.lastTime = Date.now();
@@ -65,11 +82,11 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
             this.clickManager.stop();
             if (this.victory)
             {
-              console.log("YOU WON!!!");
+                this.myVictoryDefeatHandler.victory(this.myRender, this);
             }
             else
             {
-              console.log("YOU SUCK AT THIS GAME");
+                this.myVictoryDefeatHandler.defeat(this.myRender);
             }
         }
     };

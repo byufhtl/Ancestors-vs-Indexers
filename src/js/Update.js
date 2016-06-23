@@ -58,12 +58,13 @@ define(['model/IAncestor'],function() {
 
     Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed)
     {
+        console.log("I'm 'a shootin'!");
       var ancestorPopulatedLanes = [];
       for (var i = 0; i < activeAncestors.length; i++)
       {
         if (!ancestorPopulatedLanes.includes(activeAncestors[i].lane))
         {
-          ancestorPopulatedLanes.push(activeAncestors[i].lane);
+          ancestorPopulatedLanes.push(parseInt(activeAncestors[i].lane));
         }
       }
       for (var i = 0; i < activeIndexers.length; i++)
@@ -82,7 +83,7 @@ define(['model/IAncestor'],function() {
               type : activeIndexers[i].type,
               lane : activeIndexers[i].lane,
               dmg : activeIndexers[i].dmg
-            }
+            };
             activeProjectiles.push(tempProjectile);
           }
         }
@@ -101,9 +102,7 @@ define(['model/IAncestor'],function() {
         && activeProjectiles[i].lane == activeAncestors[j].lane)
           {
             //deal damage
-            console.log("hp remaining before: " + activeAncestors[i].hp);
             activeAncestors[j].hp -= activeProjectiles[i].dmg;
-            console.log("hp remaining after: " + activeAncestors[i].hp);
             //remove projectile from gameOver
             activeProjectiles.splice(i, 1);
             i--;

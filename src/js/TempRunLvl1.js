@@ -39,10 +39,9 @@ define(['GameController','ImageManager'],function(GameController, ImageManager) 
         },
         function(e){
             console.log("Game was not able to load resources...");
-        });
-
-
-    };
+        })
+      });
+    }
 
     return TempRunLvl1;
 });

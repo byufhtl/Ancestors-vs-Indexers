@@ -44,7 +44,7 @@ define(['model/IAncestor'],function() {
       if (this.spawnRecordTimer > this.timeToNextRecordSpawn)
       {
         var collectableRecord = {
-            xCoord: Math.random() * 1000,
+            xCoord: Math.random() * 900,
             yCoord: -100,
             speed: 20,
             includesPoint: function(pt){
@@ -58,7 +58,7 @@ define(['model/IAncestor'],function() {
         //reset spawn timer
         this.spawnRecordTimer = 0;
         //time to next spawn is 5-11 seconds
-        this.timeToNextRecordSpawn = Math.random() * 6 + 5;
+        this.timeToNextRecordSpawn = Math.random() * 4 + 3;
       }
     };
 
@@ -157,7 +157,7 @@ define(['model/IAncestor'],function() {
       }
       if (!this.doneSpawning)
       {
-        
+
         if (this.wave > level.length)
         {
           this.doneSpawning = true;

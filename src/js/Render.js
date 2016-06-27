@@ -68,6 +68,21 @@ define([],function() {
         self.standardProjectileImgReady = true;
       };
       this.standProjectileImg.src = "src/img/records/brownRecord.png";
+
+      this.standardBuildingImgReady = false;
+      this.standardBuildingImg = new Image();
+      this.standardBuildingImg.onload = function() {
+        self.standardBuildingImgReady = true;
+      };
+      this.standardBuildingImg.src = "src/img/buildings/standardBuilding.jpg";
+
+      this.hobbyistBuildingImgReady = false;
+      this.hobbyistBuildingImg = new Image();
+      this.hobbyistBuildingImg.onload = function() {
+        self.hobbyistBuildingImgReady = true;
+      };
+      this.hobbyistBuildingImg.src = "src/img/buildings/hobbyBuilding.png";
+
     }
 
     Render.prototype.renderVictory = function()
@@ -156,13 +171,28 @@ define([],function() {
     };
     Render.prototype.renderBuildings = function(activeBuildings)
     {
-
+      var self = this;
+        if (this.standardBuildingImgReady && this.hobbyistBuildingImgReady)
+        {
+          for (var i = 0; i < activeBuildings.length; i++)
+          {
+            console.log("rendering Buildings");
+              switch(activeBuildings[i].type){
+                  case "hobbyistBuilding":
+                      this.ctx.drawImage(this.hobbyistBuildingImg, activeBuildings[i].xCoord, activeBuildings[i].yCoord);
+                      break;
+                  default:
+                      this.ctx.drawImage(this.standardBuildingImg, activeBuildings[i].xCoord, activeBuildings[i].yCoord);
+              }
+          }
+        }
     };
 
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings)
     {
       this.renderBackground();
       this.renderIndexers(activeIndexers);
+      this.renderBuildings(activeBuildings);
       this.renderAncestors(activeAncestors);
       this.renderBuildings(activeBuildings);
       this.renderProjectiles(activeProjectiles);

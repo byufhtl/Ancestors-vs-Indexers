@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/22/16.
  */
 
-define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardIndexer, Hobbyist){
+define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding'],function($, standardIndexer, Hobbyist, standardBuilding){
 
     /**
      *
@@ -12,6 +12,7 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
     function ClickManager(controller){
         this.controller = controller;
         this.elementToPlace = {};
+        this.elementType;
     }
 
     ClickManager.prototype.getGridPoint = function(clickPt){
@@ -38,6 +39,15 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
         }
     };
 
+    ClickManager.prototype.getNewBuilding = function(type){
+
+      switch (type){
+        case "standardBuilding":
+          return new standardBuilding();
+          break;
+      }
+    }
+
     ClickManager.prototype.start = function(){
         var self = this;
 
@@ -46,13 +56,27 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
         topbarContainer.load("src/html/topbar.html", function(response){
           var sidebarContainer = $('#sidebar');
           sidebarContainer.empty();
-          
+
             $('#structures-button').click(function(){
                 var sidebarContainer = $('#sidebar');
                 sidebarContainer.empty();
                 sidebarContainer.load("src/html/buildings.html", function(response){
                     console.log((response) ? ("Buildings sidebar loaded,") : ("Buildings sidebar did not load."));
-                });
+
+                    $('#button-1').click(function(){
+                        self.elementToPlace.type = "standardBuilding";
+                        self.elementToPlace.cost = 20;
+                        self.elementType = "building";
+                        console.log("changed element type to building");
+                    });
+                    $('#button-2').click(function(){
+                        self.elementToPlace.type = "";
+                        self.elementToPlace.cost = 30;
+                        self.elementType = "building";
+                    });
+                    $('#button-1-img').click(function(){$('#button-1').click()});
+                    $('#button-2-img').click(function(){$('#button-2').click()});
+              });
             });
 
             $('#indexers-button').click(function(){
@@ -61,12 +85,15 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
                 sidebarContainer.load("src/html/indexers.html", function(response){
                     console.log((response) ? ("Indexers sidebar loaded.") : ("Indexers sidebar did not load."));
                     $('#button-1').click(function(){
-                      self.elementToPlace.type = "standardIndexer";
-                      self.elementToPlace.cost = 20;
+                      console.log("changed element type to indexer");
+                        self.elementToPlace.type = "standardIndexer";
+                        self.elementToPlace.cost = 20;
+                        self.elementType = "indexer";
                     });
                     $('#button-2').click(function(){
                         self.elementToPlace.type = "hobbyistIndexer";
                         self.elementToPlace.cost = 30;
+                        self.elementType = "indexer";
                     });
                     $('#button-1-img').click(function(){$('#button-1').click()});
                     $('#button-2-img').click(function(){$('#button-2').click()});
@@ -76,6 +103,7 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
         });
 
         $('#canvas').click(function(clickEvent){
+
             var clickPt = {xCoord:clickEvent.pageX - 200, yCoord:clickEvent.pageY - 135};
             var records = self.controller.activeRecords;
             var clickedRecord = false;
@@ -91,27 +119,47 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist'],function($, standardInd
             }
             if (!clickedRecord)
             {
-              if (this.elementToPlace != false)
-              {
-                if (self.controller.resourcePoints >= self.elementToPlace.cost)
-                {
-                  var coordinates = self.getGridPoint(clickPt);
-                  if (coordinates != null && !self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos])
-                  {
-                    self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos] = true;
-                    var tempIndexer = self.getNewIndexer(self.elementToPlace.type);
-                    tempIndexer.xCoord = coordinates.xPos * 100 + 100;
-                    tempIndexer.yCoord = coordinates.yPos * 100 + 100;
-                    tempIndexer.lane = coordinates.yPos;
-                    self.controller.activeIndexers.push(tempIndexer);
-                    self.controller.resourcePoints -= self.elementToPlace.cost;
-                    $('#points').text(self.controller.resourcePoints);
-                  }
-                }
-              }
+                self.checkPlaceIndexerOrBuilding(self, clickPt);
             }
         });
     };
+
+    ClickManager.prototype.checkPlaceIndexerOrBuilding = function(self, clickPt)
+    {
+      if (self.elementToPlace != null)
+      {
+        if (self.controller.resourcePoints >= self.elementToPlace.cost)
+        {
+          var coordinates = self.getGridPoint(clickPt);
+          console.log(coordinates);
+          console.log("value at coordinates: " + self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos]);
+          if (coordinates != null && !self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos])
+          {
+            console.log("placing indexer");
+            self.controller.gameBoardGrid[coordinates.xPos][coordinates.yPos] = 1;
+            if (self.elementType == "indexer")
+            {
+              var tempIndexer = self.getNewIndexer(self.elementToPlace.type);
+              tempIndexer.xCoord = coordinates.xPos * 100 + 100;
+              tempIndexer.yCoord = coordinates.yPos * 100 + 100;
+              tempIndexer.lane = coordinates.yPos;
+              self.controller.activeIndexers.push(tempIndexer);
+            }
+            else if (self.elementType == "building")
+            {
+              console.log("making a building");
+              var tempBuilding = self.getNewBuilding(self.elementToPlace.type);
+              tempBuilding.xCoord = coordinates.xPos * 100 + 100;
+              tempBuilding.yCoord = coordinates.yPos * 100 + 100;
+              self.controller.activeBuildings.push(tempBuilding);
+            }
+            self.controller.resourcePoints -= self.elementToPlace.cost;
+            $('#points').text(self.controller.resourcePoints);
+          }
+        }
+      }
+    };
+
 
     ClickManager.prototype.stop = function(){
         $('#structures-button').off('click');

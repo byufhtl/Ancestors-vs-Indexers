@@ -21,7 +21,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.activeRecords = [];
         this.activeProjectiles = [];
 
-        this.gameBoardGrid = [];
+        this.gameBoardGrid = {};
 
         this.gameEnded = false;
         this.victory;
@@ -33,12 +33,13 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       this.myUpdate = new Update();
         for (var i = 0; i < 9; i++)
         {
-          this.gameBoardGrid[i] = false;
+          this.gameBoardGrid[i] = [];
           for (var j = 0; j < 5; j++)
           {
-            this.gameBoardGrid[i][j] = false;
+            this.gameBoardGrid[i][j] = 0;
           }
         }
+        console.log(this.gameBoardGrid);
         this.currentLevel = level;
         this.resourcePoints = 200;
 

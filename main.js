@@ -31,5 +31,6 @@ require(['jquery', 'familysearch', 'bootstrap', 'runLvl1'],function($, FamilySea
     //context.fillStyle = "#ADFF2F";
     //context.fillRect(0, 0, canvas.width(), canvas.height());
     var myLevel1 = new runLvl1();
+    console.log(myLevel1);
     myLevel1.loadMenu();
 });

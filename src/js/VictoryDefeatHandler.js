@@ -20,10 +20,9 @@ define([],function() {
                 controller.loop();
             });
         });
+    };
 
-    }
-
-    VictoryDefeatHandler.prototype.defeat = function(myRender)
+    VictoryDefeatHandler.prototype.defeat = function(myRender, controller)
     {
         console.log("YOU SUCK AT THIS GAME");
         myRender.renderDefeat();
@@ -33,8 +32,13 @@ define([],function() {
         sidebarContainer.empty();
         sidebarContainer.load("src/html/defeat.html", function(response){
             console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
+            $('#playAgainButton').click(function(){
+              console.log("PUSHED PLAY AGAIN BUTTON");
+              controller.initializeGame((controller.currentLevel), {});
+              controller.loop();
+            })
         });
-    }
+    };
 
     return VictoryDefeatHandler;
 

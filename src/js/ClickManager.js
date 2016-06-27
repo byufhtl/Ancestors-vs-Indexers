@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/22/16.
  */
 
-define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding'],function($, standardIndexer, Hobbyist, standardBuilding){
+define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library'],function($, standardIndexer, Hobbyist, standardBuilding, Library){
 
     /**
      *
@@ -45,6 +45,9 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding'],func
         case "standardBuilding":
           return new standardBuilding();
           break;
+        case "library":
+          return new Library();
+          break;
       }
     };
 
@@ -70,7 +73,7 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding'],func
                         console.log("changed element type to building");
                     });
                     $('#button-2').click(function(){
-                        self.elementToPlace.type = "";
+                        self.elementToPlace.type = "library";
                         self.elementToPlace.cost = 30;
                         self.elementType = "building";
                     });

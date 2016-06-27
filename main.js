@@ -24,16 +24,12 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap', 'runLvl1'],function($, FamilySearch, Bootstrap, runLvl1){
-    var canvas = document.createElement('canvas');
-    canvas.width = 1000;
-    canvas.height = 600;
-    canvas.id = 'canvas';
-    $('#canvas-div').append(canvas);
+
 
     //var context = canvas[0].getContext('2d');
 
     //context.fillStyle = "#ADFF2F";
     //context.fillRect(0, 0, canvas.width(), canvas.height());
     var myLevel1 = new runLvl1();
-    myLevel1.run(canvas);
+    myLevel1.loadMenu();
 });

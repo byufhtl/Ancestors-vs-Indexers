@@ -89,7 +89,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.lastTime = now;
       	this.timeElapsed += delta_s;
 
-        this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, delta_s, this.level, this);
+        this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this);
         this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas);
         if (!this.gameEnded) // game end condition.
         {
@@ -103,7 +103,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
             }
             else
             {
-                this.myVictoryDefeatHandler.defeat(this.myRender);
+                this.myVictoryDefeatHandler.defeat(this.myRender, this);
             }
         }
     };

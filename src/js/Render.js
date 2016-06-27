@@ -61,6 +61,8 @@ define([],function() {
                     indexerImg = this.imageManager.getImage(this.imageManager.IDX_HOBB);
                     break;
                 // More cases to be installed as we get more coded up.
+                default:
+                    indexerImg = this.imageManager.getImage(this.imageManager.IDX_STAN);
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord, activeIndexers[i].yCoord);
         }
@@ -74,6 +76,8 @@ define([],function() {
                 case "strong":
                     recordImg = this.imageManager.getImage(this.imageManager.REC_GD);
                     break;
+                default:
+                    recordImg = this.imageManager.getImage(this.imageManager.REC_BR);
             }
             this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord, activeProjectiles[i].yCoord, recordImg.width / 3, recordImg.height / 3);
         }
@@ -89,6 +93,7 @@ define([],function() {
                     buildingImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
                     break;
                 default:
+                    buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
             }
             this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord, activeBuildings[i].yCoord);
         }

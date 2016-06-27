@@ -47,11 +47,13 @@ define(["ImageResource"], function(ImageResource){
     ImageManager.loadNew = function(key, url){
         return new Promise(function(resolve, reject){
             if(!ImageManager.hasOwnProperty(key)){ // If image loader does not already have the property installed.
+                ImageManager.status = "Loading images...";
                 ++ImageManager.total;
                 ImageManager.map[key] = new ImageResource(key, url);
                 ImageManager.map[key].getImage().then(function(response){
                     ImageManager[key] = key;
                     ++ImageManager.tot_loaded;
+                    ImageManager.status = "Loaded.";
                     resolve(response);
                 })
             }
@@ -66,9 +68,11 @@ define(["ImageResource"], function(ImageResource){
      */
     ImageManager.launch = function(){
 
+        console.log("Launching...");
         return new Promise(function(resolve, reject){
             ImageManager.status = "Loading images...";
-            ImageManager.total = 18;
+            console.log(ImageManager.status);
+            ImageManager.total = 16;
             ImageManager.tot_loaded = 0;
             ImageManager.map[ImageManager.BKGD] = new ImageResource(ImageManager.BKGD, "src/img/background.png");
             ImageManager.map[ImageManager.FRGD] = new ImageResource(ImageManager.FRGD, "src/img/lightbeam.png");
@@ -84,20 +88,33 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.REC_EM] = new ImageResource(ImageManager.REC_EM, "src/img/records/emptyRecord.png");
 
             ImageManager.map[ImageManager.IDX_STAN] = new ImageResource(ImageManager.IDX_STAN, "src/img/indexers/bow-indexer.png");
-            ImageManager.map[ImageManager.IDX_STAN] = new ImageResource(ImageManager.IDX_STAN, "src/img/indexers/hobbyist.png");
+            ImageManager.map[ImageManager.IDX_HOBB] = new ImageResource(ImageManager.IDX_HOBB, "src/img/indexers/hobbyist.png");
 
             ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/drake1-A01.png");
             ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/human-city4.png");
 
             ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/peasant.png");
 
-            for(var i = 0; i < ImageManager.map.length; i++){
-                ImageManager.map[i].getImage().then(function(response){
-                    ImageManager.tot_loaded++;
-                    if(ImageManager.tot_loaded == ImageManager.total){
-                        resolve(ImageManager);
-                    }
-                });
+            //console.log("Looping:");
+            for(var property in ImageManager.map){
+                if(ImageManager.map.hasOwnProperty(property)) {
+                    //console.log(ImageManager.map[property]);
+                    ImageManager.map[property].getImage().then(function (response) {
+                        if (++ImageManager.tot_loaded == ImageManager.total) {
+                            ImageManager.status = "Loaded.";
+                            console.log(ImageManager.status);
+                            resolve(ImageManager);
+                        }
+                        console.log("Image loaded", ImageManager.tot_loaded, "/", ImageManager.total);
+                    },
+                    function(e){
+                        console.log("Image could not load...");
+                        reject(e);
+                    });
+                }
+                else{
+                    console.log(property);
+                }
             }
 
         });

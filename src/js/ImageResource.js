@@ -12,12 +12,11 @@ define([],function(){
      * Tracks the loading process of an image.
      * @constructor
      */
-    function ImageResource(key, url, counter){
+    function ImageResource(key, url){
         this.key = key;
         this.url = url;
         this.loaded = false;
         this.image = null;
-        this.counter = counter;
     }
 
     /**
@@ -29,12 +28,17 @@ define([],function(){
         var self = this;
         return(new Promise(function(resolve, reject){
 
+            console.log("Loading image:", self.url);
             self.image = new Image();
             self.image.onload = function() {
+                console.log("Image Loaded:", self.url);
                 self.loaded = true;
-                if(self.counter != null){
-                    resolve(self.image);
-                }
+                resolve();
+
+            };
+            self.image.onerror = function(){
+                console.log("Image was not loaded:", self.url);
+                reject();
             };
             self.image.src = self.url;
         }));

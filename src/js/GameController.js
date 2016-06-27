@@ -31,11 +31,13 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         var self = this;
         return new Promise(function(resolve, reject){
             ImageManager.launch().then(function(response){
-                self = new Render(canvas);
+                console.log("Image Manager successfully launched.");
+                self.myRender = new Render(canvas, ImageManager);
                 resolve(response);
             },
             function(e){
                 console.log("The ImageManager was not able to load correctly. Response:", e);
+                self.myRender = new Render(canvas, ImageManager);
                 reject(e);
             });
         });

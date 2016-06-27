@@ -1,4 +1,4 @@
-define(['GameController'],function(GameController) {
+define(['GameController','ImageManager'],function(GameController, ImageManager) {
 
     function TempRunLvl1()
     {
@@ -17,7 +17,7 @@ define(['GameController'],function(GameController) {
           self.run();
         });
       });
-    }
+    };
 
     TempRunLvl1.prototype.run = function()
     {
@@ -29,10 +29,19 @@ define(['GameController'],function(GameController) {
         canvas.height = 600;
         canvas.id = 'canvas';
         $('#canvas-div').append(canvas);
+
         var myGameController = new GameController(canvas);
-        myGameController.initializeGame(0,{});
-        myGameController.loop();
-      });
+        console.log("Loading game...");
+        myGameController.loadResources().then(function(response){
+            console.log("Game loaded");
+            myGameController.initializeGame(0,{});
+            myGameController.loop();
+        },
+        function(e){
+            console.log("Game was not able to load resources...");
+        });
+
+
     };
 
     return TempRunLvl1;

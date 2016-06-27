@@ -49,7 +49,7 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'bui
           return new Library();
           break;
       }
-    }
+    };
 
     ClickManager.prototype.start = function(){
         var self = this;

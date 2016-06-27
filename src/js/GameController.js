@@ -1,10 +1,10 @@
-define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler'],
-      function($,LevelDefinition, ClickManager, Update, Render, IAncestor, VictoryDefeatHandler) {
+define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler', 'ImageManager'],
+      function($,LevelDefinition, ClickManager, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager) {
 
       function GameController(canvas) {
         this.canvas = canvas;
         this.myUpdate = new Update();
-        this.myRender = new Render(canvas);
+        this.myRender;
         this.myVictoryDefeatHandler = new VictoryDefeatHandler();
 
         this.resourcePoints = 200;
@@ -27,6 +27,19 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.victory;
     }
 
+    GameController.prototype.loadResources = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            ImageManager.launch().then(function(response){
+                self = new Render(canvas);
+                resolve(response);
+            },
+            function(e){
+                console.log("The ImageManager was not able to load correctly. Response:", e);
+                reject(e);
+            });
+        });
+    };
 
     GameController.prototype.initializeGame = function(level, playerInfo)
     {

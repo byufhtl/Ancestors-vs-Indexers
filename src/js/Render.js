@@ -96,7 +96,7 @@ define([],function() {
         for (var i = 0; i < activeBuildings.length; i++) {
             console.log("rendering Buildings");
             switch (activeBuildings[i].type) {
-                case "hobbyistBuilding":
+                case "library":
                     buildingImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
                     break;
                 default:

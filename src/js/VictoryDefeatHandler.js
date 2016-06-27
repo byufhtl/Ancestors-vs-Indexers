@@ -19,6 +19,9 @@ define([],function() {
                 controller.initializeGame((controller.currentLevel + 1), {});
                 controller.loop();
             });
+            $('#mainMenuButton').click(function(){
+              location.reload();
+            });
         });
     };
 
@@ -36,7 +39,10 @@ define([],function() {
               console.log("PUSHED PLAY AGAIN BUTTON");
               controller.initializeGame((controller.currentLevel), {});
               controller.loop();
-            })
+            });
+            $('#mainMenuButton').click(function(){
+              location.reload();
+            });
         });
     };
 

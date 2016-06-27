@@ -7,6 +7,7 @@ define([],function() {
         this.animation;
         this.xCoord = 1000;
         this.yCoord = 300;
+        this.type = "standard";
     }
 
     return IAncestor;

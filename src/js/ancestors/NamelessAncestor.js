@@ -6,9 +6,10 @@ define(['model/IAncestor'],function(IAncestor){
 
     function Nameless(lane){
         this.lane = lane;
+        this.type = "nameless";
     }
 
     Nameless.prototype = new IAncestor(Nameless.prototype.lane);
 
-    Nameless.prototype.hp = 50;
+    Nameless.prototype.hp = 5;
 });

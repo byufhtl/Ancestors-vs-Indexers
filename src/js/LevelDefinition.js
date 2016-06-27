@@ -1,4 +1,4 @@
-define(['model/IAncestor'],function(IAncestor) {
+define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Nameless) {
 
     function LevelDefinition() {
       this.rowHeight = 600/6;
@@ -40,6 +40,9 @@ define(['model/IAncestor'],function(IAncestor) {
                         case 'a':
                             wave.push(new IAncestor(j));
                             break;
+                        case 'n':
+                            wave.push(new Nameless(j));
+                            break;
                         default:
                     }
                 }
@@ -62,26 +65,53 @@ define(['model/IAncestor'],function(IAncestor) {
         ],
         3: [
             ['a', null, 'a', 'a', null],
-            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'n', 'a', 'a'],
             ['a', 'a', 'a', null, 'a'],
-            ['a', 'a', null, 'a', 'a']
+            ['a', 'a', null, 'a', 'n']
         ],
         4: [
-
             ['a', null, 'a', 'a', null],
             ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', 'n', null, 'a'],
             ['a', 'a', null, 'a', 'a'],
             ['a', null, 'a', 'a', null],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', null, 'a', 'a'],
+            ['a', 'n', 'a', 'a', 'a'],
+            ['a', 'a', null, 'n', 'a'],
             [null, 'a', 'a', 'a', 'a'],
             ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'a', null, 'a'],
+            ['n', 'a', 'a', null, 'a'],
             ['a', null, 'a', 'a', null],
             ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', 'a', null, 'n'],
             ['a', 'a', null, 'a', 'a']
+        ],
+        5: [
+            ['a', null, 'a', 'a', null],
+            [null, null, null, null, null],
+            ['a', 'a', 'a', 'a', 'a'],
+            [null, null, null, null, null],
+            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', null, 'a', 'a'],
+            ['a', null, 'a', 'a', null],
+            [null, null, null, null, null],
+            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', null, 'a', 'a'],
+            ['a', null, 'a', 'a', null],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'n', null, 'n', 'a'],
+            [null, 'a', 'n', 'a', 'a'],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'a', null, 'a'],
+            ['n', null, 'a', 'a', 'n'],
+            ['a', 'a', 'a', 'a', 'a'],
+            ['a', 'a', 'n', null, 'a'],
+            ['a', 'a', null, 'a', 'a'],
+            ['n', 'n', null, 'n', 'n'],
+            ['n', 'a', 'n', 'a', 'n'],
+            ['a', 'n', 'a', 'n', 'a'],
+            ['n', 'n', 'n', 'n', 'n'],
+            ['n', 'n', 'n', 'n', 'n'],
+            ['n', 'n', 'n', 'n', 'n']
         ]
     };
     return LevelDefinition;

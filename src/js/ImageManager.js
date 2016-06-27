@@ -94,6 +94,7 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/human-city4.png");
 
             ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/peasant.png");
+            ImageManager.map[ImageManager.ANC_NMLS] = new ImageResource(ImageManager.ANC_NMLS, "src/img/ancestors/nameless.png");
 
             //console.log("Looping:");
             for(var property in ImageManager.map){
@@ -105,7 +106,6 @@ define(["ImageResource"], function(ImageResource){
                             console.log(ImageManager.status);
                             resolve(ImageManager);
                         }
-                        console.log("Image loaded", ImageManager.tot_loaded, "/", ImageManager.total);
                     },
                     function(e){
                         console.log("Image could not load...");
@@ -141,6 +141,7 @@ define(["ImageResource"], function(ImageResource){
     ImageManager.BLD_LIBR = "library";
 
     ImageManager.ANC_STAN = "anc_standard";
+    ImageManager.ANC_NMLS = "anc_nameless";
 
 
     return ImageManager;

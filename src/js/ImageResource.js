@@ -28,13 +28,10 @@ define([],function(){
         var self = this;
         return(new Promise(function(resolve, reject){
 
-            console.log("Loading image:", self.url);
             self.image = new Image();
             self.image.onload = function() {
-                console.log("Image Loaded:", self.url);
                 self.loaded = true;
                 resolve();
-
             };
             self.image.onerror = function(){
                 console.log("Image was not loaded:", self.url);

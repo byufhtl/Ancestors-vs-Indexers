@@ -35,10 +35,17 @@ define([],function() {
 
     Render.prototype.renderAncestors = function(activeAncestors)
     {
-        var ancStanImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
+        var ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
         for (var i = 0; i < activeAncestors.length; i++)
         {
-            this.ctx.drawImage(ancStanImg, activeAncestors[i].xCoord, activeAncestors[i].yCoord);
+            switch(activeAncestors[i].type){
+                case "nameless":
+                    ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
+                    break;
+                default:
+                    ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
+            }
+            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord, activeAncestors[i].yCoord);
         }
     };
 

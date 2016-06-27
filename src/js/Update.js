@@ -3,6 +3,8 @@ define(['model/IAncestor'],function() {
 
     function Update()
     {
+      this.levelStartBuffer = 0;
+
       this.wave = 0;
       this.timer = 0;
       this.secondsBetweenWaves = 5;
@@ -175,21 +177,61 @@ define(['model/IAncestor'],function() {
     };
 
 
-    Update.prototype.update = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, timeElapsed, level, controller)
+    Update.prototype.spawnRecordsFromBuildings = function(activeBuildings, activeRecords, timeElapsed)
     {
-      this.updateAncestorsPosition(activeAncestors, timeElapsed);
-      this.checkDeadAncestors(activeAncestors);
-      this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
+        for (var i = 0; i < activeBuildings.length; i++)
+        {
+            activeBuildings[i].spawnTimer += timeElapsed;
+            if (activeBuildings[i].spawnTimer >= activeBuildings[i].timeBetweenSpawns)
+            {
+              activeBuildings[i].spawnTimer = 0;
+                var collectableRecord = {
+                    xCoord: activeBuildings[i].xCoord,
+                    yCoord: activeBuildings[i].yCoord,
+                    speed: 0,
+                    includesPoint: function(pt){
+                        return((pt.xCoord >= this.xCoord && pt.xCoord <= this.xCoord + 100)
+                            && (pt.yCoord >= this.yCoord && pt.yCoord <= this.yCoord + 100));
+                    }
+                }
+                activeRecords.push(collectableRecord);
+                console.log("added a record");
+            }
+        }
+    };
 
+    Update.prototype.buffer = function(timeElapsed)
+    {
+      this.levelStartBuffer += timeElapsed;
+      if (this.levelStartBuffer > 10)
+      {
+        return true;
+      }
+      else return false;
+    }
+
+
+    Update.prototype.update = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller)
+    {
+      //spawn records and move them
       this.spawnRecord(activeRecords, timeElapsed);
       this.moveRecords(activeRecords, timeElapsed);
+      this.spawnRecordsFromBuildings(activeBuildings, activeRecords, timeElapsed);
 
-      this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
-      this.moveProjectiles(activeProjectiles, timeElapsed);
-      this.checkProjectileCollision(activeProjectiles, activeAncestors);
-
-      this.checkVictory(controller, activeAncestors);
-      this.checkDefeat(controller, activeAncestors);
+      if (this.buffer(timeElapsed))
+      {
+          //update ancestors
+          this.updateAncestorsPosition(activeAncestors, timeElapsed);
+          this.checkDeadAncestors(activeAncestors);
+          this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
+          //update projectiles
+          this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
+          this.moveProjectiles(activeProjectiles, timeElapsed);
+          this.checkProjectileCollision(activeProjectiles, activeAncestors);
+          //check victory conditions
+          this.checkVictory(controller, activeAncestors);
+          this.checkDefeat(controller, activeAncestors);
+      }
     };
 
 

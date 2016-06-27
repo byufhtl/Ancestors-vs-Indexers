@@ -176,7 +176,7 @@ define([],function() {
         {
           for (var i = 0; i < activeBuildings.length; i++)
           {
-            console.log("rendering Buildings");
+
               switch(activeBuildings[i].type){
                   case "hobbyistBuilding":
                       this.ctx.drawImage(this.hobbyistBuildingImg, activeBuildings[i].xCoord, activeBuildings[i].yCoord);

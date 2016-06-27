@@ -85,3 +85,22 @@
 .right{
     float: right;
 }
+
+html{
+  height: 100%;
+}
+body{
+  width: 100vm;
+  height: 100vm;
+}
+.menu{
+    background-image: url("../src/img/tree.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100vm;
+    height: 100vm;
+}
+
+.center{
+  margin: auto;
+}

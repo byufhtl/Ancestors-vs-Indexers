@@ -106,7 +106,29 @@ define([],function() {
         }
     };
 
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings)
+    Render.prototype.renderTriangularPlayingField = function(levelStructure)
+    {
+
+      var alphaImg = this.imageManager.getImage(this.imageManager.TRI_A);
+      var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
+      console.log(levelStructure);
+        for (var i = 0; i < levelStructure.length; i++)
+        {
+            for (var j = 0; j < levelStructure[i].length; j++)
+            {
+                if (levelStructure[i][j].type == "alpha")
+                {
+                    this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                }
+                else
+                {
+                    this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                }
+            }
+        }
+    };
+
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, levelStructure)
     {
       this.renderBackground();
       this.renderIndexers(activeIndexers);
@@ -117,6 +139,7 @@ define([],function() {
       this.renderRecords(activeRecords);
       //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.renderLightBeam();
+      //this.renderTriangularPlayingField(levelStructure);
     };
 
 

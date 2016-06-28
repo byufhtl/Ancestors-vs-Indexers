@@ -14,6 +14,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.lastTime;
         this.playerInfo;
         this.level = [];
+        this.levelStructure;
 
         this.activeAncestors = [];
         this.activeIndexers = [];
@@ -76,6 +77,8 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         var levelDefinition = new LevelDefinition();
 
         this.level = levelDefinition.getLevel(level); // Wave information location
+        this.levelStructure = levelDefinition.getLevelStructure(level);
+        console.log(this.levelStructure);
         this.lastTime = Date.now();
         this.clickManager = new ClickManager(this);
         this.clickManager.start();
@@ -90,7 +93,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       	this.timeElapsed += delta_s;
 
         this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this);
-        this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas);
+        this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.levelStructure);
         if (!this.gameEnded) // game end condition.
         {
             requestAnimationFrame(this.loop.bind(this));

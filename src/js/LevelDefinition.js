@@ -13,6 +13,41 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         return levelData;
     };
 
+    LevelDefinition.prototype.getLevelStructure = function(levelNum)
+    {
+        var levelStructure = [];
+        var offset = 150;
+        levelNum++;
+        for (var i = 0; i < levelNum; i++)
+        {
+            var trianglesForGeneration = [];
+            var numTriangles = i * 2 + 1;
+            var type = "alpha";
+            var xCoord = i * 300;
+            var yCoord = - i * 150 + offset;
+            for (var j = 0; j < numTriangles; j++)
+            {
+                var tempTriangle = {};
+                tempTriangle.xCoord = xCoord;
+                tempTriangle.yCoord = yCoord;
+                tempTriangle.type = type;
+                trianglesForGeneration.push(tempTriangle);
+                yCoord += 150;
+                if (type == "alpha")
+                {
+                  type = "beta";
+                }
+                else
+                {
+                  type = "alpha";
+                }
+            }
+            levelStructure.push(trianglesForGeneration);
+        }
+
+        return levelStructure;
+    };
+
     LevelDefinition.prototype.setXYCoordinates = function(level)
     {
       for (var i = 0; i < level.length; i++)

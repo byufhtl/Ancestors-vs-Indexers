@@ -54,6 +54,17 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'bui
     ClickManager.prototype.start = function(){
         var self = this;
 
+        var draggable = false;
+        var dragged = false;
+        var sx = 0;
+        var sy = 0;
+        var dx = 0;
+        var dy = 0;
+        var tx = 0;
+        var ty = 0;
+        var lx = 0;
+        var ly = 0;
+
         var topbarContainer = $('#topbar');
         topbarContainer.empty();
         topbarContainer.load("src/html/topbar.html", function(response){
@@ -105,25 +116,69 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'bui
 
         });
 
-        $('#canvas').click(function(clickEvent){
+        var canvas = $('#canvas');
 
-            var clickPt = {xCoord:clickEvent.pageX - 200, yCoord:clickEvent.pageY - 135};
-            var records = self.controller.activeRecords;
-            var clickedRecord = false;
-            for(var i = 0; i < records.length; ++i){
-                if(records[i].includesPoint(clickPt)){
-                    records.splice(i,1);
-                    self.controller.resourcePoints += 10;
-                    $('#points').text(self.controller.resourcePoints);
-                    --i;
-                    clickedRecord = true;
-                    break;
+        canvas.mousedown(function(event){
+            draggable = true;
+            console.log(event);
+
+            sx = tx;
+            sy = ty;
+            lx = event.pageX;
+            ly = event.pageY;
+        });
+
+        canvas.mousemove(function(event){
+
+            if(draggable){
+                dx = event.pageX - lx;
+                dy = event.pageY - ly;
+                tx += dx;
+                ty += dy;
+                lx = event.pageX; // Keep track of the new starting points.
+                ly = event.pageY; // Track the new Y value.
+
+                // Put a bit of an overlap between minor drags and clicks.
+                if(!dragged){
+                    var xx = tx - sx;
+                    var yy = ty - sy;
+
+                    console.log(dx, dy, xx, yy, tx, ty, lx, ly);
+                    if(!((xx < 3 && x > -3) && (yy < 3 && yy > -3))){
+                        dragged = true;
+                    }
                 }
             }
-            if (!clickedRecord)
-            {
-                self.checkPlaceIndexerOrBuilding(self, clickPt);
+        });
+
+        canvas.mouseup(function(clickEvent){
+
+            draggable = false;
+            if(!dragged){
+                var clickPt = {xCoord:clickEvent.pageX - 200, yCoord:clickEvent.pageY - 135};
+                var records = self.controller.activeRecords;
+                var clickedRecord = false;
+                for(var i = 0; i < records.length; ++i){
+                    if(records[i].includesPoint(clickPt)){
+                        records.splice(i,1);
+                        self.controller.resourcePoints += 10;
+                        $('#points').text(self.controller.resourcePoints);
+                        --i;
+                        clickedRecord = true;
+                        break;
+                    }
+                }
+                if (!clickedRecord)
+                {
+                    self.checkPlaceIndexerOrBuilding(self, clickPt);
+                }
             }
+            dragged = false;
+        });
+
+        canvas.click(function(clickEvent){
+
+
         });
     };
 

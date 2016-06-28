@@ -1,10 +1,12 @@
 define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler', 'ImageManager'],
-      function($,LevelDefinition, ClickManager, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager) {
+  function($,LevelDefinition, ClickManager, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager) {
 
       function GameController(canvas) {
+
         this.canvas = canvas;
         this.myUpdate = new Update();
         this.myRender;
+        this.translation = {dx: 0, dy: 0};
         this.myVictoryDefeatHandler = new VictoryDefeatHandler();
 
         this.resourcePoints = 200;
@@ -43,46 +45,50 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         });
     };
 
-    GameController.prototype.initializeGame = function(level, playerInfo)
-    {
-      this.myUpdate = new Update();
-        for (var i = 0; i < 9; i++)
-        {
-          this.gameBoardGrid[i] = [];
-          for (var j = 0; j < 5; j++)
-          {
-            this.gameBoardGrid[i][j] = 0;
+
+      GameController.prototype.initializeGame = function (level, playerInfo) {
+          this.myUpdate = new Update();
+          for (var i = 0; i < 9; i++) {
+              this.gameBoardGrid[i] = [];
+              for (var j = 0; j < 5; j++) {
+                  this.gameBoardGrid[i][j] = 0;
+              }
           }
-        }
-        console.log(this.gameBoardGrid);
-        this.currentLevel = level;
-        this.resourcePoints = 200;
+          console.log(this.gameBoardGrid);
+          this.currentLevel = level;
+          this.resourcePoints = 200;
 
-        this.timeElapsed = 0;
+          this.timeElapsed = 0;
 
-        this.lastTime;
-        this.playerInfo;
-        this.level = [];
+          this.lastTime;
+          this.playerInfo;
+          this.level = [];
 
-        this.activeAncestors = [];
-        this.activeIndexers = [];
-        this.activeBuildings = [];
-        this.activeRecords = [];
-        this.activeProjectiles = [];
+          this.activeAncestors = [];
+          this.activeIndexers = [];
+          this.activeBuildings = [];
+          this.activeRecords = [];
+          this.activeProjectiles = [];
 
-        this.gameEnded = false;
-        this.victory = null;
-        this.playerInfo = playerInfo;
+          this.gameEnded = false;
+          this.victory = null;
+          this.playerInfo = playerInfo;
 
-        var levelDefinition = new LevelDefinition();
+          var levelDefinition = new LevelDefinition();
 
-        this.level = levelDefinition.getLevel(level); // Wave information location
-        this.levelStructure = levelDefinition.getLevelStructure(level);
-        console.log(this.levelStructure);
-        this.lastTime = Date.now();
-        this.clickManager = new ClickManager(this);
-        this.clickManager.start();
-    };
+          this.level = levelDefinition.getLevel(level); // Wave information location
+          this.levelStructure = levelDefinition.getLevelStructure(level);
+
+          this.lastTime = Date.now();
+          this.clickManager = new ClickManager(this);
+          this.clickManager.start();
+      };
+
+      GameController.prototype.updateCoordinates = function(dx, dy){
+          this.translation = {dx: dx, dy: dy};
+          //console.log("Coordinates updated to:",this.translation);
+      };
+
 
     GameController.prototype.loop = function()
     {
@@ -93,7 +99,8 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       	this.timeElapsed += delta_s;
 
         this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this);
-        this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.levelStructure);
+        this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure);
+        this.updateCoordinates(0, 0);
         if (!this.gameEnded) // game end condition.
         {
             requestAnimationFrame(this.loop.bind(this));

@@ -17,6 +17,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
         this.playerInfo;
         this.level = [];
         this.levelStructure;
+        this.nodeStructure;
 
         this.activeAncestors = [];
         this.activeIndexers = [];
@@ -54,7 +55,6 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
                   this.gameBoardGrid[i][j] = 0;
               }
           }
-          console.log(this.gameBoardGrid);
           this.currentLevel = level;
           this.resourcePoints = 200;
 
@@ -78,6 +78,8 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
 
           this.level = levelDefinition.getLevel(level); // Wave information location
           this.levelStructure = levelDefinition.getLevelStructure(level);
+          this.nodeStructure = levelDefinition.getNodeStructure(level);
+          console.log(this.nodeStructure);
 
           this.lastTime = Date.now();
           this.clickManager = new ClickManager(this);
@@ -99,7 +101,7 @@ define(['jquery','LevelDefinition', 'ClickManager', 'Update', 'Render', 'model/I
       	this.timeElapsed += delta_s;
 
         this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this);
-        this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure);
+        this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
         this.updateCoordinates(0, 0);
         if (!this.gameEnded) // game end condition.
         {

@@ -7,7 +7,6 @@ define([],function() {
         this.ctx = canvas.getContext("2d");
         this.xOffset = 0;
         this.yOffset = 0;
-        console.log("Starting Coordinates:", this.xOffset, this.yOffset);
         this.imageManager = ImageManager;
     }
 
@@ -96,7 +95,6 @@ define([],function() {
     {
         var buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
         for (var i = 0; i < activeBuildings.length; i++) {
-            console.log("rendering Buildings");
             switch (activeBuildings[i].type) {
                 case "library":
                     buildingImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
@@ -111,33 +109,47 @@ define([],function() {
 
     Render.prototype.renderTriangularPlayingField = function(levelStructure)
     {
+        var alphaImg = this.imageManager.getImage(this.imageManager.TRI_A);
+        var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
+          for (var i = 0; i < levelStructure.length; i++)
+          {
+              for (var j = 0; j < levelStructure[i].length; j++)
+              {
+                  if (levelStructure[i][j].type == "alpha")
+                  {
+                      this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                  }
+                  else
+                  {
+                      this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                  }
+              }
+          }
+    };
 
-      var alphaImg = this.imageManager.getImage(this.imageManager.TRI_A);
-      var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
-      console.log(levelStructure);
-        for (var i = 0; i < levelStructure.length; i++)
+    Render.prototype.renderNodeStructure = function(nodeStructure)
+    {
+        var indexerImg = this.imageManager.getImage(this.imageManager.IDX_STAN);
+        for (var i = 0; i < nodeStructure.length; i++)
         {
-            for (var j = 0; j < levelStructure[i].length; j++)
+            for (var j = 0; j < nodeStructure[i].length; j++)
             {
-                if (levelStructure[i][j].type == "alpha")
+                if (!nodeStructure[i][j].occupied)
                 {
-                    this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
-                }
-                else
-                {
-                    this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                    this.ctx.drawImage(indexerImg, nodeStructure[i][j].xCoord + this.xOffset, nodeStructure[i][j].yCoord + this.yOffset);
                 }
             }
         }
     };
 
-
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure) {
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.yOffset, translation, translation.dx, translation.dy);
         this.xOffset += parseInt(translation.dx, 10);
         this.yOffset += parseInt(translation.dy, 10);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-        this.renderBackground();
+        //this.renderBackground();
+        this.renderTriangularPlayingField(levelStructure);
+        this.renderNodeStructure(nodeStructure);
         this.renderIndexers(activeIndexers);
         this.renderBuildings(activeBuildings);
         this.renderAncestors(activeAncestors);
@@ -146,7 +158,6 @@ define([],function() {
         this.renderRecords(activeRecords);
         //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.renderLightBeam();
-        //this.renderTriangularPlayingField(levelStructure);
 
     };
 

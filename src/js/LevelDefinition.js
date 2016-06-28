@@ -2,14 +2,14 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
 
     function LevelDefinition() {
       this.rowHeight = 600/6;
-      this.rowWidth = 1000;
+      this.rowWidth = 900;
       this.topMargin = 105;
     }
 
     LevelDefinition.prototype.getLevel = function(levelNum)
     {
         var levelData = LevelDefinition.parseLevel(levelNum + 1);
-        this.setXYCoordinates(levelData);
+        this.setXYCoordinates(levelData, levelNum);
         return levelData;
     };
 
@@ -48,16 +48,57 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         return levelStructure;
     };
 
-    LevelDefinition.prototype.setXYCoordinates = function(level)
+    LevelDefinition.prototype.getNodeStructure = function(levelNum)
     {
-      for (var i = 0; i < level.length; i++)
-      {
-        for (var j = 0; j < level[i].length; j++)
+        var nodeStructure = [];
+        var offset = 300;
+        levelNum++;
+        for (var i = 0; i < levelNum + 1; i++)
         {
-          var y_coord = level[i][j].lane * this.rowHeight + this.topMargin;
-          var x_coord = this.rowWidth;
-          level[i][j].xCoord = x_coord;
-          level[i][j].yCoord = y_coord;
+            var type = "alpha";
+            var nodesForGeneration = [];
+            var numNodes = i * 2 + 1;
+            var xCoord = i * 300;
+            var yCoord = - i * 150 + offset;
+            for (var j = 0; j < numNodes; j++)
+            {
+                if (type == "alpha")
+                {
+                    var tempNode = {};
+                    tempNode.xCoord = xCoord;
+                    tempNode.yCoord = yCoord;
+                    tempNode.occupied = false;
+                    nodesForGeneration.push(tempNode);
+                }
+                yCoord += 150;
+                if (type == "alpha")
+                {
+                  type = "beta";
+                }
+                else
+                {
+                  type = "alpha";
+                }
+            }
+            nodeStructure.push(nodesForGeneration);
+        }
+        return nodeStructure;
+    };
+
+    LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum)
+    {
+      var numNodes = levelNum + 1;
+      var firstNodeYCoord = - numNodes * 150 + 300;
+      for (var i = 0; i < levelData.length; i++)
+      {
+        for (var j = 0; j < levelData[i].length; j++)
+        {
+          var random = Math.floor(Math.random() * numNodes);
+          var y_coord =  firstNodeYCoord + random * 300;
+          var x_coord = (levelNum + 1)* 300;
+          levelData[i][j].xCoord = x_coord;
+          levelData[i][j].yCoord = y_coord;
+          levelData[i][j].currentGeneration = levelNum + 1;
         }
       }
     };

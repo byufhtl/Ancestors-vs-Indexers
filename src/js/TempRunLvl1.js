@@ -29,7 +29,7 @@ define(['jquery','GameController','ImageManager'],function($, GameController, Im
             console.log("Loading game...");
             myGameController.loadResources().then(function (response) {
                     console.log("Game loaded");
-                    myGameController.initializeGame(0, {});
+                    myGameController.initializeGame(1, {});
                     myGameController.loop();
                 },
                 function (e) {

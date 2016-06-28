@@ -5,7 +5,7 @@
 define(['model/IIndexer'],function(IIndexer){
 
     function Hobbyist(){
-
+        this.projectileOrientation = "up";
     }
 
     Hobbyist.prototype = new IIndexer();
@@ -17,6 +17,16 @@ define(['model/IIndexer'],function(IIndexer){
     Hobbyist.prototype.dmg = 1;
 
     Hobbyist.prototype.getProjectile = function(){
+
+        if (this.projectileOrientationorientation == "up")
+        {
+            this.projectileOrientationorientation = "down";
+        }
+        else
+        {
+              this.projectileOrientation = "up";
+        }
+
         if(Math.round(Math.random() * 4) == 0){
             return {
                 xCoord : this.xCoord + 5,
@@ -24,7 +34,8 @@ define(['model/IIndexer'],function(IIndexer){
                 type : this.type,
                 lane : this.lane,
                 dmg : this.dmg * 2,
-                type: "strong"
+                type: "strong",
+                orientation: this.projectileOrientation
             }
         }
         return {
@@ -33,7 +44,8 @@ define(['model/IIndexer'],function(IIndexer){
             type : this.type,
             lane : this.lane,
             dmg : this.dmg,
-            type: "normal"
+            type: "normal",
+            orientation: this.projectileOrientation
         }
     }
 

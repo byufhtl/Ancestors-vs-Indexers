@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery','GameEvent'], function($, GEvent){
+define(['jquery','GEvent'], function($, GEvent){
 
     function ButtonManager(EventManager){
         this.eventManager = EventManager;

@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['GEvent','ButtonManager', 'CanvasManager'],function(GEvent, ButtonManager, CanvasManager){
+define(['GEvent', 'ButtonManager', 'CanvasManager', 'Point'],function(GEvent, ButtonManager, CanvasManager, Point){
 
     function EventManager(ViewController, controller){
         this.controller = controller;
@@ -15,7 +15,7 @@ define(['GEvent','ButtonManager', 'CanvasManager'],function(GEvent, ButtonManage
     EventManager.prototype.init = function(){
         var self = this;
         self.buttonManager = new ButtonManager(self);
-        self.canvasManager = new CanvasManager(self);
+        self.canvasManager = new CanvasManager(self, this.controller.viewTransform);
         self.canvasManager.init();
     };
 

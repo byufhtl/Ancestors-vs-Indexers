@@ -108,10 +108,35 @@ define([],function() {
         }
     };
 
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation) {
+
+    Render.prototype.renderTriangularPlayingField = function(levelStructure)
+    {
+
+      var alphaImg = this.imageManager.getImage(this.imageManager.TRI_A);
+      var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
+      console.log(levelStructure);
+        for (var i = 0; i < levelStructure.length; i++)
+        {
+            for (var j = 0; j < levelStructure[i].length; j++)
+            {
+                if (levelStructure[i][j].type == "alpha")
+                {
+                    this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                }
+                else
+                {
+                    this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                }
+            }
+        }
+    };
+
+
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure) {
         //console.log("Render Offsets:", this.xOffset, this.yOffset, translation, translation.dx, translation.dy);
         this.xOffset += parseInt(translation.dx, 10);
         this.yOffset += parseInt(translation.dy, 10);
+        this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         this.renderBackground();
         this.renderIndexers(activeIndexers);
         this.renderBuildings(activeBuildings);
@@ -121,6 +146,8 @@ define([],function() {
         this.renderRecords(activeRecords);
         //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.renderLightBeam();
+        //this.renderTriangularPlayingField(levelStructure);
+
     };
 
 

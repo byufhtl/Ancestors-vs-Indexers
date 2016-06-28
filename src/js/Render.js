@@ -136,6 +136,7 @@ define([],function() {
         //console.log("Render Offsets:", this.xOffset, this.yOffset, translation, translation.dx, translation.dy);
         this.xOffset += parseInt(translation.dx, 10);
         this.yOffset += parseInt(translation.dy, 10);
+        this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         this.renderBackground();
         this.renderIndexers(activeIndexers);
         this.renderBuildings(activeBuildings);

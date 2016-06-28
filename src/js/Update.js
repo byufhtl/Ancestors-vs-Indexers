@@ -64,28 +64,39 @@ define(['model/IAncestor'],function() {
 
     Update.prototype.moveProjectiles = function (activeProjectiles, timeElapsed, translation) {
         for (var i = 0; i < activeProjectiles.length; i++) {
-            activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
+            if (activeProjectiles[i].orientation == "upRight")
+            {
+                activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
+                activeProjectiles[i].yCoord += timeElapsed * this.projectileSpeed/2;
+            }
+            else if (activeProjectiles[i].orientation == "downRight")
+            {
+                activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
+                activeProjectiles[i].yCoord -= timeElapsed * this.projectileSpeed/2;
+            }
+            else if (activeProjectiles[i].orientation == "upLeft")
+            {
+                activeProjectiles[i].xCoord -= timeElapsed * this.projectileSpeed;
+                activeProjectiles[i].yCoord += timeElapsed * this.projectileSpeed/2;
+            }
+            else if (activeProjectiles[i].orientation == "downLeft")
+            {
+                activeProjectiles[i].xCoord -= timeElapsed * this.projectileSpeed;
+                activeProjectiles[i].yCoord -= timeElapsed * this.projectileSpeed/2;
+            }
         }
     };
 
     Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed) {
-        var ancestorPopulatedLanes = [];
-        for (var i = 0; i < activeAncestors.length; i++) {
-            if (!ancestorPopulatedLanes.includes(activeAncestors[i].lane)) {
-                ancestorPopulatedLanes.push(parseInt(activeAncestors[i].lane));
-            }
-        }
+
         for (var i = 0; i < activeIndexers.length; i++) {
 
-            //check if there are any ancestors in the same lane as the indexer
-            if (ancestorPopulatedLanes.includes(activeIndexers[i].lane)) {
                 activeIndexers[i].throwTimer += timeElapsed;
                 if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay) {
                     activeIndexers[i].throwTimer = 0;
                     var tempProjectile = activeIndexers[i].getProjectile();
                     activeProjectiles.push(tempProjectile);
                 }
-            }
         }
     };
 
@@ -139,7 +150,52 @@ define(['model/IAncestor'],function() {
 
     Update.prototype.updateAncestorsPosition = function (activeAncestors, modifier, translation) {
         for (var i = 0; i < activeAncestors.length; i++) {
-            activeAncestors[i].xCoord += -(modifier * activeAncestors[i].speed);
+            //check whether to move up or down
+            if (activeAncestors[i].distanceMovedX >= 300)
+            {
+                console.log("current generation: " + activeAncestors[i].currentGeneration);
+                var numNodes = activeAncestors[i].currentGeneration + 1;
+                var firstNodeY = - activeAncestors[i].currentGeneration * 150 + 300;
+                //check if moving up is impossible
+                if (Math.abs(firstNodeY - activeAncestors[i].yCoord) < 150)
+                {
+                  console.log("had to go down");
+                     activeAncestors[i].upOrDown = "up";
+                }
+                //check if moving down is impossible
+                else if (((firstNodeY + (numNodes - 1) * 300) - activeAncestors[i].yCoord) < 150)
+                {
+                  console.log("had to go up");
+
+                      activeAncestors[i].upOrDown = "down";
+                }
+                else
+                {
+                    var random = Math.random();
+                    if (random > 0.5)
+                    {
+                        activeAncestors[i].upOrDown = "up";
+                    }
+                    else
+                    {
+                        activeAncestors[i].upOrDown = "down";
+                    }
+                }
+                activeAncestors[i].distanceMovedX = 0;
+                activeAncestors[i].currentGeneration--;
+            }
+            //move ancestor diagonally according to speed
+            activeAncestors[i].distanceMovedX += modifier * activeAncestors[i].speed;
+            activeAncestors[i].xCoord -= modifier * activeAncestors[i].speed;
+            if (activeAncestors[i].upOrDown == "up")
+            {
+                activeAncestors[i].yCoord += modifier * activeAncestors[i].speed / 2;
+            }
+            else if (activeAncestors[i].upOrDown == "down")
+            {
+                activeAncestors[i].yCoord -= modifier * activeAncestors[i].speed / 2;
+            }
+
         }
     };
 
@@ -187,13 +243,12 @@ define(['model/IAncestor'],function() {
             //update projectiles
             this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
             this.moveProjectiles(activeProjectiles, timeElapsed, translation);
-            this.checkProjectileCollision(activeProjectiles, activeAncestors);
+            //this.checkProjectileCollision(activeProjectiles, activeAncestors);
             //check victory conditions
             this.checkVictory(controller, activeAncestors);
             this.checkDefeat(controller, activeAncestors);
         }
     };
-
 
     return Update;
 

@@ -129,14 +129,16 @@ define([],function() {
 
     Render.prototype.renderNodeStructure = function(nodeStructure)
     {
-        var indexerImg = this.imageManager.getImage(this.imageManager.IDX_STAN);
+        //get node image here
+        var nodeImg = this.imageManager.getImage(this.imageManager.NODE);
         for (var i = 0; i < nodeStructure.length; i++)
         {
             for (var j = 0; j < nodeStructure[i].length; j++)
             {
                 if (!nodeStructure[i][j].occupied)
                 {
-                    this.ctx.drawImage(indexerImg, nodeStructure[i][j].xCoord + this.xOffset, nodeStructure[i][j].yCoord + this.yOffset);
+                    //draw node here
+                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].xCoord, nodeStructure[i][j].yCoord);
                 }
             }
         }

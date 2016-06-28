@@ -5,7 +5,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
           this.canvas = canvas;
           this.myUpdate = new Update();
-          this.myRender;
+          this.myRender = null;
           this.translation = {dx: 0, dy: 0};
           this.myVictoryDefeatHandler = new VictoryDefeatHandler();
 
@@ -29,6 +29,10 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
           this.gameEnded = false;
           this.victory;
+          this.viewTransform = new ViewTransform(0, 0);
+          this.viewController = new ViewController(this);
+          console.log("Hello World?");
+          this.viewController.init();
       }
 
       GameController.prototype.loadResources = function () {
@@ -82,9 +86,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           console.log(this.nodeStructure);
 
           this.lastTime = Date.now();
-          this.viewTransform = new ViewTransform(0, 0);
-          this.viewController = new ViewController(this);
-          this.viewController.init();
       };
 
       GameController.prototype.updateCoordinates = function (dx, dy) {

@@ -98,11 +98,11 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         var shortestDistance = 100000;
         for (var i = 0; i < nodeStructure.length; i++)
         {
-            for (var j = 0; j < nodeStructure[i].length; i++)
+            for (var j = 0; j < nodeStructure[i].length; j++)
             {
               //replace pagx and pageY with actual click locations later on
-                var distance = Math.sqrt((nodeStructure[i][j].xCoord - clickLocation.X)(nodeStructure[i][j].xCoord - clickLocation.X)
-                + (nodeStructure[i][j].yCoord - clickLocation.Y)(nodeStructure[i][j].yCoord - clickLocation.Y));
+                var distance = Math.sqrt((nodeStructure[i][j].xCoord - clickLocation.X) * (nodeStructure[i][j].xCoord - clickLocation.X)
+                + (nodeStructure[i][j].yCoord - clickLocation.Y) * (nodeStructure[i][j].yCoord - clickLocation.Y));
                 if (distance < 25)
                 {
                     if (distance < shortestDistance)
@@ -117,7 +117,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 }
             }
         }
-        if (shortestDistance == 1000000) return null;
+        if (shortestDistance == 100000) return null;
         else
         {
             return nodeStructure[bestI][bestJ];
@@ -141,7 +141,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         return false;
     }
 
-    EventManager.prototype.getNewIndexer()
+    EventManager.prototype.getNewIndexer = function()
     {
         switch (this.clickContext){
             case "standardIndexer":
@@ -153,7 +153,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         }
     }
 
-    EvenetManager.prototype.getNewBuilding()
+    EventManager.prototype.getNewBuilding = function()
     {
         switch (this.clickContext){
           case "standardBuilding":
@@ -165,7 +165,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         }
     }
 
-    EventManager.prototype.addIndexerOrBuilding(nearestNodeToClick)
+    EventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick)
     {
         if (this.clickContext.elementType == "building")
         {

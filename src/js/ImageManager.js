@@ -72,10 +72,11 @@ define(["ImageResource"], function(ImageResource){
         return new Promise(function(resolve, reject){
             ImageManager.status = "Loading images...";
             console.log(ImageManager.status);
-            ImageManager.total = 18;
+            ImageManager.total = 19;
             ImageManager.tot_loaded = 0;
             ImageManager.map[ImageManager.TRI_A] = new ImageResource(ImageManager.TRI_A, "src/img/field/TriangleAlpha.png");
             ImageManager.map[ImageManager.TRI_B] = new ImageResource(ImageManager.TRI_B, "src/img/field/TriangleBeta.png");
+            ImageManager.map[ImageManager.NODE] = new ImageResource(ImageManager.NODE, "src/img/field/node.png");
 
             ImageManager.map[ImageManager.BKGD] = new ImageResource(ImageManager.BKGD, "src/img/background.png");
             ImageManager.map[ImageManager.FRGD] = new ImageResource(ImageManager.FRGD, "src/img/lightbeam.png");
@@ -123,13 +124,14 @@ define(["ImageResource"], function(ImageResource){
         });
     };
 
-    ImageManager.TRI_A = "triangle_alpha";
-    ImageManager.TRI_B = "tri_beta";
+    ImageManager.TRI_A  = "triangle_alpha";
+    ImageManager.TRI_B  = "tri_beta";
+    ImageManager.NODE   = "node";
 
-    ImageManager.BKGD = "background";
-    ImageManager.FRGD = "foreground";
-    ImageManager.VCTR = "victory";
-    ImageManager.DFET = "defeat";
+    ImageManager.BKGD   = "background";
+    ImageManager.FRGD   = "foreground";
+    ImageManager.VCTR   = "victory";
+    ImageManager.DFET   = "defeat";
 
     ImageManager.REC_BL = "rec_blue";
     ImageManager.REC_BR = "rec_brown";

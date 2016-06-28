@@ -17,7 +17,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
 
     ViewController.prototype.init = function(){
         var self = this;
-        self.eventManager = new EventManager(self);
+        self.eventManager = new EventManager(self, self.controller);
         self.eventManager.init();
         self.panelManager = new PanelManager(self);
         self.panelManager.init();

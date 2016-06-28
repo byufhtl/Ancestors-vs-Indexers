@@ -4,7 +4,8 @@
 
 define(['GEvent','ButtonManager', 'CanvasManager'],function(GEvent, ButtonManager, CanvasManager){
 
-    function EventManager(ViewController){
+    function EventManager(ViewController, controller){
+        this.controller = controller;
         this.viewController = ViewController;
         this.buttonManager = null;
         this.canvasManager = null;

@@ -2,7 +2,8 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['GEvent','ButtonManager', 'CanvasManager'],function(GEvent, ButtonManager, CanvasManager){
+define(['GEvent','ButtonManager', 'CanvasManager', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library'],
+function(GEvent, ButtonManager, CanvasManager, standardIndexer, Hobbyist, standardBuilding, Library){
 
     function EventManager(ViewController, controller){
         this.controller = controller;
@@ -88,10 +89,116 @@ define(['GEvent','ButtonManager', 'CanvasManager'],function(GEvent, ButtonManage
         }
     };
 
+    EventManager.prototype.getClosestNode = function(clickLocation)
+    {
+        var nodeStructure = this.controller.nodeStructure;
+        var bestI;
+        var bestJ;
+        var shortestDistance = 100000;
+        for (var i = 0; i < nodeStructure.length; i++)
+        {
+            for (var j = 0; j < nodeStructure[i].length; i++)
+            {
+              //replace pagx and pageY with actual click locations later on
+                var distance = Math.sqrt((nodeStructure[i][j].xCoord - clickLocation.X)(nodeStructure[i][j].xCoord - clickLocation.X)
+                + (nodeStructure[i][j].yCoord - clickLocation.Y)(nodeStructure[i][j].yCoord - clickLocation.Y));
+                if (distance < 25)
+                {
+                    if (distance < shortestDistance)
+                    {
+                        if(!nodeStructure[i][j].occupied)
+                        {
+                            shortestDistance = distance;
+                            bestI = i;
+                            bestJ = j;
+                        }
+                    }
+                }
+            }
+        }
+        if (shortestDistance == 1000000) return null;
+        else
+        {
+            return nodeStructure[bestI][bestJ];
+        }
+    }
+
+    EventManager.prototype.recordClicked = function(clickLocation)
+    {
+        var activeRecords = this.controller.activeRecords;
+        for (var i = 0; i < activeRecords.length; i++)
+        {
+            if (activeRecords[i].includesPoint(clickLocation))
+            {
+                activeRecords.splice(i,1);
+                this.controller.resourcePoints += 10;
+                $('#points').text(this.controller.resourcePoints);
+                --i;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    EventManager.prototype.getNewIndexer()
+    {
+        switch (this.clickContext){
+            case "standardIndexer":
+                return new standardIndexer();
+                break;
+            case "hobbyist":
+                return new Hobbyist();
+                break;
+        }
+    }
+
+    EvenetManager.prototype.getNewBuilding()
+    {
+        switch (this.clickContext){
+          case "standardBuilding":
+            return new standardBuilding();
+            break;
+          case "library":
+            return new Library();
+            break;
+        }
+    }
+
+    EventManager.prototype.addIndexerOrBuilding(nearestNodeToClick)
+    {
+        if (this.clickContext.elementType == "building")
+        {
+            var tempBuilding = this.getNewBuilding;
+            tempBuilding.xCoord = nearestNodeToClick.xCoord;
+            tempBuilding.yCoord=  nearestNodeToClick.yCoord;
+            this.controller.activeBuildings.push(tempBuilding);
+        }
+        else if (this.clickContext.elementType == "indexer")
+        {
+            var tempIndexer = this.getNewIndexer;
+            tempIndexer.xCoord = nearestNodeToClick.xCoord;
+            tempIndexer.yCoord = nearestNodeToClick.yCoord;
+            this.controller.activeIndexers.push(tempIndexer);
+        }
+        nearestNodeToClick.occupied = true;
+        this.controller.resourcePoints -= this.clickContext.cost;
+        $('#points').text(this.controller.resourcePoints);
+    }
+
     EventManager.prototype.handleCanvasClick = function(event){
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
+        var realPointClicked = event.data[0];
+        //check if we clicked on a record. If not, check if we clicked a node
+        if (!this.recordClicked(realPointClicked))
+        {
+            var nearestNodeToClick = this.getClosestNode(realPointClicked);
+            if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost < this.controller.resourcePoints)
+            {
+                addIndexerOrBuilding(nearestNodeToClick);
+            }
+        }
     };
 
     return EventManager;
-});
+})

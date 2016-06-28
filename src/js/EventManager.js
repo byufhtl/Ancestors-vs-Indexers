@@ -2,8 +2,9 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['GEvent','ButtonManager', 'CanvasManager', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library'],
-function(GEvent, ButtonManager, CanvasManager, standardIndexer, Hobbyist, standardBuilding, Library){
+define(['GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library'],
+function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, standardBuilding, Library){
+
 
     function EventManager(ViewController, controller){
         this.controller = controller;
@@ -16,7 +17,7 @@ function(GEvent, ButtonManager, CanvasManager, standardIndexer, Hobbyist, standa
     EventManager.prototype.init = function(){
         var self = this;
         self.buttonManager = new ButtonManager(self);
-        self.canvasManager = new CanvasManager(self);
+        self.canvasManager = new CanvasManager(self, this.controller.viewTransform);
         self.canvasManager.init();
     };
 

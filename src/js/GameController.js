@@ -1,5 +1,5 @@
-define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler', 'ImageManager'],
-  function($,LevelDefinition, ViewController, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager) {
+define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler', 'ImageManager', 'ViewTransform'],
+  function($,LevelDefinition, ViewController, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager, ViewTransform) {
 
       function GameController(canvas) {
 
@@ -82,6 +82,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           console.log(this.nodeStructure);
 
           this.lastTime = Date.now();
+          this.viewTransform = new ViewTransform(0, 0);
           this.viewController = new ViewController(this);
           this.viewController.init();
       };

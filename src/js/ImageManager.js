@@ -90,8 +90,8 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.REC_VT] = new ImageResource(ImageManager.REC_VT, "src/img/records/violetRecord.png");
             ImageManager.map[ImageManager.REC_EM] = new ImageResource(ImageManager.REC_EM, "src/img/records/emptyRecord.png");
 
-            ImageManager.map[ImageManager.IDX_STAN] = new ImageResource(ImageManager.IDX_STAN, "src/img/indexers/bow-indexer.png");
-            ImageManager.map[ImageManager.IDX_HOBB] = new ImageResource(ImageManager.IDX_HOBB, "src/img/indexers/hobbyist.png");
+            ImageManager.map[ImageManager.STAN_IDX] = new ImageResource(ImageManager.STAN_IDX, "src/img/indexers/bow-indexer.png");
+            ImageManager.map[ImageManager.HOBB_IDX] = new ImageResource(ImageManager.HOBB_IDX, "src/img/indexers/hobbyist.png");
 
             ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/drake1-A01.png");
             ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/human-city4.png");
@@ -140,8 +140,8 @@ define(["ImageResource"], function(ImageResource){
     ImageManager.REC_VT = "rec_violet";
     ImageManager.REC_EM = "rec_empty";
 
-    ImageManager.IDX_STAN = "idx_standard";
-    ImageManager.IDX_HOBB = "idx_hobbyist";
+    ImageManager.STAN_IDX = "idx_standard";
+    ImageManager.HOBB_IDX = "idx_hobbyist";
 
     ImageManager.BLD_FHCR = "build_fhcenter";
     ImageManager.BLD_LIBR = "library";

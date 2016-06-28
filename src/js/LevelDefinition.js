@@ -90,7 +90,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
 
     LevelDefinition.levels = {
         1: [
-            ['a', 'a', 'a', null, 'a'],
+            ['a', 'a', 'n', null, 'a'],
             [null, null, null, 'a', null]
         ],
         2: [

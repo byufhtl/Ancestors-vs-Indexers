@@ -52,17 +52,6 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'bui
       }
     };
 
-    function Point(x, y, autoOffset){
-        this.X = x;
-        this.Y = y;
-    }
-
-    ClickManager.prototype.WtoV = function(pt){
-        var out = new Point(pt.X + this.tCoords.X, pt.Y + this.tCoords.Y);
-        console.log(out);
-        return out;
-    };
-
     ClickManager.prototype.start = function() {
         var self = this;
 
@@ -124,72 +113,6 @@ define(['jquery', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'bui
                 });
             });
 
-        });
-
-        var canvas = $('#canvas');
-
-        var draggable = false;
-        var dragged = false;
-        var sCoords = self.tCoords;
-        var dCoords = new Point(0, 0);
-        var lCoords = new Point(0, 0);
-
-        canvas.mousedown(function (event) {
-            draggable = true;
-
-            sCoords = self.tCoords;
-            lCoords = new Point(event.pageX, event.pageY);
-        });
-
-        canvas.mousemove(function (event) {
-            if (draggable) {
-                dCoords = new Point(event.pageX - lCoords.X, event.pageY - lCoords.Y);
-                self.tCoords = new Point(self.tCoords.X + dCoords.X, self.tCoords.Y + dCoords.Y);
-                lCoords = new Point(event.pageX, event.pageY);
-
-                // Put a bit of an overlap between minor drags and clicks.
-                if (!dragged) {
-
-                    var mCoords = new Point(self.tCoords.X - sCoords.X, self.tCoords.Y - sCoords.Y);
-
-                    //console.log(dCoords, self.tCoords, sCoords, lCoords);
-                    if (mCoords.X < 3 || mCoords.X > -3 || mCoords.Y < 3 || mCoords.Y > -3) {
-                        console.log("Dragged.");
-                        dragged = true;
-                    }
-                    else{
-                        console.log(mCoords);
-                    }
-                }
-
-                if (dragged && self.controller) {
-                    console.log("Coordinates being updated from mouse drag.");
-                    self.controller.updateCoordinates(dCoords.X, dCoords.Y);
-                }
-            }
-        });
-
-        canvas.mouseup(function (clickEvent) {
-            draggable = false;
-            if (!dragged) {
-                var clickPt = new Point(clickEvent.pageX - 200, clickEvent.pageY - 135);
-                var records = self.controller.activeRecords;
-                var clickedRecord = false;
-                for (var i = 0; i < records.length; ++i) {
-                    if (records[i].includesPoint(self.WtoV(clickPt))) {
-                        records.splice(i, 1);
-                        self.controller.resourcePoints += 10;
-                        $('#points').text(self.controller.resourcePoints);
-                        --i;
-                        clickedRecord = true;
-                        break;
-                    }
-                }
-                if (!clickedRecord) {
-                    self.checkPlaceIndexerOrBuilding(self, self.WtoV(clickPt));
-                }
-            }
-            dragged = false;
         });
     };
 

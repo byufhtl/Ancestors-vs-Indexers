@@ -62,16 +62,16 @@ define([],function() {
 
     Render.prototype.renderIndexers = function(activeIndexers)
     {
-        var indexerImg = this.imageManager.getImage(this.imageManager.IDX_STAN);
+        var indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
         for (var i = 0; i < activeIndexers.length; i++)
         {
             switch(activeIndexers[i].type){
                 case "hobbyist":
-                    indexerImg = this.imageManager.getImage(this.imageManager.IDX_HOBB);
+                    indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
-                    indexerImg = this.imageManager.getImage(this.imageManager.IDX_STAN);
+                    indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.xOffset, activeIndexers[i].yCoord + this.yOffset);
         }

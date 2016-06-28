@@ -5,7 +5,9 @@ define([],function() {
     {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-
+        this.xOffset = 0;
+        this.yOffset = 0;
+        console.log("Starting Coordinates:", this.xOffset, this.yOffset);
         this.imageManager = ImageManager;
     }
 
@@ -24,7 +26,7 @@ define([],function() {
     Render.prototype.renderBackground = function()
     {
         var bgImg = this.imageManager.getImage(this.imageManager.BKGD);
-        this.ctx.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(bgImg, -this.xOffset, -this.yOffset, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderLightBeam = function()
@@ -45,7 +47,7 @@ define([],function() {
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
             }
-            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord, activeAncestors[i].yCoord);
+            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.xOffset, activeAncestors[i].yCoord + this.yOffset);
         }
     };
 
@@ -54,7 +56,7 @@ define([],function() {
         var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GD);
         for (var i = 0; i < activeRecords.length; i++)
         {
-            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord, activeRecords[i].yCoord);
+            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.xOffset, activeRecords[i].yCoord + this.yOffset);
         }
     };
 
@@ -71,7 +73,7 @@ define([],function() {
                 default:
                     indexerImg = this.imageManager.getImage(this.imageManager.IDX_STAN);
             }
-            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord, activeIndexers[i].yCoord);
+            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.xOffset, activeIndexers[i].yCoord + this.yOffset);
         }
     };
 
@@ -86,7 +88,7 @@ define([],function() {
                 default:
                     recordImg = this.imageManager.getImage(this.imageManager.REC_BR);
             }
-            this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord, activeProjectiles[i].yCoord, recordImg.width / 3, recordImg.height / 3);
+            this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.xOffset, activeProjectiles[i].yCoord + this.yOffset, recordImg.width / 3, recordImg.height / 3);
         }
     };
 
@@ -102,21 +104,23 @@ define([],function() {
                 default:
                     buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
             }
-            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord, activeBuildings[i].yCoord);
+            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.xOffset, activeBuildings[i].yCoord + this.yOffset);
         }
     };
 
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings)
-    {
-      this.renderBackground();
-      this.renderIndexers(activeIndexers);
-      this.renderBuildings(activeBuildings);
-      this.renderAncestors(activeAncestors);
-      this.renderBuildings(activeBuildings);
-      this.renderProjectiles(activeProjectiles);
-      this.renderRecords(activeRecords);
-      //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.renderLightBeam();
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation) {
+        //console.log("Render Offsets:", this.xOffset, this.yOffset, translation, translation.dx, translation.dy);
+        this.xOffset += parseInt(translation.dx, 10);
+        this.yOffset += parseInt(translation.dy, 10);
+        this.renderBackground();
+        this.renderIndexers(activeIndexers);
+        this.renderBuildings(activeBuildings);
+        this.renderAncestors(activeAncestors);
+        this.renderBuildings(activeBuildings);
+        this.renderProjectiles(activeProjectiles);
+        this.renderRecords(activeRecords);
+        //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.renderLightBeam();
     };
 
 

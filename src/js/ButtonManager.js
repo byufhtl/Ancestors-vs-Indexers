@@ -20,6 +20,7 @@ define(['jquery','GEvent'], function($, GEvent){
      * @param event the event to be handled. See [GEvent.js]
      */
     ButtonManager.prototype.handle = function(event){
+        console.log("Button Event:", event);
         var self = this;
         switch(event.type){
             case GEvent.TPBAR_LD:
@@ -66,11 +67,11 @@ define(['jquery','GEvent'], function($, GEvent){
             self.topbarButtons = [structures_button, indexers_button];
 
             structures_button.click(function () {
-                self.eventManager.handle(GEvent.LD_SDBAR, GEvent.BLDG_PNL, []);
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_SDBAR, GEvent.BLDG_PNL, []));
             });
 
             indexers_button.click(function () {
-                self.eventManager.handle(GEvent.LD_SDBAR, GEvent.INDX_PNL, []);
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_SDBAR, GEvent.INDX_PNL, []));
             });
         }
     };

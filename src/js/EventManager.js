@@ -57,6 +57,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
      * @param event - See [GEvent.js]
      */
     EventManager.prototype.handle = function(event){
+        console.log("Event event:",event);
         var self = this;
         switch(event.type){
             case GEvent.TPBAR_LD:
@@ -196,7 +197,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
             var nearestNodeToClick = this.getClosestNode(realPointClicked);
             if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost < this.controller.resourcePoints)
             {
-                addIndexerOrBuilding(nearestNodeToClick);
+                this.addIndexerOrBuilding(nearestNodeToClick);
             }
         }
     };

@@ -27,7 +27,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
 
     ViewController.prototype.handle = function(event){
         var self = this;
-        console.log(event);
+        console.log("Event:", event);
         switch(event.type){
             case GEvent.LD_TPBAR: // Load something into the top bar
                 self.panelManager.handle(event);

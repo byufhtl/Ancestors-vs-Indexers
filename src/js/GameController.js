@@ -109,7 +109,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
               requestAnimationFrame(this.loop.bind(this));
           }
           else {
-              this.clickManager.stop();
               if (this.victory) {
                   this.myVictoryDefeatHandler.victory(this.myRender, this);
               }

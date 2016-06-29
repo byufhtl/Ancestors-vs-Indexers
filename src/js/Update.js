@@ -42,8 +42,7 @@ define(['model/IAncestor'],function() {
                 yCoord: -100,
                 speed: 20,
                 includesPoint: function (pt) {
-                    return ((pt.X >= this.xCoord && pt.X <= this.xCoord + 100)
-                    && (pt.Y >= this.yCoord && pt.Y <= this.yCoord + 100));
+                    return (pt.X <= this.xCoord + 50 && pt.X >= this.xCoord -50 && pt.Y < this.yCoord + 50 && pt.Y > this.yCoord -50);
                 }
             };
 
@@ -101,18 +100,20 @@ define(['model/IAncestor'],function() {
     };
 
     Update.prototype.checkProjectileCollision = function (activeProjectiles, activeAncestors) {
-        for (var i = 0; i < activeProjectiles.length; i++) {
-            var keepChecking = true;
-            for (var j = 0; j < activeAncestors.length; j++) {
-                //check if collision has occured
-                if (keepChecking && (activeProjectiles[i].xCoord + 14) >= activeAncestors[j].xCoord
-                    && activeProjectiles[i].lane == activeAncestors[j].lane && activeProjectiles[i].xCoord < (activeAncestors[j].xCoord + 40)) {
-                    //deal damage
-                    activeAncestors[j].hp -= activeProjectiles[i].dmg;
-                    //remove projectile from gameOver
-                    activeProjectiles.splice(i, 1);
-                    i--;
-                    keepChecking = false;
+        for (var i = 0; i < activeAncestors.length; i++)
+        {
+            for (var j = 0; j < activeProjectiles.length; j++)
+            {
+                var distanceX = Math.abs(activeProjectiles[j].xCoord - activeAncestors[i].xCoord);
+                var distanceY = Math.abs(activeProjectiles[j].yCoord - activeAncestors[i].yCoord);
+                //check if within hitting distance
+                if (distanceX < 20 && distanceY < 20)
+                {
+                    //deal damage to ancestor
+                    activeAncestors[i].hp -= activeProjectiles[j].dmg;
+                    //remove records
+                    activeProjectiles.splice(j,1);
+                    j--;
                 }
             }
         }
@@ -143,7 +144,6 @@ define(['model/IAncestor'],function() {
 
             if (this.wave > level.length) {
                 this.doneSpawning = true;
-                console.log("done spawning");
             }
         }
     };
@@ -153,20 +153,16 @@ define(['model/IAncestor'],function() {
             //check whether to move up or down
             if (activeAncestors[i].distanceMovedX >= 300)
             {
-                console.log("current generation: " + activeAncestors[i].currentGeneration);
                 var numNodes = activeAncestors[i].currentGeneration + 1;
                 var firstNodeY = - activeAncestors[i].currentGeneration * 150 + 300;
                 //check if moving up is impossible
                 if (Math.abs(firstNodeY - activeAncestors[i].yCoord) < 150)
                 {
-                  console.log("had to go down");
                      activeAncestors[i].upOrDown = "up";
                 }
                 //check if moving down is impossible
                 else if (((firstNodeY + (numNodes - 1) * 300) - activeAncestors[i].yCoord) < 150)
                 {
-                  console.log("had to go up");
-
                       activeAncestors[i].upOrDown = "down";
                 }
                 else
@@ -210,19 +206,18 @@ define(['model/IAncestor'],function() {
                     yCoord: activeBuildings[i].yCoord,
                     speed: 0,
                     includesPoint: function (pt) {
-                        return ((pt.xCoord >= this.xCoord && pt.xCoord <= this.xCoord + 100)
-                        && (pt.yCoord >= this.yCoord && pt.yCoord <= this.yCoord + 100));
+                      return (pt.X <= this.xCoord + 50 && pt.X >= this.xCoord -50 && pt.Y < this.yCoord + 50 && pt.Y > this.yCoord -50);
                     }
                 }
                 activeRecords.push(collectableRecord);
-                console.log("added a record");
+
             }
         }
     };
 
     Update.prototype.buffer = function (timeElapsed) {
         this.levelStartBuffer += timeElapsed;
-        if (this.levelStartBuffer > 10) {
+        if (this.levelStartBuffer > 20) {
             return true;
         }
         else return false;
@@ -243,7 +238,7 @@ define(['model/IAncestor'],function() {
             //update projectiles
             this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
             this.moveProjectiles(activeProjectiles, timeElapsed, translation);
-            //this.checkProjectileCollision(activeProjectiles, activeAncestors);
+            this.checkProjectileCollision(activeProjectiles, activeAncestors);
             //check victory conditions
             this.checkVictory(controller, activeAncestors);
             this.checkDefeat(controller, activeAncestors);

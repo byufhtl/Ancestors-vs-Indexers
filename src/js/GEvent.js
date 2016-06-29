@@ -38,5 +38,7 @@ define([],function(){
     GEvent.CNVS_CLK = "canvas_click";       // The canvas click event type
     GEvent.CNVS_DRG = "canvas_drag";        // The canvas drag event type
 
+    GEvent.VTRY_PNL = "victory_panel";      // Victory Panel
+
     return GEvent;
 });

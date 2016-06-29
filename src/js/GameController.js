@@ -9,7 +9,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.translation = {dx: 0, dy: 0};
           this.myVictoryDefeatHandler = new VictoryDefeatHandler();
 
-          this.resourcePoints = 200;
+          this.resourcePoints = 0;
 
           this.timeElapsed = 0;
 
@@ -31,7 +31,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.victory;
           this.viewTransform = new ViewTransform(0, 0);
           this.viewController = new ViewController(this);
-          console.log("Hello World?");
           this.viewController.init();
       }
 
@@ -43,7 +42,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                       resolve(response);
                   },
                   function (e) {
-                      console.log("The ImageManager was not able to load correctly. Response:", e);
                       self.myRender = new Render(canvas, ImageManager);
                       reject(e);
                   });
@@ -60,7 +58,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
               }
           }
           this.currentLevel = level;
-          this.resourcePoints = 200;
+          this.resourcePoints = 0;
 
           this.timeElapsed = 0;
 
@@ -83,7 +81,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.level = levelDefinition.getLevel(level); // Wave information location
           this.levelStructure = levelDefinition.getLevelStructure(level);
           this.nodeStructure = levelDefinition.getNodeStructure(level);
-          console.log(this.nodeStructure);
 
           this.lastTime = Date.now();
       };

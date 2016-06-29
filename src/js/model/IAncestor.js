@@ -1,7 +1,7 @@
 define([],function() {
 
     function IAncestor(lane) {
-        this.hp = 2;
+        this.hp = 1;
         this.speed = 30;
         this.currentGeneration = 3;
         this.animation;

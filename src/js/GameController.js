@@ -1,5 +1,5 @@
-define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler', 'ImageManager', 'ViewTransform'],
-  function($,LevelDefinition, ViewController, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager, ViewTransform) {
+define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'VictoryDefeatHandler', 'ImageManager', 'ViewTransform', 'GEvent'],
+  function($,LevelDefinition, ViewController, Update, Render, IAncestor, VictoryDefeatHandler, ImageManager, ViewTransform, GEvent) {
 
       function GameController(canvas) {
 
@@ -107,10 +107,19 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           }
           else {
               if (this.victory) {
-                  this.myVictoryDefeatHandler.victory(this.myRender, this);
+                  //type, value, data
+                  var victoryEvent = new GEvent(GEvent.LD_SDBAR, GEvent.VTRY_PNL);
+                  this.viewController.handle(victoryEvent);
+                  var emptyTopBarEvent = new GEvent(GEvent.LD_TPBAR, GEvent.BLNK_PNL);
+                  this.viewController.handle(emptyTopBarEvent);
+                  this.myRender.renderVictory();
               }
               else {
-                  this.myVictoryDefeatHandler.defeat(this.myRender, this);
+                  var defeatEvent = new GEvent(GEvent.LD_SDBAR, GEvent.DEFT_PNL);
+                  this.viewController.handle(defeatEvent);
+                  var emptyTopBarEvent = new GEvent(GEvent.LD_TPBAR, GEvent.BLNK_PNL);
+                  this.viewController.handle(emptyTopBarEvent);
+                  this.myRender.renderDefeat();
               }
           }
       };

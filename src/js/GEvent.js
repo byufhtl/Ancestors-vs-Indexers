@@ -25,6 +25,8 @@ define([],function(){
     GEvent.BLDG_PNL = "building_panel";     // Building Panel
     GEvent.INDX_PNL = "indexer_panel";      // Indexer Panel
 
+    GEvent.BLNK_PNL = "blank_panel";        // Load a blank panel
+
     GEvent.GM_TPBAR = "game_top_bar";       // Game Top Bar
 
     GEvent.ST_CLICK = "set_click";          // Signal what should happen on a click event.
@@ -39,6 +41,12 @@ define([],function(){
     GEvent.CNVS_DRG = "canvas_drag";        // The canvas drag event type
 
     GEvent.VTRY_PNL = "victory_panel";      // Victory Panel
+    GEvent.DEFT_PNL = "defeat_panel";       // Defeat Panel
+    GEvent.NEXT_BTN = "next_level_button";  // Next Level Button
+    GEvent.AGAN_BTN = "play_again_button";  // Play Level Again Button
+    GEvent.MENU_BTN = "menu_button";        // Menu Button
+
+    GEvent.BTN_ACTN = "button_action";      // Button Action
 
     return GEvent;
 });

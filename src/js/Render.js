@@ -165,9 +165,9 @@ define([],function() {
 
     Render.prototype.renderTree = function(levelStructure)
     {
-        var tree = this.ImageManager.getImage(this.imageManager.TREE);
+        var tree = this.imageManager.getImage(this.imageManager.UND_TREE);
         var numGenerations = levelStructure.length;
-        this.ctx.drawImage(tree, 0, 0, (tree.width / 8) * numGenerations, tree.height, 0, -900, 0, 0);
+        this.ctx.drawImage(tree, -this.xOffset, -this.yOffset, tree.width, tree.height, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
@@ -176,7 +176,7 @@ define([],function() {
         this.yOffset += parseInt(translation.dy, 10);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
-        this.renderTree();
+        this.renderTree(levelStructure);
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);
         this.renderIndexers(activeIndexers);
@@ -186,7 +186,7 @@ define([],function() {
         this.renderProjectiles(activeProjectiles);
         this.renderRecords(activeRecords);
         //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.renderLightBeam();
+        //this.renderLightBeam();
 
     };
 

@@ -26,7 +26,7 @@ define(['jquery','GameController','ImageManager'],function($, GameController, Im
 
             var myGameController = new GameController(canvas);
             myGameController.loadResources().then(function (response) {
-                    myGameController.initializeGame(0, {});
+                    myGameController.initializeGame(1, 1, {});
                     myGameController.loop();
                 },
                 function (e) {

@@ -6,19 +6,19 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
       this.topMargin = 105;
     }
 
-    LevelDefinition.prototype.getLevel = function(levelNum)
+    LevelDefinition.prototype.getScene = function(levelNum, sceneNum)
     {
-        var levelData = LevelDefinition.parseLevel(levelNum + 1);
+        var levelData = LevelDefinition.parseScene(levelNum, sceneNum);
         this.setXYCoordinates(levelData, levelNum);
         return levelData;
     };
 
-    LevelDefinition.prototype.getLevelStructure = function(levelNum)
+    LevelDefinition.prototype.getLevelStructure = function(actNum)
     {
         var levelStructure = [];
         var offset = 150;
-        levelNum++;
-        for (var i = 0; i < levelNum; i++)
+        actNum++;
+        for (var i = 0; i < actNum; i++)
         {
             var trianglesForGeneration = [];
             var numTriangles = i * 2 + 1;
@@ -103,26 +103,29 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
       }
     };
 
-    LevelDefinition.parseLevel = function(lvl){
+    LevelDefinition.parseScene = function(lvl, scene){
         var level = [];
+        var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
+        if(act_scheme){
+            if(act_scheme.hasOwnProperty(scene)){                   // Look for the scene
+                var scene_scheme = act_scheme[scene];               // Grab the scene
 
-        var level_scheme = LevelDefinition.levels[lvl];
-        if(level_scheme){
-            for(var i in level_scheme){
-                var wave_scheme = level_scheme[i];
-                var wave = [];
-                for(var j in wave_scheme){
-                    switch(wave_scheme[j]){
-                        case 'a':
-                            wave.push(new IAncestor(j));
-                            break;
-                        case 'n':
-                            wave.push(new Nameless(j));
-                            break;
-                        default:
+                for(var i in scene_scheme){                         // for each sub array
+                    var wave_scheme = scene_scheme[i];
+                    var wave = [];                                  // create space for a wave
+                    for(var j in scene_scheme){                     // for each element in the subarray
+                        switch(scene_scheme[j]){                    //  -push the correct ancestor type
+                            case 'a':
+                                wave.push(new IAncestor(j));
+                                break;
+                            case 'n':
+                                wave.push(new Nameless(j));
+                                break;
+                            default:
+                        }
                     }
+                    level.push(wave);
                 }
-                level.push(wave);
             }
             return level;
         }
@@ -130,65 +133,76 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     };
 
     LevelDefinition.levels = {
-        1: [
-            ['a', null, null, null, null],
-            [null, null, null, 'a', null]
-        ],
-        2: [
-            [null, null, 'a', null, null],
-            ['a', null, null, null, 'a'],
-            ['a', 'a', null, 'a', null]
-        ],
-        3: [
-            [null, null, 'a', null, null],
-            [null, null, 'n', null, null],
-            [null, null, 'a', null, 'a'],
-            [null, 'n', 'a', null, null]
-        ],
-        4: [
-            ['a', null, 'a', 'a', null],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'n', null, 'a'],
-            ['a', 'a', null, 'a', 'a'],
-            ['a', null, 'a', 'a', null],
-            ['a', 'n', 'a', 'a', 'a'],
-            ['a', 'a', null, 'n', 'a'],
-            [null, 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['n', 'a', 'a', null, 'a'],
-            ['a', null, 'a', 'a', null],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'a', null, 'n'],
-            ['a', 'a', null, 'a', 'a']
-        ],
-        5: [
-            ['a', null, 'a', 'a', null],
-            [null, null, null, null, null],
-            ['a', 'a', 'a', 'a', 'a'],
-            [null, null, null, null, null],
-            ['a', 'a', 'a', null, 'a'],
-            ['a', 'a', null, 'a', 'a'],
-            ['a', null, 'a', 'a', null],
-            [null, null, null, null, null],
-            ['a', 'a', 'a', null, 'a'],
-            ['a', 'a', null, 'a', 'a'],
-            ['a', null, 'a', 'a', null],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'n', null, 'n', 'a'],
-            [null, 'a', 'n', 'a', 'a'],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'a', null, 'a'],
-            ['n', null, 'a', 'a', 'n'],
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', 'a', 'n', null, 'a'],
-            ['a', 'a', null, 'a', 'a'],
-            ['n', 'n', null, 'n', 'n'],
-            ['n', 'a', 'n', 'a', 'n'],
-            ['a', 'n', 'a', 'n', 'a'],
-            ['n', 'n', 'n', 'n', 'n'],
-            ['n', 'n', 'n', 'n', 'n'],
-            ['n', 'n', 'n', 'n', 'n']
-        ]
+        1: { // Max of two per wave
+            1: [['a'],['a']], // a(2)
+            2: [['a', 'a'], ['a']] // a(3)
+        },
+        2: { // Max of three per wave
+            1:[
+                ['a', 'a'], ['a'], ['a', 'a', 'a'] // a(6)
+            ],
+            2:[
+                ['a', 'a'], ['a','a'], ['a','a','a'],['a','a'] // a(9)
+            ],
+            3:[
+                ['a'],['a','a'],['a','a','a'],['a','a'],['a','a','a'],['a','a'] // a(13)
+            ]
+        },
+        3: { // Max of four per wave
+            1: [
+                ['a', 'a'], ['a','a'], ['a','a','a'],['a','a'] // a(9)
+            ],
+            2: [
+                ['a', 'a'], ['a','a'], ['a','a','a','a'], ['a','n','a'] // a(7) n(2)
+            ],
+            3: [
+                ['a', 'a'], ['a','n','a'], ['a','a','a','a'],['a','n'],['a','n','n'] // a(9) n(4)
+            ]
+        },
+        4: { // Max of 5 per wave
+            1: [ // a(19) n(4)
+                ['a','a'],
+                ['a', 'n', 'a'],
+                ['a', 'a', 'a', 'a', 'a'],
+                ['a', 'a', 'n', 'a'],
+                ['a', 'a', 'a', 'a'],
+                ['a', 'a', 'a', 'n', 'n']
+            ],
+            2: [ // a(18) n(6)
+                ['a','a'],
+                ['a', 'n', 'a'],
+                ['a', 'a', 'a', 'n'],
+                ['a', 'a', 'n', 'a', 'a'],
+                ['a', 'a', 'a', 'a', 'n'],
+                ['a', 'a', 'a', 'n', 'n']
+            ],
+            3: [ // a(19) n(10)
+                ['a','a'],
+                ['a', 'n', 'a'],
+                ['a', 'a', 'a', 'n'],
+                [],
+                [],
+                ['a', 'a', 'n', 'a', 'a'],
+                ['a', 'n', 'a', 'a', 'n'],
+                ['n', 'a', 'a', 'n', 'n'],
+                ['a', 'n', 'a', 'n', 'a']
+            ],
+            4:[
+                ['a','a'],
+                ['a', 'n', 'a'],
+                ['a', 'a', 'a', 'n'],
+                [],
+                [],
+                ['a', 'a', 'n', 'a', 'a'],
+                ['a', 'n', 'a', 'a', 'n'],
+                ['n', 'a', 'a', 'n', 'n'],
+                [],
+                ['n', 'n', 'a', 'n', 'a'],
+                ['n', 'n', 'a', 'n', 'a'],
+                ['a', 'n', 'n', 'n', 'n']
+            ]
+        }
     };
+
     return LevelDefinition;
 });

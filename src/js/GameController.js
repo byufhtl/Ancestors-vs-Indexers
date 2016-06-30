@@ -49,7 +49,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
       };
 
 
-      GameController.prototype.initializeGame = function (level, playerInfo) {
+      GameController.prototype.initializeGame = function (level, scene, playerInfo) {
           this.myUpdate = new Update();
           for (var i = 0; i < 9; i++) {
               this.gameBoardGrid[i] = [];
@@ -57,7 +57,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.gameBoardGrid[i][j] = 0;
               }
           }
-          this.currentLevel = level;
+          this.currentLevel = level | 1;
+          this.currentScene = scene | 1;
           this.resourcePoints = 0;
 
           this.timeElapsed = 0;
@@ -78,7 +79,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
           var levelDefinition = new LevelDefinition();
 
-          this.level = levelDefinition.getLevel(level); // Wave information location
+          this.level = levelDefinition.getScene(level, scene); // Wave information location
           this.levelStructure = levelDefinition.getLevelStructure(level);
           this.nodeStructure = levelDefinition.getNodeStructure(level);
 
@@ -89,7 +90,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.translation = {dx: dx, dy: dy};
           //console.log("Coordinates updated to:",this.translation);
       };
-
 
       GameController.prototype.loop = function () {
           //console.log("running loop");

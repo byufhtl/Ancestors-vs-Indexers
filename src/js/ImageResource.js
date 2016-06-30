@@ -27,7 +27,6 @@ define([],function(){
     ImageResource.prototype.getImage = function(){
         var self = this;
         return(new Promise(function(resolve, reject){
-
             self.image = new Image();
             self.image.onload = function() {
                 self.loaded = true;

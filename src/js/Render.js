@@ -128,6 +128,7 @@ define([],function() {
     Render.prototype.renderTriangularPlayingField = function(levelStructure)
     {
         var alphaImg = this.imageManager.getImage(this.imageManager.TRI_A);
+
         var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
           for (var i = 0; i < levelStructure.length; i++)
           {
@@ -162,12 +163,20 @@ define([],function() {
         }
     };
 
+    Render.prototype.renderTree = function(levelStructure)
+    {
+        var tree = this.ImageManager.getImage(this.imageManager.TREE);
+        var numGenerations = levelStructure.length;
+        this.ctx.drawImage(tree, 0, 0, (tree.width / 8) * numGenerations, tree.height, 0, -900, 0, 0);
+    }
+
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.yOffset, translation, translation.dx, translation.dy);
         this.xOffset += parseInt(translation.dx, 10);
         this.yOffset += parseInt(translation.dy, 10);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
+        this.renderTree();
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);
         this.renderIndexers(activeIndexers);

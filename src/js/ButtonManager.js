@@ -37,7 +37,12 @@ define(['jquery','GEvent'], function($, GEvent){
                     case GEvent.INDX_PNL:
                         self.loadIndexerButtons(event.data);
                         break;
-
+                    case GEvent.VTRY_PNL:
+                        self.loadVictoryButtons(event.data);
+                        break;
+                    case GEvent.DEFT_PNL:
+                        self.loadDefeatButtons(event.data);
+                        break;
                 }
                 break;
         }
@@ -134,6 +139,54 @@ define(['jquery','GEvent'], function($, GEvent){
             });
         }
     };
+
+    ButtonManager.prototype.loadVictoryButtons = function(data){
+        console.log("loading victory buttons");
+        var self = this;
+        self.killAll(self.sidebarButtons);
+        if (data && data.length && data[0] == "success") {
+            var nextLevelButton = $('#nextLevelButton');
+            var mainMenuButton = $('#mainMenuButton');
+            console.log("nextLevelButton");
+            console.log(nextLevelButton);
+            nextLevelButton.click(function() {
+                console.log("clicked next level desu");
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.NEXT_BTN));
+            });
+
+            mainMenuButton.click(function() {
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
+            })
+        }
+        else {
+          console.log("MEEEEEEEEMR");
+          console.log(data);
+        }
+    };
+
+    ButtonManager.prototype.loadDefeatButtons = function(data){
+        console.log("loading defeat buttons");
+        var self = this;
+        self.killAll(self.sidebarButtons);
+        if (data && data.length && data[0] == "success") {
+            var nextLevelButton = $('#playAgainButton');
+            var mainMenuButton = $('#mainMenuButton');
+            console.log("nextLevelButton");
+            console.log(nextLevelButton);
+            nextLevelButton.click(function() {
+                console.log("clicked next level desu");
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.AGAN_BTN));
+            });
+
+            mainMenuButton.click(function() {
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
+            })
+        }
+        else {
+          console.log("MEEEEEEEEMR");
+          console.log(data);
+        }
+    }
 
     return ButtonManager;
 });

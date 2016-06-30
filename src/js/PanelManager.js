@@ -20,6 +20,8 @@ define(["jquery","GEvent"],function($,GEvent){
                     case GEvent.GM_TPBAR:               //  - Load the game top bar
                         self.loadGameTopBar();
                         break;
+                    case GEvent.BLNK_PNL:
+                        self.loadBlankTopBar();
                 }
                 break;
             case GEvent.LD_SDBAR:                       // Load up a side bar
@@ -29,6 +31,15 @@ define(["jquery","GEvent"],function($,GEvent){
                         break;
                     case GEvent.INDX_PNL:               //  - Load the Indexers Panel
                         self.loadIndexersSideBar();
+                        break;
+                    case GEvent.VTRY_PNL:
+                        self.loadVictorySideBar();
+                        break;
+                    case GEvent.DEFT_PNL:
+                        self.loadDefeatSideBar();
+                        break;
+                    case GEvent.BLNK_PNL:
+                        self.loadBlankSideBar();
                         break;
                 }
         }
@@ -46,6 +57,11 @@ define(["jquery","GEvent"],function($,GEvent){
                 self.viewController.handle(new GEvent(GEvent.TPBAR_LD, GEvent.GM_TPBAR, ["failure"]));
             }
         });
+    };
+
+    PanelManager.prototype.loadBlankTopBar = function(){
+        var topbarContainer = $('#topbar');
+        topbarContainer.empty();
     };
 
     PanelManager.prototype.loadBuildlingSideBar = function(){
@@ -80,20 +96,38 @@ define(["jquery","GEvent"],function($,GEvent){
 
     PanelManager.prototype.loadVictorySideBar = function(){
         var self = this;
-        var sideBarContainer = $('#sidebar');
+        var sidebarContainer = $('#sidebar');
         sidebarContainer.empty();
         sidebarContainer.load("src/html/victory.html", function(response){
-            console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
-            $('#nextLevelButton').click(function(){
-                console.log("PUSHED NEXT LEVEL BUTTON");
-                controller.initializeGame((controller.currentLevel + 1), {});
-                controller.loop();
-            });
-            $('#mainMenuButton').click(function(){
-                location.reload();
-            });
+            if (response){
+              self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.VTRY_PNL, ["success"]));
+            }
+            else{
+                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.VTRY_PNL, ["failure"]));
+            }
         });
     }
+
+    PanelManager.prototype.loadDefeatSideBar = function(){
+        var self = this;
+        var sidebarContainer = $('#sidebar');
+        sidebarContainer.empty();
+        sidebarContainer.load("src/html/defeat.html", function(response){
+            if (response){
+              self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["success"]));
+            }
+            else{
+                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["failure"]));
+            }
+        });
+    };
+
+    PanelManager.prototype.loadBlankSideBar = function(){
+        var self = this;
+        var sidebarContainer = $('#sidebar');
+        sidebarContainer.empty();
+    }
+
 
     return PanelManager;
 

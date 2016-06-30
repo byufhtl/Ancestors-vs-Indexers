@@ -38,6 +38,18 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 self.setClickContext(event);
                 break;
 
+            case GEvent.BTN_ACTN:
+                switch (event.value){
+                    case GEvent.NEXT_BTN:
+                        self.nextLevelButtonClicked();
+                        break;
+                    case GEvent.AGAN_BTN:
+                        self.playAgainButtonClicked();
+                        break;
+                    case GEvent.MENU_BTN:
+                        self.mainMenuButtonClicked();
+                        break;
+                }
         }
     };
 
@@ -95,6 +107,30 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 break;
         }
     };
+
+    EventManager.prototype.nextLevelButtonClicked = function()
+    {
+        this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
+        this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
+        var levelToLoad = this.controller.currentLevel + 1;
+        this.controller.initializeGame(levelToLoad, {});
+        this.controller.loop();
+    }
+
+    EventManager.prototype.playAgainButtonClicked = function()
+    {
+        this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
+        this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
+        var levelToLoad = this.controller.currentLevel;
+        this.controller.initializeGame(levelToLoad, {});
+        this.controller.loop();
+    }
+
+    EventManager.prototype.mainMenuButtonClicked = function()
+    {
+
+        location.reload();
+    }
 
     EventManager.prototype.getClosestNode = function(clickLocation)
     {

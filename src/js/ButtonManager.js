@@ -115,10 +115,10 @@ define(['jquery','GEvent'], function($, GEvent){
         self.killAll(self.sidebarButtons);
 
         if(data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
-            var button_1 = $('#button-1');
-            var button_2 = $('#button-1');
-            var button_1_image = $('#button-1-img');
-            var button_2_image = $('#button-2-img');
+            var button_1 = $('#button-1-i');
+            var button_2 = $('#button-1-i');
+            var button_1_image = $('#button-1-img-i');
+            var button_2_image = $('#button-2-img-i');
 
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 

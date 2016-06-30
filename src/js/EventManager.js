@@ -2,8 +2,8 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library'],
-function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, standardBuilding, Library){
+define(['GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
+function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, standardBuilding, Library, LevelDefinition){
 
 
     function EventManager(ViewController, controller){
@@ -113,10 +113,10 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
     {
         this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
         this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
-        var levelToLoad = this.controller.currentLevel + 1;
-        this.controller.initializeGame(levelToLoad, {});
+        var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentLevel, this.controller.currentScene);
+        this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
         this.controller.loop();
-    }
+    };
 
     EventManager.prototype.playAgainButtonClicked = function()
     {
@@ -125,13 +125,13 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         var levelToLoad = this.controller.currentLevel;
         this.controller.initializeGame(levelToLoad, {});
         this.controller.loop();
-    }
+    };
 
     EventManager.prototype.mainMenuButtonClicked = function()
     {
 
         location.reload();
-    }
+    };
 
     /**
      * Determines which node is closest to a given click location

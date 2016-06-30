@@ -17,7 +17,6 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     {
         var levelStructure = [];
         var offset = 150;
-        actNum++;
         for (var i = 0; i < actNum; i++)
         {
             var trianglesForGeneration = [];
@@ -52,7 +51,6 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     {
         var nodeStructure = [];
         var offset = 300;
-        levelNum++;
         for (var i = 0; i < levelNum + 1; i++)
         {
             var type = "alpha";
@@ -85,36 +83,41 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         return nodeStructure;
     };
 
-    LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum)
-    {
-      var numNodes = levelNum + 1;
-      var firstNodeYCoord = - numNodes * 150 + 300;
-      for (var i = 0; i < levelData.length; i++)
-      {
-        for (var j = 0; j < levelData[i].length; j++)
-        {
-          var random = Math.floor(Math.random() * numNodes);
-          var y_coord =  firstNodeYCoord + random * 300;
-          var x_coord = (levelNum + 1)* 300;
-          levelData[i][j].xCoord = x_coord;
-          levelData[i][j].yCoord = y_coord;
-          levelData[i][j].currentGeneration = levelNum + 1;
+    LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum) {
+        var numNodes = levelNum;
+        var firstNodeYCoord = -numNodes * 150 + 300;
+        for (var i = 0; i < levelData.length; i++) {
+            var occupiedNodes = [];
+            for (var j = 0; j < levelData[i].length; j++) {
+                // Select a random unoccupied node.
+                var randNode;
+                do{
+                    randNode = Math.floor(Math.random() * numNodes);
+                }while(occupiedNodes.includes(randNode));
+                occupiedNodes.push(randNode);
+                // Draw up coordinates
+                var y_coord = firstNodeYCoord + randNode * 300;
+                var x_coord = (levelNum) * 300;
+                levelData[i][j].xCoord = x_coord;
+                levelData[i][j].yCoord = y_coord;
+                levelData[i][j].currentGeneration = levelNum;
+            }
         }
-      }
     };
 
     LevelDefinition.parseScene = function(lvl, scene){
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
+        console.log("ACT:", act_scheme);
         if(act_scheme){
             if(act_scheme.hasOwnProperty(scene)){                   // Look for the scene
                 var scene_scheme = act_scheme[scene];               // Grab the scene
-
+                console.log("SCENE", scene_scheme);
                 for(var i in scene_scheme){                         // for each sub array
                     var wave_scheme = scene_scheme[i];
                     var wave = [];                                  // create space for a wave
-                    for(var j in scene_scheme){                     // for each element in the subarray
-                        switch(scene_scheme[j]){                    //  -push the correct ancestor type
+                    for(var j in wave_scheme){                      // for each element in the subarray
+                        switch(wave_scheme[j]){                     //  -push the correct ancestor type
                             case 'a':
                                 wave.push(new IAncestor(j));
                                 break;
@@ -127,9 +130,23 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                     level.push(wave);
                 }
             }
+            console.log("LEVEL:", level);
             return level;
         }
         return null;
+    };
+
+    LevelDefinition.getNextSceneInfo = function(act, scene){
+        var numActs = Object.keys(LevelDefinition.levels).length;
+        var numScenes = Object.keys(LevelDefinition.levels[act]).length;
+        if(scene <= numScenes){
+            console.log("SCENE UP", act, numActs, scene, numScenes);
+            return {act: act, scene: ++scene};
+        }
+        else{
+            console.log("ACTING UP", act, numActs, scene, numScenes);
+            return {act: ++act, scene: 1}; // Super broken - doesn't handle ultimate win conditions. So just don't win.
+        }
     };
 
     LevelDefinition.levels = {

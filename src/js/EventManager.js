@@ -12,6 +12,8 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         this.buttonManager = null;
         this.canvasManager = null;
         this.clickContext = null;
+
+        this.name = Math.random() * 10;
     }
 
     EventManager.prototype.init = function(){
@@ -57,7 +59,6 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
      * @param event - See [GEvent.js]
      */
     EventManager.prototype.handle = function(event){
-        console.log("Event event:",event);
         var self = this;
         switch(event.type){
             case GEvent.TPBAR_LD:
@@ -77,15 +78,19 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         var self = this;
         switch(event.value){
             case GEvent.STAN_BLD:
+                console.log("set context to standardBuilding");
                 self.clickContext = {elementType:"building", class:"standardBuilding", cost:20};
                 break;
             case GEvent.LIBR_BLD:
+                console.log("set context to library");
                 self.clickContext = {elementType:"building", class:"library", cost:30};
                 break;
             case GEvent.STAN_IDX:
+                console.log("set context to standardIndexer");
                 self.clickContext = {elementType:"indexer", class:"standardIndexer", cost:20};
                 break;
             case GEvent.HOBB_IDX:
+                console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"hobbyist", cost:30};
                 break;
         }
@@ -104,7 +109,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
               //replace pagx and pageY with actual click locations later on
                 var distance = Math.sqrt((nodeStructure[i][j].xCoord - clickLocation.X) * (nodeStructure[i][j].xCoord - clickLocation.X)
                 + (nodeStructure[i][j].yCoord - clickLocation.Y) * (nodeStructure[i][j].yCoord - clickLocation.Y));
-                if (distance < 25)
+                if (distance < 50)
                 {
                     if (distance < shortestDistance)
                     {
@@ -144,7 +149,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
 
     EventManager.prototype.getNewIndexer = function()
     {
-        switch (this.clickContext){
+        switch (this.clickContext.class){
             case "standardIndexer":
                 return new standardIndexer();
                 break;
@@ -156,7 +161,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
 
     EventManager.prototype.getNewBuilding = function()
     {
-        switch (this.clickContext){
+        switch (this.clickContext.class){
           case "standardBuilding":
             return new standardBuilding();
             break;
@@ -166,18 +171,24 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         }
     }
 
+
     EventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick)
     {
+        var self = this;
         if (this.clickContext.elementType == "building")
         {
-            var tempBuilding = this.getNewBuilding;
-            tempBuilding.xCoord = nearestNodeToClick.xCoord;
-            tempBuilding.yCoord=  nearestNodeToClick.yCoord;
-            this.controller.activeBuildings.push(tempBuilding);
+              var activeBuildings = self.controller.activeBuildings;
+
+              var tempBuilding = this.getNewBuilding();
+              tempBuilding.xCoord = nearestNodeToClick.xCoord;
+              tempBuilding.yCoord =  nearestNodeToClick.yCoord;
+              self.controller.activeBuildings.push(tempBuilding);
+
+
         }
         else if (this.clickContext.elementType == "indexer")
         {
-            var tempIndexer = this.getNewIndexer;
+            var tempIndexer = this.getNewIndexer();
             tempIndexer.xCoord = nearestNodeToClick.xCoord;
             tempIndexer.yCoord = nearestNodeToClick.yCoord;
             this.controller.activeIndexers.push(tempIndexer);
@@ -188,6 +199,8 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
     }
 
     EventManager.prototype.handleCanvasClick = function(event){
+        //console.log(this.clickContext);
+        console.log(this.name);
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
         var realPointClicked = event.data[0];
@@ -195,7 +208,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         if (!this.recordClicked(realPointClicked))
         {
             var nearestNodeToClick = this.getClosestNode(realPointClicked);
-            if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost < this.controller.resourcePoints)
+            if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost <= this.controller.resourcePoints)
             {
                 this.addIndexerOrBuilding(nearestNodeToClick);
             }

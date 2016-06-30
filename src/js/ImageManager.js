@@ -68,10 +68,8 @@ define(["ImageResource"], function(ImageResource){
      */
     ImageManager.launch = function(){
 
-        console.log("Launching...");
         return new Promise(function(resolve, reject){
             ImageManager.status = "Loading images...";
-            console.log(ImageManager.status);
             ImageManager.total = 19;
             ImageManager.tot_loaded = 0;
             ImageManager.map[ImageManager.TRI_A] = new ImageResource(ImageManager.TRI_A, "src/img/field/TriangleAlpha.png");
@@ -107,7 +105,6 @@ define(["ImageResource"], function(ImageResource){
                     ImageManager.map[property].getImage().then(function (response) {
                         if (++ImageManager.tot_loaded == ImageManager.total) {
                             ImageManager.status = "Loaded.";
-                            console.log(ImageManager.status);
                             resolve(ImageManager);
                         }
                     },

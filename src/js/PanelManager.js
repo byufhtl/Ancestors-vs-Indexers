@@ -70,11 +70,28 @@ define(["jquery","GEvent"],function($,GEvent){
         sidebarContainer.load("src/html/indexers.html", function (response) {
             console.log((response) ? ("Indexers sidebar loaded,") : ("Indexers sidebar did not load."));
             if(response){
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.BLDG_PNL, ["success"]));
+                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.INDX_PNL, ["success"]));
             }
             else{
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.BLDG_PNL, ["failure"]));
+                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.INDX_PNL, ["failure"]));
             }
+        });
+    }
+
+    PanelManager.prototype.loadVictorySideBar = function(){
+        var self = this;
+        var sideBarContainer = $('#sidebar');
+        sidebarContainer.empty();
+        sidebarContainer.load("src/html/victory.html", function(response){
+            console.log((response) ? ("Buildings sidebar loaded with response: " + response) : ("Buildings sidebar loaded with no response."));
+            $('#nextLevelButton').click(function(){
+                console.log("PUSHED NEXT LEVEL BUTTON");
+                controller.initializeGame((controller.currentLevel + 1), {});
+                controller.loop();
+            });
+            $('#mainMenuButton').click(function(){
+                location.reload();
+            });
         });
     }
 

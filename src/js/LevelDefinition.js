@@ -131,19 +131,19 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
 
     LevelDefinition.levels = {
         1: [
-            ['a', 'a', 'n', null, 'a'],
+            ['a', null, null, null, null],
             [null, null, null, 'a', null]
         ],
         2: [
-            ['a', 'a', 'a', 'a', 'a'],
-            ['a', null, null, 'a', 'a'],
-            ['a', 'a', null, null, null]
+            [null, null, 'a', null, null],
+            ['a', null, null, null, 'a'],
+            ['a', 'a', null, 'a', null]
         ],
         3: [
-            ['a', null, 'a', 'a', null],
-            ['a', 'a', 'n', 'a', 'a'],
-            ['a', 'a', 'a', null, 'a'],
-            ['a', 'a', null, 'a', 'n']
+            [null, null, 'a', null, null],
+            [null, null, 'n', null, null],
+            [null, null, 'a', null, 'a'],
+            [null, 'n', 'a', null, null]
         ],
         4: [
             ['a', null, 'a', 'a', null],

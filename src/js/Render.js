@@ -8,6 +8,23 @@ define([],function() {
         this.xOffset = 0;
         this.yOffset = 0;
         this.imageManager = ImageManager;
+
+        //offsets for different images, since they render from the corner of the image. These are based on image size/2
+        this.ancestorXBuffer = -36;
+        this.ancestorYBuffer = -50;
+
+        this.indexerXBuffer = -36;
+        this.indexerYBuffer = -50;
+
+        this.nodeOffset = -25;
+
+        this.projectileXOffset = -33;
+        this.projectileYOffset = -50;
+
+        this.standardBuildingXOffset = -72/2;
+        this.standardBuildingYOffset = -110/2;
+
+        this.recordOffset = -50;
     }
 
     Render.prototype.renderVictory = function()
@@ -46,7 +63,7 @@ define([],function() {
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
             }
-            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.xOffset, activeAncestors[i].yCoord + this.yOffset);
+            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.xOffset + this.ancestorXBuffer, activeAncestors[i].yCoord + this.yOffset + this.ancestorYBuffer);
         }
     };
 
@@ -55,7 +72,7 @@ define([],function() {
         var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GD);
         for (var i = 0; i < activeRecords.length; i++)
         {
-            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.xOffset, activeRecords[i].yCoord + this.yOffset);
+            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.xOffset + this.recordOffset, activeRecords[i].yCoord + this.yOffset + this.recordOffset);
         }
     };
 
@@ -72,7 +89,7 @@ define([],function() {
                 default:
                     indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
             }
-            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.xOffset, activeIndexers[i].yCoord + this.yOffset);
+            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.xOffset + this.indexerXBuffer, activeIndexers[i].yCoord + this.yOffset + this.indexerYBuffer);
         }
     };
 
@@ -87,7 +104,7 @@ define([],function() {
                 default:
                     recordImg = this.imageManager.getImage(this.imageManager.REC_BR);
             }
-            this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.xOffset, activeProjectiles[i].yCoord + this.yOffset, recordImg.width / 3, recordImg.height / 3);
+            this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.xOffset + this.projectileXOffset, activeProjectiles[i].yCoord + this.yOffset + this.projectileYOffset, recordImg.width / 3, recordImg.height / 3);
         }
     };
 
@@ -102,7 +119,8 @@ define([],function() {
                 default:
                     buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
             }
-            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.xOffset, activeBuildings[i].yCoord + this.yOffset);
+            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.xOffset + this.standardBuildingXOffset, activeBuildings[i].yCoord + this.yOffset + this.standardBuildingYOffset);
+            //console.log("drawing building: " + i + " x: " + activeBuildings[i].xCoord + this.xOffset + " y: " + activeBuildings[i].yCoord + this.yOffset);
         }
     };
 
@@ -138,7 +156,7 @@ define([],function() {
                 if (!nodeStructure[i][j].occupied)
                 {
                     //draw node here
-                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].xCoord, nodeStructure[i][j].yCoord);
+                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].xCoord + this.xOffset + this.nodeOffset, nodeStructure[i][j].yCoord + this.xOffset + this.nodeOffset);
                 }
             }
         }

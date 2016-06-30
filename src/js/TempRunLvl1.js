@@ -7,7 +7,6 @@ define(['jquery','GameController','ImageManager'],function($, GameController, Im
         var self = this;
         var menuHolder = $('#menu');
         menuHolder.load("src/html/menu.html", function (response) {
-            console.log("loaded the menu html");
             $('#startGame').click(function () {
                 $('#menu').empty();
                 self.run();
@@ -26,10 +25,8 @@ define(['jquery','GameController','ImageManager'],function($, GameController, Im
             $('#canvas-div').append(canvas);
 
             var myGameController = new GameController(canvas);
-            console.log("Loading game...");
             myGameController.loadResources().then(function (response) {
-                    console.log("Game loaded");
-                    myGameController.initializeGame(1, {});
+                    myGameController.initializeGame(0, {});
                     myGameController.loop();
                 },
                 function (e) {

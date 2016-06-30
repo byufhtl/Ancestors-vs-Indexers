@@ -20,7 +20,6 @@ define(['jquery','GEvent'], function($, GEvent){
      * @param event the event to be handled. See [GEvent.js]
      */
     ButtonManager.prototype.handle = function(event){
-        console.log("Button Event:", event);
         var self = this;
         switch(event.type){
             case GEvent.TPBAR_LD:
@@ -85,14 +84,13 @@ define(['jquery','GEvent'], function($, GEvent){
 
         if(data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
             var button_1 = $('#button-1');
-            var button_2 = $('#button-1');
+            var button_2 = $('#button-2');
             var button_1_image = $('#button-1-img');
             var button_2_image = $('#button-2-img');
 
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
             button_1.click(function () {
-                console.log("changed element type to building");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_BLD, []));
             });
             button_2.click(function () {
@@ -110,7 +108,7 @@ define(['jquery','GEvent'], function($, GEvent){
     /**
      * Loads the handlers for the indexers buttons in the sidebar.
      */
-    ButtonManager.prototype.loadIndexerButtons = function(){
+    ButtonManager.prototype.loadIndexerButtons = function(data){
         var self = this;
         self.killAll(self.sidebarButtons);
 
@@ -123,7 +121,6 @@ define(['jquery','GEvent'], function($, GEvent){
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
             button_1.click(function () {
-                console.log("changed element type to indexer");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_IDX, []));
             });
             button_2.click(function () {

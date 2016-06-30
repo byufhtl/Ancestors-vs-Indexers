@@ -92,7 +92,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                 // Select a random unoccupied node.
                 var randNode;
                 do{
-                    randNode = Math.floor(Math.random() * numNodes);
+                    randNode = Math.floor(Math.random() * (numNodes + 1));
                 }while(occupiedNodes.includes(randNode));
                 occupiedNodes.push(randNode);
                 // Draw up coordinates
@@ -139,6 +139,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     LevelDefinition.getNextSceneInfo = function(act, scene){
         var numActs = Object.keys(LevelDefinition.levels).length;
         var numScenes = Object.keys(LevelDefinition.levels[act]).length;
+        console.log("num Acts: " + numActs);
+        console.log("num Scenes: " + numScenes);
         if(scene <= numScenes){
             console.log("SCENE UP", act, numActs, scene, numScenes);
             return {act: act, scene: ++scene};

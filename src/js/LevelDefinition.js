@@ -141,7 +141,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         var numScenes = Object.keys(LevelDefinition.levels[act]).length;
         console.log("num Acts: " + numActs);
         console.log("num Scenes: " + numScenes);
-        if(scene <= numScenes){
+        if(scene < numScenes){
             console.log("SCENE UP", act, numActs, scene, numScenes);
             return {act: act, scene: ++scene};
         }

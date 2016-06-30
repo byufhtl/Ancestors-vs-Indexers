@@ -11,9 +11,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         this.viewController = ViewController;
         this.buttonManager = null;
         this.canvasManager = null;
-        this.clickContext = null;
-
-        this.name = Math.random() * 10;
+        this.clickContext = null;;
     }
 
     EventManager.prototype.init = function(){
@@ -70,7 +68,8 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
      * The primary handler for events coming from higher upstream.
      * @param event - See [GEvent.js]
      */
-    EventManager.prototype.handle = function(event){
+    EventManager.prototype.handle = function(event)
+    {
         var self = this;
         switch(event.type){
             case GEvent.TPBAR_LD:
@@ -86,7 +85,8 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
      * Changes the context that controls what happens when the user clicks on the main board.
      * @param event - See [GEvent.js]
      */
-    EventManager.prototype.setClickContext = function(event){
+    EventManager.prototype.setClickContext = function(event)
+    {
         var self = this;
         switch(event.value){
             case GEvent.STAN_BLD:
@@ -107,6 +107,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 break;
         }
     };
+
 
     EventManager.prototype.nextLevelButtonClicked = function()
     {
@@ -131,6 +132,12 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
 
         location.reload();
     }
+
+    /**
+     * Determines which node is closest to a given click location
+     * @param clickLocation the world-to-view converted location of a click event.
+     * @returns {*} A node, if one exists within a reasonable range. Otherwise returns false.
+     */
 
     EventManager.prototype.getClosestNode = function(clickLocation)
     {
@@ -164,7 +171,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         {
             return nodeStructure[bestI][bestJ];
         }
-    }
+    };
 
     EventManager.prototype.recordClicked = function(clickLocation)
     {
@@ -181,7 +188,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
             }
         }
         return false;
-    }
+    };
 
     EventManager.prototype.getNewIndexer = function()
     {
@@ -193,7 +200,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 return new Hobbyist();
                 break;
         }
-    }
+    };
 
     EventManager.prototype.getNewBuilding = function()
     {
@@ -205,7 +212,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
             return new Library();
             break;
         }
-    }
+    };
 
 
     EventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick)
@@ -232,11 +239,10 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         nearestNodeToClick.occupied = true;
         this.controller.resourcePoints -= this.clickContext.cost;
         $('#points').text(this.controller.resourcePoints);
-    }
+    };
 
-    EventManager.prototype.handleCanvasClick = function(event){
-        //console.log(this.clickContext);
-        console.log(this.name);
+    EventManager.prototype.handleCanvasClick = function(event)
+    {
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
         var realPointClicked = event.data[0];
@@ -252,4 +258,4 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
     };
 
     return EventManager;
-})
+});

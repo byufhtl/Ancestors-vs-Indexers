@@ -63,39 +63,41 @@ define(['model/IAncestor'],function() {
 
     Update.prototype.moveProjectiles = function (activeProjectiles, timeElapsed, translation) {
         for (var i = 0; i < activeProjectiles.length; i++) {
-            if (activeProjectiles[i].orientation == "upRight")
-            {
-                activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
-                activeProjectiles[i].yCoord += timeElapsed * this.projectileSpeed/2;
+            var rec = activeProjectiles[i];
+            rec.timeRemaining -= timeElapsed;
+            if(rec.timeRemaining > 0) {
+                if (rec.orientation == "upRight") {
+                    rec.xCoord += timeElapsed * this.projectileSpeed;
+                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
+                }
+                else if (rec.orientation == "downRight") {
+                    rec.xCoord += timeElapsed * this.projectileSpeed;
+                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
+                }
+                else if (rec.orientation == "upLeft") {
+                    rec.xCoord -= timeElapsed * this.projectileSpeed;
+                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
+                }
+                else if (rec.orientation == "downLeft") {
+                    rec.xCoord -= timeElapsed * this.projectileSpeed;
+                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
+                }
             }
-            else if (activeProjectiles[i].orientation == "downRight")
-            {
-                activeProjectiles[i].xCoord += timeElapsed * this.projectileSpeed;
-                activeProjectiles[i].yCoord -= timeElapsed * this.projectileSpeed/2;
-            }
-            else if (activeProjectiles[i].orientation == "upLeft")
-            {
-                activeProjectiles[i].xCoord -= timeElapsed * this.projectileSpeed;
-                activeProjectiles[i].yCoord += timeElapsed * this.projectileSpeed/2;
-            }
-            else if (activeProjectiles[i].orientation == "downLeft")
-            {
-                activeProjectiles[i].xCoord -= timeElapsed * this.projectileSpeed;
-                activeProjectiles[i].yCoord -= timeElapsed * this.projectileSpeed/2;
+            else{
+                activeProjectiles.splice(i--,1);
             }
         }
     };
 
     Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed) {
-
         for (var i = 0; i < activeIndexers.length; i++) {
-
-                activeIndexers[i].throwTimer += timeElapsed;
-                if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay) {
-                    activeIndexers[i].throwTimer = 0;
-                    var tempProjectile = activeIndexers[i].getProjectile();
-                    activeProjectiles.push(tempProjectile);
-                }
+            activeIndexers[i].throwTimer += timeElapsed;
+            if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay) {
+                activeIndexers[i].throwTimer = 0;
+                var tempProjectile = activeIndexers[i].getProjectile();
+                tempProjectile.timeRemaining = 10; // 10 second timeout
+                activeProjectiles.push(tempProjectile);
+            }
         }
     };
 

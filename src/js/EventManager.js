@@ -177,7 +177,9 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         var activeRecords = this.controller.activeRecords;
         for (var i = 0; i < activeRecords.length; i++)
         {
-            if (activeRecords[i].includesPoint(clickLocation))
+            var worldPt = this.controller.viewTransform.VtoW(clickLocation);
+            var truePt = new Point(worldPt.X - 200, worldPt.Y -135);
+            if (activeRecords[i].includesPoint(truePt))
             {
                 activeRecords.splice(i,1);
                 this.controller.resourcePoints += 10;

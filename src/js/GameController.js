@@ -29,7 +29,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.gameEnded = false;
           this.victory;
           this.viewTransform = new ViewTransform(0, 0, this.canvas);
-          this.viewTransform.initializeMouseMovement();
           this.viewController = new ViewController(this);
           this.viewController.init();
       }

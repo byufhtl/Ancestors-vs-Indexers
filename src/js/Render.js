@@ -25,6 +25,7 @@ define([],function() {
         this.standardBuildingYOffset = -110/2;
 
         this.recordOffset = -50;
+        this.resizeOnce = true;
     }
 
     Render.prototype.renderVictory = function()
@@ -166,8 +167,16 @@ define([],function() {
     Render.prototype.renderTree = function(levelStructure)
     {
         var tree = this.imageManager.getImage(this.imageManager.UND_TREE);
-        var numGenerations = levelStructure.length;
-        this.ctx.drawImage(tree, -this.xOffset, -this.yOffset, tree.width, tree.height, 0, 0, this.canvas.width, this.canvas.height);
+
+        if (this.resizeOnce)
+        {
+          var numGenerations = levelStructure.length;
+          tree.width = Math.floor(tree.width/8) * numGenerations;
+          this.resizeOnce = false;
+          console.log(tree.width);
+        }
+
+        this.ctx.drawImage(tree, 0, 0, tree.width, tree.height, 0, -900, tree.width, tree.height);
     }
 
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {

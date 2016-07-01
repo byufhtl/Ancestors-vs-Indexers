@@ -144,7 +144,8 @@ define(['model/IAncestor'],function() {
         }
         if (!this.doneSpawning) {
 
-            if (this.wave > level.length) {
+            if (this.wave >= level.length - 1) {
+                console.log("DONE SPAWNING");
                 this.doneSpawning = true;
             }
         }

@@ -96,11 +96,11 @@ define(['jquery','GEvent'], function($, GEvent){
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
             button_1.click(function () {
-                console.log("Button 1 Clicked!");
+                //console.log("Button 1 Clicked!");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_BLD, []));
             });
             button_2.click(function () {
-                console.log("Button 2 Clicked!");
+                //console.log("Button 2 Clicked!");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.LIBR_BLD, []));
             });
             button_1_image.click(function () {
@@ -128,11 +128,11 @@ define(['jquery','GEvent'], function($, GEvent){
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
             button_1.click(function () {
-                console.log("Button 1i Clicked!");
+                //console.log("Button 1i Clicked!");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_IDX, []));
             });
             button_2.click(function () {
-                console.log("Button 2i Clicked!");
+                //console.log("Button 2i Clicked!");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.HOBB_IDX, []));
             });
             button_1_image.click(function () {
@@ -145,16 +145,12 @@ define(['jquery','GEvent'], function($, GEvent){
     };
 
     ButtonManager.prototype.loadVictoryButtons = function(data){
-        console.log("loading victory buttons");
         var self = this;
         self.killAll(self.sidebarButtons);
         if (data && data.length && data[0] == "success") {
             var nextLevelButton = $('#nextLevelButton');
             var mainMenuButton = $('#mainMenuButton');
-            console.log("nextLevelButton");
-            console.log(nextLevelButton);
             nextLevelButton.click(function() {
-                console.log("clicked next level desu");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.NEXT_BTN));
             });
 
@@ -163,22 +159,17 @@ define(['jquery','GEvent'], function($, GEvent){
             })
         }
         else {
-          console.log("MEEEEEEEEMR");
           console.log(data);
         }
     };
 
     ButtonManager.prototype.loadDefeatButtons = function(data){
-        console.log("loading defeat buttons");
         var self = this;
         self.killAll(self.sidebarButtons);
         if (data && data.length && data[0] == "success") {
             var nextLevelButton = $('#playAgainButton');
             var mainMenuButton = $('#mainMenuButton');
-            console.log("nextLevelButton");
-            console.log(nextLevelButton);
             nextLevelButton.click(function() {
-                console.log("clicked next level desu");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.AGAN_BTN));
             });
 
@@ -187,7 +178,6 @@ define(['jquery','GEvent'], function($, GEvent){
             })
         }
         else {
-          console.log("MEEEEEEEEMR");
           console.log(data);
         }
     }

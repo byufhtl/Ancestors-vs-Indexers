@@ -112,7 +112,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         if(act_scheme){
             if(act_scheme.hasOwnProperty(scene)){                   // Look for the scene
                 var scene_scheme = act_scheme[scene];               // Grab the scene
-                console.log("SCENE", scene_scheme);
+                console.log("SCENE:", scene, scene_scheme);
                 for(var i in scene_scheme){                         // for each sub array
                     var wave_scheme = scene_scheme[i];
                     var wave = [];                                  // create space for a wave
@@ -144,12 +144,12 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
 
         if(scene < numScenes){
 
-            console.log("SCENE UP", act, numActs, scene, numScenes);
-            return {act: act, scene: ++scene};
+            console.log("SCENE UP", act, "-", ++scene);
+            return {act: act, scene: scene};
         }
         else{
-            console.log("ACTING UP", act, numActs, scene, numScenes);
-            return {act: ++act, scene: 1}; // Super broken - doesn't handle ultimate win conditions. So just don't win.
+            console.log("ACTING UP", ++act, "-1");
+            return {act: act, scene: 1}; // Super broken - doesn't handle ultimate win conditions. So just don't win.
         }
     };
 

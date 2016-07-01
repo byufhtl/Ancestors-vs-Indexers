@@ -2,8 +2,8 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
-function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, standardBuilding, Library, LevelDefinition){
+define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
+function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, standardBuilding, Library, LevelDefinition){
 
 
     function EventManager(ViewController, controller){
@@ -105,6 +105,10 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"hobbyist", cost:30};
                 break;
+            case GEvent.UBER_IDX:
+                //console.log("set context to hobbyist");
+                self.clickContext = {elementType:"indexer", class:"uber", cost:0};
+                break;
         }
     };
 
@@ -199,6 +203,9 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
                 break;
             case "hobbyist":
                 return new Hobbyist();
+                break;
+            case "uber":
+                return new Uber();
                 break;
         }
     };

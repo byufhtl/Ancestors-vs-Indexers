@@ -122,8 +122,10 @@ define(['jquery','GEvent'], function($, GEvent){
         if(data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
             var button_1 = $('#button-1-i');
             var button_2 = $('#button-2-i');
+            var button_3 = $('#button-3-i');
             var button_1_image = $('#button-1-img-i');
             var button_2_image = $('#button-2-img-i');
+            var button_3_image = $('#button-3-img-i');
 
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
@@ -135,10 +137,17 @@ define(['jquery','GEvent'], function($, GEvent){
                 //console.log("Button 2i Clicked!");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.HOBB_IDX, []));
             });
+            button_3.click(function () {
+                //console.log("Button 2i Clicked!");
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.UBER_IDX, []));
+            });
             button_1_image.click(function () {
                 button_1.click()
             });
             button_2_image.click(function () {
+                button_2.click()
+            });
+            button_3_image.click(function () {
                 button_2.click()
             });
         }

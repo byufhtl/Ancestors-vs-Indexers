@@ -86,8 +86,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum) {
         var numNodes = levelNum;
         var firstNodeYCoord = -numNodes * 150 + 300;
+        console.log("B:",levelNum);
         for (var i = 0; i < levelData.length; i++) {
             var occupiedNodes = [];
+            console.log("C:",i,levelNum);
             for (var j = 0; j < levelData[i].length; j++) {
                 // Select a random unoccupied node.
                 var randNode;
@@ -103,16 +105,18 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                 levelData[i][j].currentGeneration = levelNum;
             }
         }
+        console.log("Z:",levelNum);
     };
 
     LevelDefinition.parseScene = function(lvl, scene){
+        console.log("lvl A", lvl);
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
-        console.log("ACT:", act_scheme);
+        //console.log("ACT:", act_scheme);
         if(act_scheme){
             if(act_scheme.hasOwnProperty(scene)){                   // Look for the scene
                 var scene_scheme = act_scheme[scene];               // Grab the scene
-                console.log("SCENE:", scene, scene_scheme);
+                //console.log("SCENE:", scene, scene_scheme);
                 for(var i in scene_scheme){                         // for each sub array
                     var wave_scheme = scene_scheme[i];
                     var wave = [];                                  // create space for a wave
@@ -130,7 +134,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                     level.push(wave);
                 }
             }
-            console.log("LEVEL:", level);
+            //console.log("LEVEL:", level);
+            console.log("lvl Z", lvl);
             return level;
         }
         return null;

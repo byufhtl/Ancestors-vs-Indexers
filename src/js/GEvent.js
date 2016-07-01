@@ -36,6 +36,7 @@ define([],function(){
 
     GEvent.STAN_IDX = "standard_indexer";   // The standard type of indexer
     GEvent.HOBB_IDX = "hobbyist_indexer";   // The hobbyist type of indexer
+    GEvent.UBER_IDX = "uber_indexer";       // The hobbyist type of indexer
 
     GEvent.CNVS_CLK = "canvas_click";       // The canvas click event type
     GEvent.CNVS_DRG = "canvas_drag";        // The canvas drag event type

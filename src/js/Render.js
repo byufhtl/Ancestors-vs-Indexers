@@ -89,6 +89,9 @@ define([],function() {
                 case "hobbyist":
                     indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
                     break;
+                case "uber":
+                    indexerImg = this.imageManager.getImage(this.imageManager.UBER_IDX);
+                    break;
                 // More cases to be installed as we get more coded up.
                 default:
                     indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
@@ -104,6 +107,9 @@ define([],function() {
             switch (activeProjectiles[i].type) {
                 case "strong":
                     recordImg = this.imageManager.getImage(this.imageManager.REC_GD);
+                    break;
+                case "uber":
+                    recordImg = this.imageManager.getImage(this.imageManager.REC_GR);
                     break;
                 default:
                     recordImg = this.imageManager.getImage(this.imageManager.REC_BR);

@@ -87,8 +87,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum) {
         var numNodes = levelNum;
         var firstNodeYCoord = -numNodes * 150 + 300;
+        console.log("B:",levelNum);
         for (var i = 0; i < levelData.length; i++) {
             var occupiedNodes = [];
+            console.log("C:",i,levelNum);
             for (var j = 0; j < levelData[i].length; j++) {
                 // Select a random unoccupied node.
                 var randNode;
@@ -104,9 +106,11 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                 levelData[i][j].currentGeneration = levelNum;
             }
         }
+        console.log("Z:",levelNum);
     };
 
     LevelDefinition.parseScene = function(lvl, scene){
+        console.log("lvl A", lvl);
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
         if(act_scheme){

@@ -55,32 +55,32 @@ define(['model/IAncestor'],function() {
         }
     };
 
-    Update.prototype.moveRecords = function (activeRecords, timeElapsed, translation) {
+    Update.prototype.moveRecords = function (activeRecords, timeElapsed) {
         for (var i = 0; i < activeRecords.length; i++) {
             activeRecords[i].yCoord += timeElapsed * activeRecords[i].speed;
         }
     };
 
-    Update.prototype.moveProjectiles = function (activeProjectiles, timeElapsed, translation) {
+    Update.prototype.moveProjectiles = function (activeProjectiles, timeElapsed) {
         for (var i = 0; i < activeProjectiles.length; i++) {
             var rec = activeProjectiles[i];
             rec.timeRemaining -= timeElapsed;
             if(rec.timeRemaining > 0) {
                 if (rec.orientation == "upRight") {
                     rec.xCoord += timeElapsed * this.projectileSpeed;
-                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
+                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
                 }
                 else if (rec.orientation == "downRight") {
                     rec.xCoord += timeElapsed * this.projectileSpeed;
-                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
+                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
                 }
                 else if (rec.orientation == "upLeft") {
                     rec.xCoord -= timeElapsed * this.projectileSpeed;
-                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
+                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
                 }
                 else if (rec.orientation == "downLeft") {
                     rec.xCoord -= timeElapsed * this.projectileSpeed;
-                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
+                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
                 }
             }
             else{
@@ -89,12 +89,12 @@ define(['model/IAncestor'],function() {
         }
     };
 
-    Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed) {
+    Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed, levelStructure) {
         for (var i = 0; i < activeIndexers.length; i++) {
             activeIndexers[i].throwTimer += timeElapsed;
             if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay) {
                 activeIndexers[i].throwTimer = 0;
-                var tempProjectile = activeIndexers[i].getProjectile();
+                var tempProjectile = activeIndexers[i].getProjectile(levelStructure.length);
                 tempProjectile.timeRemaining = 10; // 10 second timeout
                 activeProjectiles.push(tempProjectile);
             }
@@ -150,7 +150,7 @@ define(['model/IAncestor'],function() {
         }
     };
 
-    Update.prototype.updateAncestorsPosition = function (activeAncestors, modifier, translation) {
+    Update.prototype.updateAncestorsPosition = function (activeAncestors, modifier) {
         for (var i = 0; i < activeAncestors.length; i++) {
             //check whether to move up or down
             if (activeAncestors[i].distanceMovedX >= 300)
@@ -226,20 +226,20 @@ define(['model/IAncestor'],function() {
     };
 
 
-    Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, translation) {
+    Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure) {
         //spawn records and move them
         this.spawnRecord(activeRecords, timeElapsed);
-        this.moveRecords(activeRecords, timeElapsed, translation);
+        this.moveRecords(activeRecords, timeElapsed);
         this.spawnRecordsFromBuildings(activeBuildings, activeRecords, timeElapsed);
 
         if (this.buffer(timeElapsed)) {
             //update ancestors
-            this.updateAncestorsPosition(activeAncestors, timeElapsed, translation);
+            this.updateAncestorsPosition(activeAncestors, timeElapsed);
             this.checkDeadAncestors(activeAncestors);
             this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
             //update projectiles
-            this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed);
-            this.moveProjectiles(activeProjectiles, timeElapsed, translation);
+            this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed, levelStructure);
+            this.moveProjectiles(activeProjectiles, timeElapsed);
             this.checkProjectileCollision(activeProjectiles, activeAncestors);
             //check victory conditions
             this.checkVictory(controller, activeAncestors);

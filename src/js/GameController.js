@@ -97,7 +97,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.lastTime = now;
           this.timeElapsed += delta_s;
 
-          this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this);
+          this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this, this.levelStructure);
           this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
           this.updateCoordinates(0, 0);
           if (!this.gameEnded) // game end condition.

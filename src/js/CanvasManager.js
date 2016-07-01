@@ -79,9 +79,15 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
         var keys = [];
 
         function moveIt(now){
-
-            var move = 10 * (lastPress ? (now - lastPress)/100 : .01);
-            //console.log("LastPress:", lastPress, "Move:", move, "keys:", keys);
+            var move = 10;
+            if(lastPress){
+                move *= (now - lastPress)/100;
+                move = (move > 10) ? 10 : move;
+            }
+            else{
+                move *= 1;
+            }
+            console.log("Move:", move);
             lastPress = now;
             var moveBy = new Point(0,0);
             for(var index in keys){

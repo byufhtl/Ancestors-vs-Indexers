@@ -69,7 +69,6 @@ define(["jquery","GEvent"],function($,GEvent){
         var sidebarContainer = $('#sidebar');
         sidebarContainer.empty();
         sidebarContainer.load("src/html/buildings.html", function (response) {
-            console.log((response) ? ("Buildings sidebar loaded,") : ("Buildings sidebar did not load."));
             if(response){
                 self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.BLDG_PNL, ["success"]));
             }
@@ -84,7 +83,6 @@ define(["jquery","GEvent"],function($,GEvent){
         var sidebarContainer = $('#sidebar');
         sidebarContainer.empty();
         sidebarContainer.load("src/html/indexers.html", function (response) {
-            console.log((response) ? ("Indexers sidebar loaded,") : ("Indexers sidebar did not load."));
             if(response){
                 self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.INDX_PNL, ["success"]));
             }

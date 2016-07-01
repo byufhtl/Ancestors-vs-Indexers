@@ -90,19 +90,19 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         var self = this;
         switch(event.value){
             case GEvent.STAN_BLD:
-                console.log("set context to standardBuilding");
+                //console.log("set context to standardBuilding");
                 self.clickContext = {elementType:"building", class:"standardBuilding", cost:20};
                 break;
             case GEvent.LIBR_BLD:
-                console.log("set context to library");
+                //console.log("set context to library");
                 self.clickContext = {elementType:"building", class:"library", cost:30};
                 break;
             case GEvent.STAN_IDX:
-                console.log("set context to standardIndexer");
+                //console.log("set context to standardIndexer");
                 self.clickContext = {elementType:"indexer", class:"standardIndexer", cost:20};
                 break;
             case GEvent.HOBB_IDX:
-                console.log("set context to hobbyist");
+                //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"hobbyist", cost:30};
                 break;
         }
@@ -121,8 +121,7 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
     {
         this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
         this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
-        var levelToLoad = this.controller.currentLevel;
-        this.controller.initializeGame(levelToLoad, {});
+        this.controller.initializeGame(this.controller.currentLevel, this.controller.currentScene, {}); // replay level.
         this.controller.loop();
     };
 

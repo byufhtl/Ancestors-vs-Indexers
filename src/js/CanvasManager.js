@@ -37,7 +37,9 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
         // Allows for dragging - TODO DRAGS EVEN IF CURSOR LEAVES THE CANVAS
         canvas.mousemove(function(event){
             var wToVPt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
-            if(draggable && (wToVPt.X >= 0 && wToVPt.X <= 1000 && wToVPt.Y >= 0 && wToVPt.Y <= 600)){
+            var onCanvas = (wToVPt.X >= 0 && wToVPt.X <= 1000 && wToVPt.Y >= 0 && wToVPt.Y <= 600);
+            var inCanvas = true;
+            if(draggable && onCanvas){
                 var diff = new Point(event.pageX - start.X, event.pageY - start.Y);
                 start = new Point(event.pageX, event.pageY);
 

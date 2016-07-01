@@ -148,7 +148,7 @@ define(['jquery','GEvent'], function($, GEvent){
                 button_2.click()
             });
             button_3_image.click(function () {
-                button_2.click()
+                button_3.click()
             });
         }
     };

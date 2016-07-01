@@ -105,3 +105,15 @@ body{
 .center{
   margin: auto;
 }
+
+.startGame{
+  width: 250px;
+  height: 100px;
+  background-color: rgba(100, 100, 100, 0.7);
+  border: none;
+  font-size: 50px;
+  color: rgb(100, 255, 0);;
+  box-shadow:
+  text-shadow: 6px 6px 6px rgba(255, 255, 255, 0.5);;
+  box-shadow: 10px 10px 5px grey;
+}

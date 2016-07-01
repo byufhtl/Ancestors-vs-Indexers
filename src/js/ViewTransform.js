@@ -8,10 +8,45 @@ define(['Point'],function(Point){
      * The Transform and Manager for clicks on the canvas field.
      * @constructor
      */
-    function ViewTransform(s_x, s_y){
-        this.t_offset_X = s_x | 0; // Init to 0 if param not passed in.
+    function ViewTransform(s_x, s_y, canvas){
+        this.t_offset_X = s_x |0; // Init to 0 if param not passed in.
         this.t_offset_Y = s_y | 0;
+
+        this.dragging = false;
+
+        this.initialX = 0;
+        this.initialY = 0;
+
+        this.initialOffsetX = 0;
+        this.initialOffsetY = 0;
     }
+
+    ViewTransform.prototype.initializeMouseMovement = function()
+    {
+      var self = this;
+        $('#canvas').mousemove(function( event ) {
+            if (self.dragging)
+            {
+                self.t_offset_X = event.pageX - self.initialX + self.initialOffsetX;
+                self.t_offset_Y = event.pageY - self.initialY + self.initialOffsetY;
+            }
+        });
+
+        $('canvas').mousedown(function ( event ) {
+            self.initialX = event.pageX;
+            self.initialY = event.pageY;
+
+            self.initialOffsetX = self.t_offset_X;
+            self.initialOffsetY = self.t_offset_Y;
+            self.dragging = true;
+        });
+
+        $('canvas').mouseup(function ( event) {
+            self.dragging = false;
+            console.log("totalx: " + self.t_offset_X);
+            console.log("totaly:" + self.t_offset_Y);
+        });
+    };
 
     ViewTransform.prototype.getX = function(){
         return this.t_offset_X;
@@ -36,6 +71,8 @@ define(['Point'],function(Point){
     ViewTransform.prototype.addY = function(y){
         this.t_offset_Y += y;
     };
+
+
 
     /**
      * Converts from browser-page-based coordinates into game coordinates on the canvas.

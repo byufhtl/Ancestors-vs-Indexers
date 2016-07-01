@@ -1,14 +1,15 @@
 define([],function() {
 
 
-    function Render(canvas, ImageManager)
+    function Render(canvas, ImageManager, ViewTransform)
     {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-        this.xOffset = 0;
-        this.yOffset = 0;
+
         this.imageManager = ImageManager;
 
+        this.viewTransform = ViewTransform;
+        console.log("Renderer. Got view transform", this.viewTransform);
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
         this.ancestorYBuffer = -50;
@@ -25,6 +26,9 @@ define([],function() {
         this.standardBuildingYOffset = -110/2;
 
         this.recordOffset = -50;
+        this.resizeOnce = true;
+
+        this.treeWidth = 2400;
     }
 
     Render.prototype.renderVictory = function()
@@ -42,7 +46,7 @@ define([],function() {
     Render.prototype.renderBackground = function()
     {
         var bgImg = this.imageManager.getImage(this.imageManager.BKGD);
-        this.ctx.drawImage(bgImg, -this.xOffset, -this.yOffset, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(bgImg, -this.viewTransform.t_offset_X, -this.viewTransform.t_offset_Y, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderLightBeam = function()
@@ -63,7 +67,7 @@ define([],function() {
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
             }
-            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.xOffset + this.ancestorXBuffer, activeAncestors[i].yCoord + this.yOffset + this.ancestorYBuffer);
+            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
         }
     };
 
@@ -72,7 +76,7 @@ define([],function() {
         var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GD);
         for (var i = 0; i < activeRecords.length; i++)
         {
-            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.xOffset + this.recordOffset, activeRecords[i].yCoord + this.yOffset + this.recordOffset);
+            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.viewTransform.t_offset_X + this.recordOffset, activeRecords[i].yCoord + this.viewTransform.t_offset_Y + this.recordOffset);
         }
     };
 
@@ -89,7 +93,7 @@ define([],function() {
                 default:
                     indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
             }
-            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.xOffset + this.indexerXBuffer, activeIndexers[i].yCoord + this.yOffset + this.indexerYBuffer);
+            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
         }
     };
 
@@ -104,7 +108,7 @@ define([],function() {
                 default:
                     recordImg = this.imageManager.getImage(this.imageManager.REC_BR);
             }
-            this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.xOffset + this.projectileXOffset, activeProjectiles[i].yCoord + this.yOffset + this.projectileYOffset, recordImg.width / 3, recordImg.height / 3);
+            this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.viewTransform.t_offset_X + this.projectileXOffset, activeProjectiles[i].yCoord + this.viewTransform.t_offset_Y + this.projectileYOffset, recordImg.width / 3, recordImg.height / 3);
         }
     };
 
@@ -119,8 +123,8 @@ define([],function() {
                 default:
                     buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
             }
-            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.xOffset + this.standardBuildingXOffset, activeBuildings[i].yCoord + this.yOffset + this.standardBuildingYOffset);
-            //console.log("drawing building: " + i + " x: " + activeBuildings[i].xCoord + this.xOffset + " y: " + activeBuildings[i].yCoord + this.yOffset);
+            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.viewTransform.t_offset_X + this.standardBuildingXOffset, activeBuildings[i].yCoord + this.viewTransform.t_offset_Y + this.standardBuildingYOffset);
+            //console.log("drawing building: " + i + " x: " + activeBuildings[i].xCoord + this.viewTransform.t_offset_X + " y: " + activeBuildings[i].yCoord + this.viewTransform.t_offset_Y);
         }
     };
 
@@ -136,11 +140,11 @@ define([],function() {
               {
                   if (levelStructure[i][j].type == "alpha")
                   {
-                      this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                      this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord + this.viewTransform.t_offset_X, levelStructure[i][j].yCoord + this.viewTransform.t_offset_Y);
                   }
                   else
                   {
-                      this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord, levelStructure[i][j].yCoord);
+                      this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord + this.viewTransform.t_offset_X, levelStructure[i][j].yCoord + this.viewTransform.t_offset_Y);
                   }
               }
           }
@@ -157,7 +161,7 @@ define([],function() {
                 if (!nodeStructure[i][j].occupied)
                 {
                     //draw node here
-                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].xCoord + this.xOffset + this.nodeOffset, nodeStructure[i][j].yCoord + this.xOffset + this.nodeOffset);
+                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].xCoord + this.viewTransform.t_offset_X + this.nodeOffset, nodeStructure[i][j].yCoord + this.viewTransform.t_offset_Y + this.nodeOffset);
                 }
             }
         }
@@ -166,14 +170,26 @@ define([],function() {
     Render.prototype.renderTree = function(levelStructure)
     {
         var tree = this.imageManager.getImage(this.imageManager.UND_TREE);
-        var numGenerations = levelStructure.length;
-        this.ctx.drawImage(tree, -this.xOffset, -this.yOffset, tree.width, tree.height, 0, 0, this.canvas.width, this.canvas.height);
+        /*
+        if (this.resizeOnce)
+        {
+          var numGenerations = levelStructure.length;
+          console.log("numGenerations: " + numGenerations);
+          tree.width = Math.floor(this.treeWidth/8) * numGenerations;
+          this.resizeOnce = false;
+          console.log(tree.width);
+        }
+        */
+        this.ctx.drawImage(tree, 0, 0, tree.width/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, tree.width/8 * levelStructure.length, tree.height);
+    }
+
+    Render.prototype.reset = function()
+    {
+      this.resizeOnce = true;
     }
 
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
-        //console.log("Render Offsets:", this.xOffset, this.yOffset, translation, translation.dx, translation.dy);
-        this.xOffset += parseInt(translation.dx, 10);
-        this.yOffset += parseInt(translation.dy, 10);
+        //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
         this.renderTree(levelStructure);

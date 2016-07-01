@@ -28,7 +28,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
           this.gameEnded = false;
           this.victory;
-          this.viewTransform = new ViewTransform(0, 0);
+          this.viewTransform = new ViewTransform(0, 0, this.canvas);
+          this.viewTransform.initializeMouseMovement();
           this.viewController = new ViewController(this);
           this.viewController.init();
       }
@@ -37,11 +38,11 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           var self = this;
           return new Promise(function (resolve, reject) {
               ImageManager.launch().then(function (response) {
-                      self.myRender = new Render(canvas, ImageManager);
+                      self.myRender = new Render(canvas, ImageManager, self.viewTransform);
                       resolve(response);
                   },
                   function (e) {
-                      self.myRender = new Render(canvas, ImageManager);
+                      self.myRender = new Render(canvas, ImageManager, self.viewTransform);
                       reject(e);
                   });
           });
@@ -112,6 +113,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   var emptyTopBarEvent = new GEvent(GEvent.LD_TPBAR, GEvent.BLNK_PNL);
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderVictory();
+                  this.myRender.reset();
               }
               else {
                   var defeatEvent = new GEvent(GEvent.LD_SDBAR, GEvent.DEFT_PNL);
@@ -119,6 +121,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   var emptyTopBarEvent = new GEvent(GEvent.LD_TPBAR, GEvent.BLNK_PNL);
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderDefeat();
+                  this.myRender.reset();
               }
           }
       };

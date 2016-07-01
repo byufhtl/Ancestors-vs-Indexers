@@ -108,7 +108,6 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         }
     };
 
-
     EventManager.prototype.nextLevelButtonClicked = function()
     {
         this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
@@ -168,7 +167,8 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
         if (shortestDistance == 100000) return null;
         else
         {
-            return nodeStructure[bestI][bestJ];
+            var nodeCoords = {'X':bestI, 'Y':bestJ};
+            return nodeCoords;
         }
     };
 
@@ -217,25 +217,26 @@ function(GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist,
     EventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick)
     {
         var self = this;
+        var nodeStructure = this.controller.nodeStructure;
         if (this.clickContext.elementType == "building")
         {
               var activeBuildings = self.controller.activeBuildings;
 
               var tempBuilding = this.getNewBuilding();
-              tempBuilding.xCoord = nearestNodeToClick.xCoord;
-              tempBuilding.yCoord =  nearestNodeToClick.yCoord;
+              tempBuilding.xCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].xCoord;
+              tempBuilding.yCoord =  nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].yCoord;
               self.controller.activeBuildings.push(tempBuilding);
-
-
         }
         else if (this.clickContext.elementType == "indexer")
         {
             var tempIndexer = this.getNewIndexer();
-            tempIndexer.xCoord = nearestNodeToClick.xCoord;
-            tempIndexer.yCoord = nearestNodeToClick.yCoord;
+            tempIndexer.xCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].xCoord;
+            tempIndexer.yCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].yCoord;
+            tempIndexer.xNode = nearestNodeToClick.X;
+            tempIndexer.yNode = nearestNodeToClick.Y;
             this.controller.activeIndexers.push(tempIndexer);
         }
-        nearestNodeToClick.occupied = true;
+        nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].occupied = true;
         this.controller.resourcePoints -= this.clickContext.cost;
         $('#points').text(this.controller.resourcePoints);
     };

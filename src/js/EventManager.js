@@ -114,10 +114,15 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
 
     EventManager.prototype.nextLevelButtonClicked = function()
     {
+        console.log("next level button clicked");
         this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
         this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
-        var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentLevel, this.controller.currentScene);
+        console.log("before levelToLoad: " + this.controller.currentAct);
+        var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
+        console.log('after levelToLoad: ' + this.controller.currentAct);
+        console.log('levelToLoad act: ' + levelToLoad.act);
         this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
+        console.log('after initializeGame: ' + this.controller.currentAct);
         this.controller.loop();
     };
 
@@ -125,7 +130,7 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
     {
         this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
         this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
-        this.controller.initializeGame(this.controller.currentLevel, this.controller.currentScene, {}); // replay level.
+        this.controller.initializeGame(this.controller.currentAct, this.controller.currentScene, {}); // replay level.
         this.controller.loop();
     };
 

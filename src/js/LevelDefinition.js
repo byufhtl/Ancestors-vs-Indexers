@@ -9,6 +9,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     LevelDefinition.prototype.getScene = function(levelNum, sceneNum)
     {
         var levelData = LevelDefinition.parseScene(levelNum, sceneNum);
+
         this.setXYCoordinates(levelData, levelNum);
         return levelData;
     };
@@ -112,11 +113,9 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         console.log("lvl A", lvl);
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
-        //console.log("ACT:", act_scheme);
         if(act_scheme){
             if(act_scheme.hasOwnProperty(scene)){                   // Look for the scene
                 var scene_scheme = act_scheme[scene];               // Grab the scene
-                //console.log("SCENE:", scene, scene_scheme);
                 for(var i in scene_scheme){                         // for each sub array
                     var wave_scheme = scene_scheme[i];
                     var wave = [];                                  // create space for a wave
@@ -134,8 +133,6 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                     level.push(wave);
                 }
             }
-            //console.log("LEVEL:", level);
-            console.log("lvl Z", lvl);
             return level;
         }
         return null;
@@ -144,17 +141,16 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
     LevelDefinition.getNextSceneInfo = function(act, scene){
         var numActs = Object.keys(LevelDefinition.levels).length;
         var numScenes = Object.keys(LevelDefinition.levels[act]).length;
-        console.log("num Acts: " + numActs);
-        console.log("num Scenes: " + numScenes);
 
         if(scene < numScenes){
-
-            console.log("SCENE UP", act, "-", ++scene);
-            return {act: act, scene: scene};
+            scene++;
+            console.log("incrementing scene");
+            return {'act': act, 'scene': scene};
         }
         else{
-            console.log("ACTING UP", ++act, "-1");
-            return {act: act, scene: 1}; // Super broken - doesn't handle ultimate win conditions. So just don't win.
+            act++;
+            console.log("incrementing act from" + (act-1) + " to " + act);
+            return {'act': act, 'scene': 1}; // Super broken - doesn't handle ultimate win conditions. So just don't win.
         }
     };
 

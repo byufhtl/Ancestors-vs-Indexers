@@ -9,7 +9,12 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
         this.viewTransform = viewTransform;
     }
 
-    CanvasManager.prototype.init = function(){
+    CanvasManager.prototype.init = function() {
+        this.initClicking();
+        this.initKeys();
+    };
+
+    CanvasManager.prototype.initClicking = function(){
         var self = this;
         var canvas = $('#canvas');
 
@@ -29,8 +34,10 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
             buffer = new Point(0, 0);
         });
 
+        // Allows for dragging - TODO DRAGS EVEN IF CURSOR LEAVES THE CANVAS
         canvas.mousemove(function(event){
-            if(draggable){
+            var wToVPt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
+            if(draggable && (wToVPt.X >= 0 && wToVPt.X <= 1000 && wToVPt.Y >= 0 && wToVPt.Y <= 600)){
                 var diff = new Point(event.pageX - start.X, event.pageY - start.Y);
                 start = new Point(event.pageX, event.pageY);
 
@@ -65,7 +72,89 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
 
     };
 
+    CanvasManager.prototype.initKeys = function(){
+        var lastPress = null;
+        var self = this;
+        var keys = [];
 
+        function moveIt(now){
+            var move = 10;
+            if(lastPress){
+                move *= (now - lastPress)/100;
+                move = (move > 10) ? 10 : move;
+            }
+            else{
+                move *= 1;
+            }
+            console.log("Move:", move);
+            lastPress = now;
+            var moveBy = new Point(0,0);
+            for(var index in keys){
+                switch(keys[index]){
+                    case "up":
+                        moveBy.Y -= move;
+                        break;
+                    case "down":
+                        moveBy.Y += move;
+                        break;
+                    case "left":
+                        moveBy.X -= move;
+                        break;
+                    case "right":
+                        moveBy.X += move;
+                        break;
+                }
+            }
+            self.viewTransform.addX(moveBy.X);
+            self.viewTransform.addY(moveBy.Y);
+        }
+
+        $(document).keydown(function(e){
+            var thisPress = Date.now();
+            if(e.which == 119 || e.which == 38){ // w or (^) key - up
+                if(keys.indexOf('up') == -1) {
+                    keys.push('up');
+                }
+            }
+            if(e.keyCode == 115 || e.keyCode == 40){ // s or (v) key - down
+                if(keys.indexOf('down') == -1) {
+                    keys.push('down');
+                }
+            }
+            if(e.keyCode == 197 || e.keyCode == 37){ // a or (<) key - left
+                if(keys.indexOf('left') == -1) {
+                    keys.push('left');
+                }
+            }
+            if(e.keyCode == 100 || e.keyCode == 39){ // d or (>) key - right
+                if(keys.indexOf('right') == -1) {
+                    keys.push('right');
+                }
+            }
+            moveIt(thisPress);
+        });
+
+        $(document).keyup(function(e){
+            if(e.which == 119 || e.which == 38){ // w or (^) key - up
+                keys.splice(keys.indexOf('up'),1);
+            }
+            else if(e.keyCode == 115 || e.keyCode == 40){ // s or (v) key - down
+                keys.splice(keys.indexOf('down'),1);
+            }
+            else if(e.keyCode == 197 || e.keyCode == 37){ // a or (<) key - left
+                keys.splice(keys.indexOf('left'),1);
+            }
+            else if(e.keyCode == 100 || e.keyCode == 39){ // d or (>) key - right
+                keys.splice(keys.indexOf('right'),1);
+            }
+            if(keys.length == 0){lastPress = null;}
+        });
+    };
+
+    CanvasManager.prototype.release = function(){
+        $(document).off('keydown keyup');
+        $('#canvas').off('mousedown mousemove mouseup');
+    };
 
     return CanvasManager;
 });

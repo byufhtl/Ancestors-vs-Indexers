@@ -76,7 +76,7 @@ define([],function() {
         var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GD);
         for (var i = 0; i < activeRecords.length; i++)
         {
-            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.viewTransform.t_offset_X + this.recordOffset, activeRecords[i].yCoord + this.viewTransform.t_offset_Y + this.recordOffset);
+            this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.recordOffset, activeRecords[i].yCoord + this.recordOffset);
         }
     };
 

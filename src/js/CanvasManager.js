@@ -36,7 +36,6 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
 
                 if(buffer) { // If we still have a buffer, keep going
                     buffer = new Point(buffer.X + diff.X, buffer.Y + diff.Y);
-                    console.log(buffer);
                     // When we move out of the buffer, plug the buffer storage into the movement as well, then kill buffer.
                     if(buffer.X > 15 || buffer.X < -15 || buffer.Y > 15 || buffer.Y < -15){
                         //console.log("Killing buffer.");

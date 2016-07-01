@@ -49,6 +49,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
 
       GameController.prototype.initializeGame = function (level, scene, playerInfo) {
+          console.log("initialize game level: " + level);
           this.myUpdate = new Update();
           for (var i = 0; i < 9; i++) {
               this.gameBoardGrid[i] = [];
@@ -56,8 +57,11 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.gameBoardGrid[i][j] = 0;
               }
           }
-          this.currentLevel = level | 1;
-          this.currentScene = scene | 1;
+          console.log("initialize game level2: " + level);
+          this.currentAct = level? level : 1;
+          console.log("sdflkasdlfd: " + this.currentAct);
+          console.log("initialize game level3: " + level);
+          this.currentScene = scene? scene : 1;
           this.resourcePoints = 0;
 
           this.timeElapsed = 0;
@@ -77,8 +81,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.playerInfo = playerInfo;
 
           var levelDefinition = new LevelDefinition();
-
-          this.level = levelDefinition.getScene(level, scene); // Wave information location
+          this.level = levelDefinition.getScene(this.currentAct, scene); // Wave information location
           this.levelStructure = levelDefinition.getLevelStructure(level);
           this.nodeStructure = levelDefinition.getNodeStructure(level);
 
@@ -113,6 +116,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderVictory();
                   this.myRender.reset();
+
+                  console.log("gameController current act: " + this.currentAct);
               }
               else {
                   var defeatEvent = new GEvent(GEvent.LD_SDBAR, GEvent.DEFT_PNL);

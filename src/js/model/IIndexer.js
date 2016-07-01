@@ -11,9 +11,6 @@ define([],function() {
     }
 
     IIndexer.prototype.getProjectile = function(numGenerations){
-        console.log("numGenerations: " + numGenerations);
-        console.log("XNODE: " + this.xNode);
-        console.log("YNODE: " + this.yNode)
         var self = this;
 
         var canShootUpLeft = true;
@@ -99,7 +96,6 @@ define([],function() {
                 }
                 break;
             }
-            console.log("changed orientation to: " + this.projectileOrientation);
         return {
             xCoord : this.xCoord + 5,
             yCoord : this.yCoord + 20,

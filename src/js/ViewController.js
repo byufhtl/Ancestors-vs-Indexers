@@ -9,9 +9,9 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
      * @param Controller
      * @constructor
      */
-    function ViewController(){
+    function ViewController(gameController){
         //DON"T FORGET TO INITIALIZE THIS!!!!!!!!!!!!!!!!!!!!!!!!
-        this.controller = null;
+        this.controller = gameController;
         this.eventManager = null;
         this.panelManager = null;
     }

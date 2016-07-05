@@ -1,20 +1,27 @@
-define(['jquery','ViewController','ImageManager', 'FamilySearchHandler'],function($, ViewController, ImageManager, FamilySearchHandler) {
+define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameController', 'GEvent'],function($, ViewController, ImageManager, FamilySearchHandler, GameController, GEvent) {
 
-    var Splash = function()
+    var Splash = function(FS)
     {
-        this.viewController = new ViewController(this);
+        this.gameController = new GameController();
+        this.viewController = new ViewController(this.gameController);
         this.viewController.init();
-        this.imageManager = new ImageManager();
-        this.imageManager.launch();
-        this.familySearch = new FamilySearch;
+        ImageManager.launch();
+        
+        this.familySearchHandler = new FamilySearchHandler(FS);
+
     };
 
-    splash.prototype.init = function()
+    Splash.prototype.init = function()
     {
+       
         var tempArray = [];
-        tempArray.push(this.familySearch)
+        tempArray.push(this.familySearchHandler)
         var loadSplashEvent = new GEvent(GEvent.LD_INTFC, GEvent.SP_INTFC, tempArray);
-        this.ViewController.handle(loadSplashEvent);
+        this.viewController.handle(loadSplashEvent);
+        if (this.familySearchHandler.checkAccessToken())
+        {
+            //var loadCommanderEvent = new GEvent(GEvent, )
+        }
     };
 
     return Splash;

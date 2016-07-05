@@ -1,74 +1,83 @@
-define(["jquery","GEvent", "familysearch"],function($,GEvent,FamilySearch){
+define(["jquery","GEvent"],function($,GEvent){
 
-    var FamilySearchHandler = function()
+    var FamilySearchHandler = function(FS)
     {
+        this.FS = FS;
         this.user = {};
         this.eightGens = {};
-        this.FS = new FamilySearch({
-            // Copy your app key into the client_id parameter
-            client_id: 'a02j000000HBHf4AAH',
-            redirect_uri: 'http://127.0.0.1:8080',
-            save_access_token: true,
-            environment: 'sandbox',
-        });
+
     };
 
 
-    Login.prototype.login = function() {
+    FamilySearchHandler.prototype.login = function() {
         var self = this;
         window.location.href = self.FS.getOAuth2AuthorizeURL();
     };
 
-
-    var getParameterByName = function(name) {
+    FamilySearchHandler.prototype.getParameterByName = function(name) {
       var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    }
+    };
 
-    var checkAccessToken = function(){
+    FamilySearchHandler.prototype.checkAccessToken = function(){
         var self = this;
+        var validData = false;
         var url = window.location.href.split('?');
         if(url.length > 1){
-            this.getAccessToken(getParameterByName('code')).then(function(accessToken){
-            //set access token here
-            localStorage.setItem("fs_access_token", accessToken);
-          })
+                        var accessToken = self.getParameterByName('code');
+                        self.FS.getAccessToken(accessToken).then(function(newAccessToken){
+                        self.getEightGens();
+                        localStorage.setItem("fs_access_token", self.FS.settings.accessToken);
+                        return true;
+                });
         }
         else if (typeof(Storage) !== "undefined" && localStorage.getItem('fs_access_token')) {
-            self.settings.accessToken = localStorage.getItem('fs_access_token');
+                        var accessToken = localStorage.getItem('fs_access_token');
+                        self.FS.getAccessToken(accessToken).then(function(newAccessToken){
+                        self.getEightGens();
+                        return true;
+                });
         }
-        else {
-            self.login();
-        }
+        return false;
     };
 
 
-    Login.prototype.getEightGens = function()
+    FamilySearchHandler.prototype.getEightGens = function()
     {
         var self = this;
         //get user and ID
         self.FS.getCurrentUser().then(function(response)
         {
-            self.user = response.getUser();
-            self.id = user.getId();
 
-          //get generations
+            console.log("got current user", response.getUser());
+            self.user = response.getUser();
+            self.id = self.user.data.personId;
           var params = {
               generations: 8,
               personDetails: true,
               descendants: false,
           };
 
-          self.FS.getAncestry(id, params).then(function parse(ancestors){
+          self.FS.getAncestry(self.id, params).then(function parse(ancestors){
+
               listOfAncestors = ancestors.getPersons();
-              console.log("Ancestors", ancestors);
+              console.log(listOfAncestors);
               for (var i = 0; i < listOfAncestors.length; i++)
               {
-
+                    /* each person has under data.display
+                        ascendancyNumber
+                        birthDate
+                        birthPlace
+                        descendancyNumber
+                        gender
+                        lifespan
+                        name
+                     */
+                  console.log(listOfAncestors[i].data.display.name + " gen: " + listOfAncestors[i].data.display.ascendancyNumber);
               }
           });
         });
-    }
+    };
 
-    return Login;
+    return FamilySearchHandler;
 });

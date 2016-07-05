@@ -24,6 +24,14 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap', 'Splash'],function($, FamilySearch, Bootstrap, Splash){
-
-    var splash = new Splash();
+    var FS = new FamilySearch({
+        // Copy your app key into the client_id parameter
+        client_id: 'a02j000000HBHf4AAH',
+        redirect_uri: 'http://127.0.0.1:8080',
+        save_access_token: true,
+        environment: 'sandbox',
+    });
+    console.log("got past first creation.");
+    var splash = new Splash(FS);
+    splash.init();
 });

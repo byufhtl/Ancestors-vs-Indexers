@@ -17,10 +17,21 @@ define([],function(){
         this.data = data; // An array of data
     }
 
-    GEvent.SDBAR_LD = "sidebar_loaded";     // Signal for sidebar HTML loaded
-    GEvent.TPBAR_LD = "topbar_loaded";      // Signal for topbar HTML loaded
+    GEvent.LD_INTFC = "load_interface";     // Signal for loading an interface
+
+    GEvent.SP_INTFC = "splash_interface";   // The standard splash interface
+    GEvent.MM_INTFC = "main_menu_interface";// The main menu interface
+    GEvent.GM_INTFC = "game_interface";     // The standard game interface
+    GEvent.LV_INTFC = "level_interface";    // The standard level selecting interface
+    GEvent.UG_INTFC = "upgrade_interface";  // The standard upgrade management interface
+
     GEvent.LD_SDBAR = "load_sidebar";       // Signal for sidebar needing loaded
     GEvent.LD_TPBAR = "load_topbar";        // Signal for topbar needing loaded
+
+    GEvent.INTFC_LD = "interface_loaded";   // Signal for interface loaded
+    GEvent.SDBAR_LD = "sidebar_loaded";     // Signal for sidebar HTML loaded
+    GEvent.TPBAR_LD = "topbar_loaded";      // Signal for topbar HTML loaded
+
 
     GEvent.BLDG_PNL = "building_panel";     // Building Panel
     GEvent.INDX_PNL = "indexer_panel";      // Indexer Panel

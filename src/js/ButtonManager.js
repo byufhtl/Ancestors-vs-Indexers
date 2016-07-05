@@ -189,7 +189,7 @@ define(['jquery','GEvent'], function($, GEvent){
         else {
           console.log(data);
         }
-    }
+    };
 
     return ButtonManager;
 });

@@ -15,6 +15,25 @@ define(["jquery","GEvent"],function($,GEvent){
     PanelManager.prototype.handle = function(event){
         var self = this;
         switch(event.type){
+            case GEvent.LD_INTFC:
+                switch (event.value){
+                    case GEvent.SP_INTFC:
+                        self.loadSplashInterface(event);
+                        break;
+                    case GEvent.MM_INTFC:
+                        self.loadSplashInterface(event);
+                        break;
+                    case GEvent.GM_INTFC:
+                        self.loadSplashInterface(event);
+                        break;
+                    case GEvent.LV_INTFC:
+                        self.loadSplashInterface(event);
+                        break;
+                    case GEvent.UG_INTFC:
+                        self.loadSplashInterface(event);
+                        break;
+                }
+                break;
             case GEvent.LD_TPBAR:                       // Load up a top bar
                 switch (event.value){
                     case GEvent.GM_TPBAR:               //  - Load the game top bar
@@ -43,6 +62,26 @@ define(["jquery","GEvent"],function($,GEvent){
                         break;
                 }
         }
+    };
+
+    PanelManager.prototype.loadSplashInterface = function(event){
+
+    };
+
+    PanelManager.prototype.loadMainMenuInterface = function(event){
+
+    };
+
+    PanelManager.prototype.loadGameInterface = function(event){
+
+    };
+
+    PanelManager.prototype.loadLevelSelectorInterface = function(event){
+
+    };
+
+    PanelManager.prototype.loadUpgradeManagerInterface = function(event){
+
     };
 
     PanelManager.prototype.loadGameTopBar = function(){
@@ -124,7 +163,7 @@ define(["jquery","GEvent"],function($,GEvent){
         var self = this;
         var sidebarContainer = $('#sidebar');
         sidebarContainer.empty();
-    }
+    };
 
 
     return PanelManager;

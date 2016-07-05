@@ -114,9 +114,8 @@ body{
   border: none;
   font-size: 4vw;
   text-align: center;
-  color: rgb(100, 255, 0);;
-  box-shadow:
-  text-shadow: 6px 6px 6px rgba(255, 255, 255, 0.5);;
+  color: rgb(100, 255, 0);
+  text-shadow: 6px 6px 6px rgba(255, 255, 255, 0.5);
   box-shadow: 10px 10px 5px grey;
 }
 
@@ -127,8 +126,15 @@ body{
   border: none;
   font-size: 5vw;
   text-align: center;
-  color: rgb(100, 255, 0);;
-  box-shadow:
-  text-shadow: 6px 6px 6px rgba(255, 255, 255, 0.5);;
+  color: rgb(100, 255, 0);
+  text-shadow: 6px 6px 6px rgba(255, 255, 255, 0.5);
   box-shadow: 10px 10px 5px grey;
+}
+
+.big-button{
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    background-color: #000055;
+    color: #FFFFFF;
 }

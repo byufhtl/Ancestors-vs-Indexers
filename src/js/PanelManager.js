@@ -81,7 +81,17 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadMainMenuInterface = function(event){
-
+        var self = this;
+        var container = $('#menu');
+        container.empty();
+        container.load('src/html/mainmenu.html', function (response){
+            if(response){
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['success']))
+            }
+            else{
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['failure']))
+            }
+        });
     };
 
     PanelManager.prototype.loadGameInterface = function(event){

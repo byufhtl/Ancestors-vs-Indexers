@@ -1,6 +1,8 @@
-define(['jquery','GameController','ImageManager'],function($, GameController, ImageManager) {
+define(['jquery','GameController','ImageManager', 'Login'],function($, GameController, ImageManager, Login) {
 
-    function TempRunLvl1(){}
+    function TempRunLvl1(){
+        this.myLogin = new Login();
+    }
 
 
     TempRunLvl1.prototype.loadMenu = function() {
@@ -9,7 +11,8 @@ define(['jquery','GameController','ImageManager'],function($, GameController, Im
         menuHolder.load("src/html/menu.html", function (response) {
             $('#startGame').click(function () {
                 $('#menu').empty();
-                self.run();
+                //self.run();
+                self.myLogin.checkAccessToken();
             });
         });
     };

@@ -9,8 +9,9 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
      * @param Controller
      * @constructor
      */
-    function ViewController(Controller){
-        this.controller = Controller;
+    function ViewController(){
+        //DON"T FORGET TO INITIALIZE THIS!!!!!!!!!!!!!!!!!!!!!!!!
+        this.controller = null;
         this.eventManager = null;
         this.panelManager = null;
     }

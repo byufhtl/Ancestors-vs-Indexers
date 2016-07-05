@@ -5,7 +5,7 @@
 require.config({
     baseUrl: 'src/js',
     paths: {
-        runLvl1: 'TempRunLvl1',
+        runLvl1: 'Splash',
         familysearch: 'https://cdn.jsdelivr.net/familysearch-javascript-sdk/2.1.0/familysearch-javascript-sdk.min',
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min',
         bootstrap: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min'
@@ -23,13 +23,7 @@ require.config({
     }
 });
 
-require(['jquery', 'familysearch', 'bootstrap', 'runLvl1'],function($, FamilySearch, Bootstrap, runLvl1){
+require(['jquery', 'familysearch', 'bootstrap', 'Splash'],function($, FamilySearch, Bootstrap, Splash){
 
-
-    //var context = canvas[0].getContext('2d');
-
-    //context.fillStyle = "#ADFF2F";
-    //context.fillRect(0, 0, canvas.width(), canvas.height());
-    var myLevel1 = new runLvl1();
-    myLevel1.loadMenu();
+    var splash = new Splash();
 });

@@ -37,6 +37,9 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
             case GEvent.LD_SDBAR: // Load something into the side bar
                 self.panelManager.handle(event);
                 break;
+            case GEvent.INTFC_LD:
+                self.eventManager.handle(event);
+                break;
             case GEvent.TPBAR_LD: // Top bar has been loaded
                 self.eventManager.handle(event);
                 break;

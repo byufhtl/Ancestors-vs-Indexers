@@ -45,6 +45,13 @@ define(['jquery','GEvent'], function($, GEvent){
                         break;
                 }
                 break;
+            case GEvent.INTFC_LD:
+                switch(event.value){
+                    case GEvent.SP_INTFC:
+                    self.loadLoginButton(event.data);
+                    break;
+                }
+                break;
         }
     };
 
@@ -57,6 +64,18 @@ define(['jquery','GEvent'], function($, GEvent){
         buttons = [];
     };
 
+
+    ButtonManager.prototype.loadLoginButton = function(data){
+      {
+          var self = this;
+          if(data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
+              var loginButton = $("#login");
+
+              loginButton.click(function () {
+                  self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data[1]));
+              });
+          }
+      }
     /**
      * Attaches the handlers for the buttons on the game's top bar
      */

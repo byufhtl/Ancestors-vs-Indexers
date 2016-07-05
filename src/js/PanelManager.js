@@ -65,7 +65,19 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadSplashInterface = function(event){
+        var self = this;
+        var loadLocation = $('#menu');
+        loadLocation.empty();
 
+        loadLocation.load("src/html/splash.html", function(response) {
+            if(response) {
+                event[2].push("success");
+                self.viewController.handle(new GEvent(GEvent.TPBAR_LD, GEvent.GM_TPBAR, event[2]));
+            }
+            else {
+                //epic fail!!!!!!!!!!!!!!
+            }
+        });
     };
 
     PanelManager.prototype.loadMainMenuInterface = function(event){

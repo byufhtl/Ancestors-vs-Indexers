@@ -57,6 +57,7 @@ define([],function(){
     GEvent.NEXT_BTN = "next_level_button";  // Next Level Button
     GEvent.AGAN_BTN = "play_again_button";  // Play Level Again Button
     GEvent.MENU_BTN = "menu_button";        // Menu Button
+    GEvent.LOGN_BTN = "login_button";       // Login Button
 
     GEvent.BTN_ACTN = "button_action";      // Button Action
 

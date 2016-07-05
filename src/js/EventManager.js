@@ -47,6 +47,9 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                     case GEvent.MENU_BTN:
                         self.mainMenuButtonClicked();
                         break;
+                    case GEvent.LOGN_BTN:
+                        self.loginButtonClicked(event.data);
+                        break;
                 }
         }
     };
@@ -76,6 +79,9 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                 self.buttonManager.handle(event);
                 break;
             case GEvent.SDBAR_LD:
+                self.buttonManager.handle(event);
+                break;
+            case GEvent.INTFC_LD:
                 self.buttonManager.handle(event);
                 break;
         }
@@ -110,6 +116,11 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
         }
+    };
+
+    EventManager.prototype.loginButtonClicked = function(FamilySearchHandler)
+    {
+        
     };
 
     EventManager.prototype.nextLevelButtonClicked = function()

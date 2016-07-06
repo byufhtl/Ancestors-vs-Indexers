@@ -31,6 +31,8 @@ define(['jquery','GEvent'], function($, GEvent){
                     case GEvent.MM_INTFC:
                         self.loadMainMenuButton(event.data);
                         break;
+                    case GEvent.GM_INTFC:
+                        break;
                 }
                 break;
             case GEvent.TPBAR_LD:

@@ -38,16 +38,26 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 self.panelManager.handle(event);
                 break;
             case GEvent.INTFC_LD: // Interface has been loaded
+                self.processLoad(event);
                 self.eventManager.handle(event);
                 break;
             case GEvent.TPBAR_LD: // Top bar has been loaded
+                self.processLoad(event);
                 self.eventManager.handle(event);
                 break;
             case GEvent.SDBAR_LD: // Side bar has been loaded
+                self.processLoad(event);
                 self.eventManager.handle(event);
                 break;
         }
     };
+
+    ViewController.prototype.processLoad = function(event){
+        if(event.data.indexOf("Failure") != -1){ // Failure handler
+            console.log("A resource failed to load:", event.type, event.value);
+        }
+    };
+
 
     return ViewController;
 });

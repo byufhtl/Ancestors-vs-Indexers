@@ -70,15 +70,12 @@ define(["jquery","GEvent"],function($,GEvent){
         var container = $(containerID);
         container.empty();
         container.load(url, function(response){
+            var status = "failure";
             if (response){
-                if(onSuccess){
-                    onSuccess();
-                }
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["success"]));
+                if(onSuccess){ onSuccess();}
+                status = "success";
             }
-            else{
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["failure"]));
-            }
+            self.viewController.handle(new GEvent(type, value, [status]));
         });
     };
 
@@ -102,46 +99,34 @@ define(["jquery","GEvent"],function($,GEvent){
         this.loadResource('#menu', 'src/html/mainmenu.html', GEvent.INTFC_LD, event.value, null);
     };
 
-    PanelManager.prototype.loadGameInterface = function(event){
-        this.loadResource('#menu', 'src/html/game.html', GEvent.INTFC_LD, event.value, function(){
-            var canvas = document.createElement('canvas');
-            canvas.width = 1000;
-            canvas.height = 600;
-            canvas.id = 'canvas';
-            $('#canvas-div').append(canvas);
+    PanelManager.prototype.loadGameInterface = function(event){var self = this;
+        var container = $(containerID);
+        container.empty();
+        container.load(url, function(response){
+            if (response){
+                var canvas = document.createElement('canvas');
+                canvas.width = 1000;
+                canvas.height = 600;
+                canvas.id = 'canvas';
+                $('#canvas-div').append(canvas);
+                self.handle(new GEvent(GEvent.LD_SDBAR, GEvent.GM_TPBAR, []));
+            }
+            else{
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ["failure"]));
+            }
         });
     };
 
     PanelManager.prototype.loadLevelSelectorInterface = function(event){
-        var self = this;
-        var container = $('#game');
-        container.empty();
-        container.load("src/html/levelsinterface.html", function (response) {
-            if(response) {
-                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['success']));
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['failure']));
-            }
-        });
+        this.loadResource('#game', 'src/html/levelsinterface.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadUpgradeManagerInterface = function(event){
-
+        this.loadResource('#menu', 'src/html/upgradesinterface.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadGameTopBar = function(){
-        var self = this;
-        var topbarContainer = $('#topbar');
-        topbarContainer.empty();
-        topbarContainer.load("src/html/topbar.html", function (response) {
-            if(response){
-                self.viewController.handle(new GEvent(GEvent.TPBAR_LD, GEvent.GM_TPBAR, ["success"]));
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.TPBAR_LD, GEvent.GM_TPBAR, ["failure"]));
-            }
-        });
+        this.loadResource('#topbar', 'src/html/topbar.html', GEvent.TPBAR_LD, GEvent.GM_TPBAR, null);
     };
 
     PanelManager.prototype.loadBlankTopBar = function(){
@@ -150,33 +135,12 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadBuildlingSideBar = function(){
-        var self = this;
-        var sidebarContainer = $('#sidebar');
-        sidebarContainer.empty();
-        sidebarContainer.load("src/html/buildings.html", function (response) {
-            if(response){
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.BLDG_PNL, ["success"]));
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.BLDG_PNL, ["failure"]));
-            }
-        });
+        this.loadResource('#sidebar', 'src/html/buildings.html', GEvent.SDBAR_LD, GEvent.BLDG_PNL, null);
     };
 
     PanelManager.prototype.loadIndexersSideBar = function(){
-        this.loadResource('#sidebar', "src/html/indexers.html", null);
-        var self = this;
-        var sidebarContainer = $('#sidebar');
-        sidebarContainer.empty();
-        sidebarContainer.load("src/html/indexers.html", function (response) {
-            if(response){
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.INDX_PNL, ["success"]));
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.INDX_PNL, ["failure"]));
-            }
-        });
-    }
+        this.loadResource('#sidebar', "src/html/indexers.html", GEvent.SDBAR_LD, GEvent.INDX_PNL, null);
+    };
 
     PanelManager.prototype.loadVictorySideBar = function(){
         this.loadResource('#sidebar', "src/html/victory.html", GEvent.SDBAR_LD, GEvent.VTRY_PNL, null);

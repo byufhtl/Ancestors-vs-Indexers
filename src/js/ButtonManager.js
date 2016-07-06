@@ -29,7 +29,7 @@ define(['jquery','GEvent'], function($, GEvent){
                         self.loadLoginButton(event.data);
                         break;
                     case GEvent.MM_INTFC:
-                        self.loadMainMenuButton(event.data);
+                        self.loadMainMenuButtons(event.data);
                         break;
                     case GEvent.GM_INTFC:
                         break;
@@ -95,7 +95,7 @@ define(['jquery','GEvent'], function($, GEvent){
     /**
      * Attaches the handlers for the buttons on the game's top bar
      */
-    ButtonManager.prototype.loadGameTopBarButtons = function(data){
+    ButtonManager.prototype.loadLoginButton = function(data){
         var self = this;
         self.killAll(self.topbarButtons);
         console.log('beginning load loginButton');

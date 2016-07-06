@@ -22,7 +22,6 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
         self.eventManager.init();
         self.panelManager = new PanelManager(self);
         self.panelManager.init();
-        self.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR, []))
     };
 
     ViewController.prototype.handle = function(event){

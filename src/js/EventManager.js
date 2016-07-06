@@ -11,7 +11,7 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         this.viewController = ViewController;
         this.buttonManager = null;
         this.canvasManager = null;
-        this.clickContext = null;;
+        this.clickContext = null;
     }
 
     EventManager.prototype.init = function(){

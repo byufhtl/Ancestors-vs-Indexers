@@ -15,7 +15,7 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
     {
        
         var tempArray = [];
-        tempArray.push(this.familySearchHandler)
+        tempArray.push(this.familySearchHandler);
         var loadSplashEvent = new GEvent(GEvent.LD_INTFC, GEvent.SP_INTFC, tempArray);
         this.viewController.handle(loadSplashEvent);
         if (this.familySearchHandler.checkAccessToken())

@@ -1,4 +1,4 @@
-define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Nameless) {
+define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'],function(IAncestor, Nameless, FamilyMember) {
 
     function LevelDefinition() {
       this.rowHeight = 600/6;
@@ -109,7 +109,15 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
         console.log("Z:",levelNum);
     };
 
+    LevelDefinition.addFamilyMember = function(lvl, scene)
+    {
+        var length = this.eightGenerations[lvl].length;
+        var random = Math.floor(Math.random() * length);
+        
+    };
+
     LevelDefinition.parseScene = function(lvl, scene){
+        var self = this;
         console.log("lvl A", lvl);
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
@@ -127,6 +135,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor'],function(IAncestor, Name
                             case 'n':
                                 wave.push(new Nameless(j));
                                 break;
+                            case 'f':
+                                wave.push(self.addFamilyMember(lvl, scene));
                             default:
                         }
                     }

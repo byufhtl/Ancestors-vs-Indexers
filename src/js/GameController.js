@@ -80,6 +80,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.playerInfo = playerInfo;
 
           var levelDefinition = new LevelDefinition();
+          levelDefinition.eightGenerations = this.eightGenerations;
           this.level = levelDefinition.getScene(this.currentAct, scene); // Wave information location
           this.levelStructure = levelDefinition.getLevelStructure(level);
           this.nodeStructure = levelDefinition.getNodeStructure(level);

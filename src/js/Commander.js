@@ -9,6 +9,7 @@ define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
         this.viewController.commander = this;
         this.imageManager = imageManager;
         this.gameController = gameController;
+        this.gameController.eightGenerations = eightGenerations;
         this.eightGenerations = eightGenerations;
         this.currentAct = 1;
         this.currentScene = 1;

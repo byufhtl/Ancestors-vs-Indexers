@@ -138,3 +138,25 @@ body{
     background-color: #000055;
     color: #FFFFFF;
 }
+
+.tree{
+    background-image: url("../src/img/tree.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100vm;
+    height: 100vm;
+    background-color: black;
+}
+
+.absoluteCenter{
+    width:800px;
+    border-radius: 5px;
+    padding:10px;
+    height:50px;
+    position:absolute;
+    margin-top:-25px;
+    margin-left:-400px;
+    top:30%;
+    left:50%;
+}
+

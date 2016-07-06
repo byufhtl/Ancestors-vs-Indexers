@@ -19,30 +19,33 @@ define(["jquery","GEvent"],function($,GEvent){
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
 
-    FamilySearchHandler.prototype.checkAccessToken = function(){
+    FamilySearchHandler.prototype.checkAccessToken = function(callback){
         var self = this;
         var validData = false;
         var url = window.location.href.split('?');
         if(url.length > 1){
                         var accessToken = self.getParameterByName('code');
                         self.FS.getAccessToken(accessToken).then(function(newAccessToken){
-                        self.getEightGens();
-                        localStorage.setItem("fs_access_token", self.FS.settings.accessToken);
-                        return true;
+                            localStorage.setItem("fs_access_token", self.FS.settings.accessToken);
+                            self.getEightGens(function(response){
+                                callback(response);
+                            });
                 });
         }
         else if (typeof(Storage) !== "undefined" && localStorage.getItem('fs_access_token')) {
                         var accessToken = localStorage.getItem('fs_access_token');
                         self.FS.getAccessToken(accessToken).then(function(newAccessToken){
-                        self.getEightGens();
-                        return true;
+                        self.getEightGens(function(response){
+                            callback(response);
+                        });
+
                 });
         }
-        return false;
+        callback(null);
     };
 
 
-    FamilySearchHandler.prototype.getEightGens = function()
+    FamilySearchHandler.prototype.getEightGens = function(callback)
     {
         var self = this;
         //get user and ID
@@ -75,6 +78,7 @@ define(["jquery","GEvent"],function($,GEvent){
                      */
                   console.log(listOfAncestors[i].data.display.name + " gen: " + listOfAncestors[i].data.display.ascendancyNumber);
               }
+              callback(listOfAncestors);
           });
         });
     };

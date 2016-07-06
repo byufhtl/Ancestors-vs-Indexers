@@ -21,16 +21,16 @@ define(["jquery","GEvent"],function($,GEvent){
                         self.loadSplashInterface(event);
                         break;
                     case GEvent.MM_INTFC:
-                        self.loadSplashInterface(event);
+                        self.loadMainMenuInterface(event);
                         break;
                     case GEvent.GM_INTFC:
-                        self.loadSplashInterface(event);
+                        self.loadGameInterface(event);
                         break;
                     case GEvent.LV_INTFC:
-                        self.loadSplashInterface(event);
+                        self.loadLevelSelectorInterface(event);
                         break;
                     case GEvent.UG_INTFC:
-                        self.loadSplashInterface(event);
+                        self.loadUpgradeManagerInterface(event);
                         break;
                 }
                 break;
@@ -94,22 +94,39 @@ define(["jquery","GEvent"],function($,GEvent){
             }
         });
     };
+    /*
+    PanelManager.prototype.loadMainMenuInterface = function(event){
+        var self = this;
+        var loadLocation = $('#menu');
+        loadLocation.empty();
+
+        loadLocation.load("src/html/mainmenu.html", function(response) {
+            if(response) {
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, GEvent.MM_INTFC, event.data));
+            }
+            else {
+                //epic fail!!!!!!!!!!!!!!
+            }
+        });
+    };
+    */
 
     PanelManager.prototype.loadMainMenuInterface = function(event){
         this.loadResource('#menu', 'src/html/mainmenu.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadGameInterface = function(event){var self = this;
-        var container = $(containerID);
+       $('#main').empty();
+        var container = $('#game');
         container.empty();
-        container.load(url, function(response){
+        container.load("src/html/game.html", function(response){
             if (response){
                 var canvas = document.createElement('canvas');
                 canvas.width = 1000;
                 canvas.height = 600;
                 canvas.id = 'canvas';
                 $('#canvas-div').append(canvas);
-                self.handle(new GEvent(GEvent.LD_SDBAR, GEvent.GM_TPBAR, []));
+                self.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR, []));
             }
             else{
                 self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ["failure"]));

@@ -71,8 +71,8 @@ define(["jquery","GEvent"],function($,GEvent){
 
         loadLocation.load("src/html/splash.html", function(response) {
             if(response) {
-                event[2].push("success");
-                self.viewController.handle(new GEvent(GEvent.TPBAR_LD, GEvent.GM_TPBAR, event[2]));
+                event.data.push("success");
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, GEvent.SP_INTFC, event.data));
             }
             else {
                 //epic fail!!!!!!!!!!!!!!

@@ -17,7 +17,7 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
     EventManager.prototype.init = function(){
         var self = this;
         self.buttonManager = new ButtonManager(self);
-        self.canvasManager = new CanvasManager(self, this.controller.viewTransform);
+        self.canvasManager = new CanvasManager(self, self.controller.viewTransform);
         self.canvasManager.init();
     };
 
@@ -48,7 +48,7 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                         self.mainMenuButtonClicked();
                         break;
                     case GEvent.LOGN_BTN:
-                        self.loginButtonClicked(event.data);
+                        self.loginButtonClicked(event.data[0]);
                         break;
                 }
         }
@@ -120,7 +120,7 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
 
     EventManager.prototype.loginButtonClicked = function(FamilySearchHandler)
     {
-        
+        FamilySearchHandler.login();
     };
 
     EventManager.prototype.nextLevelButtonClicked = function()

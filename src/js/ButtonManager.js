@@ -68,20 +68,6 @@ define(['jquery','GEvent'], function($, GEvent){
         buttons = [];
     };
 
-
-    ButtonManager.prototype.loadLoginButton = function(data) {
-        {
-            var self = this;
-            if (data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
-                var loginButton = $("#login");
-
-                loginButton.click(function () {
-                    self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data[1]));
-                });
-            }
-        }
-    };
-
     ButtonManager.prototype.loadMainMenuButtons = function(data){
         var self = this;
         self.killAll(self.mainmenuButtons);
@@ -112,8 +98,25 @@ define(['jquery','GEvent'], function($, GEvent){
     ButtonManager.prototype.loadGameTopBarButtons = function(data){
         var self = this;
         self.killAll(self.topbarButtons);
+        console.log('beginning load loginButton');
+        var self = this;
+        if (data && data.length && data[1] == "success") { // If the topbar was able to load up successfully
+            console.log("actually loading button stuff");
+            var loginButton = $('#LOGIN');
+            loginButton.click(function () {
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data));
+            });
+        }
+    };
 
-        if(data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
+    /**
+     * Attaches the handlers for the buttons on the game's top bar
+     */
+    ButtonManager.prototype.loadGameTopBarButtons = function (data) {
+        var self = this;
+        self.killAll(self.topbarButtons);
+
+        if (data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
             var structures_button = $('#structures-button');
             var indexers_button = $('#indexers-button');
 
@@ -132,11 +135,11 @@ define(['jquery','GEvent'], function($, GEvent){
     /**
      * Loads the handlers for the building buttons in the sidebar
      */
-    ButtonManager.prototype.loadBuildingButtons = function(data){
+    ButtonManager.prototype.loadBuildingButtons = function (data) {
         var self = this;
         self.killAll(self.sidebarButtons);
 
-        if(data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
+        if (data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
             var button_1 = $('#button-1');
             var button_2 = $('#button-2');
             var button_1_image = $('#button-1-img');
@@ -164,11 +167,11 @@ define(['jquery','GEvent'], function($, GEvent){
     /**
      * Loads the handlers for the indexers buttons in the sidebar.
      */
-    ButtonManager.prototype.loadIndexerButtons = function(data){
+    ButtonManager.prototype.loadIndexerButtons = function (data) {
         var self = this;
         self.killAll(self.sidebarButtons);
 
-        if(data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
+        if (data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
             var button_1 = $('#button-1-i');
             var button_2 = $('#button-2-i');
             var button_3 = $('#button-3-i');
@@ -202,43 +205,46 @@ define(['jquery','GEvent'], function($, GEvent){
         }
     };
 
-    ButtonManager.prototype.loadVictoryButtons = function(data){
+    ButtonManager.prototype.loadVictoryButtons = function (data) {
         var self = this;
         self.killAll(self.sidebarButtons);
         if (data && data.length && data[0] == "success") {
             var nextLevelButton = $('#nextLevelButton');
             var mainMenuButton = $('#mainMenuButton');
-            nextLevelButton.click(function() {
+            nextLevelButton.click(function () {
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.NEXT_BTN));
             });
 
-            mainMenuButton.click(function() {
+            mainMenuButton.click(function () {
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
             })
         }
         else {
-          console.log(data);
+            console.log(data);
         }
     };
 
-    ButtonManager.prototype.loadDefeatButtons = function(data){
+    ButtonManager.prototype.loadDefeatButtons = function (data) {
         var self = this;
         self.killAll(self.sidebarButtons);
         if (data && data.length && data[0] == "success") {
             var nextLevelButton = $('#playAgainButton');
             var mainMenuButton = $('#mainMenuButton');
-            nextLevelButton.click(function() {
+            nextLevelButton.click(function () {
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.AGAN_BTN));
             });
 
-            mainMenuButton.click(function() {
+            mainMenuButton.click(function () {
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
-            })
+            });
         }
         else {
-          console.log(data);
+            console.log(data);
         }
     };
 
     return ButtonManager;
+
 });
+
+

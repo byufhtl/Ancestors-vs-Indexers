@@ -28,6 +28,10 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
     EventManager.prototype.handleButtonEvent = function(event){
         var self = this;
         switch(event.type){
+            case GEvent.LD_INTFC:
+                self.viewController.handle(event);
+                break;
+
             case GEvent.LD_SDBAR:
                 self.viewController.handle(event);
                 break;

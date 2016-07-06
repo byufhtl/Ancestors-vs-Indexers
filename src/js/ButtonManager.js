@@ -79,16 +79,14 @@ define(['jquery','GEvent'], function($, GEvent){
             self.mainmenuButtons.push(upgradesButton, levelsButton, startGameButton);
 
             upgradesButton.click(function(){
-                console.log("Upgrades button clicked.")
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.UG_INTFC, []));
             });
             levelsButton.click(function(){
-                console.log("levels button clicked.")
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.LV_INTFC, []));
             });
             startGameButton.click(function(){
-                console.log("Start Game button clicked.")
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.GM_INTFC, []));
             });
-
-
         }
     };
 

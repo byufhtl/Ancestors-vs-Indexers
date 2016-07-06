@@ -64,6 +64,24 @@ define(["jquery","GEvent"],function($,GEvent){
         }
     };
 
+
+    PanelManager.prototype.loadResource = function(containerID, url, type, value, onSuccess){
+        var self = this;
+        var container = $(containerID);
+        container.empty();
+        container.load(url, function(response){
+            if (response){
+                if(onSuccess){
+                    onSuccess();
+                }
+                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["success"]));
+            }
+            else{
+                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["failure"]));
+            }
+        });
+    };
+
     PanelManager.prototype.loadSplashInterface = function(event){
         var self = this;
         var loadLocation = $('#menu');
@@ -81,25 +99,31 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadMainMenuInterface = function(event){
-        var self = this;
-        var container = $('#menu');
-        container.empty();
-        container.load('src/html/mainmenu.html', function (response){
-            if(response){
-                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['success']))
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['failure']))
-            }
-        });
+        this.loadResource('#menu', 'src/html/mainmenu.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadGameInterface = function(event){
-
+        this.loadResource('#menu', 'src/html/game.html', GEvent.INTFC_LD, event.value, function(){
+            var canvas = document.createElement('canvas');
+            canvas.width = 1000;
+            canvas.height = 600;
+            canvas.id = 'canvas';
+            $('#canvas-div').append(canvas);
+        });
     };
 
     PanelManager.prototype.loadLevelSelectorInterface = function(event){
-
+        var self = this;
+        var container = $('#game');
+        container.empty();
+        container.load("src/html/levelsinterface.html", function (response) {
+            if(response) {
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['success']));
+            }
+            else{
+                self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ['failure']));
+            }
+        });
     };
 
     PanelManager.prototype.loadUpgradeManagerInterface = function(event){
@@ -140,6 +164,7 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadIndexersSideBar = function(){
+        this.loadResource('#sidebar', "src/html/indexers.html", null);
         var self = this;
         var sidebarContainer = $('#sidebar');
         sidebarContainer.empty();
@@ -154,31 +179,33 @@ define(["jquery","GEvent"],function($,GEvent){
     }
 
     PanelManager.prototype.loadVictorySideBar = function(){
-        var self = this;
-        var sidebarContainer = $('#sidebar');
-        sidebarContainer.empty();
-        sidebarContainer.load("src/html/victory.html", function(response){
-            if (response){
-              self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.VTRY_PNL, ["success"]));
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.VTRY_PNL, ["failure"]));
-            }
-        });
-    }
+        this.loadResource('#sidebar', "src/html/victory.html", GEvent.SDBAR_LD, GEvent.VTRY_PNL, null);
+        //var self = this;
+        //var sidebarContainer = $('#sidebar');
+        //sidebarContainer.empty();
+        //sidebarContainer.load("src/html/victory.html", function(response){
+        //    if (response){
+        //      self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.VTRY_PNL, ["success"]));
+        //    }
+        //    else{
+        //        self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.VTRY_PNL, ["failure"]));
+        //    }
+        //});
+    };
 
     PanelManager.prototype.loadDefeatSideBar = function(){
-        var self = this;
-        var sidebarContainer = $('#sidebar');
-        sidebarContainer.empty();
-        sidebarContainer.load("src/html/defeat.html", function(response){
-            if (response){
-              self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["success"]));
-            }
-            else{
-                self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["failure"]));
-            }
-        });
+        this.loadResource('#sidebar', "src/html/defeat.html", GEvent.SDBAR_LD, GEvent.DEFT_PNL, null);
+        //var self = this;
+        //var sidebarContainer = $('#sidebar');
+        //sidebarContainer.empty();
+        //sidebarContainer.load("src/html/defeat.html", function(response){
+        //    if (response){
+        //      self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["success"]));
+        //    }
+        //    else{
+        //        self.viewController.handle(new GEvent(GEvent.SDBAR_LD, GEvent.DEFT_PNL, ["failure"]));
+        //    }
+        //});
     };
 
     PanelManager.prototype.loadBlankSideBar = function(){

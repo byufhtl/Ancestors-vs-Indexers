@@ -28,7 +28,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
     ViewController.prototype.handle = function(event){
         var self = this;
         switch(event.type){
-            case GEvent.LD_INTFC:
+            case GEvent.LD_INTFC: // Load up an interface
                 self.panelManager.handle(event);
                 break;
             case GEvent.LD_TPBAR: // Load something into the top bar
@@ -37,7 +37,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
             case GEvent.LD_SDBAR: // Load something into the side bar
                 self.panelManager.handle(event);
                 break;
-            case GEvent.INTFC_LD:
+            case GEvent.INTFC_LD: // Interface has been loaded
                 self.eventManager.handle(event);
                 break;
             case GEvent.TPBAR_LD: // Top bar has been loaded
@@ -47,7 +47,6 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 self.eventManager.handle(event);
                 break;
         }
-
     };
 
     return ViewController;

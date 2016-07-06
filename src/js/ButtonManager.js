@@ -8,6 +8,7 @@ define(['jquery','GEvent'], function($, GEvent){
         this.eventManager = EventManager;
         this.sidebarButtons = [];
         this.topbarButtons = [];
+        this.mainmenuButtons = [];
     }
 
     /**
@@ -22,6 +23,16 @@ define(['jquery','GEvent'], function($, GEvent){
     ButtonManager.prototype.handle = function(event){
         var self = this;
         switch(event.type){
+            case GEvent.INTFC_LD:
+                switch(event.value){
+                    case GEvent.SP_INTFC:
+                        self.loadLoginButton(event.data);
+                        break;
+                    case GEvent.MM_INTFC:
+                        self.loadMainMenuButton(event.data);
+                        break;
+                }
+                break;
             case GEvent.TPBAR_LD:
                 switch (event.value){
                     case GEvent.GM_TPBAR:
@@ -45,13 +56,6 @@ define(['jquery','GEvent'], function($, GEvent){
                         break;
                 }
                 break;
-            case GEvent.INTFC_LD:
-                switch(event.value){
-                    case GEvent.SP_INTFC:
-                    self.loadLoginButton(event.data);
-                    break;
-                }
-                break;
         }
     };
 
@@ -65,17 +69,43 @@ define(['jquery','GEvent'], function($, GEvent){
     };
 
 
-    ButtonManager.prototype.loadLoginButton = function(data){
-      {
-          var self = this;
-          if(data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
-              var loginButton = $("#login");
+    ButtonManager.prototype.loadLoginButton = function(data) {
+        {
+            var self = this;
+            if (data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
+                var loginButton = $("#login");
 
-              loginButton.click(function () {
-                  self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data[1]));
-              });
-          }
-      }
+                loginButton.click(function () {
+                    self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data[1]));
+                });
+            }
+        }
+    };
+
+    ButtonManager.prototype.loadMainMenuButtons = function(data){
+        var self = this;
+        self.killAll(self.mainmenuButtons);
+
+        if(data && data.length && data[0] == "success"){
+            var upgradesButton = $('#manage-upgrades');
+            var levelsButton = $('#manage-level');
+            var startGameButton = $('#start-game');
+            self.mainmenuButtons.push(upgradesButton, levelsButton, startGameButton);
+
+            upgradesButton.click(function(){
+                console.log("Upgrades button clicked.")
+            });
+            levelsButton.click(function(){
+                console.log("levels button clicked.")
+            });
+            startGameButton.click(function(){
+                console.log("Start Game button clicked.")
+            });
+
+
+        }
+    };
+
     /**
      * Attaches the handlers for the buttons on the game's top bar
      */

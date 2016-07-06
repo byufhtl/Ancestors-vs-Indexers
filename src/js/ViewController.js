@@ -9,9 +9,10 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
      * @param Controller
      * @constructor
      */
-    function ViewController(gameController){
+    function ViewController(gameController, Commander){
         //DON"T FORGET TO INITIALIZE THIS!!!!!!!!!!!!!!!!!!!!!!!!
         this.controller = gameController;
+        console.log("game controller in view controller: " ,this.controller);
         this.eventManager = null;
         this.panelManager = null;
     }
@@ -48,6 +49,11 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 self.processLoad(event);
                 self.eventManager.handle(event);
                 break;
+            case GEvent.CMND_ACT:
+                console.log("got a command event");
+                self.commander.handle(event);
+                break;
+                
         }
     };
 

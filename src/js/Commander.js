@@ -4,10 +4,11 @@
 
 define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
 
-    function Commander(viewController, imageManager, eightGenerations){
+    function Commander(viewController, imageManager, eightGenerations, gameController){
         this.viewController = viewController;
+        this.viewController.commander = this;
         this.imageManager = imageManager;
-        this.gameController;
+        this.gameController = gameController;
         this.eightGenerations = eightGenerations;
         this.currentAct = 1;
         this.currentScene = 1;
@@ -16,16 +17,44 @@ define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
     Commander.prototype.start = function(){
         var self = this;
         this.viewController.handle(new GEvent(GEvent.LD_INTFC, GEvent.MM_INTFC, []));
-        self.gameController = new GameController();
     };
 
     Commander.prototype.handle = function(event){
-
+        console.log("handle was called in the commander class");
+        var self = this;
+        switch(event.value)
+        {
+            case GEvent.STRT_BTN:
+                self.startLevel();
+                break;
+        }
     };
 
     Commander.prototype.startLevel = function(){
+        console.log("starting level");
         var self = this;
-        self.gameController.initializeGame(self.currentAct, self.currentScene, self.eightGenerations);
+        var canvas = document.createElement('canvas');
+        canvas.width = 1000;
+        canvas.height = 600;
+        canvas.id = 'canvas';
+        $('#canvas-div').append(canvas);
+        self.gameController.canvas = canvas;
+
+        self.gameController.loadResources().then(function (response) {
+                self.gameController.initializeGame(self.currentAct, self.currentScene, self.eightGenerations);
+            /*
+                self.viewController.controller = self.gameController;
+                self.viewController.eventManager.controller = self.gameController;
+                viewController.eventManager.canvasManager.init();
+                console.log("game controller after initializing: " ,self.gameController);
+                */
+                self.viewController.eventManager.canvasManager.init();
+                self.gameController.loop();
+            },
+            function (e) {
+                console.log("Game was not able to load resources...");
+            }
+        );
     };
 
     return Commander;

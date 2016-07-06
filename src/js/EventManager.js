@@ -28,6 +28,11 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
     EventManager.prototype.handleButtonEvent = function(event){
         var self = this;
         switch(event.type){
+
+            case GEvent.CMND_ACT:
+                self.viewController.handle(event);
+                break;
+
             case GEvent.LD_INTFC:
                 self.viewController.handle(event);
                 break;
@@ -53,6 +58,9 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                         break;
                     case GEvent.LOGN_BTN:
                         self.loginButtonClicked(event.data[0]);
+                        break;
+                    case GEvent.STRT_BTN:
+                        self.startButtonClicked();
                         break;
                 }
         }
@@ -122,6 +130,12 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         }
     };
 
+    EventManager.prototype.startButtonClicked = function()
+    {
+        this.viewController.handle(new GEvent(GEvent.CMND_ACT, GEvent.STRT_BTN));
+    };
+
+
     EventManager.prototype.loginButtonClicked = function(FamilySearchHandler)
     {
         FamilySearchHandler.login();
@@ -167,6 +181,8 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         var bestI;
         var bestJ;
         var shortestDistance = 100000;
+        console.log("game controller in eventManager: ", this.controller);
+        console.log("node structure in eventManager: ", nodeStructure);
         for (var i = 0; i < nodeStructure.length; i++)
         {
             for (var j = 0; j < nodeStructure[i].length; j++)

@@ -17,6 +17,12 @@ define([],function(){
         this.data = data; // An array of data
     }
 
+
+    // CONTROLLEREVENTS ========================================================================[]>
+    GEvent.CMND_ACT = "command_action";  // Request action from controller
+
+    GEvent.STRT_LVL = "start_level";        // Start level currently selected
+
     // INTERFACES ==============================================================================[]>
     GEvent.LD_INTFC = "load_interface";     // Signal for loading an interface
     GEvent.INTFC_LD = "interface_loaded";   // Signal for interface loaded
@@ -59,6 +65,7 @@ define([],function(){
     GEvent.AGAN_BTN = "play_again_button";  // Play Level Again Button
     GEvent.MENU_BTN = "menu_button";        // Menu Button
     GEvent.LOGN_BTN = "login_button";       // Login Button
+    GEvent.STRT_BTN = "start_button";       // Start Button
 
     GEvent.STAN_BLD = "standard_building";  // The standard type of building
     GEvent.LIBR_BLD = "library_building";   // The library type of building

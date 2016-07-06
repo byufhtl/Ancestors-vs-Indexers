@@ -116,22 +116,21 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadGameInterface = function(event){var self = this;
-       $('#main').empty();
+        console.log('loading game interface');
+        $('#menu').empty();
         var container = $('#game');
         container.empty();
         container.load("src/html/game.html", function(response){
             if (response){
-                var canvas = document.createElement('canvas');
-                canvas.width = 1000;
-                canvas.height = 600;
-                canvas.id = 'canvas';
-                $('#canvas-div').append(canvas);
+
                 self.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR, []));
+                self.viewController.handle(new GEvent(GEvent.CMND_ACT, GEvent.STRT_BTN, []));
             }
             else{
                 self.viewController.handle(new GEvent(GEvent.INTFC_LD, event.value, ["failure"]));
             }
         });
+
     };
 
     PanelManager.prototype.loadLevelSelectorInterface = function(event){

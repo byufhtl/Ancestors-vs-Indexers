@@ -1,9 +1,8 @@
 define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'ImageManager', 'ViewTransform', 'GEvent'],
   function($,LevelDefinition, ViewController, Update, Render, IAncestor, ImageManager, ViewTransform, GEvent) {
 
-      function GameController(canvas) {
+      function GameController() {
 
-          this.canvas = canvas;
           this.myUpdate = new Update();
           this.myRender = null;
           this.translation = {dx: 0, dy: 0};
@@ -37,11 +36,11 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           var self = this;
           return new Promise(function (resolve, reject) {
               ImageManager.launch().then(function (response) {
-                      self.myRender = new Render(canvas, ImageManager, self.viewTransform);
+                      self.myRender = new Render(self.canvas, ImageManager, self.viewTransform);
                       resolve(response);
                   },
                   function (e) {
-                      self.myRender = new Render(canvas, ImageManager, self.viewTransform);
+                      self.myRender = new Render(self.canvas, ImageManager, self.viewTransform);
                       reject(e);
                   });
           });

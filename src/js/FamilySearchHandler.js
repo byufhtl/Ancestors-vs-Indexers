@@ -25,6 +25,7 @@ define(["jquery","GEvent"],function($,GEvent){
         var url = window.location.href.split('?');
         if(url.length > 1){
                         var accessToken = self.getParameterByName('code');
+                        console.log("accesstokenis: " + accessToken);
                         self.FS.getAccessToken(accessToken).then(function(newAccessToken){
                             localStorage.setItem("fs_access_token", self.FS.settings.accessToken);
                             self.getEightGens(function(response){
@@ -38,7 +39,6 @@ define(["jquery","GEvent"],function($,GEvent){
                         self.getEightGens(function(response){
                             callback(response);
                         });
-
                 });
         }
         callback(null);
@@ -52,7 +52,6 @@ define(["jquery","GEvent"],function($,GEvent){
         self.FS.getCurrentUser().then(function(response)
         {
 
-            console.log("got current user", response.getUser());
             self.user = response.getUser();
             self.id = self.user.data.personId;
           var params = {
@@ -64,7 +63,6 @@ define(["jquery","GEvent"],function($,GEvent){
           self.FS.getAncestry(self.id, params).then(function parse(ancestors){
 
               listOfAncestors = ancestors.getPersons();
-              console.log(listOfAncestors);
               for (var i = 0; i < listOfAncestors.length; i++)
               {
                     /* each person has under data.display
@@ -76,7 +74,6 @@ define(["jquery","GEvent"],function($,GEvent){
                         lifespan
                         name
                      */
-                  console.log(listOfAncestors[i].data.display.name + " gen: " + listOfAncestors[i].data.display.ascendancyNumber);
               }
               callback(listOfAncestors);
           });

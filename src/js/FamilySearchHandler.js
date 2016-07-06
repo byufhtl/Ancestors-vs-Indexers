@@ -15,8 +15,11 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     FamilySearchHandler.prototype.getParameterByName = function(name) {
-      var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        var code = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        code = code.replace(new RegExp('/'), "");
+        console.log(code);
+        return code;
     };
 
     FamilySearchHandler.prototype.checkAccessToken = function(callback){

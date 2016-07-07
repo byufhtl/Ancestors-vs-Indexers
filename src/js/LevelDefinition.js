@@ -113,7 +113,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
     {
         var length = this.eightGenerations[lvl].length;
         var random = Math.floor(Math.random() * length);
-        
+
     };
 
     LevelDefinition.parseScene = function(lvl, scene){

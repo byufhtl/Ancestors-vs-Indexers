@@ -26,4 +26,11 @@ db.once('open', function(){
     console.log("DB OPEN");
 });
 
+
+router.post('/setPerson', function(req,res,next){
+    console.log("posting a person: ", req.body);
+    var tempPerson = new Person(req.body);
+    tempPerson.save();
+});
+
 module.exports = router;

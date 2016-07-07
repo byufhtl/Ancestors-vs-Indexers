@@ -19,7 +19,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+/*
+app.get('/', function(req, res){
+  res.sendfile('public/index.html', {root: __dirname })
+});
+*/
 
 app.use('/', routes);
 app.use('/users', users);

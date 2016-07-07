@@ -126,6 +126,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderDefeat();
                   this.myRender.reset();
+                  console.log("YOU LOST");
               }
           }
       };

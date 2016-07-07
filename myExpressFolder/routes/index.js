@@ -18,9 +18,12 @@
     var Person = mongoose.model('Person', personSchema); // Make template object.
 
     /* GET home page. */
+
     router.get('/', function (req, res) {
+        console.log("serving index.html");
         res.sendFile('index.html', {root: public});
     });
+    
 
     /*
      Yeah, I have no idea what I'm doing here...
@@ -41,5 +44,3 @@
     });
 
     module.exports = router;
-
-

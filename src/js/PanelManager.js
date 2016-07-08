@@ -81,7 +81,7 @@ define(["jquery","GEvent"],function($,GEvent){
 
     PanelManager.prototype.loadSplashInterface = function(event){
         var self = this;
-        var loadLocation = $('#menu');
+        var loadLocation = $('#content');
         loadLocation.empty();
 
         loadLocation.load("src/html/splash.html", function(response) {
@@ -97,7 +97,7 @@ define(["jquery","GEvent"],function($,GEvent){
     /*
     PanelManager.prototype.loadMainMenuInterface = function(event){
         var self = this;
-        var loadLocation = $('#menu');
+        var loadLocation = $('#content');
         loadLocation.empty();
 
         loadLocation.load("src/html/mainmenu.html", function(response) {
@@ -112,13 +112,13 @@ define(["jquery","GEvent"],function($,GEvent){
     */
 
     PanelManager.prototype.loadMainMenuInterface = function(event){
-        this.loadResource('#menu', 'src/html/mainmenu.html', GEvent.INTFC_LD, event.value, null);
+        this.loadResource('#content', 'src/html/mainmenu.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadGameInterface = function(event){var self = this;
         console.log('loading game interface');
-        $('#menu').empty();
-        var container = $('#game');
+        $('#content').empty();
+        var container = $('#content');
         container.empty();
         container.load("src/html/game.html", function(response){
             if (response){
@@ -134,11 +134,11 @@ define(["jquery","GEvent"],function($,GEvent){
     };
 
     PanelManager.prototype.loadLevelSelectorInterface = function(event){
-        this.loadResource('#game', 'src/html/levelsinterface.html', GEvent.INTFC_LD, event.value, null);
+        this.loadResource('#content', 'src/html/levelsinterface.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadUpgradeManagerInterface = function(event){
-        this.loadResource('#menu', 'src/html/upgradesinterface.html', GEvent.INTFC_LD, event.value, null);
+        this.loadResource('#content', 'src/html/upgradesinterface.html', GEvent.INTFC_LD, event.value, null);
     };
 
     PanelManager.prototype.loadGameTopBar = function(){

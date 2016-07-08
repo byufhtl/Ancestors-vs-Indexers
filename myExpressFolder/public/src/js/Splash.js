@@ -7,7 +7,7 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
         this.viewController = new ViewController(this.gameController);
         this.viewController.init();
         ImageManager.launch();
-        
+
         this.familySearchHandler = new FamilySearchHandler(FS);
 
     };
@@ -20,7 +20,7 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
         var loadSplashEvent = new GEvent(GEvent.LD_INTFC, GEvent.SP_INTFC, tempArray);
         this.viewController.handle(loadSplashEvent);
         this.familySearchHandler.checkAccessToken(function(eightGens){
-            if (eightGens || 1)
+            if (eightGens)
             {
                 console.log("we are now startign up the Commander", eightGens);
                 //if we got family search data back then start up the commander

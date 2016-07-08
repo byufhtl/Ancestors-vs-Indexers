@@ -55,6 +55,15 @@ define([],function() {
         this.ctx.drawImage(fgImg, 0, 0, fgImg.width, fgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
+
+    Render.prototype.renderFamilyMemberName = function(activeAncestors, i)
+    {
+        this.ctx.font = "10px Arial";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText(activeAncestors[i].name, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
+        this.ctx.fillStyle = "black";
+    };
+
     Render.prototype.renderAncestors = function(activeAncestors)
     {
         var ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
@@ -64,12 +73,17 @@ define([],function() {
                 case "nameless":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
                     break;
+                case "familyMember":
+                    ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
+                    this.renderFamilyMemberName(activeAncestors, i);
+                    break;
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
             }
             this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
         }
     };
+
 
     Render.prototype.renderRecords = function(activeRecords)
     {

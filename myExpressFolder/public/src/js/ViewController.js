@@ -53,7 +53,9 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 console.log("got a command event");
                 self.commander.handle(event);
                 break;
-                
+            case GEvent.LD_MODAL:
+                self.eventManager.handle(event);
+                break;
         }
     };
 

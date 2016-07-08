@@ -75,13 +75,14 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.activeRecords = [];
           this.activeProjectiles = [];
 
+          this.defeatedAncestorInfo = [];
+
           this.gameEnded = false;
           this.victory = null;
           this.playerInfo = playerInfo;
 
           var levelDefinition = new LevelDefinition();
-          levelDefinition.eightGenerations = this.eightGenerations;
-          this.level = levelDefinition.getScene(this.currentAct, scene); // Wave information location
+          this.level = levelDefinition.getScene(this.currentAct, scene, this.eightGenerations); // Wave information location
           this.levelStructure = levelDefinition.getLevelStructure(level);
           this.nodeStructure = levelDefinition.getNodeStructure(level);
 
@@ -100,7 +101,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.lastTime = now;
           this.timeElapsed += delta_s;
 
-          this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this, this.levelStructure);
+          this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this, this.levelStructure, this.defeatedAncestorInfo);
           this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
           this.updateCoordinates(0, 0);
           if (!this.gameEnded) // game end condition.
@@ -116,7 +117,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderVictory();
                   this.myRender.reset();
-
+                  var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO);
+                  this.viewController.handle(showAncestorInfoEvent);
                   console.log("gameController current act: " + this.currentAct);
               }
               else {

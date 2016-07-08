@@ -74,5 +74,10 @@ define([],function(){
     GEvent.HOBB_IDX = "hobbyist_indexer";   // The hobbyist type of indexer
     GEvent.UBER_IDX = "uber_indexer";       // The unbeatable type of indexer
 
+    // MODAL DISPLAY ==========================================================================[]>
+    GEvent.LD_MODAL = "load_modal";         // Populate then display the modal
+
+    GEvent.ANC_INFO = "ancestor_info";      // Populate then show ancestor information
+    
     return GEvent;
 });

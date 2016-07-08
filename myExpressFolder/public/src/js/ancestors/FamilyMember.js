@@ -8,12 +8,12 @@ define(['model/IAncestor'],function(IAncestor){
         this.lane = lane;
         this.type = "familyMember";
         this.name = "joe";
-
+        this.data;
     }
 
     Nameless.prototype = new IAncestor(Nameless.prototype.lane);
 
-    Nameless.prototype.hp = 7;
+    Nameless.prototype.hp = 1;
 
     return Nameless;
 });

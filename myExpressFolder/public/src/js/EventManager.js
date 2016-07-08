@@ -63,6 +63,8 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                         self.startButtonClicked();
                         break;
                 }
+            break;
+
         }
     };
 
@@ -96,6 +98,13 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
             case GEvent.INTFC_LD:
                 self.buttonManager.handle(event);
                 break;
+            case GEvent.LD_MODAL:
+                switch (event.value){
+                    case GEvent.ANC_INFO:
+                        self.showAncestorInfo();
+                        break;
+                }
+            break;
         }
     };
 
@@ -127,6 +136,34 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
+        }
+    };
+
+
+    EventManager.prototype.showAncestorInfo = function()
+    {
+        console.log("showing ancestor info");
+        var info = this.controller.defeatedAncestorInfo;
+
+        $('#ancestorName').html(info[0].data.display.name);
+        $('#ancestorInfoText').html(       "birthDate: " + (info[0].data.display.birthDate || "uknown") + "<br>"
+                                         + "birthPlace: " + (info[0].data.display.birthPlace || "unknown") + "<br>"
+                                         + "gender: " + (info[0].data.display.gender || "unknown") + "<br>"
+                                         + "lifespan " + (info[0].data.display.lifespan || "unknown") + "<br>");
+        $('#missingInfo').html("");
+
+        var modal = $('#myModal');
+        console.log(modal);
+        modal.modal('show');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.modal('hide');
+            }
+        }
+        $("#xButton").onclick = function(event) {
+            modal.modal('hide');
         }
     };
 

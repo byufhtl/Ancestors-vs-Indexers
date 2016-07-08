@@ -121,9 +121,13 @@ define(['model/IAncestor'],function() {
         }
     };
 
-    Update.prototype.checkDeadAncestors = function (activeAncestors) {
+    Update.prototype.checkDeadAncestors = function (activeAncestors, defeatedAncestorInfo) {
         for (var i = 0; i < activeAncestors.length; i++) {
             if (activeAncestors[i].hp <= 0) {
+                if (activeAncestors[i].type == "familyMember")
+                {
+                    defeatedAncestorInfo.push(activeAncestors[i].data);
+                }
                 activeAncestors.splice(i, 1);
                 i--;
             }
@@ -227,7 +231,7 @@ define(['model/IAncestor'],function() {
     };
 
 
-    Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure) {
+    Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure, defeatedAncestorInfo) {
         //spawn records and move them
         this.spawnRecord(activeRecords, timeElapsed);
         this.moveRecords(activeRecords, timeElapsed);
@@ -236,7 +240,7 @@ define(['model/IAncestor'],function() {
         if (this.buffer(timeElapsed)) {
             //update ancestors
             this.updateAncestorsPosition(activeAncestors, timeElapsed);
-            this.checkDeadAncestors(activeAncestors);
+            this.checkDeadAncestors(activeAncestors, defeatedAncestorInfo);
             this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
             //update projectiles
             this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed, levelStructure);

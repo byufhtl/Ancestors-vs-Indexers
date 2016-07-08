@@ -19,16 +19,17 @@
 
     /* GET home page. */
 
+
     router.get('/', function (req, res) {
         console.log("serving index.html");
-        res.sendFile('index.html', {root: public});
+        res.sendfile('index.html', {root: public});
     });
-    
+
 
     /*
      Yeah, I have no idea what I'm doing here...
      */
-    router.get('/profiles', function (req, res) {
+    router.get('/profile', function (req, res) {
         Person.find({pid: req.pid}, function (err, docs) {
             if (docs) {
                 res.statusCode(200).json(docs[0]);

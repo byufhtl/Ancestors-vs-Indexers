@@ -6,9 +6,9 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
       this.topMargin = 105;
     }
 
-    LevelDefinition.prototype.getScene = function(levelNum, sceneNum)
+    LevelDefinition.prototype.getScene = function(levelNum, sceneNum, eightGenerations)
     {
-        var levelData = LevelDefinition.parseScene(levelNum, sceneNum);
+        var levelData = LevelDefinition.parseScene(levelNum, sceneNum, eightGenerations);
 
         this.setXYCoordinates(levelData, levelNum);
         return levelData;
@@ -109,14 +109,35 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         console.log("Z:",levelNum);
     };
 
-    LevelDefinition.addFamilyMember = function(lvl, scene)
+    LevelDefinition.addFamilyMember = function(lvl, scene, eightGenerations)
     {
-        var length = this.eightGenerations[lvl].length;
+        console.log("lvl: " + lvl);
+        var availableAtGen = [];
+
+        for (var i = 0; i < eightGenerations.length; i++)
+        {
+            if (eightGenerations[i].data.display.ascendancyNumber >= (Math.pow(2, lvl)) &&
+                eightGenerations[i].data.display.ascendancyNumber < (Math.pow(2,lvl + 1)))
+                {
+                    availableAtGen.push(eightGenerations[i]);
+                }
+        }
+        if (availableAtGen.length == 0)
+        {
+            return new FamilyMember();
+        }
+        console.log("available at gen", availableAtGen);
+        var length = availableAtGen.length;
         var random = Math.floor(Math.random() * length);
-        
+        var personInfo = availableAtGen[random];
+
+        var familyMember = new FamilyMember();
+        familyMember.name = personInfo.data.display.name;
+        familyMember.data = personInfo;
+        return familyMember;
     };
 
-    LevelDefinition.parseScene = function(lvl, scene){
+    LevelDefinition.parseScene = function(lvl, scene, eightGenerations){
         var self = this;
         console.log("lvl A", lvl);
         var level = [];
@@ -136,7 +157,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                                 wave.push(new Nameless(j));
                                 break;
                             case 'f':
-                                wave.push(self.addFamilyMember(lvl, scene));
+                                wave.push(self.addFamilyMember(lvl, scene, eightGenerations));
                             default:
                         }
                     }
@@ -166,26 +187,26 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
 
     LevelDefinition.levels = {
         1: { // Max of two per wave
-            1: [['a'],['a']], // a(2)
-            2: [['a', 'a'], ['a']] // a(3)
+            1: [['a'],['f']], // a(2)
+            2: [['a', 'a'], ['f']] // a(3)
         },
         2: { // Max of three per wave
             1:[
-                ['a', 'a'], ['a'], ['a', 'a', 'a'] // a(6)
+                ['a', 'a'], ['a'], ['a', 'f', 'a'] // a(6)
             ],
             2:[
-                ['a', 'a'], ['a','a'], ['a','a','a'],['a','a'] // a(9)
+                ['a', 'a'], ['a','a'], ['a','a','a'],['f','a'] // a(9)
             ],
             3:[
-                ['a'],['a','a'],['a','a','a'],['a','a'],['a','a','a'],['a','a'] // a(13)
+                ['a'],['a','a'],['f','a','a'],['a','a'],['a','a','a'],['f','a'] // a(13)
             ]
         },
         3: { // Max of four per wave
             1: [
-                ['a', 'a'], ['a','a'], ['a','a','a'],['a','a'] // a(9)
+                ['f', 'a'], ['f','a'], ['a','a','a'],['f','a'] // a(9)
             ],
             2: [
-                ['a', 'a'], ['a','a'], ['a','a','a','a'], ['a','n','a'] // a(7) n(2)
+                ['f', 'a'], ['f','a'], ['a','a','a','a'], ['a','n','a'] // a(7) n(2)
             ],
             3: [
                 ['a', 'a'], ['a','n','a'], ['a','a','a','a'],['a','n'],['a','n','n'] // a(9) n(4)

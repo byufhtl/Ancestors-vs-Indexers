@@ -187,7 +187,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
 
     LevelDefinition.levels = {
         1: { // Max of two per wave
-            1: [['a'],['f']], // a(2)
+            1: [['f'],['f']], // a(2)
             2: [['a', 'a'], ['f']] // a(3)
         },
         2: { // Max of three per wave

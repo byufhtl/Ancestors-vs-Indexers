@@ -124,8 +124,9 @@ define(['model/IAncestor'],function() {
     Update.prototype.checkDeadAncestors = function (activeAncestors, defeatedAncestorInfo) {
         for (var i = 0; i < activeAncestors.length; i++) {
             if (activeAncestors[i].hp <= 0) {
-                if (activeAncestors[i].type == "familyMember")
+                if (activeAncestors[i].type == "familyMember" && activeAncestors[i].name != 'joe')
                 {
+                    console.log("adding defeated ancestor");
                     defeatedAncestorInfo.push(activeAncestors[i].data);
                 }
                 activeAncestors.splice(i, 1);

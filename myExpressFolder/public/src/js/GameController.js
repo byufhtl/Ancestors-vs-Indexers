@@ -117,8 +117,14 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderVictory();
                   this.myRender.reset();
-                  var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO);
-                  this.viewController.handle(showAncestorInfoEvent);
+                  if (this.defeatedAncestorInfo.length != 0)
+                  {
+                    var tempData = [];
+                    tempData.push(0);
+                    var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, tempData);
+                    this.viewController.handle(showAncestorInfoEvent);
+                  }
+
                   console.log("gameController current act: " + this.currentAct);
               }
               else {

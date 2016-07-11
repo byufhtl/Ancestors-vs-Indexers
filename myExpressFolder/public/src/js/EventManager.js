@@ -101,7 +101,8 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
             case GEvent.LD_MODAL:
                 switch (event.value){
                     case GEvent.ANC_INFO:
-                        self.showAncestorInfo();
+                        console.log(event);
+                        self.showAncestorInfo(event.data);
                         break;
                 }
             break;
@@ -140,16 +141,18 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
     };
 
 
-    EventManager.prototype.showAncestorInfo = function()
+    EventManager.prototype.showAncestorInfo = function(data)
     {
+        var self = this;
+        var indexToShow = data[0];
         console.log("showing ancestor info");
         var info = this.controller.defeatedAncestorInfo;
 
         $('#ancestorName').html(info[0].data.display.name);
-        $('#ancestorInfoText').html(       "birthDate: " + (info[0].data.display.birthDate || "uknown") + "<br>"
-                                         + "birthPlace: " + (info[0].data.display.birthPlace || "unknown") + "<br>"
-                                         + "gender: " + (info[0].data.display.gender || "unknown") + "<br>"
-                                         + "lifespan " + (info[0].data.display.lifespan || "unknown") + "<br>");
+        $('#ancestorInfoText').html(       "birthDate: " + (info[indexToShow].data.display.birthDate || "uknown") + "<br>"
+                                         + "birthPlace: " + (info[indexToShow].data.display.birthPlace || "unknown") + "<br>"
+                                         + "gender: " + (info[indexToShow].data.display.gender || "unknown") + "<br>"
+                                         + "lifespan " + (info[indexToShow].data.display.lifespan || "unknown") + "<br>");
         $('#missingInfo').html("");
 
         var modal = $('#myModal');
@@ -157,14 +160,30 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         modal.modal('show');
 
         // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
+        $(window).click(function(event) {
+            if (event.target != modal) {
                 modal.modal('hide');
+                console.log("info is: ",info[indexToShow + 1])
+                if (info[indexToShow + 1] != null)
+                {
+                  console.log("bringing up modal again");
+                  var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, [indexToShow + 1]);
+                  self.viewController.handle(showAncestorInfoEvent);
+                }
+
             }
-        }
-        $("#xButton").onclick = function(event) {
+        });
+        $('#xButton').click(function(event) {
             modal.modal('hide');
-        }
+            console.log("info is: ",info[indexToShow + 1])
+            if (info[indexToShow + 1] != null)
+            {
+              console.log("bringing up modal again");
+              var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, [indexToShow + 1]);
+              self.viewController.handle(showAncestorInfoEvent);
+            }
+
+        });
     };
 
     EventManager.prototype.startButtonClicked = function()

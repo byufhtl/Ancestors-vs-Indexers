@@ -8,7 +8,7 @@
  * quicker repeat loading via the saving functionality in the LoaderUtils class.
  */
 
-define(['jquery','structure/util/Sig','structure/util/LoaderUtils'],function($, Sig, LoaderUtils){
+define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/util/Order'],function($, Sig, LoaderUtils, Order){
 
     /**
      * The main constructor for the class. Makes sure to hold on to the viewController and the LoaderUtils object.
@@ -19,6 +19,8 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils'],function($, 
         this.viewController = viewController;
         this.loader = new LoaderUtils();
     }
+
+    // ENTRY POINTS ====================================================================================================
 
     /**
      * Allows for a different LoaderUtils to be loaded, allowing us to take full advantage of prior file saving.
@@ -47,13 +49,15 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils'],function($, 
                 this.setInterface(event.value);
                 break;
             case Sig.LD_TPBAR:
-                this.setInterface(event.type);
+                this.setTopBar(event.value);
                 break;
             case Sig.LD_SDBAR:
-                this.setInterface(event.type);
+                this.setSidebar(event.value);
                 break;
         }
     };
+
+    // INTERFACE LOADING ===============================================================================================
 
     /**
      * Clears out and returns the content div.
@@ -74,7 +78,9 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils'],function($, 
     HTMLManager.prototype.loadInterface = function(url, value){
         var content = HTMLManager.getMainDiv();
         var self = this;
-        self.loader.getResource(url).then(
+        var request = new Order();
+        request.addItem(url, Order.HTML, 15);
+        self.loader.loadResources(request).then(
             function(successResponse) {
                 content.html(successResponse);
                 console.log('This ought to be a div container with the stuff in it:', successResponse);
@@ -92,7 +98,7 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils'],function($, 
      */
     HTMLManager.prototype.setInterface = function(value){
         var self = this;
-        switch(name){
+        switch(value){
             case Sig.SP_INTFC:
                 self.loadInterface("src/html/splash.html", value);
                 break;
@@ -110,6 +116,116 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils'],function($, 
                 break;
         }
     };
+
+    // TOPBAR LOADING ==================================================================================================
+
+    /**
+     * Clears out and returns the topbar div in the game.html fragment.
+     * @returns {*|jQuery|HTMLElement}
+     */
+    HTMLManager.getTopBarDiv = function(){
+        var content = $('#topbar');
+        content.empty();
+        return content;
+    };
+
+    /**
+     * Loads up a specified top bar, placing it in the game's topbar div if the resource was able to be loaded.
+     * On successful load, queues a successful load event in the ViewManager. Otherwise queues a failed load event.
+     * @param url
+     * @param value
+     */
+    HTMLManager.prototype.loadTopBar = function(url, value){
+        var self = this;
+        var bardiv = HTMLManager.getTopBarDiv();
+        var request = new Order();
+        request.addItem(url,Order.HTML, 15);
+        self.loader.loadResources(request.getBatches()).then(
+            function(resolved){
+                bardiv.html(resolved);
+                console.log('This ought to be a div container with the stuff in it:', resolved);
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_SCESS]));
+            },
+            function(rejected){
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_FAILD, rejected]));
+            }
+        )
+    };
+
+    /**
+     * Route splitter for topbar loading events. Plugs in URL's and response codes.
+     * @param value
+     */
+    HTMLManager.prototype.setTopBar = function(value){
+        var self = this;
+        switch(value){
+            case Sig.GM_TPBAR:
+                self.loadTopBar("src/html/topbar.html", value);
+                break;
+            case Sig.EM_TPBAR:
+                HTMLManager.getTopBarDiv();
+                break;
+        }
+    };
+
+    // SIDEBAR LOADING =================================================================================================
+
+    /**
+     * Clears out and returns the sidebar div in the game.html fragment.
+     * @returns {*|jQuery|HTMLElement}
+     */
+    HTMLManager.getSidebarDiv = function(){
+        var content = $('#sidebar');
+        content.empty();
+        return content;
+    };
+
+    /**
+     * Loads up a specified top bar, placing it in the game's topbar div if the resource was able to be loaded.
+     * On successful load, queues a successful load event in the ViewManager. Otherwise queues a failed load event.
+     * @param url
+     * @param value
+     */
+    HTMLManager.prototype.loadSidebar = function(url, value){
+        var self = this;
+        var bardiv = HTMLManager.getSidebarDiv();
+        var request = new Order();
+        request.addItem(url,Order.HTML, 15);
+        self.loader.loadResources(request.getBatches()).then(
+            function(resolved){
+                bardiv.html(resolved);
+                console.log('This ought to be a div container with the stuff in it:', resolved);
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_SCESS]));
+            },
+            function(rejected){
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_FAILD, rejected]));
+            }
+        )
+    };
+
+    /**
+     * Route splitter for topbar loading events. Plugs in URL's and response codes.
+     * @param value
+     */
+    HTMLManager.prototype.setSidebar = function(value){
+        var self = this;
+        switch(value){
+            case Sig.BLDG_PNL:
+                self.loadSidebar("src/html/buildings.html", value);
+                break;
+            case Sig.INDX_PNL:
+                self.loadSidebar("src/html/indexers.html", value);
+                break;
+            case Sig.VTRY_PNL:
+                self.loadSidebar("src/html/victory.html", value);
+                break;
+            case Sig.DEFT_PNL:
+                self.loadSidebar("src/html/defeat.html", value);
+                break;
+        }
+    };
+
+    // =================================================================================================================
 
     return HTMLManager;
 });

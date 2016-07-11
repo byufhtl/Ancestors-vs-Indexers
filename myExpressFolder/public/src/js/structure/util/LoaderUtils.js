@@ -2,13 +2,14 @@
  * Created by calvin on 7/8/16.
  */
 
-define(['jquery'],function($){
+define(['jquery','structure/util/Order'],function($, Order){
 
     function LoaderUtils(){
         this.loaded = {};
         this.pending = {}; // Still pending
         this.failed = {};
         this.dead = {};
+        this.remaining = 0;
     }
 
     /**
@@ -20,136 +21,188 @@ define(['jquery'],function($){
         return this.loaded.hasOwnProperty(url);
     };
 
-
-    LoaderUtils.prototype.deQ = function(name){
-        
-    }
     /**
-     * Gets a resource, if possible.
-     * @param url The url of the resource being retrieved.
-     * @returns {Promise}
+     * Places the entry in a determinant container (which is really just a big JSON map).
+     * Resources that load properly are moved into the success map, those that repeatedly fail are added to the failure
+     * map.
+     * @param pending The place to hold pending requests
+     * @param success The place to send successful requests
+     * @param failure The place to send failed requests
+     * @param entry The entry to process
+     * @param tries The number of times to attempt to load a resource if it fails.
      */
-    LoaderUtils.prototype.loadResources = function(url){
-        var self = this;
+    LoaderUtils.pend = function(pending, success, failure, entry, tries){
         return new Promise(function(resolve, reject){
-            if(self.loaded.hasOwnProperty(url)){ // If already loaded, return the object
-                resolve(self.loaded[url]);
-            }
-            else{
-                self.saveResource(url).then(   // Attempt to save the resource
-                    function(response){ // Resource was successfully saved
-                        resolve(self.loaded[url]);
-                        if(self.pending.hasOwnProperty(url)) {
-                            delete self.pending[url]; // Remove from the pending queue.
-                        }
-                    },
-                    function(response){ // Resource did not load.
-                        reject();
-                    }
-                )
-            }
-        });
-    };
+            if(!pending.hasOwnProperty(entry.url)){ // If not pending.
+                pending[entry.url] = entry.type;
 
-    /**
-     * Attempts to retrieve and save a resource. The returned promise rejects if the resource was not able to load.
-     * @param url
-     * @returns {Promise}
-     */
-    LoaderUtils.prototype.saveResource = function(url){
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var count = (self.failed.hasOwnProperty(url)) ? self.failed[url] : 0;
-            self.pendResource(url, count); // Puts the resource in the pending set if needed
-            self.pending[url].then(
-                function(response){ // If the resource was able to load.
-                    self.loaded[url] = response; // Place in loaded set
-                    if(self.failed.hasOwnProperty(url)){ // If there were any previous failures, clear them.
-                        delete self.failed[url];
-                    }
-                    resolve(self.loaded[url]); // resolve
-                },
-                function(response){ // If the resource permanently failed to load
-                    console.log("Item [" + url + "] has failed to load.");
-                    self.failed[url] = response;
-                    reject(response);
-                }
-            )
-        });
-    };
+                // HTML LOAD REQUESTS
 
-    /**
-     * Puts the resource in the pending set.
-     * @param url
-     */
-    LoaderUtils.prototype.pendResource = function(url, count){
-        var self = this;
-        count = (count) ? count : 0;
-        if(!self.pending.hasOwnProperty(url)){ // If not pending.
-            self.pending[url] = new Promise(function(resolve, reject){ // Load a promise into the pending queue
-                var container = $('<div></div>');
-                container.css('margin','0px');
-                container.css('padding','0px');
-                container.empty();
-                container.load(url, function (response) {
-                    if (response) {
-                        resolve(container);
-                    }
-                    else{
-                        reject(++count);
-                    }
-                });
-            });
-        }
-    };
-
-    /**
-     * Attempts to reload all resources that have failed to load previously. May try repeatedly along a recursive strategy.
-     * @param times The maximum number of times to retry.
-     * @returns {*}
-     */
-    LoaderUtils.prototype.retry = function(times){
-        // Single threaded JS? No mutex in place.
-
-        if(times == 0){
-            return new Promise(function(resolve){resolve()})
-        }
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var failed;
-            var count = 0;
-            for (var prop in self.failed) {
-                count++;
-                if (self.failed.hasOwnProperty(prop)) {
-                    self.saveResource(prop).then(
-                        function (resolved) {
-                            if (self.pending.hasOwnProperty(prop)) {
-                                delete self.pending[prop]; // Remove from the pending queue.
-                                if (--count == 0) {
-                                    resolve(failed);
-                                }
-                            }
+                if(entry.type == Order.HTML) {
+                    LoaderUtils.loadHTML(entry.url).then(
+                        function(resolved){
+                            LoaderUtils.assign(pending, success, entry.url, resolved);
+                            resolve();
                         },
-                        function (rejected) {
-                            ++failed;
-                            if (--count == 0) {
-                                resolve(failed);
+                        function(rejected){
+                            if(tries == 0){
+                                LoaderUtils.assign(pending, failure, entry.url, entry.type);
+                                reject(rejected);
+                            }
+                            else {
+                                delete pending[entry.url];
+                                LoaderUtils.pend(pending, success, failure, entry, --tries).then(
+                                    function(resolved){
+                                        resolve(resolved);
+                                    },
+                                    function(rejected){
+                                        reject(rejected);
+                                    }
+                                );
                             }
                         }
                     )
                 }
-            }
-        }).then(
-            function (resolved) {
-                if (resolved > 0) {
-                    if (times > 1) {
-                        return self.retry(--times); // recurse.
-                    }
-                }
-                return Promise.resolve();
-            }
-        );
 
+                // IMAGE LOAD REQUESTS
+
+                else if(entry.type == Order.IMAGE){
+                    LoaderUtils.loadImage(entry.url).then(
+                        function(resolved){ // Image Loading may not be sufficient to determine viability.
+                            LoaderUtils.assign(pending, success, entry.url, resolved);
+                            resolve();
+                        },
+                        function(rejected){
+                            if(tries == 0){
+                                LoaderUtils.assign(pending, failure, entry.url, entry.type);
+                                reject();
+                            }
+                            else {
+                                delete pending[entry.url];
+                                LoaderUtils.pend(pending, success, failure, entry, --tries).then(
+                                    function(resolved){
+                                        resolve(resolved);
+                                    },
+                                    function(rejected){
+                                        reject(rejected);
+                                    }
+                                );
+                            }
+                        }
+                    )
+                }
+
+                // UNKNOWN TYPE REQUESTS
+
+                else{
+                    console.error("Invalid Resource Type. Cannot Load \"" + entry.type + "\"");
+                    reject();
+                }
+            }
+            else{
+                resolve();
+            }
+        });
+
+    };
+
+    /**
+     * Removes an item from one Q and places it in a destination container
+     * @param source The Q being removed from.
+     * @param dest The Q being populated
+     * @param key The key associated with the move.
+     * @param value The value being assigned to the destination
+     */
+    LoaderUtils.assign = function(source, dest, key, value){
+        dest[key] = value;
+        delete source[key];
+    };
+
+    /**
+     * Attempts to load a batch of resources.
+     * Once all requests have returned, will either resolve(if all loaded properly), or reject with the number of failures.
+     * @param order An array of JSON {url, type}
+     * @returns {Promise}
+     */
+    LoaderUtils.prototype.loadResources = function(order, tries){
+        tries = tries ? tries : 15;
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var count = Object.keys(order).length;
+            var finished = 0;
+            var failed = 0;
+            for(var index in order) {
+                if(order.hasOwnProperty(index)) {
+                    LoaderUtils.pend(self.pending, self.loaded, self.failed, order[index], self.remaining, tries).then( // pend the request
+                        function (resolved) {
+                            if (++finished == count) {
+                                if (!failed) {
+                                    resolve(resolved);
+                                }
+                                else {
+                                    reject(failed);
+                                }
+                            }
+                        },
+                        function (rejected) {
+                            failed++;
+                            if (++finished == count) {
+                                if (!failed) {
+                                    resolve(rejected);
+                                }
+                                else {
+                                    reject(failed);
+                                }
+                            }
+                        }
+                    );
+                }
+            }
+        });
+    };
+
+    /**
+     * Loads an image as an ES6 Promise.
+     * Resolves if it loads successfully.
+     * Otherwise rejects, assuming I've got the function names right...
+     * @param url the URL for the image.
+     * @returns {Promise}
+     */
+    LoaderUtils.loadImage = function(url){
+        return new Promise(function(resolve, reject){
+            var image = new Image();
+            image.onload = function() {
+                resolve(image);
+            };
+            image.onerror = function() {
+                reject();
+            };
+            image.src = url;
+        });
+    };
+
+    /**
+     * Loads an image as an ES6 Promise.
+     * Resolves if it loads successfully.
+     * Otherwise rejects.
+     * @param url the URL for the image.
+     * @returns {Promise} Resolved: Div container with requested HTML within.
+     */
+    LoaderUtils.loadHTML = function(url){
+        return new Promise(function(resolve, reject){
+            var container = $('<div></div>');
+            container.css('margin', '0px');
+            container.css('padding', '0px');
+            container.empty();
+            container.load(url, function (response) {
+                if (response) {
+                    resolve(container);
+                }
+                else {
+                    reject()
+                }
+            });
+        });
     };
 
     return LoaderUtils;

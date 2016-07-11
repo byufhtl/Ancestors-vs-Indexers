@@ -5,7 +5,7 @@
 require.config({
     baseUrl: 'src/js',
     paths: {
-        splash: 'Splash',
+        splash: 'structure/Splash',
         familysearch: 'https://cdn.jsdelivr.net/familysearch-javascript-sdk/2.4.5/familysearch-javascript-sdk.min',
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min',
         bootstrap: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min'

@@ -28,8 +28,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.gameEnded = false;
           this.victory;
           this.viewTransform = new ViewTransform(0, 0, this.canvas);
-          this.viewController = new ViewController(this);
-          this.viewController.init();
+          // this.viewController = new ViewController(this);
+          // this.viewController.init();
       }
 
       GameController.prototype.loadResources = function () {

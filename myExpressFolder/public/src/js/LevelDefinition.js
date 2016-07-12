@@ -94,7 +94,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 var randNode;
                 do{
                     randNode = Math.floor(Math.random() * (numNodes + 1));
-                }while(occupiedNodes.includes(randNode));
+                }while(occupiedNodes.indexOf(randNode) != -1);
                 occupiedNodes.push(randNode);
                 // Draw up coordinates
                 var y_coord = firstNodeYCoord + randNode * 300;

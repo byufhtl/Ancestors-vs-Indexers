@@ -28,8 +28,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.gameEnded = false;
           this.victory;
           this.viewTransform = new ViewTransform(0, 0, this.canvas);
-          this.viewController = new ViewController(this);
-          this.viewController.init();
+          //this.viewController = new ViewController(this);
+          //this.viewController.init();
       }
 
       GameController.prototype.loadResources = function () {
@@ -119,10 +119,11 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.myRender.reset();
                   if (this.defeatedAncestorInfo.length != 0)
                   {
-                    var tempData = [];
-                    tempData.push(0);
-                    var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, tempData);
-                    this.viewController.handle(showAncestorInfoEvent);
+                        var tempData = [];
+                        tempData.push(0);
+                        console.log("showing ancestor info from gameController");
+                        var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, tempData);
+                        this.viewController.handle(showAncestorInfoEvent);
                   }
 
                   console.log("gameController current act: " + this.currentAct);

@@ -94,6 +94,20 @@ define([],function() {
         }
     };
 
+
+    Render.prototype.drawSpecialist = function(activeIndexers, i)
+    {
+        homeBaseImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
+        this.ctx.drawImage(homeBaseImg, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+
+        //draw numbers on base and above the specialist
+        this.ctx.font = "10px Arial";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText(activeIndexers[i].recordsOnHand, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer + 20, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + 20 + this.indexerYBuffer);
+        this.ctx.fillText(activeIndexers[i].recordsCharged, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+        this.ctx.fillStyle = "black";
+    };
+
     Render.prototype.renderIndexers = function(activeIndexers)
     {
         var indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
@@ -105,6 +119,10 @@ define([],function() {
                     break;
                 case "uber":
                     indexerImg = this.imageManager.getImage(this.imageManager.UBER_IDX);
+                    break;
+                case "specialist":
+                    indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
+                    this.drawSpecialist(activeIndexers, i);
                     break;
                 // More cases to be installed as we get more coded up.
                 default:

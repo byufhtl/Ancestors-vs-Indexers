@@ -2,8 +2,8 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
-function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, standardBuilding, Library, LevelDefinition){
+define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
+function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuilding, Library, LevelDefinition){
 
 
     function EventManager(ViewController, controller){
@@ -101,7 +101,6 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
             case GEvent.LD_MODAL:
                 switch (event.value){
                     case GEvent.ANC_INFO:
-                        console.log(event);
                         self.showAncestorInfo(event.data);
                         break;
                 }
@@ -137,6 +136,9 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
+            case GEvent.SPCL_IDX:
+                self.clickContext = {elementType:"indexer", class:"specialist", cost:30};
+                break;
         }
     };
 
@@ -145,7 +147,6 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
     {
         var self = this;
         var indexToShow = data[0];
-        console.log("showing ancestor info");
         var info = this.controller.defeatedAncestorInfo;
 
         $('#ancestorName').html(info[0].data.display.name);
@@ -156,29 +157,26 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         $('#missingInfo').html("");
 
         var modal = $('#myModal');
-        console.log(modal);
         modal.modal('show');
 
         // When the user clicks anywhere outside of the modal, close it
+        /*
         $(window).click(function(event) {
             if (event.target != modal) {
                 modal.modal('hide');
-                console.log("info is: ",info[indexToShow + 1])
                 if (info[indexToShow + 1] != null)
                 {
-                  console.log("bringing up modal again");
                   var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, [indexToShow + 1]);
                   self.viewController.handle(showAncestorInfoEvent);
                 }
 
             }
         });
+        */
         $('#xButton').click(function(event) {
             modal.modal('hide');
-            console.log("info is: ",info[indexToShow + 1])
             if (info[indexToShow + 1] != null)
             {
-              console.log("bringing up modal again");
               var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, [indexToShow + 1]);
               self.viewController.handle(showAncestorInfoEvent);
             }
@@ -199,15 +197,10 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
 
     EventManager.prototype.nextLevelButtonClicked = function()
     {
-        console.log("next level button clicked");
         this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
         this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
-        console.log("before levelToLoad: " + this.controller.currentAct);
         var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
-        console.log('after levelToLoad: ' + this.controller.currentAct);
-        console.log('levelToLoad act: ' + levelToLoad.act);
         this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
-        console.log('after initializeGame: ' + this.controller.currentAct);
         this.controller.loop();
     };
 
@@ -237,8 +230,6 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         var bestI;
         var bestJ;
         var shortestDistance = 100000;
-        console.log("game controller in eventManager: ", this.controller);
-        console.log("node structure in eventManager: ", nodeStructure);
         for (var i = 0; i < nodeStructure.length; i++)
         {
             for (var j = 0; j < nodeStructure[i].length; j++)
@@ -299,6 +290,10 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
             case "uber":
                 return new Uber();
                 break;
+            case "specialist":
+                console.log("making a specialist");
+                return new Specialist();
+                break;
         }
     };
 
@@ -333,6 +328,11 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
             var tempIndexer = this.getNewIndexer();
             tempIndexer.xCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].xCoord;
             tempIndexer.yCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].yCoord;
+            if (tempIndexer.type == "specialist")
+            {
+                tempIndexer.homeXCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].xCoord;
+                tempIndexer.homeYCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].yCoord;
+            }
             tempIndexer.xNode = nearestNodeToClick.X;
             tempIndexer.yNode = nearestNodeToClick.Y;
             this.controller.activeIndexers.push(tempIndexer);

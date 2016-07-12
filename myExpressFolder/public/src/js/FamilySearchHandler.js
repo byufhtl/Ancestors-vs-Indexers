@@ -18,7 +18,6 @@ define(["jquery","GEvent"],function($,GEvent){
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         var code = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
         code = code.replace(new RegExp('/'), "");
-        console.log(code);
         return code;
     };
 
@@ -28,7 +27,6 @@ define(["jquery","GEvent"],function($,GEvent){
         var url = window.location.href.split('?');
         if(url.length > 1){
                         var accessToken = self.getParameterByName('code');
-                        console.log("accesstokenis: " + accessToken);
                         self.FS.getAccessToken(accessToken).then(function(newAccessToken){
                             localStorage.setItem("fs_access_token", self.FS.settings.accessToken);
                             self.getEightGens(function(response){
@@ -68,6 +66,7 @@ define(["jquery","GEvent"],function($,GEvent){
               listOfAncestors = ancestors.getPersons();
               for (var i = 0; i < listOfAncestors.length; i++)
               {
+                    //console.log(listOfAncestors[i].getPersonPortraitUrl("noURLEXISTS.jpg"));
                     /* each person has under data.display
                         ascendancyNumber
                         birthDate

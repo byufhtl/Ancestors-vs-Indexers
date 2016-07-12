@@ -175,9 +175,11 @@ define(['jquery','GEvent'], function($, GEvent){
             var button_1 = $('#button-1-i');
             var button_2 = $('#button-2-i');
             var button_3 = $('#button-3-i');
+            var button_4 = $('#button-4-i');
             var button_1_image = $('#button-1-img-i');
             var button_2_image = $('#button-2-img-i');
             var button_3_image = $('#button-3-img-i');
+            var button_4_image = $('#button-4-img-i');
 
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
@@ -193,6 +195,9 @@ define(['jquery','GEvent'], function($, GEvent){
                 //console.log("Button 2i Clicked!");
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.UBER_IDX, []));
             });
+            button_4.click(function () {
+                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.SPCL_IDX, []));
+            });
             button_1_image.click(function () {
                 button_1.click()
             });
@@ -201,6 +206,9 @@ define(['jquery','GEvent'], function($, GEvent){
             });
             button_3_image.click(function () {
                 button_3.click()
+            });
+            button_4_image.click(function () {
+                button_4.click()
             });
         }
     };

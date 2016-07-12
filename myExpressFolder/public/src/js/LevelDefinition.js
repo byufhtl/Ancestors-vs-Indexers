@@ -87,10 +87,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
     LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum) {
         var numNodes = levelNum;
         var firstNodeYCoord = -numNodes * 150 + 300;
-        console.log("B:",levelNum);
         for (var i = 0; i < levelData.length; i++) {
             var occupiedNodes = [];
-            console.log("C:",i,levelNum);
             for (var j = 0; j < levelData[i].length; j++) {
                 // Select a random unoccupied node.
                 var randNode;
@@ -106,12 +104,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 levelData[i][j].currentGeneration = levelNum;
             }
         }
-        console.log("Z:",levelNum);
     };
 
     LevelDefinition.addFamilyMember = function(lvl, scene, eightGenerations)
     {
-        console.log("lvl: " + lvl);
         var availableAtGen = [];
 
         for (var i = 0; i < eightGenerations.length; i++)
@@ -126,7 +122,6 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         {
             return new FamilyMember();
         }
-        console.log("available at gen", availableAtGen);
         var length = availableAtGen.length;
         var random = Math.floor(Math.random() * length);
         var personInfo = availableAtGen[random];
@@ -139,7 +134,6 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
 
     LevelDefinition.parseScene = function(lvl, scene, eightGenerations){
         var self = this;
-        console.log("lvl A", lvl);
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
         if(act_scheme){
@@ -175,12 +169,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
 
         if(scene < numScenes){
             scene++;
-            console.log("incrementing scene");
             return {'act': act, 'scene': scene};
         }
         else{
             act++;
-            console.log("incrementing act from" + (act-1) + " to " + act);
             return {'act': act, 'scene': 1}; // Super broken - doesn't handle ultimate win conditions. So just don't win.
         }
     };

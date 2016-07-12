@@ -73,6 +73,7 @@ define([],function(){
     GEvent.STAN_IDX = "standard_indexer";   // The standard type of indexer
     GEvent.HOBB_IDX = "hobbyist_indexer";   // The hobbyist type of indexer
     GEvent.UBER_IDX = "uber_indexer";       // The unbeatable type of indexer
+    GEvent.SPCL_IDX = "specialist_indexer"; // The guy who chases the leftmost ancestor
 
     // MODAL DISPLAY ==========================================================================[]>
     GEvent.LD_MODAL = "load_modal";         // Populate then display the modal

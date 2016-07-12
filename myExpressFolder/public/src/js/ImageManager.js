@@ -144,7 +144,7 @@ define(["ImageResource"], function(ImageResource){
 
     ImageManager.STAN_IDX = "idx_standard";
     ImageManager.HOBB_IDX = "idx_hobbyist";
-    ImageManager.UBER_IDX = "idx_hobbyist";
+    ImageManager.UBER_IDX = "idx_uber";
 
     ImageManager.BLD_FHCR = "build_fhcenter";
     ImageManager.BLD_LIBR = "library";

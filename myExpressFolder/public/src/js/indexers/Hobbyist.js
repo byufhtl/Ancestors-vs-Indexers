@@ -16,6 +16,23 @@ define(['model/IIndexer'],function(IIndexer){
 
     Hobbyist.prototype.dmg = 1;
 
+
+    Hobbyist.prototype.update = function(activeAncestors, timeElapsed, activeProjectiles, levelStructure)
+    {
+        this.checkShootProjectile(timeElapsed, levelStructure, activeProjectiles);
+    };
+
+    Hobbyist.prototype.checkShootProjectile = function(timeElapsed, levelStructure, activeProjectiles)
+    {
+        this.throwTimer += timeElapsed;
+        if (this.throwTimer > this.throwDelay) {
+            this.throwTimer = 0;
+            var tempProjectile = this.getProjectile(levelStructure.length);
+            tempProjectile.timeRemaining = 10; // 10 second timeout
+            activeProjectiles.push(tempProjectile);
+        }
+    }
+
     Hobbyist.prototype.getProjectile = function(){
 
         if (this.projectileOrientation == "upRight")

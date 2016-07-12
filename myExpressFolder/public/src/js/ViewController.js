@@ -12,12 +12,13 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
     function ViewController(gameController, Commander){
         //DON"T FORGET TO INITIALIZE THIS!!!!!!!!!!!!!!!!!!!!!!!!
         this.controller = gameController;
-        console.log("game controller in view controller: " ,this.controller);
         this.eventManager = null;
         this.panelManager = null;
     }
 
     ViewController.prototype.init = function(){
+        console.log("initializing the event manager");
+
         var self = this;
         self.eventManager = new EventManager(self, self.controller);
         self.eventManager.init();
@@ -50,7 +51,6 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 self.eventManager.handle(event);
                 break;
             case GEvent.CMND_ACT:
-                console.log("got a command event");
                 self.commander.handle(event);
                 break;
             case GEvent.LD_MODAL:

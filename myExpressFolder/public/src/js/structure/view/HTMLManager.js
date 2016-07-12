@@ -82,7 +82,7 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
         request.addItem(url, Order.HTML, 15);
         self.loader.loadResources(request).then(
             function(successResponse) {
-                content.html(successResponse);
+                content.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', successResponse);
                 self.viewController.handle(new Sig(Sig.INTFC_LD, value, [Sig.LD_SCESS]));
             },
@@ -142,7 +142,7 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
         request.addItem(url,Order.HTML, 15);
         self.loader.loadResources(request.getBatches()).then(
             function(resolved){
-                bardiv.html(resolved);
+                bardiv.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', resolved);
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_SCESS]));
             },
@@ -193,7 +193,7 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
         request.addItem(url,Order.HTML, 15);
         self.loader.loadResources(request.getBatches()).then(
             function(resolved){
-                bardiv.html(resolved);
+                bardiv.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', resolved);
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_SCESS]));
             },

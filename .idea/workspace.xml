@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aaab0ae2-f4ce-45f7-aacb-f2ea2390fb90" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/Order.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/LoaderUtils.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/LoaderUtils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/HTMLManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/HTMLManager.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,8 +113,8 @@
       <file leaf-file-name="ImageManager.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/img/ImageManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="843">
-              <caret line="136" column="21" selection-start-line="136" selection-start-column="21" selection-end-line="136" selection-end-column="21" />
+            <state relative-caret-position="699">
+              <caret line="108" column="13" selection-start-line="108" selection-start-column="13" selection-end-line="108" selection-end-column="13" />
               <folding>
                 <element signature="e#4017#4330#0" expanded="false" />
                 <element signature="e#4376#4793#0" expanded="false" />
@@ -136,8 +133,16 @@
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/EventManager.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
-              <caret line="327" column="53" selection-start-line="327" selection-start-column="53" selection-end-line="327" selection-end-column="53" />
-              <folding />
+              <caret line="346" column="53" selection-start-line="346" selection-start-column="53" selection-end-line="346" selection-end-column="53" />
+              <folding>
+                <marker date="1468279607925" expanded="true" signature="873:1018" ph="/** The handler for events being passed from the button elements. Separated for convenience. ...*/" />
+                <marker date="1468279607925" expanded="true" signature="2343:2487" ph="/** The handler for events being passed from the canvas element. Separated for convenience. ...*/" />
+                <marker date="1468279607925" expanded="true" signature="2731:2847" ph="/** The primary handler for events coming from higher upstream. ...*/" />
+                <marker date="1468279607925" expanded="true" signature="2904:3418" ph="{...}" />
+                <marker date="1468279607925" expanded="true" signature="2957:3418" ph="{...}" />
+                <marker date="1468279607925" expanded="true" signature="3350:3418" ph="{...}" />
+                <marker date="1468279607925" expanded="true" signature="6880:6886" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -557,16 +562,16 @@
       <option name="presentableId" value="Default" />
       <updated>1468004835232</updated>
       <workItem from="1468004837063" duration="18280000" />
-      <workItem from="1468247988119" duration="22199000" />
+      <workItem from="1468247988119" duration="22311000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40479000" />
+    <option name="totallyTimeSpent" value="40591000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -575,7 +580,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32910246" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32910246" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -748,8 +753,16 @@
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/EventManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="327" column="53" selection-start-line="327" selection-start-column="53" selection-end-line="327" selection-end-column="53" />
-          <folding />
+          <caret line="346" column="53" selection-start-line="346" selection-start-column="53" selection-end-line="346" selection-end-column="53" />
+          <folding>
+            <marker date="1468279607925" expanded="true" signature="873:1018" ph="/** The handler for events being passed from the button elements. Separated for convenience. ...*/" />
+            <marker date="1468279607925" expanded="true" signature="2343:2487" ph="/** The handler for events being passed from the canvas element. Separated for convenience. ...*/" />
+            <marker date="1468279607925" expanded="true" signature="2731:2847" ph="/** The primary handler for events coming from higher upstream. ...*/" />
+            <marker date="1468279607925" expanded="true" signature="2904:3418" ph="{...}" />
+            <marker date="1468279607925" expanded="true" signature="2957:3418" ph="{...}" />
+            <marker date="1468279607925" expanded="true" signature="3350:3418" ph="{...}" />
+            <marker date="1468279607925" expanded="true" signature="6880:6886" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -846,8 +859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/img/ImageManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="843">
-          <caret line="136" column="21" selection-start-line="136" selection-start-column="21" selection-end-line="136" selection-end-column="21" />
+        <state relative-caret-position="699">
+          <caret line="108" column="13" selection-start-line="108" selection-start-column="13" selection-end-line="108" selection-end-column="13" />
           <folding>
             <element signature="e#4017#4330#0" expanded="false" />
             <element signature="e#4376#4793#0" expanded="false" />

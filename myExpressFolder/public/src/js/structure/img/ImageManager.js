@@ -2,38 +2,52 @@
  * Created by calvinmcm on 6/27/16.
  */
 
-define(["ImageResource"], function(ImageResource){
+define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
 
     /**
      * The primary image manager for the program. Maintains a list of resources and loads them as necessary.
      * Class is designed with no specific prototype.
      * @constructor
      */
-    function ImageManager(){}
+    function ImageManager(){
+        this.loader = new LoaderUtils();
+    }
 
-    ImageManager.map = {};
-    ImageManager.status = "new";
-    ImageManager.total = 0;
-    ImageManager.tot_loaded = 0;
+    // ENTRY POINTS ====================================================================================================
+
+    /**
+     * Allows for a different LoaderUtils to be loaded, allowing us to take full advantage of prior file saving.
+     * @param loader
+     */
+    HTMLManager.prototype.injectLoader = function(loader){
+        this.loader = loader;
+    };
+
+    /**
+     * Allows the LoaderUtils for this class to be extracted and stored externally, allowing us to preserve loaded
+     * files across several instances of the HTMLManager class if properly handled.
+     * @returns {*}
+     */
+    HTMLManager.prototype.extractLoader = function(){
+        return this.loader;
+    };
 
     /**
      * A quick check to see if an image is loaded.
-     * @param key the key associated with the desired image.
+     * @param url the key associated with the desired image.
      * @returns {boolean}
      */
-    ImageManager.isLoaded = function(key){
-        if(ImageManager.map.hasOwnProperty(key)){
-            return ImageManager.map[key].loaded;
-        }
+    ImageManager.isLoaded = function(url){
+        return this.loader.hasResource(url)
     };
 
     /**
      * Retrieves an image if it has loaded, otherwise returns null.
-     * @param key the key associated with the desired image.
+     * @param url the key associated with the desired image.
      * @returns {Image}
      */
-    ImageManager.getImage = function(key){
-        return(ImageManager.isLoaded(key) ? ImageManager.map[key].image : null);
+    ImageManager.getImage = function(url){
+        return this.loader.getResource(url);
     };
 
     /**
@@ -134,139 +148,146 @@ define(["ImageResource"], function(ImageResource){
     };
     
     ImageManager.loadFieldPieces = function(){
-        var map = {};
-        ImageManager.total += 4;
+        var self = this;
         return new Promise(function(resolve, reject){
-            map[ImageManager.TRI_A] = new ImageResource(ImageManager.TRI_A, "src/img/field/triangleAlpha.png");
-            map[ImageManager.TRI_B] = new ImageResource(ImageManager.TRI_B, "src/img/field/triangleBeta.png");
-            map[ImageManager.NODE] = new ImageResource(ImageManager.NODE, "src/img/field/node.png");
-            map[ImageManager.UND_TREE] = new ImageResource(ImageManager.UND_TREE, "src/img/field/underlayTree.png");
-
-            ImageManager.validate(map, 4).then(function(response){
-                resolve(response);
-            },
-            function(response){
-                reject();
-            })
-        })
-    };
-
-    ImageManager.loadBackgroundSkins = function(){
-        var map = {};
-        ImageManager.total += 4;
-        return new Promise(function(resolve, reject){
-            map[ImageManager.BKGD] = new ImageResource(ImageManager.BKGD, "src/img/background.png");
-            map[ImageManager.FRGD] = new ImageResource(ImageManager.FRGD, "src/img/lightbeam.png");
-            map[ImageManager.VCTR] = new ImageResource(ImageManager.VCTR, "src/img/victory.jpg");
-            map[ImageManager.DFET] = new ImageResource(ImageManager.DFET, "src/img/defeat.jpg");
-
-            ImageManager.validate(map, 4).then(function(response){
-                    resolve(response);
+            var order = new Order;
+            order.addItem(ImageManager.TRI_ALPH, Order.IMAGE, 15);
+            order.addItem(ImageManager.TRI_BETA, Order.IMAGE, 15);
+            order.addItem(ImageManager.NODE_CIR, Order.IMAGE, 15);
+            order.addItem(ImageManager.UND_TREE, Order.IMAGE, 15);
+            self.loader.loadResources(Order).then(
+                function(success){
+                    resolve(success);
                 },
-                function(response){
-                    reject();
-                })
-        })
-    };
-
-    ImageManager.loadRecordSprites = function(){
-        var map = {};
-        ImageManager.total += 7;
-        return new Promise(function(resolve, reject){
-            ImageManager.map[ImageManager.REC_BL] = new ImageResource(ImageManager.REC_BL, "src/img/records/blueRecord.png");
-            ImageManager.map[ImageManager.REC_BR] = new ImageResource(ImageManager.REC_BR, "src/img/records/brownRecord.png");
-            ImageManager.map[ImageManager.REC_GD] = new ImageResource(ImageManager.REC_GD, "src/img/records/goldenRecord.png");
-            ImageManager.map[ImageManager.REC_GR] = new ImageResource(ImageManager.REC_GR, "src/img/records/greenRecord.png");
-            ImageManager.map[ImageManager.REC_OR] = new ImageResource(ImageManager.REC_OR, "src/img/records/orangeRecord.png");
-            ImageManager.map[ImageManager.REC_VT] = new ImageResource(ImageManager.REC_VT, "src/img/records/violetRecord.png");
-            ImageManager.map[ImageManager.REC_EM] = new ImageResource(ImageManager.REC_EM, "src/img/records/emptyRecord.png");
-
-            ImageManager.validate(map, 7).then(function(response){
-                    resolve(response);
-                },
-                function(response){
-                    reject();
-                })
-        })
-    };
-
-    ImageManager.loadIndexerSprites = function(){
-        var map = {};
-        ImageManager.total += 3;
-        return new Promise(function(resolve, reject){
-            ImageManager.map[ImageManager.STAN_IDX] = new ImageResource(ImageManager.STAN_IDX, "src/img/indexers/bow-indexer.png");
-            ImageManager.map[ImageManager.HOBB_IDX] = new ImageResource(ImageManager.HOBB_IDX, "src/img/indexers/hobbyist.png");
-            ImageManager.map[ImageManager.UBER_IDX] = new ImageResource(ImageManager.UBER_IDX, "src/img/indexers/tree.png");
-
-            ImageManager.validate(map, 3).then(function(response){
-                    resolve(response);
-                },
-                function(response){
-                    reject();
-                })
-        })
-    };
-
-    ImageManager.loadBuildingSprites = function(){
-        var map = {};
-        ImageManager.total += 2;
-        return new Promise(function(resolve, reject){
-            ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/drake1-A01.png");
-            ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/human-city4.png");
-
-            ImageManager.validate(map, 2).then(function(response){
-                    resolve(response);
-                },
-                function(response){
-                    reject();
-                })
-        })
-    };
-
-    ImageManager.loadAncestorSprites = function(){
-        var map = {};
-        ImageManager.total += 2;
-        return new Promise(function(resolve, reject){
-            ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/peasant.png");
-            ImageManager.map[ImageManager.ANC_NMLS] = new ImageResource(ImageManager.ANC_NMLS, "src/img/ancestors/nameless.png");
-
-            ImageManager.validate(map, 2).then(function(response){
-                    resolve(response);
-                },
-                function(response){
-                    reject();
-                })
+                function(failure){
+                    reject(failure);
+                }
+            );
         });
     };
 
-    ImageManager.TRI_A  = "triangle_alpha";
-    ImageManager.TRI_B  = "tri_beta";
-    ImageManager.NODE   = "node";
-    ImageManager.UND_TREE = "underlay_tree";
+    ImageManager.loadBackgroundSkins = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.GM_BKGRD, Order.IMAGE, 15);
+            order.addItem(ImageManager.GM_FRGRD, Order.IMAGE, 15);
+            order.addItem(ImageManager.GM_VCTRY, Order.IMAGE, 15);
+            order.addItem(ImageManager.GM_DFEAT, Order.IMAGE, 15);
+            self.loader.loadResources(Order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
 
-    ImageManager.BKGD   = "background";
-    ImageManager.FRGD   = "foreground";
-    ImageManager.VCTR   = "victory";
-    ImageManager.DFET   = "defeat";
+    ImageManager.loadRecordSprites = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.REC_BLUE, Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_BRWN, Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_GOLD, Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_GREN, Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_ORNG, Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_RED , Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_VLET, Order.IMAGE, 15);
+            order.addItem(ImageManager.REC_TRNS, Order.IMAGE, 15);
+            self.loader.loadResources(Order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
 
-    ImageManager.REC_BL = "rec_blue";
-    ImageManager.REC_BR = "rec_brown";
-    ImageManager.REC_GD = "rec_golden";
-    ImageManager.REC_GR = "rec_green";
-    ImageManager.REC_OR = "rec_orange";
-    ImageManager.REC_RD = "rec_red";
-    ImageManager.REC_VT = "rec_violet";
-    ImageManager.REC_EM = "rec_empty";
+    ImageManager.loadIndexerSprites = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.STAN_IDX, Order.IMAGE, 15);
+            order.addItem(ImageManager.HOBB_IDX, Order.IMAGE, 15);
+            order.addItem(ImageManager.UBER_IDX, Order.IMAGE, 15);
+            self.loader.loadResources(Order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
 
-    ImageManager.STAN_IDX = "idx_standard";
-    ImageManager.HOBB_IDX = "idx_hobbyist";
-    ImageManager.UBER_IDX = "idx_hobbyist";
+    ImageManager.loadBuildingSprites = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.BLD_FHCR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLD_LIBR, Order.IMAGE, 15);
+            self.loader.loadResources(Order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
 
-    ImageManager.BLD_FHCR = "build_fhcenter";
-    ImageManager.BLD_LIBR = "library";
+    ImageManager.loadAncestorSprites = function(){
 
-    ImageManager.ANC_STAN = "anc_standard";
-    ImageManager.ANC_NMLS = "anc_nameless";
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.ANC_STAN, Order.IMAGE, 15);
+            order.addItem(ImageManager.ANC_NMLS, Order.IMAGE, 15);
+            self.loader.loadResources(Order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
+
+    ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
+    ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA
+    ImageManager.NODE_CIR =     "src/img/field/node.png";                   // NODE CIRCLE
+    ImageManager.UND_TREE =     "src/img/field/underlayTree.png";           // UNDERLAY TREE
+
+    ImageManager.GM_BKGRD =     "src/img/background.png";                   // GAME BACKGROUND
+    ImageManager.GM_FRGRD =     "src/img/lightbeam.png";                    // GAME FOREGROUND
+    ImageManager.GM_VCTRY =     "src/img/victory.jpg";                      // VICTORY SCREEN
+    ImageManager.GM_DFEAT =     "src/img/defeat.jpg";                       // DEFEAT SCREEN
+
+    ImageManager.REC_BLUE =     "src/img/records/blueRecord.png";           // BLUE RECORD
+    ImageManager.REC_BRWN =     "src/img/records/brownRecord.png";          // BROWN RECORD
+    ImageManager.REC_GOLD =     "src/img/records/goldenRecord.png";         // GOLDEN RECORD
+    ImageManager.REC_GREN =     "src/img/records/greenRecord.png";          // GREEN RECORD
+    ImageManager.REC_ORNG =     "src/img/records/orangeRecord.png";         // ORANGE RECORD
+    ImageManager.REC_RED  =     "src/img/records/redRecord.png";            // RED RECORD
+    ImageManager.REC_VLET =     "src/img/records/violetRecord.png";         // VIOLET RECORD
+    ImageManager.REC_TRNS =     "src/img/records/emptyRecord.png";          // TRANSPARENT RECORD
+
+    ImageManager.STAN_IDX =     "src/img/indexers/bow-indexer.png";         // STANDARD INDEXER
+    ImageManager.HOBB_IDX =     "src/img/indexers/hobbyist.png";            // HOBBYIST INDEXER
+    ImageManager.UBER_IDX =     "src/img/indexers/tree.png";                // TREE INDEXER
+
+    ImageManager.BLD_FHCR =     "src/img/buildings/drake1-A01.png";         // FAMILY HISTORY CENTER
+    ImageManager.BLD_LIBR =     "src/img/buildings/human-city4.png";        // LIBRARY
+
+    ImageManager.ANC_STAN =     "src/img/ancestors/peasant.png";            // STANDARD ANCESTOR
+    ImageManager.ANC_NMLS =     "src/img/ancestors/nameless.png";           // NAMELESS ANCESTOR
 
 
     return ImageManager;

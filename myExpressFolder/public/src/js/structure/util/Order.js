@@ -9,6 +9,7 @@ define([],function(){
     }
 
     Order.prototype.addItem = function(url, type, tries){
+        tries = tries ? tries : 15;
         this.batch.push({url: url, type: type, tries:tries});
     };
 

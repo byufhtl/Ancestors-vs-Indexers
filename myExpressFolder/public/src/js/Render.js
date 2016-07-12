@@ -33,25 +33,25 @@ define([],function() {
 
     Render.prototype.renderVictory = function()
     {
-        var victoryImg = this.imageManager.getImage(this.imageManager.VCTR);
+        var victoryImg = this.imageManager.getImage(this.imageManager.GM_VCTRY);
         this.ctx.drawImage(victoryImg, 0, 0, victoryImg.width, victoryImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderDefeat = function()
     {
-        var defeatImg = this.imageManager.getImage(this.imageManager.DFET);
+        var defeatImg = this.imageManager.getImage(this.imageManager.GM_DFEAT);
         this.ctx.drawImage(defeatImg, 0, 0, defeatImg.width, defeatImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderBackground = function()
     {
-        var bgImg = this.imageManager.getImage(this.imageManager.BKGD);
+        var bgImg = this.imageManager.getImage(this.imageManager.GM_BKGRD);
         this.ctx.drawImage(bgImg, -this.viewTransform.t_offset_X, -this.viewTransform.t_offset_Y, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderLightBeam = function()
     {
-        var fgImg = this.imageManager.getImage(this.imageManager.FRGD);
+        var fgImg = this.imageManager.getImage(this.imageManager.GM_FRGRD);
         this.ctx.drawImage(fgImg, 0, 0, fgImg.width, fgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
@@ -87,7 +87,7 @@ define([],function() {
 
     Render.prototype.renderRecords = function(activeRecords)
     {
-        var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GD);
+        var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GOLD);
         for (var i = 0; i < activeRecords.length; i++)
         {
             this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.recordOffset, activeRecords[i].yCoord + this.recordOffset);
@@ -134,17 +134,17 @@ define([],function() {
 
     Render.prototype.renderProjectiles = function(activeProjectiles)
     {
-        var recordImg = this.imageManager.getImage(this.imageManager.REC_BR);
+        var recordImg = this.imageManager.getImage(this.imageManager.REC_BRWN);
         for (var i = 0; i < activeProjectiles.length; i++) {
             switch (activeProjectiles[i].type) {
                 case "strong":
-                    recordImg = this.imageManager.getImage(this.imageManager.REC_GD);
+                    recordImg = this.imageManager.getImage(this.imageManager.REC_GOLD);
                     break;
                 case "uber":
-                    recordImg = this.imageManager.getImage(this.imageManager.REC_GR);
+                    recordImg = this.imageManager.getImage(this.imageManager.REC_GREN);
                     break;
                 default:
-                    recordImg = this.imageManager.getImage(this.imageManager.REC_BR);
+                    recordImg = this.imageManager.getImage(this.imageManager.REC_BRWN);
             }
             this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.viewTransform.t_offset_X + this.projectileXOffset, activeProjectiles[i].yCoord + this.viewTransform.t_offset_Y + this.projectileYOffset, recordImg.width / 3, recordImg.height / 3);
         }
@@ -169,7 +169,7 @@ define([],function() {
 
     Render.prototype.renderTriangularPlayingField = function(levelStructure)
     {
-        var alphaImg = this.imageManager.getImage(this.imageManager.TRI_A);
+        var alphaImg = this.imageManager.getImage(this.imageManager.TRI_ALPH);
 
         var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
           for (var i = 0; i < levelStructure.length; i++)

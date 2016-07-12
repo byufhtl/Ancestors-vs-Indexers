@@ -72,23 +72,23 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.status = "Loading images...";
             ImageManager.total = 21;
             ImageManager.tot_loaded = 0;
-            ImageManager.map[ImageManager.TRI_A] = new ImageResource(ImageManager.TRI_A, "src/img/field/triangleAlpha.png");
+            ImageManager.map[ImageManager.TRI_ALPH] = new ImageResource(ImageManager.TRI_ALPH, "src/img/field/triangleAlpha.png");
             ImageManager.map[ImageManager.TRI_B] = new ImageResource(ImageManager.TRI_B, "src/img/field/triangleBeta.png");
             ImageManager.map[ImageManager.NODE] = new ImageResource(ImageManager.NODE, "src/img/field/node.png");
             ImageManager.map[ImageManager.UND_TREE] = new ImageResource(ImageManager.UND_TREE, "src/img/field/underlayTree.png");
 
-            ImageManager.map[ImageManager.BKGD] = new ImageResource(ImageManager.BKGD, "src/img/background.png");
-            ImageManager.map[ImageManager.FRGD] = new ImageResource(ImageManager.FRGD, "src/img/lightbeam.png");
-            ImageManager.map[ImageManager.VCTR] = new ImageResource(ImageManager.VCTR, "src/img/victory.jpg");
-            ImageManager.map[ImageManager.DFET] = new ImageResource(ImageManager.DFET, "src/img/defeat.jpg");
+            ImageManager.map[ImageManager.GM_BKGRD] = new ImageResource(ImageManager.GM_BKGRD, "src/img/background.png");
+            ImageManager.map[ImageManager.GM_FRGRD] = new ImageResource(ImageManager.GM_FRGRD, "src/img/lightbeam.png");
+            ImageManager.map[ImageManager.GM_VCTRY] = new ImageResource(ImageManager.GM_VCTRY, "src/img/victory.jpg");
+            ImageManager.map[ImageManager.GM_DFEAT] = new ImageResource(ImageManager.GM_DFEAT, "src/img/defeat.jpg");
 
-            ImageManager.map[ImageManager.REC_BL] = new ImageResource(ImageManager.REC_BL, "src/img/records/blueRecord.png");
-            ImageManager.map[ImageManager.REC_BR] = new ImageResource(ImageManager.REC_BR, "src/img/records/brownRecord.png");
-            ImageManager.map[ImageManager.REC_GD] = new ImageResource(ImageManager.REC_GD, "src/img/records/goldenRecord.png");
-            ImageManager.map[ImageManager.REC_GR] = new ImageResource(ImageManager.REC_GR, "src/img/records/greenRecord.png");
-            ImageManager.map[ImageManager.REC_OR] = new ImageResource(ImageManager.REC_OR, "src/img/records/orangeRecord.png");
-            ImageManager.map[ImageManager.REC_VT] = new ImageResource(ImageManager.REC_VT, "src/img/records/violetRecord.png");
-            ImageManager.map[ImageManager.REC_EM] = new ImageResource(ImageManager.REC_EM, "src/img/records/emptyRecord.png");
+            ImageManager.map[ImageManager.REC_BLUE] = new ImageResource(ImageManager.REC_BLUE, "src/img/records/blueRecord.png");
+            ImageManager.map[ImageManager.REC_BRWN] = new ImageResource(ImageManager.REC_BRWN, "src/img/records/brownRecord.png");
+            ImageManager.map[ImageManager.REC_GOLD] = new ImageResource(ImageManager.REC_GOLD, "src/img/records/goldenRecord.png");
+            ImageManager.map[ImageManager.REC_GREN] = new ImageResource(ImageManager.REC_GREN, "src/img/records/greenRecord.png");
+            ImageManager.map[ImageManager.REC_ORNG] = new ImageResource(ImageManager.REC_ORNG, "src/img/records/orangeRecord.png");
+            ImageManager.map[ImageManager.REC_VLET] = new ImageResource(ImageManager.REC_VLET, "src/img/records/violetRecord.png");
+            ImageManager.map[ImageManager.REC_TRNS] = new ImageResource(ImageManager.REC_TRNS, "src/img/records/emptyRecord.png");
 
             ImageManager.map[ImageManager.STAN_IDX] = new ImageResource(ImageManager.STAN_IDX, "src/img/indexers/bow-indexer.png");
             ImageManager.map[ImageManager.HOBB_IDX] = new ImageResource(ImageManager.HOBB_IDX, "src/img/indexers/hobbyist.png");
@@ -123,24 +123,24 @@ define(["ImageResource"], function(ImageResource){
         });
     };
 
-    ImageManager.TRI_A  = "triangle_alpha";
+    ImageManager.TRI_ALPH  = "triangle_alpha";
     ImageManager.TRI_B  = "tri_beta";
     ImageManager.NODE   = "node";
     ImageManager.UND_TREE = "underlay_tree";
 
-    ImageManager.BKGD   = "background";
-    ImageManager.FRGD   = "foreground";
-    ImageManager.VCTR   = "victory";
-    ImageManager.DFET   = "defeat";
+    ImageManager.GM_BKGRD   = "background";
+    ImageManager.GM_FRGRD   = "foreground";
+    ImageManager.GM_VCTRY   = "victory";
+    ImageManager.GM_DFEAT   = "defeat";
 
-    ImageManager.REC_BL = "rec_blue";
-    ImageManager.REC_BR = "rec_brown";
-    ImageManager.REC_GD = "rec_golden";
-    ImageManager.REC_GR = "rec_green";
-    ImageManager.REC_OR = "rec_orange";
-    ImageManager.REC_RD = "rec_red";
-    ImageManager.REC_VT = "rec_violet";
-    ImageManager.REC_EM = "rec_empty";
+    ImageManager.REC_BLUE = "rec_blue";
+    ImageManager.REC_BRWN = "rec_brown";
+    ImageManager.REC_GOLD = "rec_golden";
+    ImageManager.REC_GREN = "rec_green";
+    ImageManager.REC_ORNG = "rec_orange";
+    ImageManager.REC_RED_ = "rec_red";
+    ImageManager.REC_VLET = "rec_violet";
+    ImageManager.REC_TRNS = "rec_empty";
 
     ImageManager.STAN_IDX = "idx_standard";
     ImageManager.HOBB_IDX = "idx_hobbyist";

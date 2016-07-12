@@ -21,6 +21,10 @@ define(['jquery','structure/util/Order'],function($, Order){
         return this.loaded.hasOwnProperty(url);
     };
 
+    LoaderUtils.prototype.getResource = function(url){
+        return (this.hasResource(url))? this.loaded[url] : null;
+    };
+
     /**
      * Places the entry in a determinant container (which is really just a big JSON map).
      * Resources that load properly are moved into the success map, those that repeatedly fail are added to the failure
@@ -124,8 +128,7 @@ define(['jquery','structure/util/Order'],function($, Order){
      * @param order An array of JSON {url, type}
      * @returns {Promise}
      */
-    LoaderUtils.prototype.loadResources = function(order, tries){
-        tries = tries ? tries : 15;
+    LoaderUtils.prototype.loadResources = function(order){
         var self = this;
         return new Promise(function(resolve, reject){
             var count = Object.keys(order).length;
@@ -133,7 +136,7 @@ define(['jquery','structure/util/Order'],function($, Order){
             var failed = 0;
             for(var index in order) {
                 if(order.hasOwnProperty(index)) {
-                    LoaderUtils.pend(self.pending, self.loaded, self.failed, order[index], self.remaining, tries).then( // pend the request
+                    LoaderUtils.pend(self.pending, self.loaded, self.failed, order[index], self.remaining, order[index].tries).then( // pend the request
                         function (resolved) {
                             if (++finished == count) {
                                 if (!failed) {

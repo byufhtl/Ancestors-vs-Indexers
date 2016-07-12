@@ -3,6 +3,7 @@ define(['jquery','structure/FamilySearchHandler','structure/img/ImageManager', '
 
     var Splash = function(FS)
     {
+        console.log("THIS IS THE WRONG SPLASH OG:WIRH:OGHNW:OGIH:WOIRG");
         this.gameController = new GameController();
         this.viewController = new ViewController(this.gameController);
         this.viewController.init();

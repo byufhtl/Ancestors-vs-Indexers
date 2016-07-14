@@ -45,7 +45,7 @@ define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
         self.gameController.loadResources().then(function (response) {
                 self.gameController.initializeGame(self.currentAct, self.currentScene, self.eightGenerations);
                 //re-init this since we just put the canvas in. It grabs the canvas in its init method
-                self.viewController.eventManager.canvasManager.init();
+                self.viewController.viewController.canvasManager.init();
                 self.gameController.loop();
             },
             function (e) {

@@ -5,7 +5,7 @@
 define(['jquery','GEvent'], function($, GEvent){
 
     function ButtonManager(EventManager){
-        this.eventManager = EventManager;
+        this.viewController = EventManager;
         this.sidebarButtons = [];
         this.topbarButtons = [];
         this.mainmenuButtons = [];
@@ -81,13 +81,13 @@ define(['jquery','GEvent'], function($, GEvent){
             self.mainmenuButtons.push(upgradesButton, levelsButton, startGameButton);
 
             upgradesButton.click(function(){
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.UG_INTFC, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.UG_INTFC, []));
             });
             levelsButton.click(function(){
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.LV_INTFC, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.LV_INTFC, []));
             });
             startGameButton.click(function(){
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.GM_INTFC, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.LD_INTFC, GEvent.GM_INTFC, []));
             });
         }
     };
@@ -104,7 +104,7 @@ define(['jquery','GEvent'], function($, GEvent){
             console.log("actually loading button stuff");
             var loginButton = $('#LOGIN');
             loginButton.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data));
             });
         }
     };
@@ -123,11 +123,11 @@ define(['jquery','GEvent'], function($, GEvent){
             self.topbarButtons = [structures_button, indexers_button];
 
             structures_button.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_SDBAR, GEvent.BLDG_PNL, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.LD_SDBAR, GEvent.BLDG_PNL, []));
             });
 
             indexers_button.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.LD_SDBAR, GEvent.INDX_PNL, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.LD_SDBAR, GEvent.INDX_PNL, []));
             });
         }
     };
@@ -149,11 +149,11 @@ define(['jquery','GEvent'], function($, GEvent){
 
             button_1.click(function () {
                 //console.log("Button 1 Clicked!");
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_BLD, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_BLD, []));
             });
             button_2.click(function () {
                 //console.log("Button 2 Clicked!");
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.LIBR_BLD, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.LIBR_BLD, []));
             });
             button_1_image.click(function () {
                 button_1.click()
@@ -183,15 +183,15 @@ define(['jquery','GEvent'], function($, GEvent){
 
             button_1.click(function () {
                 //console.log("Button 1i Clicked!");
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_IDX, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.STAN_IDX, []));
             });
             button_2.click(function () {
                 //console.log("Button 2i Clicked!");
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.HOBB_IDX, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.HOBB_IDX, []));
             });
             button_3.click(function () {
                 //console.log("Button 2i Clicked!");
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.UBER_IDX, []));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.ST_CLICK, GEvent.UBER_IDX, []));
             });
             button_1_image.click(function () {
                 button_1.click()
@@ -212,11 +212,11 @@ define(['jquery','GEvent'], function($, GEvent){
             var nextLevelButton = $('#nextLevelButton');
             var mainMenuButton = $('#mainMenuButton');
             nextLevelButton.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.NEXT_BTN));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.NEXT_BTN));
             });
 
             mainMenuButton.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
             })
         }
         else {
@@ -231,11 +231,11 @@ define(['jquery','GEvent'], function($, GEvent){
             var nextLevelButton = $('#playAgainButton');
             var mainMenuButton = $('#mainMenuButton');
             nextLevelButton.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.AGAN_BTN));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.AGAN_BTN));
             });
 
             mainMenuButton.click(function () {
-                self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
+                self.viewController.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.MENU_BTN));
             });
         }
         else {

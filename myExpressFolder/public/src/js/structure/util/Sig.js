@@ -15,9 +15,18 @@ define([],function(){
     //      NAME                VALUE                   Description                                 TYPE
 
     // CONTROLLEREVENTS ============================================================================================[]>
-    Sig.    CMND_ACT =          "commact";              // Request action from controller           *
+    Sig.    CMND_ACT =          "commact";              // Request action from commander            *
 
     Sig.    STRT_LVL =          "stlvl";                // Start level currently selected
+    Sig.    GET_LODR =          "gtldr";                // Get the loaderUtils object               *
+    Sig.    SET_LODR =          "stldr";                // Set the loaderUtils object               *
+    Sig.    HAS_LODR =          "hsldr";                // Has a loaderUtils object                 *
+    Sig.    IMG_LODR =          "imldr";                // Image Loader
+    Sig.    HTM_LODR =          "htldr";                // HTML Loader
+
+    Sig.    START_MM =          "sttmm";                // Start the Main Menu
+    Sig.    DISBL_UI =          "disui";                // Disable UI components
+    Sig.    ENABL_UI =          "enbui";                // Enable UI components
 
     // INTERFACES ==================================================================================================[]>
     Sig.    LD_INTFC =          "Ldint";                // Load Interface                           *

@@ -76,9 +76,15 @@ define([],function(){
     Sig.    STAN_BLD =          "sdbld";                // Standard Building
     Sig.    LIBR_BLD =          "lbbld";                // Library
 
-    Sig.    STAN_IDX =          "sdind";                // Standard Indexer
-    Sig.    HOBB_IDX =          "hbind";                // Hobbyist
-    Sig.    UBER_IDX =          "ubind";                // Unbeatable
+    Sig.    STAN_IDX =          "sdidx";                // Standard Indexer
+    Sig.    HOBB_IDX =          "hbidx";                // Hobbyist
+    Sig.    UBER_IDX =          "ubidx";                // Unbeatable
+
+    // KEY SIGNALS =================================================================================================[]>
+    Sig.    KEY_ACTN =          "kyact";                // Key Press                                *
+
+    Sig.    KY_PRS_P =          "pkypr";                // 'p' Key (ASCII 112)
+
 
     // MODAL DISPLAY ==============================================================================================[]>
     Sig.    LD_MODAL =          "ldmdl";                // Load Modal                               *

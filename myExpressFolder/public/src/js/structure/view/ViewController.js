@@ -10,6 +10,7 @@ define(['structure/util/Sig','structure/view/HTMLManager', 'structure/view/Butto
         }};
         this.htmlManager = new HTMLManager();
         this.buttonManager = new ButtonManager();
+        this.buttonManager.init();
         this.responsesEnabled = true;
     }
     

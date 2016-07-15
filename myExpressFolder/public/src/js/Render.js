@@ -224,12 +224,26 @@ define([],function() {
 
     Render.prototype.reset = function()
     {
-      this.resizeOnce = true;
+        this.resizeOnce = true;
     }
 
+    Render.prototype.animateFadeAnimations = function(activeFadeAnimations)
+    {
+        for (var i = 0; i < activeFadeAnimations.length; i++){
+            var img = this.imageManager.getImage(activeFadeAnimations[i].img);
+            var offsetX = this.viewTransform.t_offset_X;
+            var offsetY = this.viewTransform.t_offset_Y;
+            if (activeFadeAnimations[i].canvasOffset == false){offsetX = 0; offsetY = 0;}
+            console.log("drawing image", img);
+            this.ctx.drawImage(img,
+              activeFadeAnimations[i].animFrame * activeFadeAnimations[i].myWidth,0,
+              activeFadeAnimations[i].myWidth,activeFadeAnimations[i].myHeight,
+              activeFadeAnimations[i].xCoord + activeFadeAnimations[i].xOffset + offsetX,activeFadeAnimations[i].yCoord + activeFadeAnimations[i].yOffset + offsetY,
+              activeFadeAnimations[i].myWidth,activeFadeAnimations[i].myHeight);
+        }
+    }
 
-
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
+    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure, activeFadeAnimations) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
@@ -244,6 +258,7 @@ define([],function() {
         this.renderRecords(activeRecords);
         //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         //this.renderLightBeam();
+        this.animateFadeAnimations(activeFadeAnimations);
     };
 
 

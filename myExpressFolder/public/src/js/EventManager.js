@@ -2,8 +2,8 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
-function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuilding, Library, LevelDefinition){
+define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition', 'model/FadeAnimation', 'fadeAnimations/FallingRecordAnim'],
+function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuilding, Library, LevelDefinition, FadeAnimation, FallingRecordAnim){
 
 
     function EventManager(ViewController, controller){
@@ -259,8 +259,19 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
         }
     };
 
+    EventManager.prototype.addFadeRecord = function(record)
+    {
+        var tempFadeRecord = new FallingRecordAnim();
+        tempFadeRecord.xCoord = record.xCoord;
+        tempFadeRecord.yCoord = record.yCoord;
+
+        this.controller.activeFadeAnimations.push(tempFadeRecord);
+        console.log("activeFadeAnimations: ", this.controller.activeFadeAnimations);
+
+    }
     EventManager.prototype.recordClicked = function(clickLocation)
     {
+
         var activeRecords = this.controller.activeRecords;
         for (var i = 0; i < activeRecords.length; i++)
         {
@@ -268,6 +279,7 @@ function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyis
             var truePt = new Point(worldPt.X - 200, worldPt.Y -135);
             if (activeRecords[i].includesPoint(truePt))
             {
+                this.addFadeRecord(activeRecords[i]);
                 activeRecords.splice(i,1);
                 this.controller.resourcePoints += 10;
                 $('#points').text(this.controller.resourcePoints);

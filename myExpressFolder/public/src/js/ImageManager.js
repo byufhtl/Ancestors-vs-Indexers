@@ -100,6 +100,8 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/animAnc.png");
             ImageManager.map[ImageManager.ANC_NMLS] = new ImageResource(ImageManager.ANC_NMLS, "src/img/ancestors/nameless.png");
 
+            ImageManager.map[ImageManager.REC_ANIM] = new ImageResource(ImageManager.REC_ANIM, "src/img/records/recordTemplateSparkles.png");
+
             //console.log("Looping:");
             for(var property in ImageManager.map){
                 if(ImageManager.map.hasOwnProperty(property)) {
@@ -142,6 +144,8 @@ define(["ImageResource"], function(ImageResource){
     ImageManager.REC_VLET = "rec_violet";
     ImageManager.REC_TRNS = "rec_empty";
 
+    ImageManager.REC_ANIM = "rec_animatedFade";
+
     ImageManager.STAN_IDX = "idx_standard";
     ImageManager.HOBB_IDX = "idx_hobbyist";
     ImageManager.UBER_IDX = "idx_uber";
@@ -151,6 +155,8 @@ define(["ImageResource"], function(ImageResource){
 
     ImageManager.ANC_STAN = "anc_standard";
     ImageManager.ANC_NMLS = "anc_nameless";
+
+
 
 
 

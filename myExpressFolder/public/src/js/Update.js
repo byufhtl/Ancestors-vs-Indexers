@@ -1,4 +1,4 @@
-define(['model/IAncestor'],function() {
+define(['model/IAncestor', 'model/FadeAnimation', 'fadeAnimations/BuildingRecordAnim'],function(IAncestor, FadeAnimation, BuildingRecordAnim) {
 
 
     function Update() {
@@ -117,7 +117,6 @@ define(['model/IAncestor'],function() {
             if (activeAncestors[i].hp <= 0) {
                 if (activeAncestors[i].type == "familyMember" && activeAncestors[i].name != 'joe')
                 {
-                    console.log("adding defeated ancestor");
                     defeatedAncestorInfo.push(activeAncestors[i].data);
                 }
                 activeAncestors.splice(i, 1);
@@ -141,7 +140,6 @@ define(['model/IAncestor'],function() {
         if (!this.doneSpawning) {
 
             if (this.wave >= level.length - 1) {
-                console.log("DONE SPAWNING");
                 this.doneSpawning = true;
             }
         }
@@ -214,6 +212,12 @@ define(['model/IAncestor'],function() {
                 activeBuildings[i].spawnTimer = 0;
                 gameController.resourcePoints += 10;
                 $('#points').html(gameController.resourcePoints);
+
+                var tempFadeRecord = new BuildingRecordAnim();
+                tempFadeRecord.xCoord = activeBuildings[i].xCoord;
+                tempFadeRecord.yCoord = activeBuildings[i].yCoord;
+
+                gameController.activeFadeAnimations.push(tempFadeRecord);
             }
         }
     };
@@ -226,14 +230,12 @@ define(['model/IAncestor'],function() {
         else return false;
     };
 
-    Update.prototype.moveAnimFrames = function(activeAncestors, timeElapsed)
+    Update.prototype.moveAnimFrames = function(activeAncestors, activeFadeAnimations, timeElapsed)
     {
         for (var i = 0; i < activeAncestors.length; i++)
         {
-            console.log("animTimer", activeAncestors[0].animTimer);
 
             activeAncestors[i].animTimer += timeElapsed;
-            console.log("time Elapsed: " + timeElapsed);
             if (activeAncestors[i].animTimer > activeAncestors[i].timeBetweenFrames)
             {
                 activeAncestors[i].animTimer = 0;
@@ -241,15 +243,26 @@ define(['model/IAncestor'],function() {
                 if (activeAncestors[i].animFrame >= (activeAncestors[i].numFrames - 1)) activeAncestors[i].animFrame = 0;
             }
         }
+
+        for (var i = 0; i < activeFadeAnimations.length; i++)
+        {
+            activeFadeAnimations[i].updateFrames(timeElapsed);
+            if (activeFadeAnimations[i].die)
+            {
+                console.log('deleting anim');
+                activeFadeAnimations.splice(i, 1);
+                i--;
+            }
+        }
     };
 
-    Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure, defeatedAncestorInfo) {
-
+    Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure, defeatedAncestorInfo, activeFadeAnimations) {
 
         //spawn records and move them
         this.spawnRecord(activeRecords, timeElapsed);
         this.moveRecords(activeRecords, timeElapsed);
         this.spawnRecordsFromBuildings(activeBuildings, activeRecords, timeElapsed, controller);
+        this.moveAnimFrames(activeAncestors, activeFadeAnimations, timeElapsed);
 
         if (this.buffer(timeElapsed)) {
             //update indexers
@@ -264,9 +277,6 @@ define(['model/IAncestor'],function() {
             //check victory conditions
             this.checkVictory(controller, activeAncestors);
             this.checkDefeat(controller, activeAncestors);
-
-            this.moveAnimFrames(activeAncestors, timeElapsed);
-
         }
     };
 

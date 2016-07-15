@@ -5,6 +5,7 @@ define(['jquery','structure/FamilySearchHandler','structure/img/ImageManager', '
     var Splash = function(FS)
     {
         this.viewController = new ViewController();
+        console.log("THIS IS THE WRONG SPLASH OG:WIRH:OGHNW:OGIH:WOIRG");
         this.viewController.init();
 
         this.familySearchHandler = new FamilySearchHandler(FS);

@@ -97,7 +97,7 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/drake1-A01.png");
             ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/human-city4.png");
 
-            ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/peasant.png");
+            ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/animAnc.png");
             ImageManager.map[ImageManager.ANC_NMLS] = new ImageResource(ImageManager.ANC_NMLS, "src/img/ancestors/nameless.png");
 
             //console.log("Looping:");
@@ -144,13 +144,14 @@ define(["ImageResource"], function(ImageResource){
 
     ImageManager.STAN_IDX = "idx_standard";
     ImageManager.HOBB_IDX = "idx_hobbyist";
-    ImageManager.UBER_IDX = "idx_hobbyist";
+    ImageManager.UBER_IDX = "idx_uber";
 
     ImageManager.BLD_FHCR = "build_fhcenter";
     ImageManager.BLD_LIBR = "library";
 
     ImageManager.ANC_STAN = "anc_standard";
     ImageManager.ANC_NMLS = "anc_nameless";
+
 
 
     return ImageManager;

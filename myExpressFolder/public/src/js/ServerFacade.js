@@ -15,14 +15,14 @@ define(['jquery'],function($){
         });
     };
 
-    ServerFacade.postUserData = function(pid, userProfile){
-        var profileJSON = JSON.stringify(userProfile);
-        var urlToHit = "setPerson";
+    ServerFacade.postUserData = function(objectToPost)
+    {
+        var myUser = new user({_id: "bilbo", data: {age: '1232', height: '1232'}});
         $.ajax({
-                  url: urlToHit,
-                  type: "POST",
-                  data : profileJSON,
-                  contentType: "application/json; charset=utf-8"
-              });
-    };
+          url:'replace',
+          type: "POST",
+          data: JSON.stringinfy(myUser),
+          contentType: "application/json",
+          });
+    }
 });

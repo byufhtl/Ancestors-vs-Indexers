@@ -112,6 +112,7 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
         }
 
         $(document).keydown(function(e){
+          e.preventDefault();
             var thisPress = Date.now();
             if(e.which == 119 || e.which == 38){ // w or (^) key - up
                 if(keys.indexOf('up') == -1) {

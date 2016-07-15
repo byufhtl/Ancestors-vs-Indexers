@@ -2,10 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aaab0ae2-f4ce-45f7-aacb-f2ea2390fb90" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/KeyManager.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/img/ancestors/animAnc.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/ancestors/animAnc.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myExpressFolder/npm-debug.log" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Specialist.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/Sig.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/Sig.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/ViewController.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/ViewController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/.idea/workspace.xml" afterPath="$PROJECT_DIR$/myExpressFolder/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/main.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/html/indexers.html" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/html/indexers.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ButtonManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ButtonManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/CanvasManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/CanvasManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/EventManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/EventManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/GEvent.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/GEvent.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ImageManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ImageManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ImageResource.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ImageResource.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Render.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Render.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Splash.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Splash.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Update.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Update.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Hobbyist.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Hobbyist.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Uber.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Uber.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IIndexer.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IIndexer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/routes/index.js" afterPath="$PROJECT_DIR$/myExpressFolder/routes/index.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,8 +122,8 @@
       <file leaf-file-name="RevisedSplash.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+            <state relative-caret-position="198">
+              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -140,24 +165,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CanvasManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/CanvasManager.js">
+      <file leaf-file-name="ViewController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="113" column="39" selection-start-line="113" selection-start-column="8" selection-end-line="113" selection-end-column="39" />
+            <state relative-caret-position="306">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KeyManager.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/KeyManager.js">
+      <file leaf-file-name="ButtonManager.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ButtonManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="33" column="96" selection-start-line="33" selection-start-column="96" selection-end-line="33" selection-end-column="96" />
-              <folding>
-                <element signature="e#0#40#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="450">
+              <caret line="199" column="32" selection-start-line="199" selection-start-column="32" selection-end-line="199" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -165,8 +188,8 @@
       <file leaf-file-name="GameController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -188,7 +211,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/GEvent.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/PanelManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/css/stylesheet.css" />
@@ -200,7 +222,6 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/Order.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ImageManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/img/ImageManager.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/Commander.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/HTMLManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/ButtonManager.js" />
@@ -208,6 +229,10 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/ViewController.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/Sig.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/KeyManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ButtonManager.js" />
       </list>
     </option>
   </component>
@@ -618,16 +643,16 @@
       <workItem from="1468247988119" duration="22311000" />
       <workItem from="1468361830908" duration="2751000" />
       <workItem from="1468518163535" duration="8977000" />
-      <workItem from="1468610196578" duration="2190000" />
+      <workItem from="1468610196578" duration="2930000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54509000" />
+    <option name="totallyTimeSpent" value="55249000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -635,7 +660,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32910246" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32910246" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -665,19 +690,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/LoaderUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="135" column="27" selection-start-line="135" selection-start-column="27" selection-end-line="135" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-            <element signature="e#1245#4247#0" expanded="false" />
-            <element signature="e#6647#6955#0" expanded="false" />
-            <element signature="e#7242#7711#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/PanelManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2592">
@@ -901,13 +913,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/util/GEvent.js" />
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/css/stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="524">
@@ -1057,26 +1062,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/view/ButtonManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1422">
           <caret line="79" column="43" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1147,6 +1136,38 @@
           <folding>
             <element signature="e#0#40#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/structure/RevisedSplash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ButtonManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="199" column="32" selection-start-line="199" selection-start-column="32" selection-end-line="199" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

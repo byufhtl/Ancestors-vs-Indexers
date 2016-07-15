@@ -89,24 +89,15 @@ define(['model/IAncestor'],function() {
         }
     };
 
-    Update.prototype.checkShootProjectile = function (activeIndexers, activeAncestors, activeProjectiles, timeElapsed, levelStructure) {
-        for (var i = 0; i < activeIndexers.length; i++) {
-            activeIndexers[i].throwTimer += timeElapsed;
-            if (activeIndexers[i].throwTimer > activeIndexers[i].throwDelay) {
-                activeIndexers[i].throwTimer = 0;
-                var tempProjectile = activeIndexers[i].getProjectile(levelStructure.length);
-                tempProjectile.timeRemaining = 10; // 10 second timeout
-                activeProjectiles.push(tempProjectile);
-            }
-        }
-    };
+
 
     Update.prototype.checkProjectileCollision = function (activeProjectiles, activeAncestors) {
+
         for (var i = 0; i < activeAncestors.length; i++)
         {
             for (var j = 0; j < activeProjectiles.length; j++)
             {
-                var distanceX = Math.abs(activeProjectiles[j].xCoord - activeAncestors[i].xCoord);
+                var distanceX = Math.abs(activeProjectiles[j].xCoord - (activeAncestors[i].xCoord));
                 var distanceY = Math.abs(activeProjectiles[j].yCoord - activeAncestors[i].yCoord);
                 //check if within hitting distance
                 if (distanceX < 20 && distanceY < 20)
@@ -156,8 +147,21 @@ define(['model/IAncestor'],function() {
         }
     };
 
+    Update.prototype.updateIndexers = function(activeIndexers, activeAncestors, timeElapsed, activeProjectiles, levelStructure)
+    {
+
+        for (var i = 0; i < activeIndexers.length; i++)
+        {
+            activeIndexers[i].update(activeAncestors, timeElapsed, activeProjectiles, levelStructure);
+        }
+    };
+
+
+
     Update.prototype.updateAncestorsPosition = function (activeAncestors, modifier) {
+
         for (var i = 0; i < activeAncestors.length; i++) {
+
             //check whether to move up or down
             if (activeAncestors[i].distanceMovedX >= 300)
             {
@@ -199,26 +203,17 @@ define(['model/IAncestor'],function() {
             {
                 activeAncestors[i].yCoord -= modifier * activeAncestors[i].speed / 2;
             }
-
         }
     };
 
 
-    Update.prototype.spawnRecordsFromBuildings = function (activeBuildings, activeRecords, timeElapsed) {
+    Update.prototype.spawnRecordsFromBuildings = function (activeBuildings, activeRecords, timeElapsed, gameController) {
         for (var i = 0; i < activeBuildings.length; i++) {
             activeBuildings[i].spawnTimer += timeElapsed;
             if (activeBuildings[i].spawnTimer >= activeBuildings[i].timeBetweenSpawns) {
                 activeBuildings[i].spawnTimer = 0;
-                var collectableRecord = {
-                    xCoord: activeBuildings[i].xCoord,
-                    yCoord: activeBuildings[i].yCoord,
-                    speed: 0,
-                    includesPoint: function (pt) {
-                      return (pt.X <= this.xCoord + 50 && pt.X >= this.xCoord -50 && pt.Y < this.yCoord + 50 && pt.Y > this.yCoord -50);
-                    }
-                }
-                activeRecords.push(collectableRecord);
-
+                gameController.resourcePoints += 10;
+                $('#points').html(gameController.resourcePoints);
             }
         }
     };
@@ -231,25 +226,47 @@ define(['model/IAncestor'],function() {
         else return false;
     };
 
+    Update.prototype.moveAnimFrames = function(activeAncestors, timeElapsed)
+    {
+        for (var i = 0; i < activeAncestors.length; i++)
+        {
+            console.log("animTimer", activeAncestors[0].animTimer);
+
+            activeAncestors[i].animTimer += timeElapsed;
+            console.log("time Elapsed: " + timeElapsed);
+            if (activeAncestors[i].animTimer > activeAncestors[i].timeBetweenFrames)
+            {
+                activeAncestors[i].animTimer = 0;
+                activeAncestors[i].animFrame++;
+                if (activeAncestors[i].animFrame >= (activeAncestors[i].numFrames - 1)) activeAncestors[i].animFrame = 0;
+            }
+        }
+    };
 
     Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure, defeatedAncestorInfo) {
+
+
         //spawn records and move them
         this.spawnRecord(activeRecords, timeElapsed);
         this.moveRecords(activeRecords, timeElapsed);
-        this.spawnRecordsFromBuildings(activeBuildings, activeRecords, timeElapsed);
+        this.spawnRecordsFromBuildings(activeBuildings, activeRecords, timeElapsed, controller);
 
         if (this.buffer(timeElapsed)) {
+            //update indexers
+            this.updateIndexers(activeIndexers, activeAncestors, timeElapsed, activeProjectiles, levelStructure);
             //update ancestors
             this.updateAncestorsPosition(activeAncestors, timeElapsed);
             this.checkDeadAncestors(activeAncestors, defeatedAncestorInfo);
             this.checkAncestorSpawnTimes(level, activeAncestors, timeElapsed);
             //update projectiles
-            this.checkShootProjectile(activeIndexers, activeAncestors, activeProjectiles, timeElapsed, levelStructure);
             this.moveProjectiles(activeProjectiles, timeElapsed);
             this.checkProjectileCollision(activeProjectiles, activeAncestors);
             //check victory conditions
             this.checkVictory(controller, activeAncestors);
             this.checkDefeat(controller, activeAncestors);
+
+            this.moveAnimFrames(activeAncestors, timeElapsed);
+
         }
     };
 

@@ -2,19 +2,19 @@
  * Created by calvinmcm on 7/5/16.
  */
 
-define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
+define(['jquery','GameController','GEvent','ServerFacade'],function($, GameController, GEvent, Commander, ServerFacade){
 
     function Commander(viewController, imageManager, eightGenerations, gameController){
         this.viewController = viewController;
         this.viewController.commander = this;
         this.imageManager = imageManager;
         this.gameController = gameController;
-        console.log("eight generations in commander", eightGenerations);
         this.gameController.eightGenerations = eightGenerations;
         this.eightGenerations = eightGenerations;
-        this.currentAct = 1;
+        this.currentAct = 2;
         this.currentScene = 1;
     }
+
 
     Commander.prototype.start = function(){
         var self = this;
@@ -22,7 +22,6 @@ define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
     };
 
     Commander.prototype.handle = function(event){
-        console.log("handle was called in the commander class");
         var self = this;
         switch(event.value)
         {
@@ -33,7 +32,6 @@ define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
     };
 
     Commander.prototype.startLevel = function(){
-        console.log("starting level");
         var self = this;
         var canvas = document.createElement('canvas');
         canvas.width = 1000;

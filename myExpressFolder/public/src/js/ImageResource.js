@@ -32,8 +32,9 @@ define([],function(){
                 self.loaded = true;
                 resolve();
             };
-            self.image.onerror = function(){
+            self.image.onerror = function(e){
                 console.log("Image was not loaded:", self.url);
+                console.log("img error",e);
                 reject();
             };
             self.image.src = self.url;

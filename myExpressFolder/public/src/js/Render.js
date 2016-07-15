@@ -9,7 +9,6 @@ define([],function() {
         this.imageManager = ImageManager;
 
         this.viewTransform = ViewTransform;
-        console.log("Renderer. Got view transform", this.viewTransform);
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
         this.ancestorYBuffer = -50;
@@ -72,15 +71,17 @@ define([],function() {
             switch(activeAncestors[i].type){
                 case "nameless":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 case "familyMember":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
             }
-            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
         }
     };
 
@@ -94,6 +95,20 @@ define([],function() {
         }
     };
 
+
+    Render.prototype.drawSpecialist = function(activeIndexers, i)
+    {
+        homeBaseImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
+        this.ctx.drawImage(homeBaseImg, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+
+        //draw numbers on base and above the specialist
+        this.ctx.font = "10px Arial";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText(activeIndexers[i].recordsOnHand, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer + 20, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + 20 + this.indexerYBuffer);
+        this.ctx.fillText(activeIndexers[i].recordsCharged, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+        this.ctx.fillStyle = "black";
+    };
+
     Render.prototype.renderIndexers = function(activeIndexers)
     {
         var indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
@@ -105,6 +120,10 @@ define([],function() {
                     break;
                 case "uber":
                     indexerImg = this.imageManager.getImage(this.imageManager.UBER_IDX);
+                    break;
+                case "specialist":
+                    indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
+                    this.drawSpecialist(activeIndexers, i);
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
@@ -208,6 +227,8 @@ define([],function() {
       this.resizeOnce = true;
     }
 
+
+
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -223,7 +244,6 @@ define([],function() {
         this.renderRecords(activeRecords);
         //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         //this.renderLightBeam();
-
     };
 
 

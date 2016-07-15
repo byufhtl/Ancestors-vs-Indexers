@@ -5,6 +5,7 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
     {
         this.gameController = new GameController();
         this.viewController = new ViewController(this.gameController);
+        this.gameController.viewController = this.viewController;
         this.viewController.init();
         ImageManager.launch();
 
@@ -22,13 +23,11 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
         this.familySearchHandler.checkAccessToken(function(eightGens){
             if (eightGens)
             {
-                console.log("we are now startign up the Commander", eightGens);
                 //if we got family search data back then start up the commander
                 self.commander = new Commander(self.viewController, ImageManager, eightGens, self.gameController);
                 self.commander.start();
             }
         });
-
     };
 
     return Splash;

@@ -10,11 +10,28 @@ define(['model/IIndexer'],function(IIndexer){
 
     Uber.prototype = new IIndexer();
 
-    Uber.prototype.type = "hobbyist";
+    Uber.prototype.type = "uber";
 
     Uber.prototype.throwDelay = 1;
 
     Uber.prototype.dmg = 1000;
+
+    Uber.prototype.update = function(activeAncestors, timeElapsed, activeProjectiles, levelStructure)
+    {
+        this.checkShootProjectile(timeElapsed, levelStructure, activeProjectiles);
+    };
+
+    Uber.prototype.checkShootProjectile = function(timeElapsed, levelStructure, activeProjectiles)
+    {
+        this.throwTimer += timeElapsed;
+        if (this.throwTimer > this.throwDelay) {
+            this.throwTimer = 0;
+            var tempProjectile = this.getProjectile(levelStructure.length);
+            tempProjectile.type = "uber";
+            tempProjectile.timeRemaining = 10; // 10 second timeout
+            activeProjectiles.push(tempProjectile);
+        }
+    };
 
     Uber.prototype.getProjectile = function(){
 
@@ -24,7 +41,7 @@ define(['model/IIndexer'],function(IIndexer){
         }
         else
         {
-              this.projectileOrientation = "upRight";
+            this.projectileOrientation = "upRight";
         }
 
         if(Math.round(Math.random() * 4) == 0){
@@ -34,7 +51,7 @@ define(['model/IIndexer'],function(IIndexer){
                 type : this.type,
                 lane : this.lane,
                 dmg : this.dmg * 2,
-                type: "uber",
+                type: "strong",
                 orientation: this.projectileOrientation
             }
         }
@@ -44,7 +61,7 @@ define(['model/IIndexer'],function(IIndexer){
             type : this.type,
             lane : this.lane,
             dmg : this.dmg,
-            type: "uber",
+            type: "normal",
             orientation: this.projectileOrientation
         }
     };

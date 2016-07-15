@@ -10,6 +10,23 @@ define([],function() {
       this.projectileOrientation = "upRight";
     }
 
+
+    IIndexer.prototype.update = function(activeAncestors, timeElapsed, activeProjectiles, levelStructure)
+    {
+        this.checkShootProjectile(timeElapsed, levelStructure, activeProjectiles);
+    };
+
+    IIndexer.prototype.checkShootProjectile = function(timeElapsed, levelStructure, activeProjectiles)
+    {
+        this.throwTimer += timeElapsed;
+        if (this.throwTimer > this.throwDelay) {
+            this.throwTimer = 0;
+            var tempProjectile = this.getProjectile(levelStructure.length);
+            tempProjectile.timeRemaining = 10; // 10 second timeout
+            activeProjectiles.push(tempProjectile);
+        }
+    };
+
     IIndexer.prototype.getProjectile = function(numGenerations){
         var self = this;
 

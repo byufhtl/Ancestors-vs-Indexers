@@ -2,7 +2,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
   function($,LevelDefinition, ViewController, Update, Render, IAncestor, ImageManager, ViewTransform, GEvent) {
 
       function GameController() {
-
+          var self = this;
           this.myUpdate = new Update();
           this.myRender = null;
           this.translation = {dx: 0, dy: 0};
@@ -28,8 +28,20 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.gameEnded = false;
           this.victory;
           this.viewTransform = new ViewTransform(0, 0, this.canvas);
-          // this.viewController = new ViewController(this);
-          // this.viewController.init();
+
+          this.paused = false;
+
+          $(document).keyup(function (e) {
+              if (e.keyCode == 27) { // escape key maps to keycode `27`
+                  if (self.paused) {
+                      self.paused = false;
+                      self.lastTime = Date.now();
+                  }
+                  else {
+                      self.paused = true;
+                  }
+              }
+          });
       }
 
       GameController.prototype.loadResources = function () {
@@ -48,7 +60,6 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
 
       GameController.prototype.initializeGame = function (level, scene, playerInfo) {
-          console.log("initialize game level: " + level);
           this.myUpdate = new Update();
           for (var i = 0; i < 9; i++) {
               this.gameBoardGrid[i] = [];
@@ -56,11 +67,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.gameBoardGrid[i][j] = 0;
               }
           }
-          console.log("initialize game level2: " + level);
-          this.currentAct = level? level : 1;
-          console.log("sdflkasdlfd: " + this.currentAct);
-          console.log("initialize game level3: " + level);
-          this.currentScene = scene? scene : 1;
+          this.currentAct = level ? level : 1;
+          this.currentScene = scene ? scene : 1;
           this.resourcePoints = 0;
 
           this.timeElapsed = 0;
@@ -95,15 +103,17 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
       };
 
       GameController.prototype.loop = function () {
-          //console.log("running loop");
-          var now = Date.now();
-          var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
-          this.lastTime = now;
-          this.timeElapsed += delta_s;
+          if (!this.paused) {
+              //console.log("running loop");
+              var now = Date.now();
+              var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
+              this.lastTime = now;
+              this.timeElapsed += delta_s;
 
-          this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this, this.levelStructure, this.defeatedAncestorInfo);
-          this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
-          this.updateCoordinates(0, 0);
+              this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this, this.levelStructure, this.defeatedAncestorInfo);
+              this.myRender.render(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
+              this.updateCoordinates(0, 0);
+          }
           if (!this.gameEnded) // game end condition.
           {
               requestAnimationFrame(this.loop.bind(this));
@@ -117,15 +127,13 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderVictory();
                   this.myRender.reset();
-                  if (this.defeatedAncestorInfo.length != 0)
-                  {
-                    var tempData = [];
-                    tempData.push(0);
-                    var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, tempData);
-                    this.viewController.handle(showAncestorInfoEvent);
+                  if (this.defeatedAncestorInfo.length != 0) {
+                      var tempData = [];
+                      tempData.push(0);
+                      var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, tempData);
+                      this.viewController.handle(showAncestorInfoEvent);
                   }
 
-                  console.log("gameController current act: " + this.currentAct);
               }
               else {
                   var defeatEvent = new GEvent(GEvent.LD_SDBAR, GEvent.DEFT_PNL);
@@ -134,11 +142,9 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.viewController.handle(emptyTopBarEvent);
                   this.myRender.renderDefeat();
                   this.myRender.reset();
-                  console.log("YOU LOST");
               }
           }
       };
 
       return GameController;
-
   });

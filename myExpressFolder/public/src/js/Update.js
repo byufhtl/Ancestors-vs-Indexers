@@ -146,7 +146,7 @@ define(['model/IAncestor'],function() {
             }
         }
     };
-    
+
     Update.prototype.updateIndexers = function(activeIndexers, activeAncestors, timeElapsed, activeProjectiles, levelStructure)
     {
 
@@ -155,13 +155,13 @@ define(['model/IAncestor'],function() {
             activeIndexers[i].update(activeAncestors, timeElapsed, activeProjectiles, levelStructure);
         }
     };
-    
 
-    
+
+
     Update.prototype.updateAncestorsPosition = function (activeAncestors, modifier) {
 
         for (var i = 0; i < activeAncestors.length; i++) {
-            
+
             //check whether to move up or down
             if (activeAncestors[i].distanceMovedX >= 300)
             {
@@ -226,8 +226,26 @@ define(['model/IAncestor'],function() {
         else return false;
     };
 
+    Update.prototype.moveAnimFrames = function(activeAncestors, timeElapsed)
+    {
+        for (var i = 0; i < activeAncestors.length; i++)
+        {
+            console.log("animTimer", activeAncestors[0].animTimer);
+
+            activeAncestors[i].animTimer += timeElapsed;
+            console.log("time Elapsed: " + timeElapsed);
+            if (activeAncestors[i].animTimer > activeAncestors[i].timeBetweenFrames)
+            {
+                activeAncestors[i].animTimer = 0;
+                activeAncestors[i].animFrame++;
+                if (activeAncestors[i].animFrame >= (activeAncestors[i].numFrames - 1)) activeAncestors[i].animFrame = 0;
+            }
+        }
+    };
 
     Update.prototype.update = function (activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, timeElapsed, level, controller, levelStructure, defeatedAncestorInfo) {
+
+
         //spawn records and move them
         this.spawnRecord(activeRecords, timeElapsed);
         this.moveRecords(activeRecords, timeElapsed);
@@ -246,6 +264,9 @@ define(['model/IAncestor'],function() {
             //check victory conditions
             this.checkVictory(controller, activeAncestors);
             this.checkDefeat(controller, activeAncestors);
+
+            this.moveAnimFrames(activeAncestors, timeElapsed);
+
         }
     };
 

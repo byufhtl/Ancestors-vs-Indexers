@@ -3,11 +3,9 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
 
     var Splash = function(FS)
     {
-        console.log("THIS IS THE CORRECT SPLASD :OFIHW:EOF :W GHFO:EW");
         this.gameController = new GameController();
         this.viewController = new ViewController(this.gameController);
         this.gameController.viewController = this.viewController;
-        console.log("about to init the view controller");
         this.viewController.init();
         ImageManager.launch();
 

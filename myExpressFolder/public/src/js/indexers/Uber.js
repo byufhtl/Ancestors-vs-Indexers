@@ -10,7 +10,7 @@ define(['model/IIndexer'],function(IIndexer){
 
     Uber.prototype = new IIndexer();
 
-    Uber.prototype.type = "hobbyist";
+    Uber.prototype.type = "uber";
 
     Uber.prototype.throwDelay = 1;
 
@@ -27,6 +27,7 @@ define(['model/IIndexer'],function(IIndexer){
         if (this.throwTimer > this.throwDelay) {
             this.throwTimer = 0;
             var tempProjectile = this.getProjectile(levelStructure.length);
+            tempProjectile.type = "uber";
             tempProjectile.timeRemaining = 10; // 10 second timeout
             activeProjectiles.push(tempProjectile);
         }

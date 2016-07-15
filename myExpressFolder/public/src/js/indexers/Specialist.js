@@ -57,7 +57,6 @@ define(['model/IIndexer'],function(IIndexer){
             for (var i = 0; i < activeAncestors.length; i++) {
                 if ((Math.abs(activeAncestors[i].xCoord - this.xCoord) < 20) && (Math.abs(activeAncestors[i].yCoord - this.yCoord) < 20)) {
 
-                    console.log(activeAncestors[i]);
                     //A Collision Happened
                     var iterations = this.recordsOnHand;
                     for (var j = 0; j < iterations; j++)
@@ -93,11 +92,10 @@ define(['model/IIndexer'],function(IIndexer){
     {
         this.chargeRecordTimer += timeElapsed;
         //console.log("recordTimer: " + this.chargeRecordTimer);
-        if (this.chargeRecordTimer >= 6)
+        if (this.chargeRecordTimer >= 8)
         {
-            console.log("recordTimer: " + this.chargeRecordTimer + " greater than 3");
             this.chargeRecordTimer = 0;
-            this.recordsCharged++;
+            this.recordsCharged+=2;
         }
 
         if (this.recordsOnHand == 0)
@@ -191,7 +189,7 @@ define(['model/IIndexer'],function(IIndexer){
                     leftMostAncestor = activeAncestors[i];
                     leftMostX = activeAncestors[i].xCoord;
                 }
-                else if (Math.abs(activeAncestors[i].xCoord - leftMostX) < .01)
+                else if (Math.abs(activeAncestors[i].xCoord - leftMostX) == 0)
                 {
                     var firstDistance = Math.abs(leftMostAncestor.y - this.yCoord);
                     var secondDistance = Math.abs(activeAncestors[i].yCoord - this.yCoord);
@@ -225,12 +223,9 @@ define(['model/IIndexer'],function(IIndexer){
         }
 
         this.movedDistance = 0;
-        console.log("recordsonhand: " + this.recordsOnHand);
-        console.log("xDif: " + Math.abs(this.xCoord - this.homeXCoord));
-        console.log("yDif: " + Math.abs(this.yCoord && this.homeYCoord));
+
         if (this.recordsOnHand == 0 && Math.abs(this.xCoord - this.homeXCoord) < 20 && Math.abs(this.yCoord - this.homeYCoord) < 20)
         {
-            console.log("pausing");
             this.moveDirection = "pause";
             return;
         }
@@ -243,6 +238,16 @@ define(['model/IIndexer'],function(IIndexer){
                 if (activeAncestors[i].xCoord < leftMostX) {
                     leftMostAncestor = activeAncestors[i];
                     leftMostX = activeAncestors[i].xCoord;
+                }
+                else if (Math.abs(activeAncestors[i].xCoord - leftMostX) == 0)
+                {
+                    var firstDistance = Math.abs(leftMostAncestor.y - this.yCoord);
+                    var secondDistance = Math.abs(activeAncestors[i].yCoord - this.yCoord);
+                    if (secondDistance < firstDistance)
+                    {
+                        leftMostAncestor = activeAncestors[i];
+                        leftMostX = activeAncestors[i].xCoord;
+                    }
                 }
             }
         }   //move toward base to pick up records

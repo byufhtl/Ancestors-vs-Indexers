@@ -98,10 +98,8 @@ define(['jquery','GEvent'], function($, GEvent){
     ButtonManager.prototype.loadLoginButton = function(data){
         var self = this;
         self.killAll(self.topbarButtons);
-        console.log('beginning load loginButton');
         var self = this;
         if (data && data.length && data[1] == "success") { // If the topbar was able to load up successfully
-            console.log("actually loading button stuff");
             var loginButton = $('#LOGIN');
             loginButton.click(function () {
                 self.eventManager.handleButtonEvent(new GEvent(GEvent.BTN_ACTN, GEvent.LOGN_BTN, data));
@@ -254,5 +252,3 @@ define(['jquery','GEvent'], function($, GEvent){
     return ButtonManager;
 
 });
-
-

@@ -24,6 +24,19 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap', 'splash'],function($, FamilySearch, Bootstrap, Splash){
+    var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
+
+    $.ajax({
+      url:'replace',
+      type: "POST",
+      data: JSON.stringify(myUser),
+      contentType: "application/json",
+    });
+
+    $.ajax({
+
+    })
+
     var FS = new FamilySearch({
         // Copy your app key into the client_id parameter
         client_id: 'a02j000000HBHf4AAH',
@@ -31,7 +44,6 @@ require(['jquery', 'familysearch', 'bootstrap', 'splash'],function($, FamilySear
         save_access_token: true,
         environment: 'sandbox'
     });
-    console.log("got past first creation.");
     var splash = new Splash(FS);
     splash.init();
 });

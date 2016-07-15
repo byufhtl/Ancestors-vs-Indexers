@@ -10,6 +10,11 @@ define([],function() {
         this.distanceMovedX = 300;
         this.upOrDown = "up";
         this.type = "standard";
+
+        this.animTimer = 0;
+        this.animFrame = 0;
+        this.numFrames = 4;
+        this.timeBetweenFrames = .2;
     }
 
     return IAncestor;

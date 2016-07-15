@@ -2,7 +2,7 @@
  * Created by calvinmcm on 7/5/16.
  */
 
-define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
+define(['jquery','GameController','GEvent','ServerFacade'],function($, GameController, GEvent, Commander, ServerFacade){
 
     function Commander(viewController, imageManager, eightGenerations, gameController){
         this.viewController = viewController;
@@ -14,6 +14,7 @@ define(['jquery','GameController','GEvent'],function($, GameController, GEvent){
         this.currentAct = 2;
         this.currentScene = 1;
     }
+
 
     Commander.prototype.start = function(){
         var self = this;

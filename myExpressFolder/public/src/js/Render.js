@@ -9,7 +9,6 @@ define([],function() {
         this.imageManager = ImageManager;
 
         this.viewTransform = ViewTransform;
-        console.log("Renderer. Got view transform", this.viewTransform);
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
         this.ancestorYBuffer = -50;
@@ -72,15 +71,17 @@ define([],function() {
             switch(activeAncestors[i].type){
                 case "nameless":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 case "familyMember":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
             }
-            this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
         }
     };
 
@@ -226,6 +227,8 @@ define([],function() {
       this.resizeOnce = true;
     }
 
+
+
     Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -241,7 +244,6 @@ define([],function() {
         this.renderRecords(activeRecords);
         //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         //this.renderLightBeam();
-
     };
 
 

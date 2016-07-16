@@ -1,4 +1,4 @@
-define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameController', 'GEvent', 'Commander'],
+define(['jquery','ViewController','ImageManager', '../../myExpressFolder/public/structure/src/js/FamilySearchHandler', 'GameController', 'GEvent', '../../myExpressFolder/public/structure/src/js/Commander'],
     function($, ViewController, ImageManager, FamilySearchHandler, GameController, GEvent, Commander) {
 
     var Splash = function(FS)

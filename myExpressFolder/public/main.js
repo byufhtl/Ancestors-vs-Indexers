@@ -24,18 +24,15 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap', 'splash'],function($, FamilySearch, Bootstrap, Splash){
+    console.log("THIS IS THE WRONG MAIN OG:WIRH:OGHNW:OGIH:WOIRG");
     var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
 
     $.ajax({
       url:'replace',
       type: "POST",
       data: JSON.stringify(myUser),
-      contentType: "application/json",
+      contentType: "application/json"
     });
-
-    $.ajax({
-
-    })
 
     var FS = new FamilySearch({
         // Copy your app key into the client_id parameter

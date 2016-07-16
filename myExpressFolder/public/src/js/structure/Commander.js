@@ -2,7 +2,7 @@
  * Created by calvin on 7/8/16.
  */
 
-define([],function(){
+define(['structure/util/Sig'],function(Sig){
 
     function Commander(imageManager, viewController){
         this.imageManager = imageManager;
@@ -18,13 +18,16 @@ define([],function(){
         var self = this;
         self.eightGenerations = eightGens;
 
-        self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC, null)); // Load the Main Menu Interface.
+        self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS));
+        self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
+
     };
 
     Commander.prototype.handle = function(event){
         var self = this;
         switch(event.type){
-
+            case Sig.FTCH_IMG:
+                return self.imageManager.handle(event);
         }
     };
 

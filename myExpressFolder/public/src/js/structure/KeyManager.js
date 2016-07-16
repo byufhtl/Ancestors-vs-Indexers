@@ -30,7 +30,7 @@ define(['structure/util/Sig'], function(Sig){
     KeyManager.prototype.init = function(){
         var self = this;
         $(document).keydown(function(e){
-            if(e.which == 112){
+            if(e.which == 112 || e.which == 27){
                 self.lieutenant.handle(new Sig(Sig.KY_PRS_P, Sig.KY_PRS_P, {keyPressEvent: e}));
             }
         });

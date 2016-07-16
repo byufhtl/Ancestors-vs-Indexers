@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/27/16.
  */
 
-define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
+define(["ImageResource","structure/util/Order", "structure/util/Sig"], function(ImageResource, Order, Sig){
 
     /**
      * The primary image manager for the program. Maintains a list of resources and loads them as necessary.
@@ -14,7 +14,35 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
         this.status = "new";
     }
 
+    ImageManager.prototype.handle = function(event){
+        var self = this;
+        switch(event.type){
+            case Sig.CMND_ACT:
+                return self.obeyCommand(event.value, data);
+                break;
+            case Sig.LD_IMGST:
+                self.launch(event.value);
+                break;
+            case Sig.FTCH_IMG:
+                return self.getImage(event.value);
+                break;
+            default:
+                console.log("ImageManager could not properly handle event:", event);
+        }
+    };
+
     // ENTRY POINTS ====================================================================================================
+
+    ImageManager.prototype.obeyCommand = function(value, data){
+        switch(value){
+            case Sig.GET_LODR:
+                return this.extractLoader();
+                break;
+            case Sig.SET_LODR:
+                return this.injectLoader(data.loader);
+                break;
+        }
+    };
 
     /**
      * Allows for a different LoaderUtils to be loaded, allowing us to take full advantage of prior file saving.
@@ -60,29 +88,29 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
 
         this.status = "Loading images...";
         switch(area){
-            case "field":
-                return this.loadFieldPieces();
+            case Sig.FLD_IMGS:
+                this.loadFieldPieces();
                 break;
-            case "background":
-                return this.loadBackgroundSkins();
+            case Sig.BKG_IMGS:
+                this.loadBackgroundSkins();
                 break;
-            case "records":
-                return this.loadRecordSprites();
+            case Sig.REC_IMGS:
+                this.loadRecordSprites();
                 break;
-            case "indexers":
-                return this.loadIndexerSprites();
+            case Sig.IND_IMGS:
+                this.loadIndexerSprites();
                 break;
-            case "buildings":
-                return this.loadBuildingSprites();
+            case Sig.BLD_IMGS:
+                this.loadBuildingSprites();
                 break;
-            case "ancestors":
-                return this.loadAncestorSprites();
+            case Sig.ANC_IMGS:
+                this.loadAncestorSprites();
                 break;
-            default:
-                return this.loadFieldPieces();
-                return this.loadBackgroundSkins();
-                return this.loadRecordSprites();
-                return this.loadIndexerSprites();
+            case Sig.ALL_IMGS:
+                this.loadFieldPieces();
+                this.loadBackgroundSkins();
+                this.loadRecordSprites();
+                this.loadIndexerSprites();
                 return this.loadBuildingSprites();
                 return this.loadAncestorSprites();
         }

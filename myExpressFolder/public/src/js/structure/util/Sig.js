@@ -6,8 +6,8 @@ define([],function(){
 
     function Sig(type, value, data){
         this.type = type; // string
-        this.value = value; // string
-        this.data = data; // {}
+        this.value = value ; // string
+        this.data = data ? data : null; // {}
     }
 
     // Signal static events (values made short for faster comparisons
@@ -25,6 +25,7 @@ define([],function(){
     Sig.    HTM_LODR =          "htldr";                // HTML Loader
 
     Sig.    START_MM =          "sttmm";                // Start the Main Menu
+    Sig.    INIT_GAM =          "inigm";                // Initialize Game call
     Sig.    DISBL_UI =          "disui";                // Disable UI components
     Sig.    ENABL_UI =          "enbui";                // Enable UI components
 
@@ -86,10 +87,22 @@ define([],function(){
     Sig.    KY_PRS_P =          "pkypr";                // 'p' Key (ASCII 112)
 
 
-    // MODAL DISPLAY ==============================================================================================[]>
+    // MODAL DISPLAY ===============================================================================================[]>
     Sig.    LD_MODAL =          "ldmdl";                // Load Modal                               *
 
     Sig.    ANC_INFO =          "aninf";                // Ancestor Information
+
+    // IMAGE RETRIEVAL =============================================================================================[]>
+    Sig.    LD_IMGST =          "limgs";                // Load Image Set                           *
+    Sig.    FTCH_IMG =          "ftimg";                // Fetch Image                              *
+
+    Sig.    FLD_IMGS =          "field";                // Field Image Set
+    Sig.    BKG_IMGS =          "bckgd";                // Background Image Set
+    Sig.    REC_IMGS =          "rcrds";                // Records Image Set
+    Sig.    IND_IMGS =          "indxr";                // Indexers Image Set
+    Sig.    BLD_IMGS =          "bldgs";                // Building Image Set
+    Sig.    ANC_IMGS =          "ancts";                // Ancestor Image Set
+    Sig.    ALL_IMGS =          "allim";                // All Images
 
     return Sig;
 });

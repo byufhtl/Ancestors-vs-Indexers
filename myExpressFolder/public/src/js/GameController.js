@@ -128,6 +128,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
                   this.myRender.renderVictory();
                   this.myRender.reset();
                   if (this.defeatedAncestorInfo.length != 0) {
+                      console.log('\n\n\nDEFEATED ANCESTOR INFO:', this.defeatedAncestorInfo, '\n\n\n')
                       var tempData = [];
                       tempData.push(0);
                       var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, tempData);

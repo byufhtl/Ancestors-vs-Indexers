@@ -21,7 +21,7 @@ define(["ImageResource","structure/util/Order", "structure/util/Sig"], function(
                 return self.obeyCommand(event.value, data);
                 break;
             case Sig.LD_IMGST:
-                self.launch(event.value);
+                return self.launch(event.value);
                 break;
             case Sig.FTCH_IMG:
                 return self.getImage(event.value);
@@ -85,34 +85,31 @@ define(["ImageResource","structure/util/Order", "structure/util/Sig"], function(
      * @returns {Promise}
      */
     ImageManager.prototype.launch = function(area){
+        var self = this;
 
-        this.status = "Loading images...";
+        self.status = "Loading images...";
         switch(area){
             case Sig.FLD_IMGS:
-                this.loadFieldPieces();
+                return self.loadFieldPieces();
                 break;
             case Sig.BKG_IMGS:
-                this.loadBackgroundSkins();
+                return self.loadBackgroundSkins();
                 break;
             case Sig.REC_IMGS:
-                this.loadRecordSprites();
+                return self.loadRecordSprites();
                 break;
             case Sig.IND_IMGS:
-                this.loadIndexerSprites();
+                return self.loadIndexerSprites();
                 break;
             case Sig.BLD_IMGS:
-                this.loadBuildingSprites();
+                return self.loadBuildingSprites();
                 break;
             case Sig.ANC_IMGS:
-                this.loadAncestorSprites();
+                return self.loadAncestorSprites();
                 break;
             case Sig.ALL_IMGS:
-                this.loadFieldPieces();
-                this.loadBackgroundSkins();
-                this.loadRecordSprites();
-                this.loadIndexerSprites();
-                return this.loadBuildingSprites();
-                return this.loadAncestorSprites();
+                return self.loadAll();
+                break;
         }
     };
     
@@ -224,6 +221,54 @@ define(["ImageResource","structure/util/Order", "structure/util/Sig"], function(
                 },
                 function(failure){
                     reject(failure);
+                }
+            );
+        });
+    };
+
+    ImageManager.prototype.loadAll = function(){
+        return new Promise(function(resolve, reject) {
+            var failed = [];
+            var completed = 0;
+            function partialResolve(resolution){
+                if(++completed == 6){
+                    resolve(failed);
+                }
+            }
+            self.loadFieldPieces().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.FLD_IMGS);
+                    partialResolve();
+                }
+            );
+            self.loadBackgroundSkins().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.BKG_IMGS);
+                    partialResolve();
+                }
+            );
+            self.loadRecordSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.REC_IMGS);
+                    partialResolve();
+                }
+            );
+            self.loadIndexerSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.IND_IMGS);
+                    partialResolve();
+                }
+            );
+            return self.loadBuildingSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.BLD_IMGS);
+                    partialResolve();
+                }
+            );
+            return self.loadAncestorSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.ANC_IMGS);
+                    partialResolve();
                 }
             );
         });

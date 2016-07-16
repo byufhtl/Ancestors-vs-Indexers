@@ -51,7 +51,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 self.viewController.handle(event);
                 break;
             case GEvent.CMND_ACT:
-                self.commander.handle(event);
+                self.controller.handle(event);
                 break;
             case GEvent.LD_MODAL:
                 self.viewController.handle(event);

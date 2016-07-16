@@ -54,6 +54,9 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
             case Sig.LD_SDBAR:
                 this.setSidebar(event.value);
                 break;
+            case Sig.LD_MODAL:
+                this.showAncestorInfoModal(event.data);
+                break;
         }
     };
 
@@ -225,7 +228,20 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
         }
     };
 
-    // =================================================================================================================
+    // ANCESTOR DETAILS MODAL ==========================================================================================
+    
+    HTMLManager.prototype.showAncestorInfoModal = function(data){
+
+        $('#ancestorName').html(data.name);
+        $('#ancestorInfoText').html(       "birthDate: " + (data.birthDate || "unknown") + "<br>"
+            + "birthPlace: " + (data.birthPlace || "unknown") + "<br>"
+            + "gender: " + (data.display.gender || "unknown") + "<br>"
+            + "lifespan " + (data.lifespan || "unknown") + "<br>");
+        $('#missingInfo').html("");
+
+        var modal = $('#myModal');
+        this.viewController.handle(new Sig(Sig.MODAL_LD, Sig.ANC_INFO, {modal: modal}));
+    };
 
     return HTMLManager;
 });

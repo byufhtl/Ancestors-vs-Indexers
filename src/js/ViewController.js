@@ -51,7 +51,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 break;
             case GEvent.CMND_ACT:
                 console.log("got a command event");
-                self.commander.handle(event);
+                self.controller.handle(event);
                 break;
                 
         }

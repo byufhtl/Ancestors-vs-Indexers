@@ -6,7 +6,7 @@ define(['jquery','GameController','GEvent','ServerFacade'],function($, GameContr
 
     function Commander(viewController, imageManager, eightGenerations, gameController){
         this.viewController = viewController;
-        this.viewController.commander = this;
+        this.viewController.controller = this;
         this.imageManager = imageManager;
         this.gameController = gameController;
         this.gameController.eightGenerations = eightGenerations;

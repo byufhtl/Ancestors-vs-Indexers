@@ -25,39 +25,23 @@ define(['jquery','structure/util/Sig'], function($, Sig){
         switch(event.type){
             case Sig.INTFC_LD:
                 switch(event.value){
-                    case Sig.SP_INTFC:
-                        self.loadLoginButton(event.data);
-                        break;
-                    case Sig.MM_INTFC:
-                        self.loadMainMenuButtons(event.data);
-                        break;
-                    case Sig.GM_INTFC:
-                        break;
-                }
-                break;
+                    case Sig.SP_INTFC:  self.loadLoginButton(event.data);                                       break;
+                    case Sig.MM_INTFC:  self.loadMainMenuButtons(event.data);                                   break;
+                    case Sig.GM_INTFC:                                                                          break;
+                }                                                                                               break;
             case Sig.TPBAR_LD:
                 switch (event.value){
-                    case Sig.GM_TPBAR:
-                        self.loadGameTopBarButtons(event.data);
-                        break;
-                }
-                break;
+                    case Sig.GM_TPBAR:  self.loadGameTopBarButtons(event.data);                                 break;
+                }                                                                                               break;
             case Sig.SDBAR_LD:
                 switch (event.value){
-                    case Sig.BLDG_PNL:
-                        self.loadBuildingButtons(event.data);
-                        break;
-                    case Sig.INDX_PNL:
-                        self.loadIndexerButtons(event.data);
-                        break;
-                    case Sig.VTRY_PNL:
-                        self.loadVictoryButtons(event.data);
-                        break;
-                    case Sig.DEFT_PNL:
-                        self.loadDefeatButtons(event.data);
-                        break;
-                }
-                break;
+                    case Sig.BLDG_PNL:  self.loadBuildingButtons(event.data);                                   break;
+                    case Sig.INDX_PNL:  self.loadIndexerButtons(event.data);                                    break;
+                    case Sig.VTRY_PNL:  self.loadVictoryButtons(event.data);                                    break;
+                    case Sig.DEFT_PNL:  self.loadDefeatButtons(event.data);                                     break;
+                }                                                                                               break;
+            case Sig.MODAL_LD:
+                                        self.loadAncDataModal(event.data);                                      break;
         }
     };
 
@@ -253,6 +237,19 @@ define(['jquery','structure/util/Sig'], function($, Sig){
         else {
             console.log(data);
         }
+    };
+
+    // Supa broken...
+    ButtonManager.prototype.loadAncDataModal = function (data){
+        $('#xButton').click(function(event) {
+            data.modal('hide');
+            if (info[indexToShow + 1] != null)
+            {
+                var showAncestorInfoEvent = new Sig(Sig.LD_MODAL, Sig.ANC_INFO, [indexToShow + 1]);
+                self.controller.handle(showAncestorInfoEvent);
+            }
+
+        });
     };
 
     return ButtonManager;

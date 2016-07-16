@@ -5,7 +5,7 @@
 define(['structure/util/Sig'], function(Sig){
 
     function KeyManager(lieutenant) {
-        this.lieutenant = lieutenant;
+        this.controller = lieutenant;
         this.keysEnabled = true;
     }
 
@@ -31,7 +31,7 @@ define(['structure/util/Sig'], function(Sig){
         var self = this;
         $(document).keydown(function(e){
             if(e.which == 112 || e.which == 27){
-                self.lieutenant.handle(new Sig(Sig.KY_PRS_P, Sig.KY_PRS_P, {keyPressEvent: e}));
+                self.controller.handle(new Sig(Sig.KY_PRS_P, Sig.KY_PRS_P, {keyPressEvent: e}));
             }
         });
 

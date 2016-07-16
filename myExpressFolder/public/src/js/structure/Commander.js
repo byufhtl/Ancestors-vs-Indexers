@@ -4,7 +4,8 @@
 
 define(['structure/util/Sig'],function(Sig){
 
-    function Commander(imageManager, viewController){
+    function Commander(imageManager, viewController, king){
+        this.king = king;
         this.imageManager = imageManager;
         this.viewController = viewController;
         this.eightGenerations = null;
@@ -18,9 +19,18 @@ define(['structure/util/Sig'],function(Sig){
         var self = this;
         self.eightGenerations = eightGens;
 
-        self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS));
-        self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
-
+        // Load up all of the images
+        self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS)).then(
+            function(failedArray){
+                if(failedArray.length){
+                    var report = "The Following Image Load Batches Failed to Load: " + failedArray.toString();
+                    self.king.handle(new Sig(Sig.SFAILURE), Sig.CRT_FAIL, {report: report});
+                }
+                else {
+                    self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
+                }
+            }
+        );
     };
 
     Commander.prototype.handle = function(event){

@@ -9,17 +9,16 @@ define(['jquery','structure/FamilySearchHandler','structure/img/ImageManager', '
         this.viewController.init();
 
         this.familySearchHandler = new FamilySearchHandler(FS);
-        this.commander = null;
+        this.controller = null;
     };
 
     Splash.prototype.init = function()
     {
         var self =  this;
         self.viewController.assign(self); // Assign the viewController to reference this page as it's lieutenant
-        var tempObj = [];
+        var tempObj = {};
         tempObj["FS"] = this.familySearchHandler;
-        var loadSplashEvent = new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj);
-        this.viewController.handle(loadSplashEvent);
+        this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
         this.familySearchHandler.checkAccessToken(function(eightGens){
             if (eightGens || true)
             {
@@ -27,11 +26,30 @@ define(['jquery','structure/FamilySearchHandler','structure/img/ImageManager', '
                 //if we got family search data back then sync the LoaderUtils and start up the Commander
                 var imageManager = new ImageManager();
                 imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));
-                self.commander = new Commander(self.viewController, imageManager);
-                self.commander.start(eightGens);
+                self.controller = new Commander(self.viewController, imageManager, self);
+                self.controller.start(eightGens);
             }
         });
 
+    };
+
+    Splash.prototype.handle = function(event){
+        switch(event.type){
+            case Sig.SFAILURE:
+                if(event.value == Sig.REC_FAIL){ // Event could be resolved by logging in again
+                    console.log("Recoverable Failure.");
+                    if(event.data.hasOwnProperty('report')) console.log(event.data.report);
+                    
+                    // Remove user credentials and ask to re-log in.
+                }
+                else if(event.value == Sig.CRT_FAIL){ // Connectivity Issues - logging in won't guarantee a resolution.
+                    console.log("Critical Failure.");
+                    if(event.data.hasOwnProperty('report')) console.log(event.data.report);
+                    
+                    // Remove user credentials and ask to come back later.
+                }
+                break;
+        }
     };
 
     return Splash;

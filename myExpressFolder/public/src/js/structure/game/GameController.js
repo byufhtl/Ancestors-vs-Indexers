@@ -2,7 +2,7 @@ define(['jquery','LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'View
   function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig) {
 
       function GameController(lieutenant) {
-          this.lieutenant = lieutenant;
+          this.controller = lieutenant;
           this.myUpdate = new Update();
           this.myRender = null;
           this.translation = {dx: 0, dy: 0};
@@ -24,7 +24,7 @@ define(['jquery','LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'View
                   self.obeyCommand(event.value, event.data);
                   break;
               case Sig.FTCH_IMG:
-                  return self.lieutenant.handle(event);
+                  return self.controller.handle(event);
                   break;
           }
       };
@@ -94,18 +94,18 @@ define(['jquery','LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'View
           }
           else {
               if (this.victory) {
-                  this.lieutenant.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
-                  this.lieutenant.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
+                  this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
+                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
                   this.myRender.renderVictory();
                   this.myRender.reset();
                   if (this.defeatedAncestorInfo.length != 0) {
-                      this.lieutenant.handle(new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData:0}));
+                      this.controller.handle(new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData:0}));
                   }
 
               }
               else {
-                  this.lieutenant.handle(new Sig(Sig.LD_SDBAR, Sig.DEFT_PNL));
-                  this.lieutenant.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
+                  this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.DEFT_PNL));
+                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
                   this.myRender.renderDefeat();
                   this.myRender.reset();
               }

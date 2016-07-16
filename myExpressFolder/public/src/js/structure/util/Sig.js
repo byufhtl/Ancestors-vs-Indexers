@@ -14,6 +14,12 @@ define([],function(){
 
     //      NAME                VALUE                   Description                                 TYPE
 
+    // SYSTEM FAULTS ===============================================================================================[]>
+    Sig.    SFAILURE =          "failure";              // System Failure                           *
+
+    Sig.    CRT_FAIL =          "critical";             // Critical Failure
+    Sig.    REC_FAIL =          "recover";              // Recoverable Failure
+
     // CONTROLLEREVENTS ============================================================================================[]>
     Sig.    CMND_ACT =          "commact";              // Request action from commander            *
 
@@ -89,6 +95,7 @@ define([],function(){
 
     // MODAL DISPLAY ===============================================================================================[]>
     Sig.    LD_MODAL =          "ldmdl";                // Load Modal                               *
+    Sig.    MODAL_LD =          "mdlld";                // Modal Loaded                             *
 
     Sig.    ANC_INFO =          "aninf";                // Ancestor Information
 

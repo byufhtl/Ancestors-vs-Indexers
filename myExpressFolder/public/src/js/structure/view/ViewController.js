@@ -2,20 +2,25 @@
  * Created by calvin on 7/8/16.
  */
 
-define(['structure/util/Sig','structure/view/HTMLManager', 'structure/view/ButtonManager'], function(Sig, HTMLManager, ButtonManager){
+define(['structure/util/Sig','structure/view/HTMLManager', 'structure/view/ButtonManager', 'structure/view/CanvasManager'],
+    function(Sig, HTMLManager, ButtonManager, CanvasManager){
 
     function ViewController(){
-        this.lieutenant = {handle:function (event) {
-            console.log("ViewController has signal that cannot be sent.");
-        }};
+        this.controller = ViewController.defaultLieutenant;
         this.htmlManager = new HTMLManager();
         this.buttonManager = new ButtonManager();
         this.buttonManager.init();
+        this.canvasManager = new CanvasManager();
+        this.canvasManager.init();
         this.responsesEnabled = true;
     }
-    
+
+    ViewController.defaultLieutenant = {handle:function (event) {
+        console.log("ViewController has signal that cannot be sent.");
+    }};
+
     ViewController.prototype.assign = function (lieutenant) {
-        this.lieutenant = lieutenant;
+        this.controller = (lieutenant) ? lieutenant : ViewController.defaultLieutenant;
     };
 
     ViewController.prototype.handle = function(event){
@@ -33,11 +38,15 @@ define(['structure/util/Sig','structure/view/HTMLManager', 'structure/view/Butto
             case Sig.TPBAR_LD:  ViewController.passSuccesses(event, self.buttonManager.handle);         break;
             case Sig.SDBAR_LD:  ViewController.passSuccesses(event, self.buttonManager.handle);         break;
 
+            // MODAL MANAGEMENT
+            case Sig.LD_MODAL:  self.htmlManager.handle(event);                                         break;
+            case Sig.MODAL_LD:  self.buttonManager.handle(event);                                       break;
+
             // MANAGE UI
-            case Sig.BTN_ACTN:  self.doIfEnabled(event, self.lieutenant.handle);                        break;
-            case Sig.ST_CLICK:  self.doIfEnabled(event, self.lieutenant.handle);                        break;
-            case Sig.CNVS_CLK:  self.doIfEnabled(event, self.lieutenant.handle);                        break;
-            case Sig.CNVS_DRG:  self.doIfEnabled(event, self.lieutenant.handle);                        break;
+            case Sig.BTN_ACTN:  self.doIfEnabled(event, self.controller.handle);                        break;
+            case Sig.ST_CLICK:  self.doIfEnabled(event, self.controller.handle);                        break;
+            case Sig.CNVS_CLK:  self.doIfEnabled(event, self.controller.handle);                        break;
+            case Sig.CNVS_DRG:  self.doIfEnabled(event, self.controller.handle);                        break;
 
             // OTHER
             case Sig.GET_LODR:

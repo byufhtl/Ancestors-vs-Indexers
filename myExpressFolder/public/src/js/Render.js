@@ -71,12 +71,12 @@ define([],function() {
             switch(activeAncestors[i].type){
                 case "nameless":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
                     break;
                 case "familyMember":
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);

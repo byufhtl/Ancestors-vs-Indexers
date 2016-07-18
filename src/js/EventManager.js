@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
+define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'model/IBuilding', 'buildings/Library', '../../myExpressFolder/public/structure/src/js/LevelDefinition'],
 function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, standardBuilding, Library, LevelDefinition){
 
 

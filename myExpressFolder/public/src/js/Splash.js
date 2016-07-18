@@ -24,8 +24,8 @@ define(['jquery','ViewController','ImageManager', 'FamilySearchHandler', 'GameCo
             if (eightGens)
             {
                 //if we got family search data back then start up the commander
-                self.commander = new Commander(self.viewController, ImageManager, eightGens, self.gameController);
-                self.commander.start();
+                self.controller = new Commander(self.viewController, ImageManager, eightGens, self.gameController);
+                self.controller.start();
             }
         });
     };

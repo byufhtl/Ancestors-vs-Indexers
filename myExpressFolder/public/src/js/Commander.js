@@ -6,7 +6,7 @@ define(['jquery','GameController','GEvent','ServerFacade'],function($, GameContr
 
     function Commander(viewController, imageManager, eightGenerations, gameController){
         this.viewController = viewController;
-        this.viewController.commander = this;
+        this.viewController.controller = this;
         this.imageManager = imageManager;
         this.gameController = gameController;
         this.gameController.eightGenerations = eightGenerations;
@@ -43,7 +43,7 @@ define(['jquery','GameController','GEvent','ServerFacade'],function($, GameContr
         self.gameController.loadResources().then(function (response) {
                 self.gameController.initializeGame(self.currentAct, self.currentScene, self.eightGenerations);
                 //re-init this since we just put the canvas in. It grabs the canvas in its init method
-                self.viewController.eventManager.canvasManager.init();
+                self.viewController.viewController.canvasManager.init();
                 self.gameController.loop();
             },
             function (e) {

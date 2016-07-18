@@ -6,18 +6,34 @@ define([],function(){
 
     function Sig(type, value, data){
         this.type = type; // string
-        this.value = value; // string
-        this.data = data; // {}
+        this.value = value ; // string
+        this.data = data ? data : null; // {}
     }
 
     // Signal static events (values made short for faster comparisons
 
     //      NAME                VALUE                   Description                                 TYPE
 
+    // SYSTEM FAULTS ===============================================================================================[]>
+    Sig.    SFAILURE =          "failure";              // System Failure                           *
+
+    Sig.    CRT_FAIL =          "critical";             // Critical Failure
+    Sig.    REC_FAIL =          "recover";              // Recoverable Failure
+
     // CONTROLLEREVENTS ============================================================================================[]>
-    Sig.    CMND_ACT =          "commact";              // Request action from controller           *
+    Sig.    CMND_ACT =          "commact";              // Request action from commander            *
 
     Sig.    STRT_LVL =          "stlvl";                // Start level currently selected
+    Sig.    GET_LODR =          "gtldr";                // Get the loaderUtils object               *
+    Sig.    SET_LODR =          "stldr";                // Set the loaderUtils object               *
+    Sig.    HAS_LODR =          "hsldr";                // Has a loaderUtils object                 *
+    Sig.    IMG_LODR =          "imldr";                // Image Loader
+    Sig.    HTM_LODR =          "htldr";                // HTML Loader
+
+    Sig.    START_MM =          "sttmm";                // Start the Main Menu
+    Sig.    INIT_GAM =          "inigm";                // Initialize Game call
+    Sig.    DISBL_UI =          "disui";                // Disable UI components
+    Sig.    ENABL_UI =          "enbui";                // Enable UI components
 
     // INTERFACES ==================================================================================================[]>
     Sig.    LD_INTFC =          "Ldint";                // Load Interface                           *
@@ -67,14 +83,33 @@ define([],function(){
     Sig.    STAN_BLD =          "sdbld";                // Standard Building
     Sig.    LIBR_BLD =          "lbbld";                // Library
 
-    Sig.    STAN_IDX =          "sdind";                // Standard Indexer
-    Sig.    HOBB_IDX =          "hbind";                // Hobbyist
-    Sig.    UBER_IDX =          "ubind";                // Unbeatable
+    Sig.    STAN_IDX =          "sdidx";                // Standard Indexer
+    Sig.    HOBB_IDX =          "hbidx";                // Hobbyist
+    Sig.    UBER_IDX =          "ubidx";                // Unbeatable
 
-    // MODAL DISPLAY ==============================================================================================[]>
+    // KEY SIGNALS =================================================================================================[]>
+    Sig.    KEY_ACTN =          "kyact";                // Key Press                                *
+
+    Sig.    KY_PRS_P =          "pkypr";                // 'p' Key (ASCII 112)
+
+
+    // MODAL DISPLAY ===============================================================================================[]>
     Sig.    LD_MODAL =          "ldmdl";                // Load Modal                               *
+    Sig.    MODAL_LD =          "mdlld";                // Modal Loaded                             *
 
     Sig.    ANC_INFO =          "aninf";                // Ancestor Information
+
+    // IMAGE RETRIEVAL =============================================================================================[]>
+    Sig.    LD_IMGST =          "limgs";                // Load Image Set                           *
+    Sig.    FTCH_IMG =          "ftimg";                // Fetch Image                              *
+
+    Sig.    FLD_IMGS =          "field";                // Field Image Set
+    Sig.    BKG_IMGS =          "bckgd";                // Background Image Set
+    Sig.    REC_IMGS =          "rcrds";                // Records Image Set
+    Sig.    IND_IMGS =          "indxr";                // Indexers Image Set
+    Sig.    BLD_IMGS =          "bldgs";                // Building Image Set
+    Sig.    ANC_IMGS =          "ancts";                // Ancestor Image Set
+    Sig.    ALL_IMGS =          "allim";                // All Images
 
     return Sig;
 });

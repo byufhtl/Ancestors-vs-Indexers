@@ -60,7 +60,7 @@ define(["jquery","GEvent"],function($,GEvent){
           var params = {
               generations: 8,
               personDetails: true,
-              descendants: false,
+              descendants: false
           };
 
           self.FS.getAncestry(self.id, params).then(function parse(ancestors){

@@ -79,8 +79,8 @@ define(["ImageResource"], function(ImageResource){
 
             ImageManager.map[ImageManager.GM_BKGRD] = new ImageResource(ImageManager.GM_BKGRD, "src/img/background.png");
             ImageManager.map[ImageManager.GM_FRGRD] = new ImageResource(ImageManager.GM_FRGRD, "src/img/lightbeam.png");
-            ImageManager.map[ImageManager.GM_VCTRY] = new ImageResource(ImageManager.GM_VCTRY, "src/img/victory.jpg");
-            ImageManager.map[ImageManager.GM_DFEAT] = new ImageResource(ImageManager.GM_DFEAT, "src/img/defeat.jpg");
+            ImageManager.map[ImageManager.GM_VCTRY] = new ImageResource(ImageManager.GM_VCTRY, "src/img/victory.png");
+            ImageManager.map[ImageManager.GM_DFEAT] = new ImageResource(ImageManager.GM_DFEAT, "src/img/defeat.png");
 
             ImageManager.map[ImageManager.REC_BLUE] = new ImageResource(ImageManager.REC_BLUE, "src/img/records/blueRecord.png");
             ImageManager.map[ImageManager.REC_BRWN] = new ImageResource(ImageManager.REC_BRWN, "src/img/records/brownRecord.png");

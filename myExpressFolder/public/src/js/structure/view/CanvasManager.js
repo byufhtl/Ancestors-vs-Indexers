@@ -2,10 +2,10 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point, ViewTransform){
+define(['jquery', 'structure/view/Sig', 'structure/util/Point'], function($, Sig, Point){
 
-    function CanvasManager(eventManager, viewTransform){
-        this.viewController = eventManager;
+    function CanvasManager(viewController, viewTransform){
+        this.viewController = viewController;
         this.viewTransform = viewTransform;
     }
 
@@ -59,7 +59,7 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
                     self.viewTransform.addY(diff.Y);
                 }
 
-                self.viewController.handleCanvasEvent(new GEvent(GEvent.CNVS_DRG, "", [])); // In case there are special drag effects
+                self.viewController.handle(new Sig(Sig.CNVS_DRG, "", [])); // In case there are special drag effects
             }
         });
 
@@ -67,7 +67,7 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
             draggable = false;
             if(!dragged){
                 var pt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
-                self.viewController.handleCanvasEvent(new GEvent(GEvent.CNVS_CLK, "", [pt]));
+                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", [pt]));
             }
             dragged = false;
         });
@@ -112,7 +112,7 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
         }
 
         $(document).keydown(function(e){
-          e.preventDefault();
+            e.preventDefault();
             var thisPress = Date.now();
             if(e.which == 119 || e.which == 38){ // w or (^) key - up
                 if(keys.indexOf('up') == -1) {

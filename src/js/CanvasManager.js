@@ -5,7 +5,7 @@
 define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point, ViewTransform){
 
     function CanvasManager(eventManager, viewTransform){
-        this.eventManager = eventManager;
+        this.viewController = eventManager;
         this.viewTransform = viewTransform;
     }
 
@@ -59,7 +59,7 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
                     self.viewTransform.addY(diff.Y);
                 }
 
-                self.eventManager.handleCanvasEvent(new GEvent(GEvent.CNVS_DRG, "", [])); // In case there are special drag effects
+                self.viewController.handleCanvasEvent(new GEvent(GEvent.CNVS_DRG, "", [])); // In case there are special drag effects
             }
         });
 
@@ -67,7 +67,7 @@ define(['jquery', 'GEvent', 'Point', 'ViewTransform'], function($, GEvent, Point
             draggable = false;
             if(!dragged){
                 var pt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
-                self.eventManager.handleCanvasEvent(new GEvent(GEvent.CNVS_CLK, "", [pt]));
+                self.viewController.handleCanvasEvent(new GEvent(GEvent.CNVS_CLK, "", [pt]));
             }
             dragged = false;
         });

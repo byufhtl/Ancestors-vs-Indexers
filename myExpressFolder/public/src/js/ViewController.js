@@ -12,6 +12,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
     function ViewController(gameController, Commander){
         //DON"T FORGET TO INITIALIZE THIS!!!!!!!!!!!!!!!!!!!!!!!!
         this.controller = gameController;
+        console.log("game controller in view controller: " ,this.controller);
         this.eventManager = null;
         this.panelManager = null;
     }
@@ -19,8 +20,8 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
     ViewController.prototype.init = function(){
 
         var self = this;
-        self.eventManager = new EventManager(self, self.controller);
-        self.eventManager.init();
+        self.viewController = new EventManager(self, self.controller);
+        self.viewController.init();
         self.panelManager = new PanelManager(self);
         self.panelManager.init();
     };
@@ -39,21 +40,21 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
                 break;
             case GEvent.INTFC_LD: // Interface has been loaded
                 self.processLoad(event);
-                self.eventManager.handle(event);
+                self.viewController.handle(event);
                 break;
             case GEvent.TPBAR_LD: // Top bar has been loaded
                 self.processLoad(event);
-                self.eventManager.handle(event);
+                self.viewController.handle(event);
                 break;
             case GEvent.SDBAR_LD: // Side bar has been loaded
                 self.processLoad(event);
-                self.eventManager.handle(event);
+                self.viewController.handle(event);
                 break;
             case GEvent.CMND_ACT:
-                self.commander.handle(event);
+                self.controller.handle(event);
                 break;
             case GEvent.LD_MODAL:
-                self.eventManager.handle(event);
+                self.viewController.handle(event);
                 break;
         }
     };

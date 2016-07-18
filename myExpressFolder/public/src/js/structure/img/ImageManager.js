@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/27/16.
  */
 
-define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
+define(["ImageResource","structure/util/Order", "structure/util/Sig"], function(ImageResource, Order, Sig){
 
     /**
      * The primary image manager for the program. Maintains a list of resources and loads them as necessary.
@@ -11,15 +11,44 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
      */
     function ImageManager(){
         this.loader = new LoaderUtils();
+        this.status = "new";
     }
 
+    ImageManager.prototype.handle = function(event){
+        var self = this;
+        switch(event.type){
+            case Sig.CMND_ACT:
+                return self.obeyCommand(event.value, data);
+                break;
+            case Sig.LD_IMGST:
+                return self.launch(event.value);
+                break;
+            case Sig.FTCH_IMG:
+                return self.getImage(event.value);
+                break;
+            default:
+                console.log("ImageManager could not properly handle event:", event);
+        }
+    };
+
     // ENTRY POINTS ====================================================================================================
+
+    ImageManager.prototype.obeyCommand = function(value, data){
+        switch(value){
+            case Sig.GET_LODR:
+                return this.extractLoader();
+                break;
+            case Sig.SET_LODR:
+                return this.injectLoader(data.loader);
+                break;
+        }
+    };
 
     /**
      * Allows for a different LoaderUtils to be loaded, allowing us to take full advantage of prior file saving.
      * @param loader
      */
-    HTMLManager.prototype.injectLoader = function(loader){
+    ImageManager.prototype.injectLoader = function(loader){
         this.loader = loader;
     };
 
@@ -28,7 +57,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
      * files across several instances of the HTMLManager class if properly handled.
      * @returns {*}
      */
-    HTMLManager.prototype.extractLoader = function(){
+    ImageManager.prototype.extractLoader = function(){
         return this.loader;
     };
 
@@ -37,7 +66,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
      * @param url the key associated with the desired image.
      * @returns {boolean}
      */
-    ImageManager.isLoaded = function(url){
+    ImageManager.prototype.isLoaded = function(url){
         return this.loader.hasResource(url)
     };
 
@@ -46,7 +75,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
      * @param url the key associated with the desired image.
      * @returns {Image}
      */
-    ImageManager.getImage = function(url){
+    ImageManager.prototype.getImage = function(url){
         return this.loader.getResource(url);
     };
 
@@ -55,99 +84,36 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
      * The resolution response is the last image to load - in case you happen to be interested in that for any reason.
      * @returns {Promise}
      */
-    ImageManager.launch = function(area){
+    ImageManager.prototype.launch = function(area){
+        var self = this;
 
-        ImageManager.status = "Loading images...";
+        self.status = "Loading images...";
         switch(area){
-            case "field":
-                return ImageManager.loadFieldPieces();
+            case Sig.FLD_IMGS:
+                return self.loadFieldPieces();
                 break;
-            case "background":
-                return ImageManager.loadBackgroundSkins();
+            case Sig.BKG_IMGS:
+                return self.loadBackgroundSkins();
                 break;
-            case "records":
-                return ImageManager.loadRecordSprites();
+            case Sig.REC_IMGS:
+                return self.loadRecordSprites();
                 break;
-            case "indexers":
-                return ImageManager.loadIndexerSprites();
+            case Sig.IND_IMGS:
+                return self.loadIndexerSprites();
                 break;
-            case "buildings":
-                return ImageManager.loadBuildingSprites();
+            case Sig.BLD_IMGS:
+                return self.loadBuildingSprites();
                 break;
-            case "ancestors":
-                return ImageManager.loadAncestorSprites();
+            case Sig.ANC_IMGS:
+                return self.loadAncestorSprites();
                 break;
-            default:
-                return ImageManager.loadFieldPieces();
-                return ImageManager.loadBackgroundSkins();
-                return ImageManager.loadRecordSprites();
-                return ImageManager.loadIndexerSprites();
-                return ImageManager.loadBuildingSprites();
-                return ImageManager.loadAncestorSprites();
+            case Sig.ALL_IMGS:
+                return self.loadAll();
+                break;
         }
     };
-
-    /**
-     * Validates a given map or ImageResources, loading the images and placing them in the ImageManager.map
-     * @param map A map of ImageResources
-     * @param size the number of ImageResources in the map.
-     * @returns {Promise}
-     */
-    ImageManager.validate = function(map, size){
-        return new Promise(function(resolve, reject){
-            var count = 0;
-            for(var prop in map){
-                if(map.hasOwnProperty(prop)){
-                    if(ImageManager.isLoaded(prop)){ // don't load it up again if it's already loaded.
-                        if(++count == size){
-                            resolve(true);
-                        }
-                    }
-                    else {
-                        map[prop].getImage().then(function (response) {
-                                ImageManager.map[prop] = map[prop];
-                                if (++ImageManager.tot_loaded == ImageManager.total) {
-                                    ImageManager.status = "Loaded.";
-                                }
-                                if (++count == size) {
-                                    resolve(true);
-                                }
-                            },
-                            function (e) {
-                                console.log("Image could not load...");
-                                reject();
-                            }
-                        );
-                    }
-                }
-            }
-        });
-    };
-
-    /**
-     * Loads a new image with the key and url specified.
-     * Returns a promise that is resolved once the image is loaded.
-     * Promise is rejected if the key matches an existing property on the ImageLoader, or the image fails to load.
-     * @param key
-     * @param url
-     * @returns {Promise}
-     */
-    ImageManager.loadNew = function(key, url){var map = {};
-        var map = {};
-        ImageManager.total += 1;
-        return new Promise(function(resolve, reject){
-            ImageManager.map[key] = new ImageResource(key, url);
-
-            ImageManager.validate(map, 1).then(function(response){
-                    resolve(response);
-                },
-                function(response){
-                    reject();
-                })
-        });
-    };
     
-    ImageManager.loadFieldPieces = function(){
+    ImageManager.prototype.loadFieldPieces = function(){
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
@@ -166,7 +132,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
         });
     };
 
-    ImageManager.loadBackgroundSkins = function(){
+    ImageManager.prototype.loadBackgroundSkins = function(){
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
@@ -185,7 +151,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
         });
     };
 
-    ImageManager.loadRecordSprites = function(){
+    ImageManager.prototype.loadRecordSprites = function(){
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
@@ -208,7 +174,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
         });
     };
 
-    ImageManager.loadIndexerSprites = function(){
+    ImageManager.prototype.loadIndexerSprites = function(){
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
@@ -226,7 +192,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
         });
     };
 
-    ImageManager.loadBuildingSprites = function(){
+    ImageManager.prototype.loadBuildingSprites = function(){
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
@@ -243,7 +209,7 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
         });
     };
 
-    ImageManager.loadAncestorSprites = function(){
+    ImageManager.prototype.loadAncestorSprites = function(){
 
         return new Promise(function(resolve, reject){
             var order = new Order;
@@ -255,6 +221,54 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
                 },
                 function(failure){
                     reject(failure);
+                }
+            );
+        });
+    };
+
+    ImageManager.prototype.loadAll = function(){
+        return new Promise(function(resolve, reject) {
+            var failed = [];
+            var completed = 0;
+            function partialResolve(resolution){
+                if(++completed == 6){
+                    resolve(failed);
+                }
+            }
+            self.loadFieldPieces().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.FLD_IMGS);
+                    partialResolve();
+                }
+            );
+            self.loadBackgroundSkins().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.BKG_IMGS);
+                    partialResolve();
+                }
+            );
+            self.loadRecordSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.REC_IMGS);
+                    partialResolve();
+                }
+            );
+            self.loadIndexerSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.IND_IMGS);
+                    partialResolve();
+                }
+            );
+            return self.loadBuildingSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.BLD_IMGS);
+                    partialResolve();
+                }
+            );
+            return self.loadAncestorSprites().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.ANC_IMGS);
+                    partialResolve();
                 }
             );
         });
@@ -288,7 +302,6 @@ define(["ImageResource","structure/util/Order"], function(ImageResource, Order){
 
     ImageManager.ANC_STAN =     "src/img/ancestors/peasant.png";            // STANDARD ANCESTOR
     ImageManager.ANC_NMLS =     "src/img/ancestors/nameless.png";           // NAMELESS ANCESTOR
-
 
     return ImageManager;
 });

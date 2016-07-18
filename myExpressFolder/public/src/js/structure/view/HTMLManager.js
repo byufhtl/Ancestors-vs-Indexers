@@ -54,6 +54,9 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
             case Sig.LD_SDBAR:
                 this.setSidebar(event.value);
                 break;
+            case Sig.LD_MODAL:
+                this.showAncestorInfoModal(event.data);
+                break;
         }
     };
 
@@ -84,10 +87,10 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
             function(successResponse) {
                 content.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', successResponse);
-                self.viewController.handle(new Sig(Sig.INTFC_LD, value, [Sig.LD_SCESS]));
+                self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_SCESS}));
             },
             function(failureResponse){
-                self.viewController.handle(new Sig(Sig.INTFC_LD, value, [Sig.LD_FAILD, failureResponse]));
+                self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_FAILD, response:failureResponse}));
             }
         );
     };
@@ -144,10 +147,10 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', resolved);
-                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_SCESS]));
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_SCESS}));
             },
             function(rejected){
-                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_FAILD, rejected]));
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_FAILD, response:rejected}));
             }
         )
     };
@@ -195,10 +198,10 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', resolved);
-                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_SCESS]));
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_SCESS}));
             },
             function(rejected){
-                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, [Sig.LD_FAILD, rejected]));
+                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_FAILD, response:rejected}));
             }
         )
     };
@@ -225,7 +228,20 @@ define(['jquery','structure/util/Sig','structure/util/LoaderUtils','structure/ut
         }
     };
 
-    // =================================================================================================================
+    // ANCESTOR DETAILS MODAL ==========================================================================================
+    
+    HTMLManager.prototype.showAncestorInfoModal = function(data){
+
+        $('#ancestorName').html(data.name);
+        $('#ancestorInfoText').html(       "birthDate: " + (data.birthDate || "unknown") + "<br>"
+            + "birthPlace: " + (data.birthPlace || "unknown") + "<br>"
+            + "gender: " + (data.display.gender || "unknown") + "<br>"
+            + "lifespan " + (data.lifespan || "unknown") + "<br>");
+        $('#missingInfo').html("");
+
+        var modal = $('#myModal');
+        this.viewController.handle(new Sig(Sig.MODAL_LD, Sig.ANC_INFO, {modal: modal}));
+    };
 
     return HTMLManager;
 });

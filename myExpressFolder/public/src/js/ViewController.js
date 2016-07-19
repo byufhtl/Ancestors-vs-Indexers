@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['../../structure/src/js/EventManager','PanelManager','GEvent'],function(EventManager, PanelManager, GEvent){
+define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelManager, GEvent){
 
     /**
      *

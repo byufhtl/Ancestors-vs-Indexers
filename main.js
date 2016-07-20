@@ -2,6 +2,8 @@
  * Created by calvinmcm on 6/21/16.
  */
 
+console.log("I'm a villain.");
+
 require.config({
     baseUrl: 'src/js',
     paths: {
@@ -11,7 +13,7 @@ require.config({
         bootstrap: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min'
     },
     shim: {
-        runLvl1: {
+        splash: {
             deps: ['jquery']
         },
         familysearch:{
@@ -24,6 +26,7 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap', 'splash'],function($, FamilySearch, Bootstrap, Splash){
+    console.log("I'm a villain.");
     var FS = new FamilySearch({
         // Copy your app key into the client_id parameter
         client_id: 'a02j000000HBHf4AAH',

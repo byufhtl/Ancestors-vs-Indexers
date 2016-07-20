@@ -2,7 +2,7 @@
  * Created by calvinmcm on 7/6/16.
  */
 
-define(['LevelDefinition'],function(LevelDef){
+define(['../../../structure/src/js/LevelDefinition'],function(LevelDef){
 
     function UserProfile(userPID, basePoints){
         this.pid = userPID;

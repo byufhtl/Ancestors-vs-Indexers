@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition', 'model/FadeAnimation', 'fadeAnimations/FallingRecordAnim'],
+define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', '../../structure/src/js/LevelDefinition', 'model/FadeAnimation', 'fadeAnimations/FallingRecordAnim'],
 function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuilding, Library, LevelDefinition, FadeAnimation, FallingRecordAnim){
 
 

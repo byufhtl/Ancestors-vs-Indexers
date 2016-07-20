@@ -2,7 +2,7 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelManager, GEvent){
+define(['../../myExpressFolder/public/structure/src/js/EventManager','PanelManager','GEvent'],function(EventManager, PanelManager, GEvent){
 
     /**
      *

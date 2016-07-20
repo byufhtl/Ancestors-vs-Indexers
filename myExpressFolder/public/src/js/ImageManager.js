@@ -94,11 +94,11 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.HOBB_IDX] = new ImageResource(ImageManager.HOBB_IDX, "src/img/indexers/hobbyist.png");
             ImageManager.map[ImageManager.UBER_IDX] = new ImageResource(ImageManager.UBER_IDX, "src/img/indexers/tree.png");
 
-            ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/drake1-A01.png");
-            ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/human-city4.png");
+            ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/FHC.png");
+            ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/library.png");
 
             ImageManager.map[ImageManager.ANC_STAN] = new ImageResource(ImageManager.ANC_STAN, "src/img/ancestors/animAnc.png");
-            ImageManager.map[ImageManager.ANC_NMLS] = new ImageResource(ImageManager.ANC_NMLS, "src/img/ancestors/nameless.png");
+            ImageManager.map[ImageManager.ANC_NMLS] = new ImageResource(ImageManager.ANC_NMLS, "src/img/ancestors/FarmerSprite.png");
 
             ImageManager.map[ImageManager.REC_ANIM] = new ImageResource(ImageManager.REC_ANIM, "src/img/records/recordTemplateSparkles.png");
 

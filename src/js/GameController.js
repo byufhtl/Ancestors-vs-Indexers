@@ -1,4 +1,4 @@
-define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'ImageManager', 'ViewTransform', 'GEvent'],
+define(['jquery','../../myExpressFolder/public/structure/src/js/LevelDefinition', 'ViewController', 'Update', 'Render', 'model/IAncestor', 'ImageManager', 'ViewTransform', 'GEvent'],
   function($,LevelDefinition, ViewController, Update, Render, IAncestor, ImageManager, ViewTransform, GEvent) {
 
       function GameController() {

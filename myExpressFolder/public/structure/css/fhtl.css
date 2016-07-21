@@ -1,0 +1,46 @@
+.header{
+    min-height: 12%;
+}
+
+.mm-bar{
+    min-height: 6%;
+}
+
+.content{
+    background-color: #000022;
+    min-height: 82%;
+}
+
+.title{
+    font-size: 60px;
+    color: white;
+}
+
+.logo{
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.bar-element{
+    min-height: 100%;
+    font-size: 22px;
+    padding: 10px;
+}
+
+.bar-theme{
+    font-weight: 900;
+    color: white;
+}
+
+.btn-bar{
+    min-width: 100%;
+}
+
+.btn-fslogin{
+    min-width: 50%;
+    background-color: #527bb4;
+    min-height: 45%;
+    /*font-weight: 900;*/
+    font-size: 28px;
+    color: white;
+}

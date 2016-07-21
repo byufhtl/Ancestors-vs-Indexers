@@ -1,0 +1,21 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		title="Grandma's Pie"
+
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+		link(rel="stylesheet", href="stylesheets/app.css")
+		block style
+
+		script(src="javascripts/vendor/modernizr.js")
+		block scripts
+
+	body(ng-app="gpApp" ng-controller="gpController")
+		block content
+
+		script(type="text/javascript" src="javascripts/_gen/vendor.min.js")
+		script(type="text/javascript" src="javascripts/_gen/foundation.min.js")
+		script
+			$(document).foundation();

@@ -26,9 +26,13 @@ define(['jquery','util/Sig'], function($, Sig){
         if (data && data.hasOwnProperty("success") && data.success == Sig.LD_SCESS) { // If the topbar was able to load up successfully
             console.log("actually loading button stuff");
             var loginButton = $('#LOGIN');
+            var loginButton2 = $('#LOGIN2');
             loginButton.click(function () {
                 console.log("Login button clicked!");
                 self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.LOGN_BTN, data));
+            });
+            loginButton2.click(function () {
+                loginButton.click();
             });
         }
     };
@@ -256,5 +260,3 @@ define(['jquery','util/Sig'], function($, Sig){
     return ButtonManager;
 
 });
-
-

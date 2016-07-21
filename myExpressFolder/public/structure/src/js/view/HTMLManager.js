@@ -104,7 +104,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
         var self = this;
         switch(value){
             case Sig.SP_INTFC:
-                self.loadInterface("src/html/splash.html", value);
+                self.loadInterface("src/html/FHTLSplash.html", value);
                 break;
             case Sig.MM_INTFC:
                 self.loadInterface("src/html/mainmenu.html", value);

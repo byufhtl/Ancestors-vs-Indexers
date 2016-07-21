@@ -43,7 +43,9 @@ define(["jquery","util/Sig"],function($,Sig){
                         });
                 });
         }
-        callback(null);
+        else {
+          callback(null);
+        }
     };
 
 

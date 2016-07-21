@@ -118,6 +118,9 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
             case Sig.UG_INTFC:
                 self.loadInterface("src/html/upgradesinterface.html", value);
                 break;
+            case Sig.LD_INTFC:
+                self.loadInterface("src/html/loadingPage.html", value);
+                break;
         }
     };
 
@@ -230,7 +233,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
     };
 
     // ANCESTOR DETAILS MODAL ==========================================================================================
-    
+
     HTMLManager.prototype.showAncestorInfoModal = function(data){
 
         $('#ancestorName').html(data.name);

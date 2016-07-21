@@ -112,7 +112,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                 break;
         }
     };
-    
+
     ImageManager.prototype.loadFieldPieces = function(){
         var self = this;
         return new Promise(function(resolve, reject){
@@ -225,6 +225,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             );
         });
     };
+
+  
 
     ImageManager.prototype.loadAll = function(){
         var self = this;

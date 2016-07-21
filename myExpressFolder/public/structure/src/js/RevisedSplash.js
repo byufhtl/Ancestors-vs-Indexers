@@ -17,8 +17,8 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
         var self =  this;
         self.viewController.assign(self); // Assign the viewController to reference this page as it's lieutenant
         var tempObj = {};
-        tempObj["FS"] = this.familySearchHandler;
-        this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
+
+        this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LD_INTFC, tempObj));
         this.familySearchHandler.checkAccessToken(function(eightGens){
             if (eightGens)
             {
@@ -28,6 +28,11 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
                 imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));
                 self.controller = new Commander(imageManager, self.viewController, self);
                 self.controller.start(eightGens);
+            }
+            else {
+                tempObj["FS"] = this.familySearchHandler;
+                console.log("loading in the splash interface");
+                self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
             }
         });
 
@@ -39,13 +44,13 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
                 if(event.value == Sig.REC_FAIL){ // Event could be resolved by logging in again
                     console.log("Recoverable Failure.");
                     if(event.data.hasOwnProperty('report')) console.log(event.data.report);
-                    
+
                     // Remove user credentials and ask to re-log in.
                 }
                 else if(event.value == Sig.CRT_FAIL){ // Connectivity Issues - logging in won't guarantee a resolution.
                     console.log("Critical Failure.");
                     if(event.data.hasOwnProperty('report')) console.log(event.data.report);
-                    
+
                     // Remove user credentials and ask to come back later.
                 }
                 break;

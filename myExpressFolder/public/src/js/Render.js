@@ -225,6 +225,7 @@ define([],function() {
     };
 
     Render.prototype.reset = function()
+    {
       this.resizeOnce = true;
     };
 

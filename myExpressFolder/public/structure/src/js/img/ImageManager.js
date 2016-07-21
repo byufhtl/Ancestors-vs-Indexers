@@ -136,8 +136,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
-            order.addItem(ImageManager.GM_BKGRD, Order.IMAGE, 15);
-            order.addItem(ImageManager.GM_FRGRD, Order.IMAGE, 15);
+            // order.addItem(ImageManager.GM_BKGRD, Order.IMAGE, 15);
+            // order.addItem(ImageManager.GM_FRGRD, Order.IMAGE, 15);
             order.addItem(ImageManager.GM_VCTRY, Order.IMAGE, 15);
             order.addItem(ImageManager.GM_DFEAT, Order.IMAGE, 15);
             self.loader.loadResources(order).then(

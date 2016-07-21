@@ -98,7 +98,7 @@ define([],function() {
 
     Render.prototype.drawSpecialist = function(activeIndexers, i)
     {
-        homeBaseImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
+        homeBaseImg = this.imageManager.getImage(this.imageManager.DESK_IMG);
         this.ctx.drawImage(homeBaseImg, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
 
         //draw numbers on base and above the specialist
@@ -123,13 +123,15 @@ define([],function() {
                     break;
                 case "specialist":
                     indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
-                    this.drawSpecialist(activeIndexers, i);
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
                     indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+            if(activeIndexers[i].type == "specialist"){
+                this.drawSpecialist(activeIndexers, i);
+            }
         }
     };
 
@@ -220,12 +222,12 @@ define([],function() {
         }
         */
         this.ctx.drawImage(tree, 0, 0, tree.width/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, tree.width/8 * levelStructure.length, tree.height);
-    }
+    };
 
     Render.prototype.reset = function()
     {
       this.resizeOnce = true;
-    }
+    };
 
 
 

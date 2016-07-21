@@ -70,7 +70,7 @@ define(["ImageResource"], function(ImageResource){
 
         return new Promise(function(resolve, reject){
             ImageManager.status = "Loading images...";
-            ImageManager.total = 21;
+            ImageManager.total = 24;
             ImageManager.tot_loaded = 0;
             ImageManager.map[ImageManager.TRI_ALPH] = new ImageResource(ImageManager.TRI_ALPH, "src/img/field/triangleAlpha.png");
             ImageManager.map[ImageManager.TRI_B] = new ImageResource(ImageManager.TRI_B, "src/img/field/triangleBeta.png");
@@ -93,6 +93,10 @@ define(["ImageResource"], function(ImageResource){
             ImageManager.map[ImageManager.STAN_IDX] = new ImageResource(ImageManager.STAN_IDX, "src/img/indexers/bow-indexer.png");
             ImageManager.map[ImageManager.HOBB_IDX] = new ImageResource(ImageManager.HOBB_IDX, "src/img/indexers/hobbyist.png");
             ImageManager.map[ImageManager.UBER_IDX] = new ImageResource(ImageManager.UBER_IDX, "src/img/indexers/tree.png");
+
+            ImageManager.map[ImageManager.DESK_IMG] = new ImageResource(ImageManager.DESK_IMG, "src/img/indexers/Desk.png");
+            ImageManager.map[ImageManager.DESK_MED] = new ImageResource(ImageManager.DESK_MED, "src/img/indexers/Desk2.png");
+            ImageManager.map[ImageManager.DESK_LRG] = new ImageResource(ImageManager.DESK_LRG, "src/img/indexers/Desk3.png");
 
             ImageManager.map[ImageManager.BLD_FHCR] = new ImageResource(ImageManager.BLD_FHCR, "src/img/buildings/FHC.png");
             ImageManager.map[ImageManager.BLD_LIBR] = new ImageResource(ImageManager.BLD_LIBR, "src/img/buildings/library.png");
@@ -145,6 +149,10 @@ define(["ImageResource"], function(ImageResource){
     ImageManager.STAN_IDX = "idx_standard";
     ImageManager.HOBB_IDX = "idx_hobbyist";
     ImageManager.UBER_IDX = "idx_uber";
+
+    ImageManager.DESK_IMG = "desk_image";
+    ImageManager.DESK_MED = "medium_sized_desk";
+    ImageManager.DESK_LRG = "large_desk";
 
     ImageManager.BLD_FHCR = "build_fhcenter";
     ImageManager.BLD_LIBR = "library";

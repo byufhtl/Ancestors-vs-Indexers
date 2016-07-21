@@ -38,68 +38,77 @@ define(['jquery','util/Order'],function($, Order){
     LoaderUtils.pend = function(pending, success, failure, entry, tries){
         return new Promise(function(resolve, reject){
             if(!pending.hasOwnProperty(entry.url)){ // If not pending.
-                pending[entry.url] = entry.type;
+                if(entry.url && (entry.url != '')) {
+                    pending[entry.url] = entry.type;
 
-                // HTML LOAD REQUESTS
+                    // HTML LOAD REQUESTS
 
-                if(entry.type == Order.HTML) {
-                    LoaderUtils.loadHTML(entry.url).then(
-                        function(resolved){
-                            LoaderUtils.assign(pending, success, entry.url, resolved);
-                            resolve();
-                        },
-                        function(rejected){
-                            if(tries == 0){
-                                LoaderUtils.assign(pending, failure, entry.url, entry.type);
-                                reject(rejected);
+                    if (entry.type == Order.HTML) {
+                        LoaderUtils.loadHTML(entry.url).then(
+                            function (resolved) {
+                                LoaderUtils.assign(pending, success, entry.url, resolved);
+                                resolve();
+                            },
+                            function (rejected) {
+                                if (tries == 0) {
+                                    LoaderUtils.assign(pending, failure, entry.url, entry.type);
+                                    reject(rejected);
+                                }
+                                else {
+                                    delete pending[entry.url];
+                                    LoaderUtils.pend(pending, success, failure, entry, --tries).then(
+                                        function (resolved) {
+                                            resolve(resolved);
+                                        },
+                                        function (rejected) {
+                                            reject(rejected);
+                                        }
+                                    );
+                                }
                             }
-                            else {
-                                delete pending[entry.url];
-                                LoaderUtils.pend(pending, success, failure, entry, --tries).then(
-                                    function(resolved){
-                                        resolve(resolved);
-                                    },
-                                    function(rejected){
-                                        reject(rejected);
-                                    }
-                                );
+                        )
+                    }
+
+                    // IMAGE LOAD REQUESTS
+
+                    else if (entry.type == Order.IMAGE) {
+                        LoaderUtils.loadImage(entry.url).then(
+                            function (resolved) { // Image Loading may not be sufficient to determine viability.
+                                LoaderUtils.assign(pending, success, entry.url, resolved);
+                                resolve();
+                            },
+                            function (rejected) {
+                                if (tries == 0) {
+                                    LoaderUtils.assign(pending, failure, entry.url, entry.type);
+                                    reject();
+                                }
+                                else {
+                                    delete pending[entry.url];
+                                    LoaderUtils.pend(pending, success, failure, entry, --tries).then(
+                                        function (resolved) {
+                                            resolve(resolved);
+                                        },
+                                        function (rejected) {
+                                            reject(rejected);
+                                        }
+                                    );
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
+
+                    // UNKNOWN TYPE REQUESTS
+
+                    else {
+                        console.error("Invalid Resource Type. Cannot Load \"" + entry.type + "\"");
+                        reject();
+                    }
                 }
 
-                // IMAGE LOAD REQUESTS
+                // Bad URL
 
-                else if(entry.type == Order.IMAGE){
-                    LoaderUtils.loadImage(entry.url).then(
-                        function(resolved){ // Image Loading may not be sufficient to determine viability.
-                            LoaderUtils.assign(pending, success, entry.url, resolved);
-                            resolve();
-                        },
-                        function(rejected){
-                            if(tries == 0){
-                                LoaderUtils.assign(pending, failure, entry.url, entry.type);
-                                reject();
-                            }
-                            else {
-                                delete pending[entry.url];
-                                LoaderUtils.pend(pending, success, failure, entry, --tries).then(
-                                    function(resolved){
-                                        resolve(resolved);
-                                    },
-                                    function(rejected){
-                                        reject(rejected);
-                                    }
-                                );
-                            }
-                        }
-                    )
-                }
-
-                // UNKNOWN TYPE REQUESTS
-
-                else{
-                    console.error("Invalid Resource Type. Cannot Load \"" + entry.type + "\"");
+                else {
+                    console.error("Invalid URL on resource type \"" + entry.type + "\"");
                     reject();
                 }
             }

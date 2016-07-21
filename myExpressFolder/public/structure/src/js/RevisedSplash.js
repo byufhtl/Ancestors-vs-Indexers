@@ -20,7 +20,7 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
         tempObj["FS"] = this.familySearchHandler;
         this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
         this.familySearchHandler.checkAccessToken(function(eightGens){
-            if (eightGens || true)
+            if (eightGens)
             {
                 console.log("we are now starting up the Commander", eightGens);
                 //if we got family search data back then sync the LoaderUtils and start up the Commander

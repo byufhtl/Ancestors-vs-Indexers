@@ -1,0 +1,27 @@
+div(id="gp-header")
+  div(class="row")
+    a(href="/")
+      image(id="gp-logo-img" src="images/gmasPieS.png")
+      image(id="gp-logo" src="images/gp-title.png")
+
+div(class="contain-to-grid" ng-controller="headerController")
+  nav(class="top-bar" data-topbar role="navigation")
+    ul(class="title-area")
+      li(class="name")
+        h1 &nbsp#{title}
+      li(class="toggle-topbar menu-icon")
+        a(href="#")
+
+    section(class="top-bar-section")
+      ul(class="stack-for-small right button-group")
+        if signedIn
+          li
+            a(ng-href="#here" ng-click="refresh()" ng-controller="headerController") Refresh
+          li
+            a(href="/" ng-click="logOut()" ng-controller="headerController") Logout
+        li
+          a(href="/auth/familysearch") Sign in
+        li
+          a(href="https://fhtl.byu.edu/#/contact") Contact
+        li
+          a(href="https://fhtl.byu.edu/") FHTL Website

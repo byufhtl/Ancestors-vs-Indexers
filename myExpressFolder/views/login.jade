@@ -1,0 +1,49 @@
+extends layout
+
+block content
+
+	- var title = 'Home'
+	- var signedIn = false
+	include header
+
+	div(id="core" class="row")
+		div(class="text-center")
+			h1 Welcome to Grandma's Pie
+			br
+			h3 Log in with FamilySearch to get started or watch our short tutorial video.
+
+			a(class="button radius" href="/auth/familysearch") Log in with Family Search
+
+			div(class="videoWrapper")
+				iframe(class="video" src="https://www.youtube.com/embed/FD5GkZm79Rs" frameborder="0" allowfullscreen)
+
+			div(class="text-center")
+				a(href = "//familysearch.org/")
+					img(src="images/certified.png" alt="Cerfified" width=300)
+
+	div(id="other-sites" class="hide-for-small") Check out our other sites!
+	div(id="site-slider" class="hide-for-small")
+		ul(class="slides")
+			li(class="slide")
+				a(href="https://virtual-pedigree.fhtl.byu.edu/" target="_blank")
+					img(src="/images/slider-logos/vp-logo2.png" style="background-color:#2C3E50;")
+			li(class="slide")
+				a(href="https://www.relativefinder.org/" target="_blank")
+					img(src="/images/slider-logos/rf-logo2.png" style="background-color:#7DA555;")
+			li(class="slide")
+				a(href="http://geneopardy.fhtl.byu.edu/" target="_blank")
+					img(src="/images/slider-logos/geneopardy2.png" style="background-color:#0D47A1;")
+			li(class="slide")
+				a(href="virtual-pedigree.fhtl.byu.edu" targe"_blank")
+					img(src="/images/slider-logos/vp-logo2.png" style="background-color:#2C3E50;")
+
+	script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
+	script(src="javascripts/splash.js")
+	script.
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-51623502-4', 'auto');
+		ga('send', 'pageview');
+		bb1072a7793cf4cb2209e20d8961bdcd230fa7f8

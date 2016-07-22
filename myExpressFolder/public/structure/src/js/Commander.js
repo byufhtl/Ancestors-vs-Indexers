@@ -18,15 +18,17 @@ define(['util/Sig'],function(Sig){
     Commander.prototype.start = function(eightGens){
         var self = this;
         self.eightGenerations = eightGens;
-
+        console.log("at least we called start on the commander");
         // Load up all of the images
         self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS)).then(
             function(failedArray){
                 if(failedArray.length){
+                  console.log("we have failed");
                     var report = "The Following Image Load Batches Failed to Load: " + failedArray.toString();
                     self.king.handle(new Sig(Sig.SFAILURE), Sig.CRT_FAIL, {report: report});
                 }
                 else {
+                  console.log("attempting to load the main menu");
                     self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
                 }
             }

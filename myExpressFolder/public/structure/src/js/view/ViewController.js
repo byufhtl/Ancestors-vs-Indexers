@@ -14,15 +14,13 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
         };
         this.htmlManager = new HTMLManager(dummyHandler);
         this.buttonManager = new ButtonManager(dummyHandler);
-        this.canvasManager = new CanvasManager(dummyHandler);
-        this.canvasManager.init();
         this.responsesEnabled = true;
     }
 
     ViewController.prototype.init = function(){
         this.htmlManager = new HTMLManager(this);
         this.buttonManager = new ButtonManager(this);
-        this.canvasManager = new CanvasManager(this);
+        this.canvasManager = new CanvasManager(this, null);
     };
 
     ViewController.defaultLieutenant = {handle:function (event) {
@@ -103,7 +101,7 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
         }
         console.log("Could not check the success status on event", event);
     };
-        
+
 
     ViewController.prototype.doIfEnabled = function(event, handler){
         if(this.responsesEnabled){

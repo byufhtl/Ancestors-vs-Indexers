@@ -226,7 +226,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
-  
+
 
     ImageManager.prototype.loadAll = function(){
         var self = this;
@@ -238,25 +238,25 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     resolve(failed);
                 }
             }
-            self.loadFieldPieces().then(partialResolve,
+            return self.loadFieldPieces().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.FLD_IMGS);
                     partialResolve();
                 }
             );
-            self.loadBackgroundSkins().then(partialResolve,
+            return self.loadBackgroundSkins().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.BKG_IMGS);
                     partialResolve();
                 }
             );
-            self.loadRecordSprites().then(partialResolve,
+            return self.loadRecordSprites().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.REC_IMGS);
                     partialResolve();
                 }
             );
-            self.loadIndexerSprites().then(partialResolve,
+            return self.loadIndexerSprites().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.IND_IMGS);
                     partialResolve();

@@ -135,7 +135,7 @@ body{
 }
 
 .loading{
-    background-image: url("../src/img/loading.jpg");
+    background-image: url("../src/img/Loading Screen.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 100vm;

@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/css/fhtl.css" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/css/fhtl.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/FHTLSplash.html" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/FHTLSplash.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,41 +40,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/index.html">
+      <file leaf-file-name="mainmenu.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="144">
+              <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RevisedSplash.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageManager.js" pinned="true" current-in-tab="true">
+      <file leaf-file-name="ImageManager.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="217" column="66" selection-start-line="217" selection-start-column="66" selection-end-line="217" selection-end-column="66" />
+            <state relative-caret-position="441">
+              <caret line="227" column="17" selection-start-line="227" selection-start-column="17" selection-end-line="227" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -82,8 +66,8 @@
       <file leaf-file-name="LoaderUtils.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="170" column="66" selection-start-line="170" selection-start-column="66" selection-end-line="170" selection-end-column="66" />
+            <state relative-caret-position="326">
+              <caret line="210" column="44" selection-start-line="210" selection-start-column="44" selection-end-line="210" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -102,8 +86,38 @@
       <file leaf-file-name="Commander.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="22" column="75" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
+            <state relative-caret-position="198">
+              <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1440">
+              <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HTMLManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="104" column="77" selection-start-line="104" selection-start-column="77" selection-end-line="104" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ButtonManager.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="103" column="38" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -149,9 +163,12 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/css/stylesheet.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/css/fhtl.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/FHTLSplash.html" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js" />
       </list>
     </option>
   </component>
@@ -326,6 +343,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ancestors-vs-Indexers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ancestors-vs-Indexers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myExpressFolder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -387,44 +438,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ancestors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -547,12 +560,12 @@
       <workItem from="1469113343560" duration="3058000" />
       <workItem from="1469124276139" duration="9743000" />
       <workItem from="1469226884366" duration="653000" />
-      <workItem from="1469311262195" duration="2191000" />
+      <workItem from="1469311262195" duration="4446000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20674000" />
+    <option name="totallyTimeSpent" value="22929000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1204" extended-state="6" />
@@ -592,30 +605,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/splash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/css/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -870,14 +859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -944,6 +925,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="110" column="77" selection-start-line="110" selection-start-column="77" selection-end-line="110" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="227" column="17" selection-start-line="227" selection-start-column="17" selection-end-line="227" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="210" column="44" selection-start-line="210" selection-start-column="44" selection-end-line="210" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -954,32 +959,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="22" column="75" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
+        <state relative-caret-position="198">
+          <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js">
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="110" column="77" selection-start-line="110" selection-start-column="77" selection-end-line="110" selection-end-column="77" />
+        <state relative-caret-position="576">
+          <caret line="104" column="77" selection-start-line="104" selection-start-column="77" selection-end-line="104" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js">
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="170" column="66" selection-start-line="170" selection-start-column="66" selection-end-line="170" selection-end-column="66" />
+        <state relative-caret-position="144">
+          <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="217" column="66" selection-start-line="217" selection-start-column="66" selection-end-line="217" selection-end-column="66" />
+        <state relative-caret-position="506">
+          <caret line="103" column="38" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
           <folding />
         </state>
       </provider>

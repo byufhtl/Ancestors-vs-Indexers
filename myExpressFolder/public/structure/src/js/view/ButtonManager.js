@@ -43,6 +43,7 @@ define(['jquery','util/Sig'], function($, Sig){
      */
     ButtonManager.prototype.handle = function(event){
         var self = this;
+        console.log("Button Manager handling:", event);
         switch(event.type){
             case Sig.INTFC_LD:
                 switch(event.value){
@@ -90,23 +91,24 @@ define(['jquery','util/Sig'], function($, Sig){
     ButtonManager.prototype.loadMainMenuButtons = function(data){
         var self = this;
         self.killAll(self.mainmenuButtons);
+        
+        var upgradesButton = $('#manage-upgrades');
+        var levelsButton = $('#manage-level');
+        var startGameButton = $('#start-game');
+        self.mainmenuButtons.push(upgradesButton, levelsButton, startGameButton);
 
-        if(data && data.length && data[0] == "success"){
-            var upgradesButton = $('#manage-upgrades');
-            var levelsButton = $('#manage-level');
-            var startGameButton = $('#start-game');
-            self.mainmenuButtons.push(upgradesButton, levelsButton, startGameButton);
-
-            upgradesButton.click(function(){
-                self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.UG_INTFC, []));
-            });
-            levelsButton.click(function(){
-                self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LV_INTFC, []));
-            });
-            startGameButton.click(function(){
-                self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.GM_INTFC, []));
-            });
-        }
+        upgradesButton.click(function(){
+            console.log("Upgrades button click connected!");
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.UG_INTFC, null));
+        });
+        levelsButton.click(function(){
+            console.log("Levels button click connected!");
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LV_INTFC, null));
+        });
+        startGameButton.click(function(){
+            console.log("Start button click connected!");
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.GM_INTFC, null));
+        });
     };
 
 

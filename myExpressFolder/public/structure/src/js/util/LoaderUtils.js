@@ -156,7 +156,6 @@ define(['jquery','util/Order'],function($, Order){
                                     resolve(resolved);
                                 }
                                 else {
-                                    console.log("Pend failure 1");
                                     reject(failed);
                                 }
                             }
@@ -168,7 +167,6 @@ define(['jquery','util/Order'],function($, Order){
                                     resolve(rejected);
                                 }
                                 else {
-                                    console.log("Pend failure 1");
                                     reject(failed);
                                 }
                             }
@@ -211,6 +209,8 @@ define(['jquery','util/Order'],function($, Order){
             var container = $('<div></div>');
             container.css('margin', '0px');
             container.css('padding', '0px');
+            container.css('width', "100%");
+            container.css('height', "100%");
             container.empty();
             container.load(url, function (response) {
                 if (response) {

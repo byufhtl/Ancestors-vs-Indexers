@@ -17,6 +17,7 @@ define(['util/Sig'],function(Sig){
 
     Commander.prototype.start = function(eightGens){
         var self = this;
+        self.viewController.assign(self);
         self.eightGenerations = eightGens;
         console.log("at least we called start on the commander");
         // Load up all of the images

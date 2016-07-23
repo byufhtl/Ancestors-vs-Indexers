@@ -102,6 +102,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      */
     HTMLManager.prototype.setInterface = function(value){
         var self = this;
+        console.log("HTML Manager has been asked to load interface:", value);
         switch(value){
             case Sig.SP_INTFC:
                 self.loadInterface("src/html/FHTLSplash.html", value);

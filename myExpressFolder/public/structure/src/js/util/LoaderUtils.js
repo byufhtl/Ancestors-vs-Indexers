@@ -78,7 +78,9 @@ define(['jquery','util/Order'],function($, Order){
                                 resolve();
                             },
                             function (rejected) {
+                                console.log("Trying to reload resource", entry, "(" + tries + ") tries remaining");
                                 if (tries == 0) {
+                                    console.log("Permanent Loading Failure:", entry, tries);
                                     LoaderUtils.assign(pending, failure, entry.url, entry.type);
                                     reject();
                                 }
@@ -89,6 +91,7 @@ define(['jquery','util/Order'],function($, Order){
                                             resolve(resolved);
                                         },
                                         function (rejected) {
+                                            console.log("Could not pend resource request:", entry, tries);
                                             reject(rejected);
                                         }
                                     );
@@ -153,6 +156,7 @@ define(['jquery','util/Order'],function($, Order){
                                     resolve(resolved);
                                 }
                                 else {
+                                    console.log("Pend failure 1");
                                     reject(failed);
                                 }
                             }
@@ -164,6 +168,7 @@ define(['jquery','util/Order'],function($, Order){
                                     resolve(rejected);
                                 }
                                 else {
+                                    console.log("Pend failure 1");
                                     reject(failed);
                                 }
                             }

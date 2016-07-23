@@ -88,6 +88,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         var self = this;
 
         self.status = "Loading images...";
+        console.log(self.status, area);
         switch(area){
             case Sig.FLD_IMGS:
                 return self.loadFieldPieces();
@@ -211,15 +212,18 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
 
     ImageManager.prototype.loadAncestorSprites = function(){
 
+        var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
             order.addItem(ImageManager.ANC_STAN, Order.IMAGE, 15);
             order.addItem(ImageManager.ANC_NMLS, Order.IMAGE, 15);
             self.loader.loadResources(order).then(
                 function(success){
+                    console.log("Loading the ancestors worked great...");
                     resolve(success);
                 },
                 function(failure){
+                    console.log("Loading the ancestors failed...");
                     reject(failure);
                 }
             );
@@ -238,38 +242,39 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     resolve(failed);
                 }
             }
-            return self.loadFieldPieces().then(partialResolve,
+            self.loadFieldPieces().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.FLD_IMGS);
                     partialResolve();
                 }
             );
-            return self.loadBackgroundSkins().then(partialResolve,
+            self.loadBackgroundSkins().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.BKG_IMGS);
                     partialResolve();
                 }
             );
-            return self.loadRecordSprites().then(partialResolve,
+            self.loadRecordSprites().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.REC_IMGS);
                     partialResolve();
                 }
             );
-            return self.loadIndexerSprites().then(partialResolve,
+            self.loadIndexerSprites().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.IND_IMGS);
                     partialResolve();
                 }
             );
-            return self.loadBuildingSprites().then(partialResolve,
+            self.loadBuildingSprites().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.BLD_IMGS);
                     partialResolve();
                 }
             );
-            return self.loadAncestorSprites().then(partialResolve,
+            self.loadAncestorSprites().then(partialResolve,
                 function(rejection){
+                    console.log("Loading the ancestors claims to have failed...");
                     failed.push(Sig.ANC_IMGS);
                     partialResolve();
                 }

@@ -23,7 +23,7 @@ define(['util/Sig'],function(Sig){
         self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS)).then(
             function(failedArray){
                 if(failedArray.length){
-                  console.log("we have failed");
+                  console.log("we have failed", failedArray);
                     var report = "The Following Image Load Batches Failed to Load: " + failedArray.toString();
                     self.king.handle(new Sig(Sig.SFAILURE), Sig.CRT_FAIL, {report: report});
                 }

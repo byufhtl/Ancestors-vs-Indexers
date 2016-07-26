@@ -26,6 +26,9 @@ define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'V
               case Sig.FTCH_IMG:
                   return self.controller.handle(event);
                   break;
+              case Sig.UPD_USER:
+                  self.controller.handle(event);
+                  break;
           }
       };
 

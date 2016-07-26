@@ -79,18 +79,21 @@ define(["util/Sig", "LevelDefinition"],function(Sig, LevelDefinition){
     {
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));
         this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
-        this.controller.handle(new Sig())
-        var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
-        this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
-        this.controller.loop();
+        this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_VCTR));    // Save
+        this.controller.handel(new Sig(Sig.LVL_CMND, Sig.STRT_LVL));    // Continue
+        // var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
+        // this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
+        // this.controller.loop();
     };
 
     EventManager.prototype.playAgainButtonClicked = function()
     {
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));
         this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
-        this.controller.initializeGame(this.controller.currentAct, this.controller.currentScene, {}); // replay level.
-        this.controller.loop();
+        this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_DEFT));    // Save
+        this.controller.handel(new Sig(Sig.LVL_CMND, Sig.STRT_LVL));    // Continue
+        // this.controller.initializeGame(this.controller.currentAct, this.controller.currentScene, {}); // replay level.
+        // this.controller.loop();
     };
 
     EventManager.prototype.mainMenuButtonClicked = function()

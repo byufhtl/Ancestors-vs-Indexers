@@ -2,7 +2,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
 
     function LevelDefinition(){}
 
-    LevelDefinition.prototype.getScene = function(levelNum, sceneNum, eightGenerations)
+    LevelDefinition.getScene = function(levelNum, sceneNum, eightGenerations)
     {
         var levelData = LevelDefinition.parseScene(levelNum, sceneNum, eightGenerations);
 

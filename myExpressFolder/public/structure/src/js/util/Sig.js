@@ -29,7 +29,6 @@ define([],function(){
     // CONTROLLEREVENTS ============================================================================================[]>
     Sig.    CMND_ACT =          "commact";              // Request action from commander            *
 
-    Sig.    STRT_LVL =          "stlvl";                // Start level currently selected
     Sig.    GET_LODR =          "gtldr";                // Get the loaderUtils object               *
     Sig.    SET_LODR =          "stldr";                // Set the loaderUtils object               *
     Sig.    HAS_LODR =          "hsldr";                // Has a loaderUtils object                 *
@@ -116,6 +115,12 @@ define([],function(){
     Sig.    BLD_IMGS =          "bldgs";                // Building Image Set
     Sig.    ANC_IMGS =          "ancts";                // Ancestor Image Set
     Sig.    ALL_IMGS =          "allim";                // All Images
+
+    // LEVEL MANIPULATION ===========================================================================================[]>
+    Sig.    LVL_CMND =          "lvcmd";                // Level Command                            *
+
+    Sig.    SET_LEVL =          "lvset";                // Set Level
+    Sig.    STRT_LVL =          "stlvl";                // Start level currently selected
 
     return Sig;
 });

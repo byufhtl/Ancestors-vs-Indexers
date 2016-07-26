@@ -42,7 +42,7 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
             case Sig.LD_SDBAR:  self.htmlManager.handle(event);                                         break;
 
             // COMPONENT LOADED
-            case Sig.INTFC_LD:  ViewController.passSuccesses(event, self.buttonManager);                break;
+            case Sig.INTFC_LD:  self.interfaceLoadedNextStep(event);                                    break;
             case Sig.TPBAR_LD:  ViewController.passSuccesses(event, self.buttonManager);                break;
             case Sig.SDBAR_LD:  ViewController.passSuccesses(event, self.buttonManager);                break;
 
@@ -92,13 +92,13 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
         var self = this;
         if (event.value == Sig.GM_INTFC){
           ViewController.passSuccesses(event, self.htmlManager);
-          var canvas = self.CanvasManager.init();
-          var object = [];
-          object.canvas = canvas;
-          self.lieutenant.handle(Sig(Sig.INTFC_LD, Sig.START_GM, object))
+          //var canvas = self.canvasManager.init();
+          var object = {};
+          //object.canvas = canvas;
+          self.controller.handle(new Sig(Sig.INTFC_LD, Sig.START_GM, object))
         }
         else {
-          ViewController.passSuccesses(event, self.ButtonManager);
+          ViewController.passSuccesses(event, self.buttonManager);
         }
     };
 

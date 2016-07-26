@@ -1,4 +1,4 @@
-define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'ViewTransform', '../util/Sig'],
+define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig'],
   function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig) {
 
       function GameController(lieutenant) {
@@ -49,31 +49,23 @@ define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'V
       };
 
       GameController.prototype.initializeGame = function (act, scene, playerInfo) {
-          this.myUpdate = new Update();
-          for (var i = 0; i < 9; i++) {
-              this.gameBoardGrid[i] = [];
-              for (var j = 0; j < 5; j++) {
-                  this.gameBoardGrid[i][j] = 0;
-              }
-          }
+
           this.currentAct = act ? act : 1; // Set act (default: 1)
           this.currentScene = scene ? scene : 1; // Set scene (default: 1)
-          this.resourcePoints = 0;
 
           this.active = new ActiveData();
 
           this.defeatedAncestorInfo = [];
 
-          this.gameEnded = false;
-          this.victory = null;
           this.playerInfo = playerInfo;
 
-          var levelDefinition = new LevelDefinition();
-          this.level = levelDefinition.getScene(this.currentAct, scene, this.eightGenerations); // Wave information location
-          this.levelStructure = levelDefinition.getLevelStructure(act);
-          this.nodeStructure = levelDefinition.getNodeStructure(act);
+          this.level = LevelDefinition.getScene(this.currentAct, scene, this.eightGenerations); // Wave information location
+          this.levelStructure = LevelDefinition.getLevelStructure(act);
+          this.nodeStructure = LevelDefinition.getNodeStructure(act);
 
           this.lastTime = Date.now();
+
+          this.loop();
       };
 
       GameController.prototype.updateCoordinates = function (dx, dy) {
@@ -87,16 +79,16 @@ define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'V
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
-              this.myUpdate.update(this.active, delta_s, this.level, this, this.levelStructure, this.defeatedAncestorInfo);
-              this.myRender.render(this.active, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
+              this.myUpdate.update(this.active, delta_s, this.level, this.levelStructure, this.defeatedAncestorInfo);
+              //this.myRender.render(this.active, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
               this.updateCoordinates(0, 0);
           }
-          if (!this.gameEnded) // game end condition.
+          if (!this.active.gameEnded()) // game end condition.
           {
               requestAnimationFrame(this.loop.bind(this));
           }
           else {
-              if (this.victory) {
+              if (this.active.victory()) {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
                   this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
                   this.myRender.renderVictory();
@@ -104,7 +96,6 @@ define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'V
                   if (this.defeatedAncestorInfo.length != 0) {
                       this.controller.handle(new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData:0}));
                   }
-
               }
               else {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.DEFT_PNL));
@@ -121,8 +112,19 @@ define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'V
           this.activeProjectiles = [];
           this.activeRecords = [];
           this.activeBuildings = [];
+          this.resourcePoints = 0;
+          this.ended = false;
+          this.vtry = false;
       }
-
+      ActiveData.prototype.points = function(){
+          return this.resourcePoints;
+      };
+      ActiveData.prototype.gameEnded = function(){
+          return this.ended;
+      };
+      ActiveData.prototype.victory = function(){
+          return this.vtry;
+      };
       ActiveData.prototype.ancestors = function(){
           return this.activeAncestors;
       };

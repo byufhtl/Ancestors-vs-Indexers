@@ -29,6 +29,9 @@ define(['jquery','../LevelDefinition', 'Update', 'Render', 'model/IAncestor', 'V
               case Sig.UPD_USER:
                   self.controller.handle(event);
                   break;
+              case Sig.LVL_CMND:
+                  self.controller.handle(event);
+                  break;
           }
       };
 

@@ -12,6 +12,7 @@ define(['util/Sig','LevelDefinition'],function(Sig, LevelDefinition){
         this.gameController = null;
         this.levelsController = null;
         this.upgradesController = null;
+        this.currentFocusLevel = {act: null, scene: null};
         this.userInformation = null;
     }
 
@@ -44,18 +45,27 @@ define(['util/Sig','LevelDefinition'],function(Sig, LevelDefinition){
             case Sig.UPD_USER:
                 self.updateUser(event);
                 break;
+            case Sig.LVL_CMND:
+                self.handleLevelCommand(event);
+                break;
         }
     };
 
     Commander.prototype.updateUser = function(event){
         var self = this;
         if(event.value == Sig.LVL_VCTR){
-            var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
-            this.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, levelToLoad));
-            this.gameController.loop();
+            self.currentFocusLevel = LevelDefinition.getNextSceneInfo(self.currentFocusLevel.act, self.currentFocusLevel.scene);
         }
         else if(event.value == Sig.LVL_DEFT){
+            // Nothing to do at the moment. TODO: Make a database and update it.
+        }
+    };
 
+    Commander.prototype.handleLevelCommand = function(event){
+        var self = this;
+        if(event.value == Sig.STRT_LVL){
+            this.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, self.currentFocusLevel));
+            this.gameController.loop();
         }
     };
 

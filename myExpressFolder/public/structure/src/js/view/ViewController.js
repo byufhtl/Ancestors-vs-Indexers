@@ -87,6 +87,21 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
      * @param event
      * @param target
      */
+
+    ViewController.prototype.interfaceLoadedNextStep = function(event){
+        var self = this;
+        if (event.value == Sig.GM_INTFC){
+          ViewController.passSuccesses(event, self.htmlManager);
+          var canvas = self.CanvasManager.init();
+          var object = [];
+          object.canvas = canvas;
+          self.lieutenant.handle(Sig(Sig.INTFC_LD, Sig.START_GM, object))
+        }
+        else {
+          ViewController.passSuccesses(event, self.ButtonManager);
+        }
+    };
+
     ViewController.passSuccesses = function(event, target){
         if(event.data && event.data.hasOwnProperty("success")){
             if(event.data.success == Sig.LD_SCESS){

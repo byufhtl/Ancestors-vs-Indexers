@@ -20,6 +20,10 @@ define([],function(){
     Sig.    CRT_FAIL =          "critical";             // Critical Failure
     Sig.    REC_FAIL =          "recover";              // Recoverable Failure
 
+
+    // COMMANDEREVENTS =============================================================================================[]>
+    Sig.    START_GM =          "startGame";            // Create the GameController and start game *
+
     // USER DATA ===================================================================================================[]>
     Sig.    UPD_USER =          "uptusr";               // Update User Information                  *
 

@@ -91,7 +91,7 @@ define(['jquery','util/Sig'], function($, Sig){
     ButtonManager.prototype.loadMainMenuButtons = function(data){
         var self = this;
         self.killAll(self.mainmenuButtons);
-        
+
         var upgradesButton = $('#manage-upgrades');
         var levelsButton = $('#manage-level');
         var startGameButton = $('#start-game');

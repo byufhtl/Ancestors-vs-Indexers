@@ -20,6 +20,12 @@ define([],function(){
     Sig.    CRT_FAIL =          "critical";             // Critical Failure
     Sig.    REC_FAIL =          "recover";              // Recoverable Failure
 
+    // USER DATA ===================================================================================================[]>
+    Sig.    UPD_USER =          "uptusr";               // Update User Information                  *
+
+    Sig.    LVL_VCTR =          "lvvic";                // Level Victory
+    Sig.    LVL_DEFT =          "lvdft";                // Level Defeat
+
     // CONTROLLEREVENTS ============================================================================================[]>
     Sig.    CMND_ACT =          "commact";              // Request action from commander            *
 

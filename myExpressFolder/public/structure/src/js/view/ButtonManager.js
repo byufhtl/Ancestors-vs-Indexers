@@ -11,32 +11,45 @@ define(['jquery','util/Sig'], function($, Sig){
         this.mainmenuButtons = [];
     }
 
+
+    // UTILITY =======================================================================================================[]
+
     /**
      * Any basic setup that needs to happen after instantiation should happen here.
      */
     ButtonManager.prototype.init = function(){};
 
     /**
-     * Attaches the handlers for the buttons on the game's top bar
+     * Kills any handlers on the buttons in the array passed in.
+     * @param buttons
      */
-    ButtonManager.prototype.loadLoginButton = function(data){
-        var self = this;
-        self.killAll(self.topbarButtons);
-        console.log('beginning load loginButton');
-        if (data && data.hasOwnProperty("success") && data.success == Sig.LD_SCESS) { // If the topbar was able to load up successfully
-            console.log("actually loading button stuff");
-            var loginButton = $('#LOGIN');
-            var loginButton2 = $('#LOGIN2');
-            loginButton.click(function () {
-                console.log("Login button clicked!");
-                self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.LOGN_BTN, data));
-            });
-            loginButton2.click(function () {
-                loginButton.click();
-            });
+    ButtonManager.prototype.killAll = function(buttons){
+        for(var i in buttons){
+            if(buttons.hasOwnProperty(i)){
+                buttons[i].off('click');
+            }
+        }
+        buttons = [];
+    };
+
+    /**
+     * En/Dis-ables the active buttons.
+     * @param disabled
+     */
+    ButtonManager.prototype.disableActive = function(disabled){
+        for(var i in this.sidebarButtons){
+            this.sidebarButtons[i].prop("disabled", disabled);
+        }
+        for(var j in this.topbarButtons){
+            this.topbarButtons[j].prop("disabled", disabled);
+        }
+        for(var k in this.mainmenuButtons){
+            this.mainmenuButtons[k].prop("disabled", disabled);
         }
     };
 
+
+    // ENTRY POINTS ==================================================================================================[]
     /**
      * Handles a given event
      * @param event the event to be handled. See [Sig.js]
@@ -49,7 +62,7 @@ define(['jquery','util/Sig'], function($, Sig){
                 switch(event.value){
                     case Sig.SP_INTFC:  self.loadLoginButton(event.data);                                       break;
                     case Sig.MM_INTFC:  self.loadMainMenuButtons(event.data);                                   break;
-                    case Sig.GM_INTFC:                                                                          break;
+                    case Sig.GM_INTFC:  self.loadGameTopBarButtons(event.data);                                 break;
                 }                                                                                               break;
             case Sig.TPBAR_LD:
                 switch (event.value){
@@ -67,74 +80,75 @@ define(['jquery','util/Sig'], function($, Sig){
         }
     };
 
-    ButtonManager.prototype.killAll = function(buttons){
-        for(var i in buttons){
-            if(buttons.hasOwnProperty(i)){
-                buttons[i].off('click');
-            }
-        }
-        buttons = [];
+
+    // INTERFACE MANAGEMENT ==========================================================================================[]
+    /**
+     * Attaches the handlers for the login button on the app's sign-in page.
+     * @param data the data object from the received request. Used to determine success status of HTML page load.
+     */
+    ButtonManager.prototype.loadLoginButton = function(data){
+        var self = this;
+        self.killAll(self.topbarButtons);
+        console.log('beginning load loginButton');
+        var loginButton = $('#LOGIN');
+        var loginButton2 = $('#LOGIN2');
+        loginButton.click(function () {
+            console.log("Login button clicked!");
+            self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.LOGN_BTN, data));
+        });
+        loginButton2.click(function () {
+            loginButton.click();
+        });
     };
 
-    ButtonManager.prototype.disableActive = function(disabled){
-        for(var i in this.sidebarButtons){
-            this.sidebarButtons[i].prop("disabled", disabled);
-        }
-        for(var j in this.topbarButtons){
-            this.topbarButtons[j].prop("disabled", disabled);
-        }
-        for(var k in this.mainmenuButtons){
-            this.mainmenuButtons[k].prop("disabled", disabled);
-        }
-    };
-
+    /**
+     * Attaches the handlers for the buttons on the app's main menu page
+     * @param data the data object from the received request. Used to determine success status of HTML page load.
+     */
     ButtonManager.prototype.loadMainMenuButtons = function(data){
         var self = this;
         self.killAll(self.mainmenuButtons);
-        
+
         var upgradesButton = $('#manage-upgrades');
         var levelsButton = $('#manage-level');
         var startGameButton = $('#start-game');
         self.mainmenuButtons.push(upgradesButton, levelsButton, startGameButton);
 
         upgradesButton.click(function(){
-            console.log("Upgrades button click connected!");
-            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.UG_INTFC, null));
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.UG_INTFC, data));
         });
         levelsButton.click(function(){
-            console.log("Levels button click connected!");
-            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LV_INTFC, null));
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LV_INTFC, data));
         });
         startGameButton.click(function(){
-            console.log("Start button click connected!");
-            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.GM_INTFC, null));
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.GM_INTFC, data));
         });
     };
 
-
     /**
      * Attaches the handlers for the buttons on the game's top bar
+     * @param data the data object from the received request. Used to determine success status of HTML page load.
      */
     ButtonManager.prototype.loadGameTopBarButtons = function (data) {
         var self = this;
         self.killAll(self.topbarButtons);
 
-        if (data && data.length && data[0] == "success") { // If the topbar was able to load up successfully
-            var structures_button = $('#structures-button');
-            var indexers_button = $('#indexers-button');
+        var structures_button = $('#structures-button');
+        var indexers_button = $('#indexers-button');
 
-            self.topbarButtons = [structures_button, indexers_button];
+        self.topbarButtons = [structures_button, indexers_button];
 
-            structures_button.click(function () {
-                self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.BLDG_PNL, []));
-            });
+        structures_button.click(function () {
+            self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.BLDG_PNL, data));
+        });
 
-            indexers_button.click(function () {
-                self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.INDX_PNL, []));
-            });
-        }
+        indexers_button.click(function () {
+            self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.INDX_PNL, data));
+        });
     };
 
+
+    // PANEL MANAGEMENT ==============================================================================================[]
     /**
      * Loads the handlers for the building buttons in the sidebar
      */
@@ -246,7 +260,11 @@ define(['jquery','util/Sig'], function($, Sig){
         }
     };
 
-    // Supa broken...
+
+    // MODAL MANAGEMENT ==============================================================================================[]
+    /**
+     * Supa broken and doesn't belong in the button manager in its current state.
+     */
     ButtonManager.prototype.loadAncDataModal = function (data){
         $('#xButton').click(function(event) {
             data.modal('hide');

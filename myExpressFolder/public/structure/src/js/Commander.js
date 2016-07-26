@@ -76,16 +76,18 @@ define(['util/Sig', 'game/GameController','LevelDefinition'],function(Sig, GameC
     };
 
     Commander.prototype.startGame = function(data){
+        console.log("called start game");
         var self = this;
         var canvas = data.canvas;
-        self.gameController = new gameController();
+        self.gameController = new GameController();
         self.gameController.canvas = canvas;
+        self.gameController.eightGenerations = self.eightGenerations;
         var data = {};
         //this is temp for now
         data.act = 1;
         data.scene = 1;
         data.playerInfo = {};
-        self.gameController.handle(Sig(Sig.CMND_ACT, INIT_GAM, data));
+        self.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, data));
     };
 
     return Commander;

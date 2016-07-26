@@ -1,4 +1,4 @@
-define(['../img/ImageManager'],function(ImageManager) {
+define(['img/ImageManager'],function(ImageManager) {
 
 
     function Render(canvas, ViewTransform, gameController)
@@ -223,28 +223,24 @@ define(['../img/ImageManager'],function(ImageManager) {
 
     Render.prototype.reset = function()
     {
-      this.resizeOnce = true;
+        this.resizeOnce = true;
     }
 
 
 
-    Render.prototype.render = function(activeAncestors, activeIndexers, activeProjectiles, activeRecords, activeBuildings, canvas, translation, levelStructure, nodeStructure) {
+    Render.prototype.render = function(active, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
         this.renderTree(levelStructure);
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);
-        this.renderIndexers(activeIndexers);
-        this.renderBuildings(activeBuildings);
-        this.renderAncestors(activeAncestors);
-        this.renderBuildings(activeBuildings);
-        this.renderProjectiles(activeProjectiles);
-        this.renderRecords(activeRecords);
-        //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        //this.renderLightBeam();
+        this.renderIndexers(active.indexers);
+        this.renderBuildings(active.buildings);
+        this.renderAncestors(active.ancestors);
+        this.renderProjectiles(active.projectiles);
+        this.renderRecords(active.records);
     };
-
 
     return Render;
 

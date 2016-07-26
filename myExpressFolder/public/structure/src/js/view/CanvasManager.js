@@ -16,6 +16,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
         canvas.height = 600;
         canvas.id = 'canvas';
         canvasContainer.append(canvas);
+        this.canvas = canvas;
 
         this.initClicking();
         this.initKeys();

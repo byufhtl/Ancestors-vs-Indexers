@@ -91,11 +91,12 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
     ViewController.prototype.interfaceLoadedNextStep = function(event){
         var self = this;
         if (event.value == Sig.GM_INTFC){
-          ViewController.passSuccesses(event, self.htmlManager);
-          //var canvas = self.canvasManager.init();
-          var object = {};
-          //object.canvas = canvas;
-          self.controller.handle(new Sig(Sig.INTFC_LD, Sig.START_GM, object))
+            self.htmlManager.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR, null));
+          // ViewController.passSuccesses(event, self.htmlManager);
+          // //var canvas = self.canvasManager.init();
+          // var object = {};
+          // //object.canvas = canvas;
+          // self.controller.handle(new Sig(Sig.INTFC_LD, Sig.START_GM, {}))
         }
         else {
           ViewController.passSuccesses(event, self.buttonManager);

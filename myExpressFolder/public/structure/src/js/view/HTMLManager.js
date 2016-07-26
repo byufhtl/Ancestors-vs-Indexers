@@ -148,7 +148,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
         var bardiv = HTMLManager.getTopBarDiv();
         var request = new Order();
         request.addItem(url,Order.HTML, 15);
-        self.loader.loadResources(request.getBatches()).then(
+        self.loader.loadResources(request).then(
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', resolved);
@@ -199,7 +199,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
         var bardiv = HTMLManager.getSidebarDiv();
         var request = new Order();
         request.addItem(url,Order.HTML, 15);
-        self.loader.loadResources(request.getBatches()).then(
+        self.loader.loadResources(request).then(
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
                 console.log('This ought to be a div container with the stuff in it:', resolved);

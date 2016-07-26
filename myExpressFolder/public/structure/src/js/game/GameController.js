@@ -29,6 +29,9 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               case Sig.UPD_USER:
                   self.controller.handle(event);
                   break;
+              case Sig.LVL_CMND:
+                  self.controller.handle(event);
+                  break;
           }
       };
 

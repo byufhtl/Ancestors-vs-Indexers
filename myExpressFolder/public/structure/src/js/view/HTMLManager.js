@@ -49,6 +49,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
                 this.setInterface(event.value);
                 break;
             case Sig.LD_TPBAR:
+                console.log("setTopBar callsed");
                 this.setTopBar(event.value);
                 break;
             case Sig.LD_SDBAR:
@@ -144,6 +145,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      * @param value
      */
     HTMLManager.prototype.loadTopBar = function(url, value){
+        console.log("trying to load the top bar");
         var self = this;
         var bardiv = HTMLManager.getTopBarDiv();
         var request = new Order();
@@ -155,6 +157,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_SCESS}));
             },
             function(rejected){
+                console.log("rejected by the resources load thing");
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_FAILD, response:rejected}));
             }
         )
@@ -166,6 +169,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      */
     HTMLManager.prototype.setTopBar = function(value){
         var self = this;
+        console.log("settop bar was callsed");
         switch(value){
             case Sig.GM_TPBAR:
                 self.loadTopBar("src/html/topbar.html", value);

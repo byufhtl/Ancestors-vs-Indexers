@@ -96,7 +96,9 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
           var object = {};
           //object.canvas = canvas;
           self.controller.handle(new Sig(Sig.INTFC_LD, Sig.START_GM, object))
+          self.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));
         }
+
         else {
           ViewController.passSuccesses(event, self.buttonManager);
         }

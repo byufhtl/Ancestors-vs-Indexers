@@ -20,13 +20,19 @@ define([],function(){
     Sig.    CRT_FAIL =          "critical";             // Critical Failure
     Sig.    REC_FAIL =          "recover";              // Recoverable Failure
 
+
     // COMMANDEREVENTS =============================================================================================[]>
     Sig.    START_GM =          "startGame";            // Create the GameController and start game *
+
+    // USER DATA ===================================================================================================[]>
+    Sig.    UPD_USER =          "uptusr";               // Update User Information                  *
+
+    Sig.    LVL_VCTR =          "lvvic";                // Level Victory
+    Sig.    LVL_DEFT =          "lvdft";                // Level Defeat
 
     // CONTROLLEREVENTS ============================================================================================[]>
     Sig.    CMND_ACT =          "commact";              // Request action from commander            *
 
-    Sig.    STRT_LVL =          "stlvl";                // Start level currently selected
     Sig.    GET_LODR =          "gtldr";                // Get the loaderUtils object               *
     Sig.    SET_LODR =          "stldr";                // Set the loaderUtils object               *
     Sig.    HAS_LODR =          "hsldr";                // Has a loaderUtils object                 *
@@ -113,6 +119,12 @@ define([],function(){
     Sig.    BLD_IMGS =          "bldgs";                // Building Image Set
     Sig.    ANC_IMGS =          "ancts";                // Ancestor Image Set
     Sig.    ALL_IMGS =          "allim";                // All Images
+
+    // LEVEL MANIPULATION ===========================================================================================[]>
+    Sig.    LVL_CMND =          "lvcmd";                // Level Command                            *
+
+    Sig.    SET_LEVL =          "lvset";                // Set Level
+    Sig.    STRT_LVL =          "stlvl";                // Start level currently selected
 
     return Sig;
 });

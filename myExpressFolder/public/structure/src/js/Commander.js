@@ -2,7 +2,8 @@
  * Created by calvin on 7/8/16.
  */
 
-define(['util/Sig', 'game/GameController'],function(Sig, GameController){
+define(['util/Sig', 'game/GameController','LevelDefinition'],function(Sig, GameController, LevelDefinition){
+
 
     function Commander(imageManager, viewController, king){
         this.king = king;
@@ -12,7 +13,7 @@ define(['util/Sig', 'game/GameController'],function(Sig, GameController){
         this.gameController = null;
         this.levelsController = null;
         this.upgradesController = null;
-        this.levelDefinition = null;
+        this.userInformation = null;
     }
 
     Commander.prototype.start = function(eightGens){
@@ -46,6 +47,21 @@ define(['util/Sig', 'game/GameController'],function(Sig, GameController){
                         break;
                 }
                 break;
+            case Sig.UPD_USER:
+                self.updateUser(event);
+                break;
+        }
+    };
+
+    Commander.prototype.updateUser = function(event){
+        var self = this;
+        if(event.value == Sig.LVL_VCTR){
+            var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
+            this.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, levelToLoad));
+            this.gameController.loop();
+        }
+        else if(event.value == Sig.LVL_DEFT){
+
         }
     };
 

@@ -15,6 +15,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.upgradesController = null;
         this.currentFocusLevel = {act: null, scene: null};
         this.userInformation = null;
+        this.buttonFocus = this.gameController;
     }
 
     Commander.prototype.start = function(eightGens){
@@ -54,6 +55,18 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
             case Sig.LVL_CMND:
                 self.handleLevelCommand(event);
                 break;
+            case Sig.BTN_ACTN:
+                self.buttonFocus.handle(event);
+                break;
+            case Sig.ST_CLICK:
+                self.buttonFocus.handle(event);
+                break;
+            case Sig.CNVS_CLK:
+                self.buttonFocus.handle(event);
+                break;
+            case Sig.CNVS_DRG:
+                self.buttonFocus.handle(event);
+                break;
         }
     };
 
@@ -77,10 +90,11 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
 
     Commander.prototype.startGame = function(data){
         var self = this;
-        //set up canvas
+        //set up canvas/buttons
         var canvas = data.canvas;
         self.gameController = new GameController(self);
         self.gameController.canvas = canvas;
+        self.buttonFocus = self.gameController;
         //set up viewTransform
         var viewTransform = new ViewTransform(0,0,canvas);
         this.viewController.canvasManager.viewTransform = viewTransform;

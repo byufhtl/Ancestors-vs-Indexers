@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/main.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/FamilySearchHandler.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/FamilySearchHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,7 +36,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RevisedSplash.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RevisedSplash.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="432">
@@ -55,16 +51,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="344">
               <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FamilySearchHandler.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/FamilySearchHandler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="28" column="74" selection-start-line="28" selection-start-column="74" selection-end-line="28" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -97,6 +83,58 @@
               <caret line="211" column="43" selection-start-line="211" selection-start-column="43" selection-end-line="211" selection-end-column="43" />
               <folding>
                 <marker date="1469650471232" expanded="true" signature="0:39" ph="/** Created by calvin on 7/8/16. ...*/" />
+                <marker date="1469650471232" expanded="true" signature="119:274" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="280:388" ph="/** Checks to see if a given resource has loaded. ...*/" />
+                <marker date="1469650471232" expanded="true" signature="442:497" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="553:625" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="632:1162" ph="/** Places the entry in a determinant container (which is really just a big JSON map). ...*/" />
+                <marker date="1469650471232" expanded="true" signature="1235:5070" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1289:5061" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1341:4992" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1413:4788" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1562:2814" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1674:1839" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1889:2766" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="1939:2125" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="2163:2736" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="2390:2496" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="2558:2663" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="2916:4540" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="3029:3257" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="3307:4492" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="3473:3744" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="3782:4462" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="4009:4115" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="4177:4389" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="4613:4770" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="4839:4978" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="5009:5051" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="5077:5367" ph="/** Removes an item from one Q and places it in a destination container ...*/" />
+                <marker date="1469650471232" expanded="true" signature="5427:5489" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="5496:5752" ph="/** Attempts to load a batch of resources. ...*/" />
+                <marker date="1469650471232" expanded="true" signature="5810:7260" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="5889:7252" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6049:7242" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6112:7228" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6357:6730" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6412:6704" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6459:6549" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6587:6674" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6776:7187" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6869:7161" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="6916:7006" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="7044:7131" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="7267:7500" ph="/** Loads an image as an ES6 Promise. ...*/" />
+                <marker date="1469650471232" expanded="true" signature="7542:7850" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="7596:7842" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="7673:7720" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="7761:7802" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="7857:8096" ph="/** Loads an image as an ES6 Promise. ...*/" />
+                <marker date="1469650471232" expanded="true" signature="8137:8695" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="8191:8687" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="8500:8675" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="8532:8591" ph="{...}" />
+                <marker date="1469650471232" expanded="true" signature="8613:8661" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -112,14 +150,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commander.js" pinned="true" current-in-tab="false">
+      <file leaf-file-name="Commander.js" pinned="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1620">
-              <caret line="90" column="21" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
+            <state relative-caret-position="489">
+              <caret line="101" column="69" selection-start-line="101" selection-start-column="69" selection-end-line="101" selection-end-column="69" />
               <folding>
-                <marker date="1469650471228" expanded="true" signature="3497:3609" ph="{...}" />
+                <element signature="e#2548#2897#0" expanded="false" />
+                <element signature="e#2960#3184#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1332">
+              <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -169,7 +218,6 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameController.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/css/fhtl.css" />
@@ -181,6 +229,7 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/main.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
       </list>
     </option>
   </component>
@@ -571,12 +620,12 @@
       <workItem from="1469311262195" duration="4807000" />
       <workItem from="1469320292449" duration="1860000" />
       <workItem from="1469556580219" duration="15343000" />
-      <workItem from="1469650368487" duration="883000" />
+      <workItem from="1469650368487" duration="2169000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41376000" />
+    <option name="totallyTimeSpent" value="42662000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -586,18 +635,18 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3309157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -639,6 +688,58 @@
           <caret line="62" column="61" selection-start-line="62" selection-start-column="61" selection-end-line="62" selection-end-column="61" />
           <folding>
             <marker date="1469650471232" expanded="true" signature="0:39" ph="/** Created by calvin on 7/8/16. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="119:274" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="280:388" ph="/** Checks to see if a given resource has loaded. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="442:497" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="553:625" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="632:1162" ph="/** Places the entry in a determinant container (which is really just a big JSON map). ...*/" />
+            <marker date="1469650471232" expanded="true" signature="1235:5070" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1289:5061" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1341:4992" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1413:4788" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1562:2814" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1674:1839" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1889:2766" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1939:2125" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2163:2736" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2390:2496" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2558:2663" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2916:4540" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3029:3257" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3307:4492" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3473:3744" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3782:4462" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4009:4115" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4177:4389" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4613:4770" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4839:4978" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5009:5051" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5077:5367" ph="/** Removes an item from one Q and places it in a destination container ...*/" />
+            <marker date="1469650471232" expanded="true" signature="5427:5489" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5496:5752" ph="/** Attempts to load a batch of resources. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="5810:7260" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5889:7252" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6049:7242" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6112:7228" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6357:6730" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6412:6704" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6459:6549" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6587:6674" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6776:7187" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6869:7161" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6916:7006" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7044:7131" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7267:7500" ph="/** Loads an image as an ES6 Promise. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="7542:7850" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7596:7842" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7673:7720" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7761:7802" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7857:8096" ph="/** Loads an image as an ES6 Promise. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="8137:8695" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8191:8687" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8500:8675" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8532:8591" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8613:8661" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -880,29 +981,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="90" column="21" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
-          <folding>
-            <marker date="1469650471228" expanded="true" signature="3497:3609" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="98" column="76" selection-start-line="98" selection-start-column="76" selection-end-line="98" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3780">
           <caret line="211" column="43" selection-start-line="211" selection-start-column="43" selection-end-line="211" selection-end-column="43" />
           <folding>
             <marker date="1469650471232" expanded="true" signature="0:39" ph="/** Created by calvin on 7/8/16. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="119:274" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="280:388" ph="/** Checks to see if a given resource has loaded. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="442:497" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="553:625" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="632:1162" ph="/** Places the entry in a determinant container (which is really just a big JSON map). ...*/" />
+            <marker date="1469650471232" expanded="true" signature="1235:5070" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1289:5061" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1341:4992" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1413:4788" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1562:2814" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1674:1839" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1889:2766" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="1939:2125" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2163:2736" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2390:2496" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2558:2663" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="2916:4540" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3029:3257" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3307:4492" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3473:3744" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="3782:4462" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4009:4115" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4177:4389" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4613:4770" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="4839:4978" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5009:5051" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5077:5367" ph="/** Removes an item from one Q and places it in a destination container ...*/" />
+            <marker date="1469650471232" expanded="true" signature="5427:5489" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5496:5752" ph="/** Attempts to load a batch of resources. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="5810:7260" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="5889:7252" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6049:7242" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6112:7228" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6357:6730" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6412:6704" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6459:6549" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6587:6674" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6776:7187" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6869:7161" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="6916:7006" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7044:7131" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7267:7500" ph="/** Loads an image as an ES6 Promise. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="7542:7850" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7596:7842" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7673:7720" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7761:7802" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="7857:8096" ph="/** Loads an image as an ES6 Promise. ...*/" />
+            <marker date="1469650471232" expanded="true" signature="8137:8695" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8191:8687" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8500:8675" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8532:8591" ph="{...}" />
+            <marker date="1469650471232" expanded="true" signature="8613:8661" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -954,7 +1090,7 @@
         <state relative-caret-position="18">
           <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1006,6 +1142,25 @@
         <state relative-caret-position="432">
           <caret line="24" column="86" selection-start-line="24" selection-start-column="86" selection-end-line="24" selection-end-column="86" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1332">
+          <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="101" column="69" selection-start-line="101" selection-start-column="69" selection-end-line="101" selection-end-column="69" />
+          <folding>
+            <element signature="e#2548#2897#0" expanded="false" />
+            <element signature="e#2960#3184#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

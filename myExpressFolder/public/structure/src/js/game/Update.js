@@ -17,16 +17,17 @@ define(['model/IAncestor'],function() {
 
     Update.prototype.checkVictory = function (active) {
         //did you beat the level?
-        if (this.doneSpawning && active.ancestors.length == 0) {
+        if (this.doneSpawning && active.ancestors().length == 0) {
             console.log('victory');
+            console.log('i guess we won and active.ancestors is: ', active.ancestors);
             active.vtry = true;
             active.ended = true;
         }
     };
 
     Update.prototype.checkDefeat = function (active) {
-        for (var i = 0; i < active.ancestors.length; i++) {
-            if (active.ancestors[i].xCoord <= 0) {
+        for (var i = 0; i < active.ancestors().length; i++) {
+            if (active.ancestors()[i].xCoord <= 0) {
                 active.vtry = false;
                 active.ended = true;
                 console.log('defeat');
@@ -135,9 +136,9 @@ define(['model/IAncestor'],function() {
         }
         if (level[this.wave] != null) {
             for (var i = 0; i < level[this.wave].length; i++) {
-                console.log("adding an ancestor", activeAncestors);
 
                 activeAncestors.push(level[this.wave][i]);
+                console.log("adding an ancestor", activeAncestors);
             }
             level[this.wave] = [];
         }

@@ -22,7 +22,7 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
         this.familySearchHandler.checkAccessToken(function(eightGens){
             if (eightGens)
             {
-                console.log("we are now starting up the Commander", eightGens);
+                console.log("Generations loaded, engaging commander. (", eightGens, ")");
                 //if we got family search data back then sync the LoaderUtils and start up the Commander
                 var imageManager = new ImageManager();
                 imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));

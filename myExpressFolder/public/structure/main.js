@@ -24,7 +24,8 @@ require.config({
 });
 
 require(['jquery', 'familysearch', 'bootstrap', 'spleash'],function($, FamilySearch, Bootstrap, Splash){
-    console.log("\n\n\tCalvin's Marker\n\n");
+    var header = "[]===================================================================[]";
+    console.log(header, "\n\tFinalreFactory Code Base\n", header, "\n\n");
     var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
 
     var FS = new FamilySearch({

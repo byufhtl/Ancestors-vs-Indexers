@@ -219,11 +219,9 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.ANC_NMLS, Order.IMAGE, 15);
             self.loader.loadResources(order).then(
                 function(success){
-                    console.log("Loading the ancestors worked great...");
                     resolve(success);
                 },
                 function(failure){
-                    console.log("Loading the ancestors failed...");
                     reject(failure);
                 }
             );

@@ -17,7 +17,7 @@ define(["jquery","util/Sig"],function($,Sig){
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         var code = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
         code = code.replace(new RegExp('/'), "");
-        console.log(code);
+        // console.log(code); // prints access token
         return code;
     };
 
@@ -27,7 +27,7 @@ define(["jquery","util/Sig"],function($,Sig){
         var url = window.location.href.split('?');
         if(url.length > 1){
                         var accessToken = self.getParameterByName('code');
-                        console.log("accesstokenis: " + accessToken);
+                        // console.log("accesstokenis: " + accessToken); // prints access token
                         self.FS.getAccessToken(accessToken).then(function(newAccessToken){
                             localStorage.setItem("fs_access_token", self.FS.settings.accessToken);
                             self.getEightGens(function(response){

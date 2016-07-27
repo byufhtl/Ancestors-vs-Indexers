@@ -108,7 +108,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           else {
               if (this.active.victory() == true) {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
-                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
+                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.EM_TPBAR));
                   this.myRender.renderVictory();
                   this.myRender.reset();
                   if (this.defeatedAncestorInfo.length != 0) {
@@ -117,7 +117,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               }
               else {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.DEFT_PNL));
-                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
+                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.EM_TPBAR));
                   this.myRender.renderDefeat();
                   this.myRender.reset();
               }

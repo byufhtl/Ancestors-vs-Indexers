@@ -211,13 +211,13 @@ define(['model/IAncestor'],function() {
     };
 
 
-    Update.prototype.spawnRecordsFromBuildings = function (activeBuildings, activeRecords, timeElapsed, points) {
+    Update.prototype.spawnRecordsFromBuildings = function (activeBuildings, activeRecords, timeElapsed, active) {
         for (var i = 0; i < activeBuildings.length; i++) {
             activeBuildings[i].spawnTimer += timeElapsed;
             if (activeBuildings[i].spawnTimer >= activeBuildings[i].timeBetweenSpawns) {
                 activeBuildings[i].spawnTimer = 0;
-                gameController.resourcePoints += 10;
-                $('#points').html(gameController.points);
+                active.resourcePoints += 10;
+                $('#points').html(active.resourcePoints);
             }
         }
     };
@@ -249,7 +249,7 @@ define(['model/IAncestor'],function() {
         //spawn records and move them
         this.spawnRecord(active.records(), timeElapsed);
         this.moveRecords(active.records(), timeElapsed);
-        this.spawnRecordsFromBuildings(active.buildings(), active.records(), timeElapsed, active.points());
+        this.spawnRecordsFromBuildings(active.buildings(), active.records(), timeElapsed, active);
 
         if (this.buffer(timeElapsed)) {
             //update indexers

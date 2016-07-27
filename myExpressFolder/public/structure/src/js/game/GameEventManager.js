@@ -91,7 +91,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
     {
         switch (this.clickContext.class){
             case "standardIndexer":
-                return new standardIndexer();
+                return new IIndexer();
                 break;
             case "hobbyist":
                 return new Hobbyist();
@@ -110,7 +110,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
     {
         switch (this.clickContext.class){
           case "standardBuilding":
-            return new standardBuilding();
+            return new IBuilding();
             break;
           case "library":
             return new Library();
@@ -130,7 +130,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
               var tempBuilding = this.getNewBuilding();
               tempBuilding.xCoord = nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].xCoord;
               tempBuilding.yCoord =  nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].yCoord;
-              self.controller.activeBuildings.push(tempBuilding);
+              self.controller.active.buildings().push(tempBuilding);
         }
         else if (this.clickContext.elementType == "indexer")
         {
@@ -144,11 +144,11 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
             }
             tempIndexer.xNode = nearestNodeToClick.X;
             tempIndexer.yNode = nearestNodeToClick.Y;
-            this.controller.activeIndexers.push(tempIndexer);
+            this.controller.active.indexers().push(tempIndexer);
         }
         nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].occupied = true;
-        this.controller.resourcePoints -= this.clickContext.cost;
-        $('#points').text(this.controller.resourcePoints);
+        this.controller.active.resourcePoints -= this.clickContext.cost;
+        $('#points').text(this.controller.active.resourcePoints);
     };
 
     GameEventManager.prototype.handleCanvasClick = function(event)

@@ -95,6 +95,7 @@ define([],function(){
     Sig.    STAN_IDX =          "sdidx";                // Standard Indexer
     Sig.    HOBB_IDX =          "hbidx";                // Hobbyist
     Sig.    UBER_IDX =          "ubidx";                // Unbeatable
+    Sig.    RSCH_IDX =          "rsidx";                // Researcher
 
     // KEY SIGNALS =================================================================================================[]>
     Sig.    KEY_ACTN =          "kyact";                // Key Press                                *

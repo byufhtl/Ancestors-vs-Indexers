@@ -107,6 +107,7 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
         if(event.data && event.data.hasOwnProperty("success")){
             if(event.data.success == Sig.LD_SCESS){
                 // console.log(event.type, event.value, "succeeded.");
+                console.log("loaded successfully. Calling handle on", target, "with event", event);
                 (target).handle(event);
                 return;
             }

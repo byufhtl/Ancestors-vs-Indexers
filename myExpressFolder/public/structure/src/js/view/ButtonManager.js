@@ -153,108 +153,104 @@ define(['jquery','util/Sig'], function($, Sig){
         var self = this;
         self.killAll(self.sidebarButtons);
 
-        if (data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
-            var button_1 = $('#button-1');
-            var button_2 = $('#button-2');
-            var button_1_image = $('#button-1-img');
-            var button_2_image = $('#button-2-img');
+        var button_1 = $('#button-1');
+        var button_2 = $('#button-2');
+        var button_1_image = $('#button-1-img');
+        var button_2_image = $('#button-2-img');
 
-            self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
+        self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
-            button_1.click(function () {
-                //console.log("Button 1 Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_BLD, []));
-            });
-            button_2.click(function () {
-                //console.log("Button 2 Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.LIBR_BLD, []));
-            });
-            button_1_image.click(function () {
-                button_1.click()
-            });
-            button_2_image.click(function () {
-                button_2.click()
-            });
-        }
+        button_1.click(function () {
+            //console.log("Button 1 Clicked!");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_BLD, []));
+        });
+        button_2.click(function () {
+            //console.log("Button 2 Clicked!");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.LIBR_BLD, []));
+        });
+        button_1_image.click(function () {
+            button_1.click()
+        });
+        button_2_image.click(function () {
+            button_2.click()
+        });
     };
 
     /**
      * Loads the handlers for the indexers buttons in the sidebar.
      */
     ButtonManager.prototype.loadIndexerButtons = function (data) {
+        console.log("loading clickevents for loadIndexerButtons");
         var self = this;
         self.killAll(self.sidebarButtons);
+        var button_1 = $('#button-1-i');
+        var button_2 = $('#button-2-i');
+        var button_3 = $('#button-3-i');
+        var button_4 = $('#button-4-i');
+        var button_1_image = $('#button-1-img-i');
+        var button_2_image = $('#button-2-img-i');
+        var button_3_image = $('#button-3-img-i');
+        var button_4_image = $('#button-4-img-i');
+        console.log("button 1 is: ", button_1);
+        self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
-        if (data && data.length && data[0] == "success") { // If the sidebar was able to load up successfully
-            var button_1 = $('#button-1-i');
-            var button_2 = $('#button-2-i');
-            var button_3 = $('#button-3-i');
-            var button_1_image = $('#button-1-img-i');
-            var button_2_image = $('#button-2-img-i');
-            var button_3_image = $('#button-3-img-i');
-
-            self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
-
-            button_1.click(function () {
-                console.log("clicked the standard indexer button");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_IDX, []));
-            });
-            button_2.click(function () {
-                //console.log("Button 2i Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.HOBB_IDX, []));
-            });
-            button_3.click(function () {
-                //console.log("Button 2i Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.UBER_IDX, []));
-            });
-            button_1_image.click(function () {
-                button_1.click()
-            });
-            button_2_image.click(function () {
-                button_2.click()
-            });
-            button_3_image.click(function () {
-                button_3.click()
-            });
-        }
+        button_1.click(function () {
+            console.log("clicked standIndexer btuton");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_IDX, {}));
+        });
+        button_2.click(function () {
+            //console.log("Button 2i Clicked!");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.HOBB_IDX, {}));
+        });
+        button_3.click(function () {
+            //console.log("Button 3i Clicked!");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.UBER_IDX, {}));
+        });
+        button_4.click(function () {
+            //console.log("Button 4i Clicked!");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.RSCH_IDX, {}));
+        });
+        button_1_image.click(function () {
+            button_1.click()
+        });
+        button_2_image.click(function () {
+            button_2.click()
+        });
+        button_3_image.click(function () {
+            button_3.click()
+        });
+        button_4_image.click(function () {
+            button_4.click()
+        });
     };
 
     ButtonManager.prototype.loadVictoryButtons = function (data) {
         var self = this;
         self.killAll(self.sidebarButtons);
-        if (data && data.length && data[0] == "success") {
-            var nextLevelButton = $('#nextLevelButton');
-            var mainMenuButton = $('#mainMenuButton');
-            nextLevelButton.click(function () {
-                self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.NEXT_BTN));
-            });
 
-            mainMenuButton.click(function () {
-                self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.MENU_BTN));
-            })
-        }
-        else {
-            console.log(data);
-        }
+        var nextLevelButton = $('#nextLevelButton');
+        var mainMenuButton = $('#mainMenuButton');
+        nextLevelButton.click(function () {
+            self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.NEXT_BTN));
+        });
+
+        mainMenuButton.click(function () {
+            self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.MENU_BTN));
+        })
     };
 
     ButtonManager.prototype.loadDefeatButtons = function (data) {
         var self = this;
         self.killAll(self.sidebarButtons);
-        if (data && data.length && data[0] == "success") {
-            var nextLevelButton = $('#playAgainButton');
-            var mainMenuButton = $('#mainMenuButton');
-            nextLevelButton.click(function () {
-                self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.AGAN_BTN));
-            });
+        var nextLevelButton = $('#playAgainButton');
+        var mainMenuButton = $('#mainMenuButton');
+        nextLevelButton.click(function () {
+            self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.AGAN_BTN));
+        });
 
-            mainMenuButton.click(function () {
-                self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.MENU_BTN));
-            });
-        }
-        else {
-            console.log(data);
-        }
+        mainMenuButton.click(function () {
+            self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.MENU_BTN));
+        });
     };
 
 

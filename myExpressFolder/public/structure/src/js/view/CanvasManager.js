@@ -55,6 +55,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
                     self.viewTransform.addX(diff.X);
                     self.viewTransform.addY(diff.Y);
                 }
+
                 self.viewController.handle(new Sig(Sig.CNVS_DRG, "", {})); // In case there are special drag effects
             }
         });

@@ -306,8 +306,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.BLD_FHCR =     "src/img/buildings/drake1-A01.png";         // FAMILY HISTORY CENTER
     ImageManager.BLD_LIBR =     "src/img/buildings/human-city4.png";        // LIBRARY
 
-    ImageManager.ANC_STAN =     "src/img/ancestors/peasant.png";            // STANDARD ANCESTOR
-    ImageManager.ANC_NMLS =     "src/img/ancestors/nameless.png";           // NAMELESS ANCESTOR
+    ImageManager.ANC_STAN =     "src/img/ancestors/animAnc.png";            // STANDARD ANCESTOR
+    ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";           // NAMELESS ANCESTOR
 
     return ImageManager;
 });

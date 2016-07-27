@@ -196,7 +196,7 @@ define(['jquery','util/Sig'], function($, Sig){
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
             button_1.click(function () {
-                //console.log("Button 1i Clicked!");
+                console.log("clicked the standard indexer button");
                 self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_IDX, []));
             });
             button_2.click(function () {

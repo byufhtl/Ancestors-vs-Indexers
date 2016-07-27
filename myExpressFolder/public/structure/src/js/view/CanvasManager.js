@@ -1,14 +1,11 @@
 /**
  * Created by calvinmcm on 6/28/16.
  */
-
 define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
-
     function CanvasManager(viewController, viewTransform){
         this.viewController = viewController;
         this.viewTransform = viewTransform;
     }
-
     CanvasManager.prototype.init = function() {
         var canvasContainer = $('#canvas-div');
         var myCanvas = document.createElement('canvas');
@@ -17,32 +14,25 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
         myCanvas.id = 'canvas';
         canvasContainer.append(myCanvas);
         this.canvas = myCanvas;
-
         this.initClicking();
         this.initKeys();
-
         return myCanvas;
     };
-
     CanvasManager.prototype.initClicking = function(){
         var self = this;
         var canvas = $('#canvas-div');
         var draggable = false;
         var dragged = false;
-
         var start;
         var origin;
         var buffer;
-
         canvas.mousedown(function(event){
             draggable = true;
             dragged = false;
-
             start = new Point(event.pageX, event.pageY);
             origin = new Point(self.viewTransform.getX(), self.viewTransform.getY());
             buffer = new Point(0, 0);
         });
-
         // Allows for dragging - TODO DRAGS EVEN IF CURSOR LEAVES THE CANVAS
         canvas.mousemove(function(event){
             var wToVPt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
@@ -51,7 +41,6 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             if(draggable && onCanvas){
                 var diff = new Point(event.pageX - start.X, event.pageY - start.Y);
                 start = new Point(event.pageX, event.pageY);
-
                 if(buffer) { // If we still have a buffer, keep going
                     buffer = new Point(buffer.X + diff.X, buffer.Y + diff.Y);
                     // When we move out of the buffer, plug the buffer storage into the movement as well, then kill buffer.
@@ -62,32 +51,26 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
                         dragged = true;
                     }
                 }
-
                 if(buffer == null){
                     self.viewTransform.addX(diff.X);
                     self.viewTransform.addY(diff.Y);
                 }
-
-                self.viewController.handle(new Sig(Sig.CNVS_DRG, "", [])); // In case there are special drag effects
+                self.viewController.handle(new Sig(Sig.CNVS_DRG, "", {})); // In case there are special drag effects
             }
         });
-
         canvas.mouseup(function(event){
             draggable = false;
             if(!dragged){
                 var pt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
-                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", [pt]));
+                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", {point:pt}));
             }
             dragged = false;
         });
-
     };
-
     CanvasManager.prototype.initKeys = function(){
         var lastPress = null;
         var self = this;
         var keys = [];
-
         function moveIt(now){
             var move = 10;
             if(lastPress){
@@ -97,7 +80,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             else{
                 move *= 1;
             }
-            
+
             lastPress = now;
             var moveBy = new Point(0,0);
             for(var index in keys){
@@ -119,7 +102,6 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             self.viewTransform.addX(moveBy.X);
             self.viewTransform.addY(moveBy.Y);
         }
-
         $(document).keydown(function(e){
             e.preventDefault();
             var thisPress = Date.now();
@@ -145,7 +127,6 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             }
             moveIt(thisPress);
         });
-
         $(document).keyup(function(e){
             if(e.which == 119 || e.which == 38){ // w or (^) key - up
                 keys.splice(keys.indexOf('up'),1);
@@ -162,11 +143,9 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             if(keys.length == 0){lastPress = null;}
         });
     };
-
     CanvasManager.prototype.release = function(){
         $(document).off('keydown keyup');
         $('#canvas').off('mousedown mousemove mouseup');
     };
-
     return CanvasManager;
 });

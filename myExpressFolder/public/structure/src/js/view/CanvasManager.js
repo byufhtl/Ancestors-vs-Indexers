@@ -68,7 +68,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
                     self.viewTransform.addY(diff.Y);
                 }
 
-                self.viewController.handle(new Sig(Sig.CNVS_DRG, "", [])); // In case there are special drag effects
+                self.viewController.handle(new Sig(Sig.CNVS_DRG, "", {})); // In case there are special drag effects
             }
         });
 
@@ -76,7 +76,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             draggable = false;
             if(!dragged){
                 var pt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
-                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", [pt]));
+                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", {point:pt}));
             }
             dragged = false;
         });

@@ -189,23 +189,29 @@ define(['jquery','util/Sig'], function($, Sig){
             var button_1 = $('#button-1-i');
             var button_2 = $('#button-2-i');
             var button_3 = $('#button-3-i');
+            var button_4 = $('#button-4-i');
             var button_1_image = $('#button-1-img-i');
             var button_2_image = $('#button-2-img-i');
             var button_3_image = $('#button-3-img-i');
+            var button_4_image = $('#button-4-img-i');
 
             self.sidebarButtons.push(button_1, button_2, button_1_image, button_2_image);
 
             button_1.click(function () {
                 //console.log("Button 1i Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_IDX, []));
+                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STAN_IDX, {}));
             });
             button_2.click(function () {
                 //console.log("Button 2i Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.HOBB_IDX, []));
+                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.HOBB_IDX, {}));
             });
             button_3.click(function () {
-                //console.log("Button 2i Clicked!");
-                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.UBER_IDX, []));
+                //console.log("Button 3i Clicked!");
+                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.UBER_IDX, {}));
+            });
+            button_4.click(function () {
+                //console.log("Button 4i Clicked!");
+                self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.RSCH_IDX, {}));
             });
             button_1_image.click(function () {
                 button_1.click()
@@ -215,6 +221,9 @@ define(['jquery','util/Sig'], function($, Sig){
             });
             button_3_image.click(function () {
                 button_3.click()
+            });
+            button_4_image.click(function () {
+                button_4.click()
             });
         }
     };

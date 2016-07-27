@@ -199,10 +199,10 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
         self.loader.loadResources(request).then(
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
-                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_SCESS}));
+                self.viewController.handle(new Sig(Sig.SDBAR_LD, value, {success:Sig.LD_SCESS}));
             },
             function(rejected){
-                self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_FAILD, response:rejected}));
+                self.viewController.handle(new Sig(Sig.SDBAR_LD, value, {success:Sig.LD_FAILD, response:rejected}));
             }
         )
     };

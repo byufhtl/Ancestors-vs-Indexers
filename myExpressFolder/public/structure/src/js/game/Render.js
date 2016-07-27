@@ -77,7 +77,7 @@ define(['img/ImageManager'],function(ImageManager) {
                     console.log("rendering a family member");
                     ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);

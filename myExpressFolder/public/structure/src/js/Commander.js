@@ -88,7 +88,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         self.gameController.eightGenerations = self.eightGenerations;
         var data = {};
         //this is temp for now. Starting level 1 scene 1. Will change this to selected level.
-        data.act = 1;
+        data.act = 3;
         data.scene = 1;
         data.playerInfo = {};
         data.imageManager = self.imageManager;

@@ -64,6 +64,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderAncestors = function(activeAncestors)
     {
+        console.log("activeancestorsInRender", activeAncestors);
         var ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
         for (var i = 0; i < activeAncestors.length; i++)
         {
@@ -172,7 +173,7 @@ define(['img/ImageManager'],function(ImageManager) {
     {
         var alphaImg = this.imageManager.getImage(ImageManager.TRI_ALPH);
 
-        var betaImg = this.imageManager.getImage(ImageManager.TRI_B);
+        var betaImg = this.imageManager.getImage(ImageManager.TRI_BETA);
           for (var i = 0; i < levelStructure.length; i++)
           {
               for (var j = 0; j < levelStructure[i].length; j++)
@@ -236,11 +237,11 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderTree(levelStructure);
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);
-        this.renderIndexers(active.indexers);
-        this.renderBuildings(active.buildings);
-        this.renderAncestors(active.ancestors);
-        this.renderProjectiles(active.projectiles);
-        this.renderRecords(active.records);
+        this.renderIndexers(active.indexers());
+        this.renderBuildings(active.buildings());
+        this.renderAncestors(active.ancestors());
+        this.renderProjectiles(active.projectiles());
+        this.renderRecords(active.records());
     };
 
     return Render;

@@ -99,8 +99,8 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
             case "uber":
                 return new Uber();
                 break;
-            case "specialist":
-                console.log("making a specialist");
+            case "researcher":
+                console.log("making a researcher");
                 return new Specialist();
                 break;
         }
@@ -196,8 +196,8 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
-            case Sig.SPCL_IDX:
-                self.clickContext = {elementType:"indexer", class:"specialist", cost:30};
+            case Sig.RSCH_IDX:
+                self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
                 break;
         }
     };

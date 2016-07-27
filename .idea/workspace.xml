@@ -2,11 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/ancestor.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/ancestors/peasant.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/ancestors/ruffian.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/ancestors/woodsman.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/background.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/Library.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/cave.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/drake1-A01.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/dwarven4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/elven.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/hobbyBuilding.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/human-city4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/buildings/standardBuilding.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/defeat.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/lightbeam.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/record.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/tree.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/img/victory.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/buildings.html" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/buildings.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/EventManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/EventManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/Render.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/Render.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,31 +58,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CanvasManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ButtonManager.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ImageManager.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4014">
-              <caret line="223" column="34" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
+            <state relative-caret-position="763">
+              <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameEventManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-826">
+              <caret line="102" column="51" selection-start-line="102" selection-start-column="51" selection-end-line="102" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#40#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildings.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/buildings.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -82,28 +103,28 @@
       <file leaf-file-name="Sig.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="97" column="69" selection-start-line="97" selection-start-column="69" selection-end-line="97" selection-end-column="69" />
+            <state relative-caret-position="138">
+              <caret line="52" column="73" selection-start-line="52" selection-start-column="73" selection-end-line="52" selection-end-column="73" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
+      <file leaf-file-name="EventManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/EventManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1064">
-              <caret line="94" column="63" selection-start-line="94" selection-start-column="63" selection-end-line="94" selection-end-column="63" />
+            <state relative-caret-position="476">
+              <caret line="125" column="60" selection-start-line="125" selection-start-column="60" selection-end-line="125" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HTMLManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js">
+      <file leaf-file-name="Render.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/Render.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="196" column="34" selection-start-line="196" selection-start-column="34" selection-end-line="196" selection-end-column="34" />
+            <state relative-caret-position="288">
+              <caret line="99" column="70" selection-start-line="99" selection-start-column="70" selection-end-line="99" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -112,12 +133,9 @@
       <file leaf-file-name="Commander.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1332">
+            <state relative-caret-position="1584">
               <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
-              <folding>
-                <element signature="e#2548#2897#0" expanded="false" />
-                <element signature="e#2960#3184#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -169,16 +187,19 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/css/stylesheet.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/help.html" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/FamilySearchHandler.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/main.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/RevisedSplash.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameController.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/html/buildings.html" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/EventManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/Render.js" />
       </list>
     </option>
   </component>
@@ -351,40 +372,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="game" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -414,6 +401,10 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -437,14 +428,48 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="indexers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ancestors-vs-Indexers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ancestors-vs-Indexers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="myExpressFolder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -541,11 +566,12 @@
       <workItem from="1469556580219" duration="15343000" />
       <workItem from="1469650368487" duration="3347000" />
       <workItem from="1469653747784" duration="2133000" />
+      <workItem from="1469659832943" duration="2125000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45973000" />
+    <option name="totallyTimeSpent" value="48098000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -554,10 +580,11 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21563342" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3309157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3309157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -565,9 +592,26 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3309157" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21563342" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -587,22 +631,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/LoaderUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="62" column="61" selection-start-line="62" selection-start-column="61" selection-end-line="62" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Order.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -786,13 +814,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Animator.js" />
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/EventManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1911">
-          <caret line="196" column="0" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/LevelDefinition.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -861,14 +882,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4014">
-          <caret line="223" column="34" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
@@ -885,18 +898,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="24" column="86" selection-start-line="24" selection-start-column="86" selection-end-line="24" selection-end-column="86" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Commander.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1332">
+        <state relative-caret-position="1584">
           <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
-          <folding>
-            <element signature="e#2548#2897#0" expanded="false" />
-            <element signature="e#2960#3184#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -904,41 +913,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="846">
           <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-            <element signature="e#1508#1648#0" expanded="false" />
-            <element signature="e#1714#2954#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/CanvasManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="1314">
           <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="97" column="69" selection-start-line="97" selection-start-column="69" selection-end-line="97" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/HTMLManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
+        <state relative-caret-position="3528">
           <caret line="196" column="34" selection-start-line="196" selection-start-column="34" selection-end-line="196" selection-end-column="34" />
           <folding />
         </state>
@@ -946,7 +934,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ViewController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1064">
+        <state relative-caret-position="1692">
           <caret line="94" column="63" selection-start-line="94" selection-start-column="63" selection-end-line="94" selection-end-column="63" />
           <folding />
         </state>
@@ -954,8 +942,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/view/ButtonManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+        <state relative-caret-position="265">
+          <caret line="138" column="82" selection-start-line="138" selection-start-column="82" selection-end-line="138" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/GameEventManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-826">
+          <caret line="102" column="51" selection-start-line="102" selection-start-column="51" selection-end-line="102" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/util/Sig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="52" column="73" selection-start-line="52" selection-start-column="73" selection-end-line="52" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/EventManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="125" column="60" selection-start-line="125" selection-start-column="60" selection-end-line="125" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/img/ImageManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="763">
+          <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/buildings.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/game/Render.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="99" column="70" selection-start-line="99" selection-start-column="70" selection-end-line="99" selection-end-column="70" />
           <folding />
         </state>
       </provider>

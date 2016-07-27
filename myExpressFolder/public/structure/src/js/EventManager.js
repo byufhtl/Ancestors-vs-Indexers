@@ -116,8 +116,8 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
-            case Sig.SPCL_IDX:
-                self.clickContext = {elementType:"indexer", class:"specialist", cost:30};
+            case Sig.RSCH_IDX:
+                self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
                 break;
         }
     };

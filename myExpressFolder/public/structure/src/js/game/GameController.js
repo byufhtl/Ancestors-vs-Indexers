@@ -4,7 +4,6 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
       function GameController(lieutenant) {
           this.controller = lieutenant;
           this.myUpdate = new Update();
-          this.myRender = null;
           this.translation = {dx: 0, dy: 0};
 
           this.levelStructure = null;
@@ -12,7 +11,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
 
           this.gameBoardGrid = {};
 
-          this.viewTransform = new ViewTransform(0, 0, this.canvas);
+          this.viewTransform;
 
           this.paused = false;
       }
@@ -46,13 +45,13 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
                     self.lastTime = Date.now();
                     break;
                 case Sig.INIT_GAM:
-                    self.initializeGame(data.act, data.scene, data.playerInfo);
+                    self.initializeGame(data.act, data.scene, data.playerInfo, data.imageManager);
                     break;
             }
       };
 
-      GameController.prototype.initializeGame = function (act, scene, playerInfo) {
-
+      GameController.prototype.initializeGame = function (act, scene, playerInfo, imageManager) {
+          this.myRender = new Render(this.canvas, this.viewTransform, imageManager);
           this.currentAct = act ? act : 1; // Set act (default: 1)
           this.currentScene = scene ? scene : 1; // Set scene (default: 1)
 
@@ -83,15 +82,15 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               this.lastTime = now;
 
               this.myUpdate.update(this.active, delta_s, this.level, this.levelStructure, this.defeatedAncestorInfo);
-              //this.myRender.render(this.active, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
+              this.myRender.render(this.active, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
               this.updateCoordinates(0, 0);
           }
-          if (!this.active.gameEnded()) // game end condition.
+          if (this.active.gameEnded() == false) // game end condition.
           {
               requestAnimationFrame(this.loop.bind(this));
           }
           else {
-              if (this.active.victory()) {
+              if (this.active.victory() == true) {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
                   this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.BLNK_PNL));
                   this.myRender.renderVictory();

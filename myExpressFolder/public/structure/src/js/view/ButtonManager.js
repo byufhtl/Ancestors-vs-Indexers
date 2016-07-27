@@ -56,7 +56,6 @@ define(['jquery','util/Sig'], function($, Sig){
      */
     ButtonManager.prototype.handle = function(event){
         var self = this;
-        console.log("Button Manager handling:", event);
         switch(event.type){
             case Sig.INTFC_LD:
                 switch(event.value){
@@ -89,11 +88,9 @@ define(['jquery','util/Sig'], function($, Sig){
     ButtonManager.prototype.loadLoginButton = function(data){
         var self = this;
         self.killAll(self.topbarButtons);
-        console.log('beginning load loginButton');
         var loginButton = $('#LOGIN');
         var loginButton2 = $('#LOGIN2');
         loginButton.click(function () {
-            console.log("Login button clicked!");
             self.viewController.handle(new Sig(Sig.BTN_ACTN, Sig.LOGN_BTN, data));
         });
         loginButton2.click(function () {

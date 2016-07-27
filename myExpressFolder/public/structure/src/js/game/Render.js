@@ -1,13 +1,13 @@
 define(['img/ImageManager'],function(ImageManager) {
 
 
-    function Render(canvas, ViewTransform, gameController)
+    function Render(canvas, ViewTransform, imageManager)
     {
+        this.imageManager = imageManager;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
 
         this.viewTransform = ViewTransform;
-        this.gameController = gameController;
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
         this.ancestorYBuffer = -50;
@@ -31,25 +31,25 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderVictory = function()
     {
-        var victoryImg = this.imageManager.getImage(this.imageManager.GM_VCTRY);
+        var victoryImg = this.imageManager.getImage(ImageManager.GM_VCTRY);
         this.ctx.drawImage(victoryImg, 0, 0, victoryImg.width, victoryImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderDefeat = function()
     {
-        var defeatImg = this.imageManager.getImage(this.imageManager.GM_DFEAT);
+        var defeatImg = this.imageManager.getImage(ImageManager.GM_DFEAT);
         this.ctx.drawImage(defeatImg, 0, 0, defeatImg.width, defeatImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderBackground = function()
     {
-        var bgImg = this.imageManager.getImage(this.imageManager.GM_BKGRD);
+        var bgImg = this.imageManager.getImage(ImageManager.GM_BKGRD);
         this.ctx.drawImage(bgImg, -this.viewTransform.t_offset_X, -this.viewTransform.t_offset_Y, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderLightBeam = function()
     {
-        var fgImg = this.imageManager.getImage(this.imageManager.GM_FRGRD);
+        var fgImg = this.imageManager.getImage(ImageManager.GM_FRGRD);
         this.ctx.drawImage(fgImg, 0, 0, fgImg.width, fgImg.height, 0, 0, this.canvas.width, this.canvas.height);
     };
 
@@ -64,21 +64,21 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderAncestors = function(activeAncestors)
     {
-        var ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
+        var ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
         for (var i = 0; i < activeAncestors.length; i++)
         {
             switch(activeAncestors[i].type){
                 case "nameless":
-                    ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
+                    ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 case "familyMember":
-                    ancImg = this.imageManager.getImage(this.imageManager.ANC_NMLS);
+                    ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
                     this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 default:
-                    ancImg = this.imageManager.getImage(this.imageManager.ANC_STAN);
+                    ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
                     this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
             }
         }
@@ -87,7 +87,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderRecords = function(activeRecords)
     {
-        var recGoldImg = this.imageManager.getImage(this.imageManager.REC_GOLD);
+        var recGoldImg = this.imageManager.getImage(ImageManager.REC_GOLD);
         for (var i = 0; i < activeRecords.length; i++)
         {
             this.ctx.drawImage(recGoldImg, activeRecords[i].xCoord + this.recordOffset, activeRecords[i].yCoord + this.recordOffset);
@@ -97,7 +97,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.drawSpecialist = function(activeIndexers, i)
     {
-        homeBaseImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
+        homeBaseImg = this.imageManager.getImage(ImageManager.BLD_LIBR);
         this.ctx.drawImage(homeBaseImg, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
 
         //draw numbers on base and above the specialist
@@ -110,23 +110,23 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderIndexers = function(activeIndexers)
     {
-        var indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
+        var indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
         for (var i = 0; i < activeIndexers.length; i++)
         {
             switch(activeIndexers[i].type){
                 case "hobbyist":
-                    indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
+                    indexerImg = this.imageManager.getImage(ImageManager.HOBB_IDX);
                     break;
                 case "uber":
-                    indexerImg = this.imageManager.getImage(this.imageManager.UBER_IDX);
+                    indexerImg = this.imageManager.getImage(ImageManager.UBER_IDX);
                     break;
                 case "specialist":
-                    indexerImg = this.imageManager.getImage(this.imageManager.HOBB_IDX);
+                    indexerImg = this.imageManager.getImage(ImageManager.HOBB_IDX);
                     this.drawSpecialist(activeIndexers, i);
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
-                    indexerImg = this.imageManager.getImage(this.imageManager.STAN_IDX);
+                    indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
         }
@@ -134,17 +134,17 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderProjectiles = function(activeProjectiles)
     {
-        var recordImg = this.imageManager.getImage(this.imageManager.REC_BRWN);
+        var recordImg = this.imageManager.getImage(ImageManager.REC_BRWN);
         for (var i = 0; i < activeProjectiles.length; i++) {
             switch (activeProjectiles[i].type) {
                 case "strong":
-                    recordImg = this.imageManager.getImage(this.imageManager.REC_GOLD);
+                    recordImg = this.imageManager.getImage(ImageManager.REC_GOLD);
                     break;
                 case "uber":
-                    recordImg = this.imageManager.getImage(this.imageManager.REC_GREN);
+                    recordImg = this.imageManager.getImage(ImageManager.REC_GREN);
                     break;
                 default:
-                    recordImg = this.imageManager.getImage(this.imageManager.REC_BRWN);
+                    recordImg = this.imageManager.getImage(ImageManager.REC_BRWN);
             }
             this.ctx.drawImage(recordImg, activeProjectiles[i].xCoord + this.viewTransform.t_offset_X + this.projectileXOffset, activeProjectiles[i].yCoord + this.viewTransform.t_offset_Y + this.projectileYOffset, recordImg.width / 3, recordImg.height / 3);
         }
@@ -152,14 +152,14 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderBuildings = function(activeBuildings)
     {
-        var buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
+        var buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
         for (var i = 0; i < activeBuildings.length; i++) {
             switch (activeBuildings[i].type) {
                 case "library":
-                    buildingImg = this.imageManager.getImage(this.imageManager.BLD_LIBR);
+                    buildingImg = this.imageManager.getImage(ImageManager.BLD_LIBR);
                     break;
                 default:
-                    buildingImg = this.imageManager.getImage(this.imageManager.BLD_FHCR);
+                    buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
             }
             this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.viewTransform.t_offset_X + this.standardBuildingXOffset, activeBuildings[i].yCoord + this.viewTransform.t_offset_Y + this.standardBuildingYOffset);
             //console.log("drawing building: " + i + " x: " + activeBuildings[i].xCoord + this.viewTransform.t_offset_X + " y: " + activeBuildings[i].yCoord + this.viewTransform.t_offset_Y);
@@ -169,9 +169,9 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderTriangularPlayingField = function(levelStructure)
     {
-        var alphaImg = this.imageManager.getImage(this.imageManager.TRI_ALPH);
+        var alphaImg = this.imageManager.getImage(ImageManager.TRI_ALPH);
 
-        var betaImg = this.imageManager.getImage(this.imageManager.TRI_B);
+        var betaImg = this.imageManager.getImage(ImageManager.TRI_B);
           for (var i = 0; i < levelStructure.length; i++)
           {
               for (var j = 0; j < levelStructure[i].length; j++)
@@ -191,7 +191,7 @@ define(['img/ImageManager'],function(ImageManager) {
     Render.prototype.renderNodeStructure = function(nodeStructure)
     {
         //get node image here
-        var nodeImg = this.imageManager.getImage(this.imageManager.NODE);
+        var nodeImg = this.imageManager.getImage(ImageManager.NODE_CIR);
         for (var i = 0; i < nodeStructure.length; i++)
         {
             for (var j = 0; j < nodeStructure[i].length; j++)
@@ -207,7 +207,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderTree = function(levelStructure)
     {
-        var tree = this.imageManager.getImage(this.imageManager.UND_TREE);
+        var tree = this.imageManager.getImage(ImageManager.UND_TREE);
         /*
         if (this.resizeOnce)
         {

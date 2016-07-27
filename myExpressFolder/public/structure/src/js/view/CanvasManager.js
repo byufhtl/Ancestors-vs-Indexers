@@ -10,24 +10,24 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
     }
 
     CanvasManager.prototype.init = function() {
-        var canvasContainer = $('#canvas');
-        var canvas = document.createElement('canvas');
-        canvas.width = 1000;
-        canvas.height = 600;
-        canvas.id = 'canvas';
-        canvasContainer.append(canvas);
-        this.canvas = canvas;
+        var canvasContainer = $('#canvas-div');
+        var myCanvas = document.createElement('canvas');
+        myCanvas.width = 1000;
+        myCanvas.height = 600;
+        myCanvas.id = 'canvas';
+        console.log("trying to append the canvas");
+        canvasContainer.append(myCanvas);
+        this.canvas = myCanvas;
 
         this.initClicking();
         this.initKeys();
 
-        return canvas;
+        return myCanvas;
     };
 
     CanvasManager.prototype.initClicking = function(){
         var self = this;
-
-
+        var canvas = $('#canvas-div');
         var draggable = false;
         var dragged = false;
 

@@ -49,7 +49,6 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
                 this.setInterface(event.value);
                 break;
             case Sig.LD_TPBAR:
-                console.log("setTopBar callsed");
                 this.setTopBar(event.value);
                 break;
             case Sig.LD_SDBAR:
@@ -87,7 +86,6 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
             function(successResponse) {
                 var content = HTMLManager.getMainDiv();
                 var resource = self.loader.getResource(url);
-                console.log("HTML resource loaded:", resource);
                 content.html(self.loader.getResource(url));
                 self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_SCESS}));
             },
@@ -103,7 +101,6 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      */
     HTMLManager.prototype.setInterface = function(value){
         var self = this;
-        console.log("HTML Manager has been asked to load interface:", value);
         switch(value){
             case Sig.SP_INTFC:
                 self.loadInterface("src/html/FHTLSplash.html", value);
@@ -145,19 +142,16 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      * @param value
      */
     HTMLManager.prototype.loadTopBar = function(url, value){
-        console.log("trying to load the top bar");
         var self = this;
         var bardiv = HTMLManager.getTopBarDiv();
         var request = new Order();
         request.addItem(url,Order.HTML, 15);
-        self.loader.loadResources(request.getBatches()).then(
+        self.loader.loadResources(request).then(
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
-                console.log('This ought to be a div container with the stuff in it:', resolved);
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_SCESS}));
             },
             function(rejected){
-                console.log("rejected by the resources load thing");
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_FAILD, response:rejected}));
             }
         )
@@ -169,7 +163,6 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      */
     HTMLManager.prototype.setTopBar = function(value){
         var self = this;
-        console.log("settop bar was callsed");
         switch(value){
             case Sig.GM_TPBAR:
                 self.loadTopBar("src/html/topbar.html", value);
@@ -203,10 +196,9 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
         var bardiv = HTMLManager.getSidebarDiv();
         var request = new Order();
         request.addItem(url,Order.HTML, 15);
-        self.loader.loadResources(request.getBatches()).then(
+        self.loader.loadResources(request).then(
             function(resolved){
                 bardiv.html(self.loader.getResource(url));
-                console.log('This ought to be a div container with the stuff in it:', resolved);
                 self.viewController.handle(new Sig(Sig.TPBAR_LD, value, {success:Sig.LD_SCESS}));
             },
             function(rejected){

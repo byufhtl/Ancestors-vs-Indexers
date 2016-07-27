@@ -2,7 +2,7 @@
  * Created by calvin on 7/8/16.
  */
 
-define(['util/Sig', 'game/GameController','LevelDefinition'],function(Sig, GameController, LevelDefinition){
+define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'],function(Sig, GameController, LevelDefinition, ViewTransform){
 
 
     function Commander(imageManager, viewController, king){
@@ -76,17 +76,22 @@ define(['util/Sig', 'game/GameController','LevelDefinition'],function(Sig, GameC
     };
 
     Commander.prototype.startGame = function(data){
-        console.log("called start game");
         var self = this;
+        //set up canvas
         var canvas = data.canvas;
-        self.gameController = new GameController();
+        self.gameController = new GameController(self);
         self.gameController.canvas = canvas;
+        //set up viewTransform
+        var viewTransform = new ViewTransform(0,0,canvas);
+        this.viewController.canvasManager.viewTransform = viewTransform;
+        self.gameController.viewTransform = viewTransform;
         self.gameController.eightGenerations = self.eightGenerations;
         var data = {};
-        //this is temp for now
+        //this is temp for now. Starting level 1 scene 1. Will change this to selected level.
         data.act = 1;
         data.scene = 1;
         data.playerInfo = {};
+        data.imageManager = self.imageManager;
         self.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, data));
     };
 

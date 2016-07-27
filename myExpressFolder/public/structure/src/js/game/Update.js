@@ -15,19 +15,21 @@ define(['model/IAncestor'],function() {
         this.ancestorsDefeated = false;
     }
 
-    Update.prototype.checkVictory = function (victory, gameEnded, activeAncestors) {
+    Update.prototype.checkVictory = function (active) {
         //did you beat the level?
-        if (this.doneSpawning && activeAncestors.length == 0) {
-            victory = true;
-            gameEnded = true;
+        if (this.doneSpawning && active.ancestors.length == 0) {
+            console.log('victory');
+            active.vtry = true;
+            active.ended = true;
         }
     };
 
-    Update.prototype.checkDefeat = function (victory, gameEnded, activeAncestors) {
-        for (var i = 0; i < activeAncestors.length; i++) {
-            if (activeAncestors[i].xCoord <= 0) {
-                victory = false;
-                gameEnded = true;
+    Update.prototype.checkDefeat = function (active) {
+        for (var i = 0; i < active.ancestors.length; i++) {
+            if (active.ancestors[i].xCoord <= 0) {
+                active.vtry = false;
+                active.ended = true;
+                console.log('defeat');
             }
         }
     };
@@ -117,7 +119,6 @@ define(['model/IAncestor'],function() {
             if (activeAncestors[i].hp <= 0) {
                 if (activeAncestors[i].type == "familyMember" && activeAncestors[i].name != 'joe')
                 {
-                    console.log("adding defeated ancestor");
                     defeatedAncestorInfo.push(activeAncestors[i].data);
                 }
                 activeAncestors.splice(i, 1);
@@ -134,6 +135,8 @@ define(['model/IAncestor'],function() {
         }
         if (level[this.wave] != null) {
             for (var i = 0; i < level[this.wave].length; i++) {
+                console.log("adding an ancestor", activeAncestors);
+
                 activeAncestors.push(level[this.wave][i]);
             }
             level[this.wave] = [];
@@ -242,7 +245,6 @@ define(['model/IAncestor'],function() {
     };
 
     Update.prototype.update = function (active, timeElapsed, level, levelStructure, defeatedAncestorInfo) {
-
         //spawn records and move them
         this.spawnRecord(active.records(), timeElapsed);
         this.moveRecords(active.records(), timeElapsed);
@@ -259,8 +261,8 @@ define(['model/IAncestor'],function() {
             this.moveProjectiles(active.projectiles(), timeElapsed);
             this.checkProjectileCollision(active.projectiles(), active.ancestors());
             //check victory conditions
-            this.checkVictory(active.victory(), active.gameEnded(), active.ancestors());
-            this.checkDefeat(active.victory(), active.gameEnded(), active.ancestors());
+            this.checkVictory(active);
+            this.checkDefeat(active);
 
             this.moveAnimFrames(active.ancestors(), timeElapsed);
 

@@ -15,7 +15,6 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
         myCanvas.width = 1000;
         myCanvas.height = 600;
         myCanvas.id = 'canvas';
-        console.log("trying to append the canvas");
         canvasContainer.append(myCanvas);
         this.canvas = myCanvas;
 
@@ -98,7 +97,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             else{
                 move *= 1;
             }
-            console.log("Move:", move);
+            
             lastPress = now;
             var moveBy = new Point(0,0);
             for(var index in keys){

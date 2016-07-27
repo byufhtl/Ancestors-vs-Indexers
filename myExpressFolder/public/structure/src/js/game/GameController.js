@@ -1,5 +1,5 @@
-define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig'],
-  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig) {
+define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager'],
+  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager) {
 
       function GameController(lieutenant) {
           this.controller = lieutenant;
@@ -16,6 +16,10 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.paused = false;
       }
 
+      GameController.prototype.init = function(){
+          this.eventManager = new GameEventManager(this);
+      };
+
       GameController.prototype.handle = function(event){
           var self = this;
           switch(event.type){
@@ -30,6 +34,18 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
                   break;
               case Sig.LVL_CMND:
                   self.controller.handle(event);
+                  break;
+              case Sig.BTN_ACTN:
+                  self.eventManager.handle(event);
+                  break;
+              case Sig.ST_CLICK:
+                  self.eventManager.handle(event);
+                  break;
+              case Sig.CNVS_CLK:
+                  self.eventManager.handle(event);
+                  break;
+              case Sig.CNVS_DRG:
+                  self.eventManager.handle(event);
                   break;
           }
       };

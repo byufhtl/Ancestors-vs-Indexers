@@ -35,7 +35,7 @@ define(["util/Sig", "LevelDefinition"],function(Sig, LevelDefinition){
      * Changes the context that controls what happens when the user clicks on the main board.
      * @param event - See [Sig.js]
      */
-    EventManager.prototype.setClickContext = function(event) {
+    GameEventManager.prototype.setClickContext = function(event) {
         var self = this;
         switch(event.value){
             case Sig.STAN_BLD:
@@ -67,7 +67,7 @@ define(["util/Sig", "LevelDefinition"],function(Sig, LevelDefinition){
     /**
      * Handler for when the start button is clicked
      */
-    EventManager.prototype.startButtonClicked = function()
+    GameEventManager.prototype.startButtonClicked = function()
     {
         this.controller.handle(new Sig(Sig.CMND_ACT, Sig.STRT_BTN));
     };
@@ -75,7 +75,7 @@ define(["util/Sig", "LevelDefinition"],function(Sig, LevelDefinition){
     /**
      * The next level button click handler
      */
-    EventManager.prototype.nextLevelButtonClicked = function()
+    GameEventManager.prototype.nextLevelButtonClicked = function()
     {
         this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_VCTR));    // Save
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
@@ -86,7 +86,7 @@ define(["util/Sig", "LevelDefinition"],function(Sig, LevelDefinition){
         // this.controller.loop();
     };
 
-    EventManager.prototype.playAgainButtonClicked = function()
+    GameEventManager.prototype.playAgainButtonClicked = function()
     {
         this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_DEFT));    // Save
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
@@ -96,8 +96,10 @@ define(["util/Sig", "LevelDefinition"],function(Sig, LevelDefinition){
         // this.controller.loop();
     };
 
-    EventManager.prototype.mainMenuButtonClicked = function()
+    GameEventManager.prototype.mainMenuButtonClicked = function()
     {
         location.reload();
     };
+
+    return GameEventManager;
 });

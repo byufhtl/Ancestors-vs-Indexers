@@ -94,6 +94,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         var canvas = data.canvas;
         self.gameController = new GameController(self);
         self.gameController.canvas = canvas;
+        self.gameController.init();
         self.buttonFocus = self.gameController;
         //set up viewTransform
         var viewTransform = new ViewTransform(0,0,canvas);

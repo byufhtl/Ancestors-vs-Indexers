@@ -13,7 +13,7 @@ define(['EventManager','PanelManager','GEvent'],function(EventManager, PanelMana
         //DON"T FORGET TO INITIALIZE THIS!!!!!!!!!!!!!!!!!!!!!!!!
         this.controller = gameController;
         console.log("game controller in view controller: " ,this.controller);
-        this.eventManager = null;
+        this.buttonFocus = null;
         this.panelManager = null;
     }
 

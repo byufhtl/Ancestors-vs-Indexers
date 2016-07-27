@@ -48,3 +48,7 @@
 .fill-height{
     min-height: 100%;
 }
+
+.fill-width{
+    min-width: 100%;
+}

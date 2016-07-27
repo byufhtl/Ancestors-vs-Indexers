@@ -264,18 +264,18 @@ body{
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #552211;
+    background-color: #527bb4;
     color: white;
 }
 
 .modal-body {
     padding: 2px 16px;
-    background-color: #CCAA88;
+    background-color: #c5cdde;
 }
 
 .modal-footer {
     text-align: left;
     padding: 2px 16px;
-    background-color: #552211;
+    background-color: #527bb4;
     color: white;
 }

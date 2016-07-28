@@ -13,7 +13,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.gameController = null;
         this.levelsController = null;
         this.upgradesController = null;
-        this.currentFocusLevel = {act: null, scene: null};
+        this.currentFocusLevel = {act: 1, scene: 1};
         this.userInformation = null;
         this.buttonFocus = this.gameController;
     }
@@ -56,7 +56,9 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
                 self.handleLevelCommand(event);
                 break;
             case Sig.BTN_ACTN:
-                self.buttonFocus.handle(event);
+                if (event.value == Sig.NEXT_BTN) self.nextLevel();
+                else if (event.value = Sig.MENU_BTN) self.returnMainMenu();
+                else self.buttonFocus.handle(event);
                 break;
             case Sig.ST_CLICK:
                 self.buttonFocus.handle(event);
@@ -76,6 +78,10 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         }
     };
 
+    Commander.prototype.returnMainMenu = function(){
+        this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC));
+    }
+
     Commander.prototype.updateUser = function(event){
         var self = this;
         if(event.value == Sig.LVL_VCTR){
@@ -86,12 +92,16 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         }
     };
 
-    Commander.prototype.handleLevelCommand = function(event){
+    Commander.prototype.nextLevel = function(){
         var self = this;
-        if(event.value == Sig.STRT_LVL){
-            this.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, self.currentFocusLevel));
-            this.gameController.loop();
-        }
+        self.viewController.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
+        self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.EM_SDBAR));
+        var data = {};
+        data.act = this.currentFocusLevel.act;
+        data.scene = this.currentFocusLevel.scene;
+        data.playerInfo = {};
+        data.imageManager = self.imageManager;
+        self.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, data));
     };
 
     Commander.prototype.startGame = function(data){
@@ -109,8 +119,8 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         self.gameController.eightGenerations = self.eightGenerations;
         var data = {};
         //this is temp for now. Starting level 1 scene 1. Will change this to selected level.
-        data.act = 3;
-        data.scene = 1;
+        data.act = this.currentFocusLevel.act;
+        data.scene = this.currentFocusLevel.scene;
         data.playerInfo = {};
         data.imageManager = self.imageManager;
         self.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, data));

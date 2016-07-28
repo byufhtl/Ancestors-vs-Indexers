@@ -73,6 +73,7 @@ define([],function(){
     Sig.    BLNK_PNL =          "blkpl";                // Blank Panel
     Sig.    VTRY_PNL =          "vtrpl";                // Victory Panel
     Sig.    DEFT_PNL =          "dftpl";                // Defeat Panel
+    Sig.    EM_SDBAR =          'empsb';                // Empty Side Bar
 
     // CLICKING ====================================================================================================[]>
     Sig.    CNVS_CLK =          "cvclk";                // Canvas Click                             *

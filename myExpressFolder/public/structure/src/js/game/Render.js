@@ -6,7 +6,6 @@ define(['img/ImageManager'],function(ImageManager) {
         this.imageManager = imageManager;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-
         this.viewTransform = ViewTransform;
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;

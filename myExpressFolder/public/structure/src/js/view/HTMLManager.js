@@ -226,6 +226,9 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
             case Sig.DEFT_PNL:
                 self.loadSidebar("src/html/defeat.html", value);
                 break;
+            case Sig.EM_SDBAR:
+                HTMLManager.getSidebarDiv();
+                break;
         }
     };
 

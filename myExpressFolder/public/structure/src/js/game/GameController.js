@@ -47,6 +47,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               case Sig.CNVS_DRG:
                   self.eventManager.handle(event);
                   break;
+              case Sig.LD_MODAL:
+                  self.eventManager.handle(event);
           }
       };
 
@@ -68,6 +70,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
 
       GameController.prototype.initializeGame = function (act, scene, playerInfo, imageManager) {
           this.myRender = new Render(this.canvas, this.viewTransform, imageManager);
+          this.myUpdate = new Update();
           this.currentAct = act ? act : 1; // Set act (default: 1)
           this.currentScene = scene ? scene : 1; // Set scene (default: 1)
 
@@ -109,15 +112,17 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               if (this.active.victory() == true) {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
                   this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.EM_TPBAR));
+                  this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_VCTR));
                   this.myRender.renderVictory();
                   this.myRender.reset();
                   if (this.defeatedAncestorInfo.length != 0) {
-                      this.controller.handle(new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData:0}));
+                      this.handle(new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData:0}));
                   }
               }
               else {
                   this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.DEFT_PNL));
                   this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.EM_TPBAR));
+                  this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_DEFT));
                   this.myRender.renderDefeat();
                   this.myRender.reset();
               }

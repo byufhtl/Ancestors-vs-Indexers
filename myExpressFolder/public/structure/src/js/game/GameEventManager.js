@@ -24,14 +24,44 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
                 break;
             case Sig.LD_MODAL:
                 switch (event.value){
-                    case Sig.ANC_INFO:  self.controller.handle(event);                                          break;
+                    case Sig.ANC_INFO:  self.showAncestorInfo(event);                                           break;
                 }
                 break;
             case Sig.CNVS_CLK:          self.handleCanvasClick(event);                                          break;
-
         }
     };
 
+
+    GameEventManager.prototype.showAncestorInfo = function(data)
+    {
+        var self = this;
+        var indexToShow = data.data.tempData;
+        console.log("indexToShow", indexToShow);
+        var info = this.controller.defeatedAncestorInfo;
+        $('#ancestorName').html(info[indexToShow].data.display.name);
+        $('#ancestorInfoText').html(       "birthDate: " + (info[indexToShow].data.display.birthDate || "uknown") + "<br>"
+                                         + "birthPlace: " + (info[indexToShow].data.display.birthPlace || "unknown") + "<br>"
+                                         + "gender: " + (info[indexToShow].data.display.gender || "unknown") + "<br>"
+                                         + "lifespan " + (info[indexToShow].data.display.lifespan || "unknown") + "<br>");
+        $('#missingInfo').html("");
+
+        var modal = $('#myModal');
+        modal.modal('show');
+        $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false  // to prevent closing with Esc button (if you want this too)
+        })
+        $('#xButton').click(function(event) {
+            modal.modal('hide');
+            if (info[indexToShow + 1] != null)
+            {
+              console.log("calling again");
+              var showAncestorInfoEvent = new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData: indexToShow + 1});
+              self.handle(showAncestorInfoEvent);
+            }
+        });
+
+    };
 
     GameEventManager.prototype.getClosestNode = function(clickLocation)
     {
@@ -99,6 +129,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
             case "uber":
                 return new Uber();
                 break;
+
             case "researcher":
                 console.log("making a researcher");
                 return new Specialist();
@@ -156,14 +187,13 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
         var realPointClicked = event.data.point;
+
         //check if we clicked on a record. If not, check if we clicked a node
         if (!this.recordClicked(realPointClicked))
         {
             var nearestNodeToClick = this.getClosestNode(realPointClicked);
-            console.log("clickContext: ", this.clickContext);
             if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost <= this.controller.active.resourcePoints)
             {
-                console.log("adding indexer or biulding");
                 this.addIndexerOrBuilding(nearestNodeToClick);
             }
         }
@@ -173,7 +203,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
      * @param event - See [Sig.js]
      */
     GameEventManager.prototype.setClickContext = function(event) {
-        console.log("settign click context in setClickContext");
         var self = this;
         switch(event.value){
             case Sig.STAN_BLD:

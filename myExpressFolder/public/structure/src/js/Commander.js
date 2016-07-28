@@ -13,7 +13,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.gameController = null;
         this.levelsController = null;
         this.upgradesController = null;
-        this.currentFocusLevel = {act: 1, scene: 1};
+        this.currentFocusLevel = {act: 3, scene: 1};
         this.userInformation = null;
         this.buttonFocus = this.gameController;
     }
@@ -57,7 +57,8 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
                 break;
             case Sig.BTN_ACTN:
                 if (event.value == Sig.NEXT_BTN) self.nextLevel();
-                else if (event.value = Sig.MENU_BTN) self.returnMainMenu();
+                else if (event.value == Sig.AGAN_BTN) self.nextLevel();
+                else if (event.value == Sig.MENU_BTN) self.returnMainMenu();
                 else self.buttonFocus.handle(event);
                 break;
             case Sig.ST_CLICK:

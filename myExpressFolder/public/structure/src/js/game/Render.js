@@ -6,7 +6,6 @@ define(['img/ImageManager'],function(ImageManager) {
         this.imageManager = imageManager;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
-
         this.viewTransform = ViewTransform;
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
@@ -97,7 +96,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.drawSpecialist = function(activeIndexers, i)
     {
-        homeBaseImg = this.imageManager.getImage(ImageManager.BLD_LIBR);
+        homeBaseImg = this.imageManager.getImage(ImageManager.DESK_LRG);
         this.ctx.drawImage(homeBaseImg, activeIndexers[i].homeXCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].homeYCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
 
         //draw numbers on base and above the specialist
@@ -122,13 +121,15 @@ define(['img/ImageManager'],function(ImageManager) {
                     break;
                 case "specialist":
                     indexerImg = this.imageManager.getImage(ImageManager.HOBB_IDX);
-                    this.drawSpecialist(activeIndexers, i);
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
                     indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+            if(activeIndexers[i].type == "specialist"){
+                this.drawSpecialist(activeIndexers, i);
+            }
         }
     };
 

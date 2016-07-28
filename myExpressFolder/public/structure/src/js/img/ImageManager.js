@@ -182,6 +182,9 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.STAN_IDX, Order.IMAGE, 15);
             order.addItem(ImageManager.HOBB_IDX, Order.IMAGE, 15);
             order.addItem(ImageManager.UBER_IDX, Order.IMAGE, 15);
+            order.addItem(ImageManager.DESK_SML, Order.IMAGE, 15);
+            order.addItem(ImageManager.DESK_MED, Order.IMAGE, 15);
+            order.addItem(ImageManager.DESK_LRG, Order.IMAGE, 15);
             self.loader.loadResources(order).then(
                 function(success){
                     resolve(success);
@@ -285,8 +288,6 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.NODE_CIR =     "src/img/field/node.png";                   // NODE CIRCLE
     ImageManager.UND_TREE =     "src/img/field/underlayTree.png";           // UNDERLAY TREE
 
-    // ImageManager.GM_BKGRD =     "src/img/background.png";                   // GAME BACKGROUND
-    // ImageManager.GM_FRGRD =     "src/img/lightbeam.png";                    // GAME FOREGROUND
     ImageManager.GM_VCTRY =     "src/img/victory.png";                      // VICTORY SCREEN
     ImageManager.GM_DFEAT =     "src/img/defeat.png";                       // DEFEAT SCREEN
 
@@ -303,11 +304,15 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.HOBB_IDX =     "src/img/indexers/hobbyist.png";            // HOBBYIST INDEXER
     ImageManager.UBER_IDX =     "src/img/indexers/tree.png";                // TREE INDEXER
 
-    ImageManager.BLD_FHCR =     "src/img/buildings/drake1-A01.png";         // FAMILY HISTORY CENTER
-    ImageManager.BLD_LIBR =     "src/img/buildings/human-city4.png";        // LIBRARY
+    ImageManager.BLD_FHCR =     "src/img/buildings/FHC.png";                // FAMILY HISTORY CENTER
+    ImageManager.BLD_LIBR =     "src/img/buildings/library.png";            // LIBRARY
+
+    ImageManager.DESK_SML =     "src/img/indexers/Desk.png";                // DESK(SMALL)
+    ImageManager.DESK_MED =     "src/img/indexers/Desk2.png";               // DESK(MEDIUM)
+    ImageManager.DESK_LRG =     "src/img/indexers/Desk3.png";               // DESK(SUPER_COOL)
 
     ImageManager.ANC_STAN =     "src/img/ancestors/animAnc.png";            // STANDARD ANCESTOR
-    ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";           // NAMELESS ANCESTOR
+    ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";       // NAMELESS ANCESTOR
 
     return ImageManager;
 });

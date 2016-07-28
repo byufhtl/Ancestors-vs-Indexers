@@ -9,7 +9,6 @@ define(['model/IAncestor'],function() {
         this.secondsBetweenWaves = 5;
         this.spawnRecordTimer = 0;
         this.timeToNextRecordSpawn = 0;
-        this.projectileSpeed = 80;
 
         this.doneSpawning = false;
         this.ancestorsDefeated = false;
@@ -69,22 +68,7 @@ define(['model/IAncestor'],function() {
             var rec = activeProjectiles[i];
             rec.timeRemaining -= timeElapsed;
             if(rec.timeRemaining > 0) {
-                if (rec.orientation == "upRight") {
-                    rec.xCoord += timeElapsed * this.projectileSpeed;
-                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
-                }
-                else if (rec.orientation == "downRight") {
-                    rec.xCoord += timeElapsed * this.projectileSpeed;
-                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
-                }
-                else if (rec.orientation == "upLeft") {
-                    rec.xCoord -= timeElapsed * this.projectileSpeed;
-                    rec.yCoord -= timeElapsed * this.projectileSpeed / 2;
-                }
-                else if (rec.orientation == "downLeft") {
-                    rec.xCoord -= timeElapsed * this.projectileSpeed;
-                    rec.yCoord += timeElapsed * this.projectileSpeed / 2;
-                }
+                activeProjectiles[i].move(timeElapsed);
             }
             else{
                 activeProjectiles.splice(i--,1);
@@ -162,51 +146,10 @@ define(['model/IAncestor'],function() {
 
 
 
-    Update.prototype.updateAncestorsPosition = function (activeAncestors, modifier) {
+    Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed) {
 
         for (var i = 0; i < activeAncestors.length; i++) {
-
-            //check whether to move up or down
-            if (activeAncestors[i].distanceMovedX >= 300)
-            {
-                var numNodes = activeAncestors[i].currentGeneration + 1;
-                var firstNodeY = - activeAncestors[i].currentGeneration * 150 + 300;
-                //check if moving up is impossible
-                if (Math.abs(firstNodeY - activeAncestors[i].yCoord) < 150)
-                {
-                     activeAncestors[i].upOrDown = "up";
-                }
-                //check if moving down is impossible
-                else if (((firstNodeY + (numNodes - 1) * 300) - activeAncestors[i].yCoord) < 150)
-                {
-                      activeAncestors[i].upOrDown = "down";
-                }
-                else
-                {
-                    var random = Math.random();
-                    if (random > 0.5)
-                    {
-                        activeAncestors[i].upOrDown = "up";
-                    }
-                    else
-                    {
-                        activeAncestors[i].upOrDown = "down";
-                    }
-                }
-                activeAncestors[i].distanceMovedX = 0;
-                activeAncestors[i].currentGeneration--;
-            }
-            //move ancestor diagonally according to speed
-            activeAncestors[i].distanceMovedX += modifier * activeAncestors[i].speed;
-            activeAncestors[i].xCoord -= modifier * activeAncestors[i].speed;
-            if (activeAncestors[i].upOrDown == "up")
-            {
-                activeAncestors[i].yCoord += modifier * activeAncestors[i].speed / 2;
-            }
-            else if (activeAncestors[i].upOrDown == "down")
-            {
-                activeAncestors[i].yCoord -= modifier * activeAncestors[i].speed / 2;
-            }
+            activeAncestors[i].move(timeElapsed);
         }
     };
 

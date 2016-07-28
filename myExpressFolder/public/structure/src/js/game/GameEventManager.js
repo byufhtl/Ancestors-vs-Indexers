@@ -60,7 +60,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
               self.handle(showAncestorInfoEvent);
             }
         });
-        
+
     };
 
     GameEventManager.prototype.getClosestNode = function(clickLocation)
@@ -129,7 +129,9 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
             case "uber":
                 return new Uber();
                 break;
-            case "specialist":
+
+            case "researcher":
+                console.log("making a researcher");
                 return new Specialist();
                 break;
         }
@@ -185,6 +187,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
         var realPointClicked = event.data.point;
+
         //check if we clicked on a record. If not, check if we clicked a node
         if (!this.recordClicked(realPointClicked))
         {
@@ -222,8 +225,8 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
-            case Sig.SPCL_IDX:
-                self.clickContext = {elementType:"indexer", class:"specialist", cost:30};
+            case Sig.RSCH_IDX:
+                self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
                 break;
         }
     };

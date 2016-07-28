@@ -5,13 +5,13 @@
 require.config({
     baseUrl: 'src/js',
     paths: {
-        splash: 'Splash',
+        spleash: 'RevisedSplash',
         familysearch: 'https://cdn.jsdelivr.net/familysearch-javascript-sdk/2.4.5/familysearch-javascript-sdk.min',
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min',
         bootstrap: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min'
     },
     shim: {
-        splash: {
+        spleash: {
             deps: ['jquery']
         },
         familysearch:{
@@ -23,16 +23,10 @@ require.config({
     }
 });
 
-require(['jquery', 'familysearch', 'bootstrap', 'splash'],function($, FamilySearch, Bootstrap, Splash){
-    console.log("THIS IS THE WRONG MAIN OG:WIRH:OGHNW:OGIH:WOIRG");
+require(['jquery', 'familysearch', 'bootstrap', 'spleash'],function($, FamilySearch, Bootstrap, Splash){
+    var header = "[]===================================================================[]";
+    console.log(header, "\n\tFinalreFactory Code Base\n", header, "\n\n");
     var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
-
-    $.ajax({
-      url:'replace',
-      type: "POST",
-      data: JSON.stringify(myUser),
-      contentType: "application/json"
-    });
 
     var FS = new FamilySearch({
         // Copy your app key into the client_id parameter

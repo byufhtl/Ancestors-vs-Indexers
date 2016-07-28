@@ -4,7 +4,6 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
 
     var Splash = function(FS)
     {
-        console.log("THIS IS THE WRONG SPLASH OG:WIRH:OGHNW:OGIH:WOIRG");
         this.viewController = new ViewController();
         this.viewController.init();
 
@@ -22,7 +21,6 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
         this.familySearchHandler.checkAccessToken(function(eightGens){
             if (eightGens)
             {
-                console.log("Generations loaded, engaging commander. (", eightGens, ")");
                 //if we got family search data back then sync the LoaderUtils and start up the Commander
                 var imageManager = new ImageManager();
                 imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));
@@ -31,7 +29,6 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
             }
             else {
                 tempObj["FS"] = this.familySearchHandler;
-                console.log("loading in the splash interface");
                 self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
             }
         });

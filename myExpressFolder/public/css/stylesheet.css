@@ -134,6 +134,15 @@ body{
     background-color: black;
 }
 
+.loading{
+    background-image: url("../src/img/Loading Screen.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100vm;
+    height: 100vm;
+    background-color: black;
+}
+
 .center{
     margin: auto;
 }
@@ -218,7 +227,7 @@ body{
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid rgba(0,0,0);
+    border: 1px solid rgb(0,0,0);
     width: 50%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
@@ -255,18 +264,18 @@ body{
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #552211;
+    background-color: #527bb4;
     color: white;
 }
 
 .modal-body {
     padding: 2px 16px;
-    background-color: #CCAA88;
+    background-color: #c5cdde;
 }
 
 .modal-footer {
     text-align: left;
     padding: 2px 16px;
-    background-color: #552211;
+    background-color: #527bb4;
     color: white;
 }

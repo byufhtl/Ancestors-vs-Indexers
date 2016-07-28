@@ -1,4 +1,4 @@
-define([],function() {
+define(['model/Projectile'],function(Projectile) {
 
     function IIndexer() {
       this.throwDelay = 4;
@@ -38,7 +38,7 @@ define([],function() {
         if (this.yNode == 0) {
           canShootUpLeft = false;
         }
-        if (this.yNode == numGenerations)
+        if (this.yNode == this.xNode)
         {
           canShootDownLeft = false;
         }
@@ -64,7 +64,10 @@ define([],function() {
           canShootDownRight = false;
           canShootUpLeft = false;
         }
-
+        console.log("canShootDownLeft", canShootDownLeft);
+        console.log("the x node: ", this.xNode);
+        console.log("the y node: ", this.yNode);
+        console.log("the number of genearations: ", numGenerations);
             switch(this.projectileOrientation)
             {
               case "upRight":
@@ -113,14 +116,12 @@ define([],function() {
                 }
                 break;
             }
-        return {
-            xCoord : this.xCoord + 5,
-            yCoord : this.yCoord + 20,
-            type : this.type,
-            dmg : this.dmg,
-            type: "normal",
-            orientation: this.projectileOrientation
-        }
+        var projectile = new Projectile();
+        projectile.xCoord = this.xCoord + 5;
+        projectile.yCoord = this.yCoord + 20;
+        projectile.dmg = this.dmg;
+        projectile.orientation = this.projectileOrientation;
+        return projectile;
     };
 
     return IIndexer;

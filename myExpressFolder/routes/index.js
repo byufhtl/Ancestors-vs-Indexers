@@ -46,10 +46,14 @@
      Yeah, I have no idea what I'm doing here...
      */
     router.get('/profile', function (req, res) {
-        Person.find({_id: req.body._id}, function (err, docs) {
+        console.log("trying to find the user at", req.query.id);
+
+        user.find({_id: req.query.id}, function (err, docs) {
             if (docs) {
-                res.statusCode(200).json(docs[0]);
+                console.log("we found the user ", docs[0]);
+                res.send(docs[0]);
             }
+
         });
     });
 

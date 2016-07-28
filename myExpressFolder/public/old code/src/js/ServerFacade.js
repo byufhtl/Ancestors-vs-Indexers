@@ -10,23 +10,19 @@ define(['jquery'],function($){
 
     ServerFacade.retrieveUserData = function(pid){
         var urlToHit = 'profile';
-        var data = {id:pid};
-        //data = JSON.stringify(data);
-        console.log("data before sending to server: ", data);
-        $.getJSON(urlToHit,data,function(data){
-            console.log("harhar, the data from the database is.... ", data);
+        $.getJSON(urlToHit, function(data){
+            console.log(data);
         });
     };
 
     ServerFacade.postUserData = function(objectToPost)
     {
-        var myUser = {_id: "bilbo", data: {age: '999', height: '1232'}};
+        var myUser = new user({_id: "bilbo", data: {age: '1232', height: '1232'}});
         $.ajax({
           url:'replace',
           type: "POST",
-          data: JSON.stringify(myUser),
+          data: JSON.stringinfy(myUser),
           contentType: "application/json",
           });
     }
-    return ServerFacade;
 });

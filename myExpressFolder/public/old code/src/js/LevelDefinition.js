@@ -1,16 +1,20 @@
 define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'],function(IAncestor, Nameless, FamilyMember) {
 
-    function LevelDefinition(){}
+    function LevelDefinition() {
+      this.rowHeight = 600/6;
+      this.rowWidth = 900;
+      this.topMargin = 105;
+    }
 
-    LevelDefinition.getScene = function(levelNum, sceneNum, eightGenerations)
+    LevelDefinition.prototype.getScene = function(levelNum, sceneNum, eightGenerations)
     {
         var levelData = LevelDefinition.parseScene(levelNum, sceneNum, eightGenerations);
 
-        LevelDefinition.setXYCoordinates(levelData, levelNum);
+        this.setXYCoordinates(levelData, levelNum);
         return levelData;
     };
 
-    LevelDefinition.getLevelStructure = function(actNum)
+    LevelDefinition.prototype.getLevelStructure = function(actNum)
     {
         var levelStructure = [];
         var offset = 150;
@@ -44,7 +48,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         return levelStructure;
     };
 
-    LevelDefinition.getNodeStructure = function(levelNum)
+    LevelDefinition.prototype.getNodeStructure = function(levelNum)
     {
         var nodeStructure = [];
         var offset = 300;
@@ -80,7 +84,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         return nodeStructure;
     };
 
-    LevelDefinition.setXYCoordinates = function(levelData, levelNum) {
+    LevelDefinition.prototype.setXYCoordinates = function(levelData, levelNum) {
         var numNodes = levelNum;
         var firstNodeYCoord = -numNodes * 150 + 300;
         for (var i = 0; i < levelData.length; i++) {
@@ -129,6 +133,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
     };
 
     LevelDefinition.parseScene = function(lvl, scene, eightGenerations){
+        var self = this;
         var level = [];
         var act_scheme = LevelDefinition.levels[lvl];               // Grab the act
         if(act_scheme){
@@ -146,7 +151,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                                 wave.push(new Nameless(j));
                                 break;
                             case 'f':
-                                wave.push(LevelDefinition.addFamilyMember(lvl, scene, eightGenerations));
+                                wave.push(self.addFamilyMember(lvl, scene, eightGenerations));
                             default:
                         }
                     }

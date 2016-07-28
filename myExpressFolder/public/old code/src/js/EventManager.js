@@ -2,54 +2,64 @@
  * Created by calvinmcm on 6/28/16.
  */
 
-define(['jquery','util/Sig', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber',
-    'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'LevelDefinition'],
-function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuilding, Library, LevelDefinition){
+define(['jquery','GEvent','ButtonManager', 'CanvasManager', 'Point', 'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', '../../structure/src/js/LevelDefinition'],
+function($,GEvent, ButtonManager, CanvasManager, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuilding, Library, LevelDefinition){
 
 
-    function EventManager(gameController){
-        this.controller = gameController;
+    function EventManager(ViewController, controller){
+        this.controller = controller;
+        this.viewController = ViewController;
+        this.buttonManager = null;
+        this.canvasManager = null;
         this.clickContext = null;
     }
 
     EventManager.prototype.init = function(){
         var self = this;
+        self.buttonManager = new ButtonManager(self);
+        self.canvasManager = new CanvasManager(self, self.controller.viewTransform);
+        self.canvasManager.init();
     };
 
     /**
      * The handler for events being passed from the button elements. Separated for convenience.
-     * @param event - See [Sig.js]
+     * @param event - See [GEvent.js]
      */
     EventManager.prototype.handleButtonEvent = function(event){
         var self = this;
         switch(event.type){
-            case Sig.CMND_ACT:
-                self.controller.handle(event);
+
+            case GEvent.CMND_ACT:
+                self.viewController.handle(event);
                 break;
-            case Sig.LD_INTFC:
-                self.controller.handle(event);
+
+            case GEvent.LD_INTFC:
+                self.viewController.handle(event);
                 break;
-            case Sig.LD_SDBAR:
-                self.controller.handle(event);
+
+            case GEvent.LD_SDBAR:
+                self.viewController.handle(event);
                 break;
-            case Sig.ST_CLICK:
+
+            case GEvent.ST_CLICK:
                 self.setClickContext(event);
                 break;
-            case Sig.BTN_ACTN:
+
+            case GEvent.BTN_ACTN:
                 switch (event.value){
-                    case Sig.NEXT_BTN:
+                    case GEvent.NEXT_BTN:
                         self.nextLevelButtonClicked();
                         break;
-                    case Sig.AGAN_BTN:
+                    case GEvent.AGAN_BTN:
                         self.playAgainButtonClicked();
                         break;
-                    case Sig.MENU_BTN:
+                    case GEvent.MENU_BTN:
                         self.mainMenuButtonClicked();
                         break;
-                    case Sig.LOGN_BTN:
+                    case GEvent.LOGN_BTN:
                         self.loginButtonClicked(event.data[0]);
                         break;
-                    case Sig.STRT_BTN:
+                    case GEvent.STRT_BTN:
                         self.startButtonClicked();
                         break;
                 }
@@ -58,66 +68,76 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
         }
     };
 
+    /**
+     * The handler for events being passed from the canvas element. Separated for convenience.
+     * @param event - See [GEvent.js]
+     */
+    EventManager.prototype.handleCanvasEvent = function(event){
+        var self = this;
+        switch(event.type){
+            case GEvent.CNVS_CLK:
+                self.handleCanvasClick(event);
+                break;
+        }
+    };
 
     /**
      * The primary handler for events coming from higher upstream.
-     * @param event - See [Sig.js]
+     * @param event - See [GEvent.js]
      */
     EventManager.prototype.handle = function(event)
     {
         var self = this;
         switch(event.type){
-            case Sig.CMND_ACT:          self.controller.handle(event);                                          break;
-            case Sig.ST_CLICK:          self.setClickContext(event);                                            break;
-            case Sig.BTN_ACTN:
-                switch (event.value) {
-                    case Sig.NEXT_BTN:  self.nextLevelButtonClicked();                                          break;
-                    case Sig.AGAN_BTN:  self.playAgainButtonClicked();                                          break;
-                    case Sig.MENU_BTN:  self.mainMenuButtonClicked();                                           break;
-                    case Sig.LOGN_BTN:  self.loginButtonClicked(event.data[0]);                                 break;
-                    case Sig.STRT_BTN:  self.startButtonClicked();                                              break;
-                }
+            case GEvent.TPBAR_LD:
+                self.buttonManager.handle(event);
                 break;
-            case Sig.LD_MODAL:
+            case GEvent.SDBAR_LD:
+                self.buttonManager.handle(event);
+                break;
+            case GEvent.INTFC_LD:
+                self.buttonManager.handle(event);
+                break;
+            case GEvent.LD_MODAL:
                 switch (event.value){
-                    case Sig.ANC_INFO:  self.controller.handle(event);                                          break;
+                    case GEvent.ANC_INFO:
+                        self.showAncestorInfo(event.data);
+                        break;
                 }
-                break;
-            case Sig.CNVS_CLK:          self.handleCanvasClick(event);                                          break;
-
+            break;
         }
     };
 
     /**
      * Changes the context that controls what happens when the user clicks on the main board.
-     * @param event - See [Sig.js]
+     * @param event - See [GEvent.js]
      */
     EventManager.prototype.setClickContext = function(event)
     {
         var self = this;
         switch(event.value){
-            case Sig.STAN_BLD:
+            case GEvent.STAN_BLD:
                 //console.log("set context to standardBuilding");
                 self.clickContext = {elementType:"building", class:"standardBuilding", cost:20};
                 break;
-            case Sig.LIBR_BLD:
+            case GEvent.LIBR_BLD:
                 //console.log("set context to library");
                 self.clickContext = {elementType:"building", class:"library", cost:30};
                 break;
-            case Sig.STAN_IDX:
+            case GEvent.STAN_IDX:
                 //console.log("set context to standardIndexer");
                 self.clickContext = {elementType:"indexer", class:"standardIndexer", cost:20};
                 break;
-            case Sig.HOBB_IDX:
+            case GEvent.HOBB_IDX:
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"hobbyist", cost:30};
                 break;
-            case Sig.UBER_IDX:
+            case GEvent.UBER_IDX:
                 //console.log("set context to hobbyist");
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
-            case Sig.RSCH_IDX:
-                self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
+            case GEvent.SPCL_IDX:
+                self.clickContext = {elementType:"indexer", class:"specialist", cost:30};
                 break;
         }
     };
@@ -146,8 +166,8 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
                 modal.modal('hide');
                 if (info[indexToShow + 1] != null)
                 {
-                  var showAncestorInfoEvent = new Sig(Sig.LD_MODAL, Sig.ANC_INFO, [indexToShow + 1]);
-                  self.lieutenant.handle(showAncestorInfoEvent);
+                  var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, [indexToShow + 1]);
+                  self.viewController.handle(showAncestorInfoEvent);
                 }
 
             }
@@ -157,8 +177,8 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
             modal.modal('hide');
             if (info[indexToShow + 1] != null)
             {
-              var showAncestorInfoEvent = new Sig(Sig.LD_MODAL, Sig.ANC_INFO, [indexToShow + 1]);
-              self.controller.handle(showAncestorInfoEvent);
+              var showAncestorInfoEvent = new GEvent(GEvent.LD_MODAL, GEvent.ANC_INFO, [indexToShow + 1]);
+              self.viewController.handle(showAncestorInfoEvent);
             }
 
         });
@@ -166,7 +186,7 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
 
     EventManager.prototype.startButtonClicked = function()
     {
-        this.controller.handle(new Sig(Sig.CMND_ACT, Sig.STRT_BTN));
+        this.viewController.handle(new GEvent(GEvent.CMND_ACT, GEvent.STRT_BTN));
     };
 
 
@@ -177,8 +197,8 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
 
     EventManager.prototype.nextLevelButtonClicked = function()
     {
-        this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));
-        this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
+        this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
+        this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
         var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
         this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
         this.controller.loop();
@@ -186,8 +206,8 @@ function($,Sig, Point, standardIndexer, Hobbyist, Uber, Specialist, standardBuil
 
     EventManager.prototype.playAgainButtonClicked = function()
     {
-        this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));
-        this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
+        this.viewController.handle(new GEvent(GEvent.LD_TPBAR, GEvent.GM_TPBAR));
+        this.viewController.handle(new GEvent(GEvent.LD_SDBAR, GEvent.BLNK_PNL));
         this.controller.initializeGame(this.controller.currentAct, this.controller.currentScene, {}); // replay level.
         this.controller.loop();
     };

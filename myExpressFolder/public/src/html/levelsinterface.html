@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<body>
-    <p>Someday, this will be a nice level selecting interface.</p>
+<head>
+    <meta charset="UTF-8">
+    <title>Ancestors vs Indexers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/levels.css">
+    <link rel="stylesheet" href="../../css/stylesheet.css">
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="icon" href="../img/favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300' rel='stylesheet' type='text/css'>
+</head>
+<body class="avi-theme-2">
+<div class="container-fluid" style="margin: 0; padding: 0; width: 100%; height: 100%;">
+    <div class="col-xs-12 lv-content avi-theme-2 lv-adjacent">
+        <div class="col-xs-2 fill-height lv-adjacent avi-theme-1" align="center">
+            <button type="button" class="btn lv-btn-select avi-theme-1-button-bold" id="lv-n-act">See Next Act -></button>
+            <button type="button" class="btn lv-btn-select avi-theme-1-button-bold" id="lv-n-scene">See Next Scene -></button>
+            <button type="button" class="btn lv-btn-select avi-theme-1-button-bold" id="lv-p-act">See Previous Act <-</button>
+            <button type="button" class="btn lv-btn-select avi-theme-1-button-bold" id="lv-p-scene">See Previous Scene <-</button>
+            <hr>
+            <div>
+                Place to display level information....
+            </div>
+        </div>
+        <div class="col-xs-8 fill-height lv-adjacent">
+            <div class="col-xs-12 fill-height" align="center">
+                <canvas style="width: 100%; height: 100%;"></canvas>
+            </div>
+        </div>
+        <div class="col-xs-2 fill-height lv-adjacent avi-theme-1" align="center">
+            <button type="button" class="btn-bar avi-theme-1-button-bold" style="min-height:100%;" id="lv-back">Back</button>
+            <input type="button" class="btn-bar avi-theme-1-button-bold" value="Go" id="lv-go"/>
+        </div>
+    </div>
+</div>
 </body>
 </html>

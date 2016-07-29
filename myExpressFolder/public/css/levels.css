@@ -1,0 +1,21 @@
+.lv-content{
+    height: 100%;
+}
+
+.lv-adjacent{
+    margin: 0;
+    padding: 0;
+}
+
+.lv-btn-unit{
+    min-height: 55%;
+    min-width: 85%;
+}
+
+.lv-btn-select{
+    margin: 5px;
+    padding: 5px;
+    min-height: 55px;
+    min-width: 170px;
+    border-radius: 5px;
+}

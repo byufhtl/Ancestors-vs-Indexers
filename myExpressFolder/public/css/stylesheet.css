@@ -279,3 +279,11 @@ body{
     background-color: #527bb4;
     color: white;
 }
+
+.fill-height{
+    min-height: 100%;
+}
+
+.fill-width{
+    min-width: 100%;
+}

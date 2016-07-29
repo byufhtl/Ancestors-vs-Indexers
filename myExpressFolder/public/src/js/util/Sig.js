@@ -41,6 +41,8 @@ define([],function(){
 
     Sig.    START_MM =          "sttmm";                // Start the Main Menu
     Sig.    INIT_GAM =          "inigm";                // Initialize Game call
+    Sig.    INIT_LVL =          "inilv";                // Initialize Levels Interface
+    Sig.    INIT_UPG =          "iniug";                // Initialize Upgrades Interface
     Sig.    DISBL_UI =          "disui";                // Disable UI components
     Sig.    ENABL_UI =          "enbui";                // Enable UI components
 

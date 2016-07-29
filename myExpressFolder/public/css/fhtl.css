@@ -44,11 +44,3 @@
     font-size: 28px;
     color: white;
 }
-
-.fill-height{
-    min-height: 100%;
-}
-
-.fill-width{
-    min-width: 100%;
-}

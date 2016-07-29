@@ -87,6 +87,7 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
                 var content = HTMLManager.getMainDiv();
                 var resource = self.loader.getResource(url);
                 content.html(self.loader.getResource(url));
+                console.log("loaded:", url);
                 self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_SCESS}));
             },
             function(failureResponse){

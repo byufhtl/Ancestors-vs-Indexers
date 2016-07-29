@@ -173,7 +173,7 @@ define(['model/IAncestor'],function() {
         else return false;
     };
 
-    Update.prototype.moveAnimFrames = function(activeAncestors, timeElapsed)
+    Update.prototype.moveAnimFrames = function(activeAncestors, nodeStructure, timeElapsed)
     {
         for (var i = 0; i < activeAncestors.length; i++)
         {
@@ -186,13 +186,28 @@ define(['model/IAncestor'],function() {
                 if (activeAncestors[i].animFrame >= (activeAncestors[i].numFrames - 1)) activeAncestors[i].animFrame = 0;
             }
         }
+        console
+        for (var i = 0; i < nodeStructure.length; i++)
+        {
+            for (var j = 0; j < nodeStructure[i].length; j++)
+            {
+                nodeStructure[i][j].animTimer += timeElapsed;
+                if (nodeStructure[i][j].animTimer > nodeStructure[i][j].timeBetweenFrames)
+                {
+                    nodeStructure[i][j].animTimer = 0;
+                    nodeStructure[i][j].animFrame++;
+                    if (nodeStructure[i][j].animFrame >= (nodeStructure[i][j].numFrames - 1)) nodeStructure[i][j].animFrame = 0;
+                }
+            }
+        }
     };
 
-    Update.prototype.update = function (active, timeElapsed, level, levelStructure, defeatedAncestorInfo) {
+    Update.prototype.update = function (active, timeElapsed, level, levelStructure, nodeStructure, defeatedAncestorInfo) {
         //spawn records and move them
         this.spawnRecord(active.records(), timeElapsed);
         this.moveRecords(active.records(), timeElapsed);
         this.spawnRecordsFromBuildings(active.buildings(), active.records(), timeElapsed, active);
+        this.moveAnimFrames(active.ancestors(), nodeStructure, timeElapsed);
 
         if (this.buffer(timeElapsed)) {
             //update indexers
@@ -208,7 +223,6 @@ define(['model/IAncestor'],function() {
             this.checkVictory(active);
             this.checkDefeat(active);
 
-            this.moveAnimFrames(active.ancestors(), timeElapsed);
 
         }
     };

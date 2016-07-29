@@ -100,7 +100,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
-              this.myUpdate.update(this.active, delta_s, this.level, this.levelStructure, this.defeatedAncestorInfo);
+              this.myUpdate.update(this.active, delta_s, this.level, this.levelStructure, this.nodeStructure, this.defeatedAncestorInfo);
               this.myRender.render(this.active, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
               this.updateCoordinates(0, 0);
           }

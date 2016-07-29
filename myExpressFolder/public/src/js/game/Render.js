@@ -200,7 +200,7 @@ define(['img/ImageManager'],function(ImageManager) {
                 if (!nodeStructure[i][j].occupied)
                 {
                     //draw node here
-                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].xCoord + this.viewTransform.t_offset_X + this.nodeOffset, nodeStructure[i][j].yCoord + this.viewTransform.t_offset_Y + this.nodeOffset);
+                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].animFrame * 50,0,50,50,nodeStructure[i][j].xCoord + this.viewTransform.t_offset_X + this.nodeOffset,nodeStructure[i][j].yCoord + this.viewTransform.t_offset_Y + this.nodeOffset,50,50);
                 }
             }
         }

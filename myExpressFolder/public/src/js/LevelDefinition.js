@@ -62,6 +62,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                     var tempNode = {};
                     tempNode.xCoord = xCoord;
                     tempNode.yCoord = yCoord;
+                    tempNode.animTimer = 0;
+                    tempNode.animFrame = 0;
+                    tempNode.numFrames = 50;
+                    tempNode.timeBetweenFrames = .07;
                     tempNode.occupied = false;
                     nodesForGeneration.push(tempNode);
                 }

@@ -13,29 +13,36 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.gameController = null;
         this.levelsController = null;
         this.upgradesController = null;
-        this.currentFocusLevel = {act: 3, scene: 1};
+        this.currentFocusLevel = {act: 1, scene: 1};
         this.userInformation = null;
         this.buttonFocus = this.gameController;
+
+        this.userData = null;
     }
 
-    Commander.prototype.start = function(eightGens){
+    Commander.prototype.start = function(eightGens, userInformation){
         var self = this;
-        self.viewController.assign(self);
-        self.eightGenerations = eightGens;
-        // Load up all of the images
-        self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS)).then(
-            function(failedArray){
-                if(failedArray.length){
-                    var report = "The Following Image Load Batches Failed to Load: " + failedArray.toString();
-                    self.king.handle(new Sig(Sig.SFAILURE), Sig.CRT_FAIL, {report: report});
+        ServerFacade.retrieveUserData(userInformation.data.id).then(function(resolution){
+            self.userData = resolution;
+            self.currentFocusLevel.act = self.userData.data.furthestAct; self.currentFocusLevel.scene = self.userData.data.furthestScene;
+            console.log("currentFocusLevel: ", self.currentFocusLevel);
+            self.viewController.assign(self);
+            self.eightGenerations = eightGens;
+            // Load up all of the images
+            self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS)).then(
+                function(failedArray){
+                    if(failedArray.length){
+                        var report = "The Following Image Load Batches Failed to Load: " + failedArray.toString();
+                        self.king.handle(new Sig(Sig.SFAILURE), Sig.CRT_FAIL, {report: report});
+                    }
+                    else {
+                        self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
+                    }
                 }
-                else {
-                    self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
-                }
-            }
-        );
+            );
+        });
         //ServerFacade.postUserData(null);
-        ServerFacade.retrieveUserData('bilbo');
+        //ServerFacade.retrieveUserData('bilbo');
     };
 
     Commander.prototype.handle = function(event){
@@ -89,6 +96,15 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         var self = this;
         if(event.value == Sig.LVL_VCTR){
             self.currentFocusLevel = LevelDefinition.getNextSceneInfo(self.currentFocusLevel.act, self.currentFocusLevel.scene);
+            if (self.currentFocusLevel.act > self.userData.data.furthestAct){
+                self.userData.data.furthestAct = self.currentFocusLevel.act;
+                self.userData.data.furthestScene = 1;
+            }
+            else if (self.currentFocusLevel.act == self.userData.data.furthestAct && self.currentFocusLevel.scene > self.userData.data.furthestScene){
+                self.userData.data.furthestScene = self.currentFocusLevel.scene;
+            }
+            self.userData.data.lastUpdate = Date.now();
+            ServerFacade.postUserData(this.userData);
         }
         else if(event.value == Sig.LVL_DEFT){
             // Nothing to do at the moment. TODO: Make a database and update it.

@@ -51,9 +51,19 @@
         user.find({_id: req.query.id}, function (err, docs) {
             if (docs) {
                 console.log("we found the user ", docs[0]);
-                res.send(docs[0]);
+                if (docs[0] != undefined){
+                    res.send(docs[0]);
+                }
+                else{
+                    console.log("creating a new entry in the database");
+                    var tempData = {_id:req.query.id,data:{furthestAct:1,furthestScene:1,lastUpdate:Date.now()}};
+                    console.log("temp data is:", tempData);
+                    var tempUser = new user(tempData);
+                    console.log("temp user is:", tempUser);
+                    tempUser.save();
+                    res.send(tempData);
+                }
             }
-
         });
     });
 

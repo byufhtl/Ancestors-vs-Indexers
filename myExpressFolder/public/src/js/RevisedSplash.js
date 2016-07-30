@@ -1,6 +1,6 @@
 define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
-    'view/ViewController', 'Commander'],
-    function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander) {
+    'view/ViewController', 'Commander', 'util/Order'],
+    function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander, Order) {
 
     var Splash = function(FS)
     {
@@ -14,25 +14,31 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
     Splash.prototype.init = function()
     {
         var self =  this;
-        self.viewController.assign(self); // Assign the viewController to reference this page as it's lieutenant
-        var tempObj = {};
+        var request = new Order();
+        request.addItem("src/html/loadingPage.html", Order.HTML, 15);
+        self.viewController.htmlManager.loader.loadResources(request).then(function(successResponse){
 
-        this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LD_INTFC, tempObj));
-        this.familySearchHandler.checkAccessToken(function(eightGens){
-            if (eightGens)
-            {
-                //if we got family search data back then sync the LoaderUtils and start up the Commander
-                var imageManager = new ImageManager();
-                imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));
-                self.controller = new Commander(imageManager, self.viewController, self);
-                self.controller.start(eightGens);
-            }
-            else {
-                tempObj["FS"] = this.familySearchHandler;
-                self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
-            }
+
+            self.viewController.assign(self); // Assign the viewController to reference this page as it's lieutenant
+            var tempObj = {};
+            self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.LD_INTFC, tempObj));
+
+            self.familySearchHandler.checkAccessToken(function(eightGens){
+                if (eightGens)
+                {
+                    //if we got family search data back then sync the LoaderUtils and start up the Commander
+                    var imageManager = new ImageManager();
+                    imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));
+                    self.controller = new Commander(imageManager, self.viewController, self);
+                    self.controller.start(eightGens, self.familySearchHandler.user);
+                }
+                else {
+                    tempObj["FS"] = this.familySearchHandler;
+                    console.log("loading the splash page");
+                    self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
+                }
+            });
         });
-
     };
 
     Splash.prototype.handle = function(event){

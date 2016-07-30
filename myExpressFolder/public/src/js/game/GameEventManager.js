@@ -2,8 +2,8 @@
  * Created by calvin on 7/26/16.
  */
 
-define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library'],
-function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBuilding, Library){
+define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library'],
+function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library){
 
     function GameEventManager(controller){
         this.controller = controller;
@@ -121,7 +121,9 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
     {
         switch (this.clickContext.class){
             case "standardIndexer":
-                return new IIndexer();
+                console.log("Indexer:", Indexer_Animated);
+                console.log("Specialist:", Specialist);
+                return new Indexer_Animated();
                 break;
             case "hobbyist":
                 return new Hobbyist();
@@ -182,8 +184,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
         $('#points').text(this.controller.active.resourcePoints);
     };
 
-    GameEventManager.prototype.handleCanvasClick = function(event)
-    {
+    GameEventManager.prototype.handleCanvasClick = function(event) {
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
         var realPointClicked = event.data.point;
@@ -198,6 +199,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
             }
         }
     };
+    
     /**
      * Changes the context that controls what happens when the user clicks on the main board.
      * @param event - See [Sig.js]
@@ -234,16 +236,14 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
     /**
      * Handler for when the start button is clicked
      */
-    GameEventManager.prototype.startButtonClicked = function()
-    {
+    GameEventManager.prototype.startButtonClicked = function() {
         this.controller.handle(new Sig(Sig.CMND_ACT, Sig.STRT_BTN));
     };
 
     /**
      * The next level button click handler
      */
-    GameEventManager.prototype.nextLevelButtonClicked = function()
-    {
+    GameEventManager.prototype.nextLevelButtonClicked = function() {
         this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_VCTR));    // Save
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
         this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
@@ -253,8 +253,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
         // this.controller.loop();
     };
 
-    GameEventManager.prototype.playAgainButtonClicked = function()
-    {
+    GameEventManager.prototype.playAgainButtonClicked = function() {
         this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_DEFT));    // Save
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
         this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
@@ -263,8 +262,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Hobbyist, Uber, Specialist, IBui
         // this.controller.loop();
     };
 
-    GameEventManager.prototype.mainMenuButtonClicked = function()
-    {
+    GameEventManager.prototype.mainMenuButtonClicked = function() {
         location.reload();
     };
 

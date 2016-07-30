@@ -1,4 +1,4 @@
-define(['model/IAncestor'],function() {
+define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
 
 
     function Update() {
@@ -11,6 +11,7 @@ define(['model/IAncestor'],function() {
         this.timeToNextRecordSpawn = 0;
 
         this.doneSpawning = false;
+        this.dsTimer = new DeltaClock();
         this.ancestorsDefeated = false;
     }
 
@@ -140,7 +141,7 @@ define(['model/IAncestor'],function() {
 
         for (var i = 0; i < activeIndexers.length; i++)
         {
-            activeIndexers[i].update(activeAncestors, timeElapsed, activeProjectiles, levelStructure);
+            activeIndexers[i].update(activeAncestors, timeElapsed, activeProjectiles, levelStructure, this.dsTimer);
         }
     };
 
@@ -209,7 +210,7 @@ define(['model/IAncestor'],function() {
             this.checkDefeat(active);
 
             this.moveAnimFrames(active.ancestors(), timeElapsed);
-
+            this.dsTimer.tick(timeElapsed);
         }
     };
 

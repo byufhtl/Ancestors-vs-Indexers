@@ -124,7 +124,11 @@ define(['img/ImageManager'],function(ImageManager) {
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
+
                     indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
+                    var location = activeIndexers[i].animation.currentLocation();
+                    this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50,50,50,activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer,activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer,50,50);
+                    return;
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
             if(activeIndexers[i].type == "specialist"){

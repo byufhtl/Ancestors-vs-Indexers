@@ -300,7 +300,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.REC_VLET =     "src/img/records/violetRecord.png";         // VIOLET RECORD
     ImageManager.REC_TRNS =     "src/img/records/emptyRecord.png";          // TRANSPARENT RECORD
 
-    ImageManager.STAN_IDX =     "src/img/indexers/bow-indexer.png";         // STANDARD INDEXER
+    ImageManager.STAN_IDX =     "src/img/indexers/novicesprite.png";        // STANDARD INDEXER
     ImageManager.HOBB_IDX =     "src/img/indexers/hobbyist.png";            // HOBBYIST INDEXER
     ImageManager.UBER_IDX =     "src/img/indexers/tree.png";                // TREE INDEXER
 

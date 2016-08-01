@@ -21,6 +21,11 @@ define(['indexers/Animations/IndexerAnimation', 'model/Projectile'],function (An
         }
     }
 
+    Indexer_Animated.prototype.getAnimation = function(){
+        console.log(this.animation.getStatus());
+        return this.animation;
+    };
+
     /**
      * Performs all updates on an indexer
      * @param activeAncestors The list of ancestors currently on the field.

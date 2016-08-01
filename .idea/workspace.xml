@@ -3,10 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/npm-debug.log" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/FamilyMember.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/FamilyMember.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,17 +31,26 @@
       <file leaf-file-name="Indexer_Animated.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="90" column="71" selection-start-line="90" selection-start-column="71" selection-end-line="90" selection-end-column="71" />
+            <state relative-caret-position="684">
+              <caret line="192" column="0" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
-                <element signature="e#8084#8406#0" expanded="false" />
+                <element signature="e#949#1354#0" expanded="false" />
+                <element signature="e#1481#1583#0" expanded="false" />
+                <element signature="e#1590#2058#0" expanded="false" />
+                <element signature="e#2182#3867#0" expanded="false" />
+                <element signature="e#3874#4154#0" expanded="false" />
+                <element signature="e#4228#4390#0" expanded="false" />
+                <element signature="e#4397#4605#0" expanded="false" />
+                <element signature="e#4677#7917#0" expanded="false" />
+                <element signature="e#7924#8164#0" expanded="false" />
+                <element signature="e#8230#8552#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Update.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Update.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="309">
@@ -50,21 +60,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndexerAnimation.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IndexerAnimation.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+            <state relative-caret-position="201">
+              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
-                <element signature="e#725#810#0" expanded="false" />
-                <element signature="e#1032#1237#0" expanded="false" />
-                <element signature="e#1244#1326#0" expanded="false" />
-                <element signature="e#1385#1608#0" expanded="false" />
-                <element signature="e#1677#1972#0" expanded="false" />
-                <element signature="e#2040#2333#0" expanded="false" />
-                <element signature="e#2398#2530#0" expanded="false" />
-                <element signature="e#2596#2730#0" expanded="false" />
+                <element signature="e#1291#1516#0" expanded="false" />
+                <element signature="e#1523#1605#0" expanded="false" />
+                <element signature="e#1664#1907#0" expanded="false" />
+                <element signature="e#1976#2311#0" expanded="false" />
+                <element signature="e#2379#2716#0" expanded="false" />
+                <element signature="e#2781#2913#0" expanded="false" />
+                <element signature="e#2979#3113#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -73,10 +82,14 @@
       <file leaf-file-name="DeltaClock.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
+            <state relative-caret-position="558">
+              <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
+                <element signature="e#69#994#0" expanded="false" />
+                <element signature="e#1020#1053#0" expanded="false" />
+                <element signature="e#1059#1355#0" expanded="false" />
+                <element signature="e#2129#2323#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -87,16 +100,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
               <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RevisedSplash.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-54">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,21 +125,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/app.js">
+      <file leaf-file-name="GameController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-261">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="495">
+              <caret line="166" column="36" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/main.js">
+      <file leaf-file-name="Render.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+            <state relative-caret-position="477">
+              <caret line="130" column="83" selection-start-line="130" selection-start-column="83" selection-end-line="130" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-261">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -197,16 +210,16 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/css/stylesheet.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/css/levels.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/html/levelsinterface.html" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/model/UserProfile.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" />
       </list>
     </option>
   </component>
@@ -710,12 +723,12 @@
       <workItem from="1469752259939" duration="14000" />
       <workItem from="1469805048257" duration="4778000" />
       <workItem from="1469901176619" duration="12593000" />
-      <workItem from="1470077064946" duration="3376000" />
+      <workItem from="1470077064946" duration="10214000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69781000" />
+    <option name="totallyTimeSpent" value="76619000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -770,7 +783,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -814,6 +827,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="48" column="10" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,22 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="56" column="26" selection-start-line="54" selection-start-column="6" selection-end-line="68" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="125" column="24" selection-start-line="125" selection-start-column="24" selection-end-line="125" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5436">
@@ -907,45 +907,6 @@
             <element signature="e#10335#10910#0" expanded="false" />
             <element signature="e#10980#11473#0" expanded="false" />
             <element signature="e#11542#11576#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="90" column="71" selection-start-line="90" selection-start-column="71" selection-end-line="90" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-            <element signature="e#8084#8406#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-            <element signature="e#725#810#0" expanded="false" />
-            <element signature="e#1032#1237#0" expanded="false" />
-            <element signature="e#1244#1326#0" expanded="false" />
-            <element signature="e#1385#1608#0" expanded="false" />
-            <element signature="e#1677#1972#0" expanded="false" />
-            <element signature="e#2040#2333#0" expanded="false" />
-            <element signature="e#2398#2530#0" expanded="false" />
-            <element signature="e#2596#2730#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -998,11 +959,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="166" column="36" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="170" column="92" selection-start-line="170" selection-start-column="92" selection-end-line="170" selection-end-column="92" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="130" column="83" selection-start-line="130" selection-start-column="83" selection-end-line="130" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="192" column="0" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#949#1354#0" expanded="false" />
+            <element signature="e#1481#1583#0" expanded="false" />
+            <element signature="e#1590#2058#0" expanded="false" />
+            <element signature="e#2182#3867#0" expanded="false" />
+            <element signature="e#3874#4154#0" expanded="false" />
+            <element signature="e#4228#4390#0" expanded="false" />
+            <element signature="e#4397#4605#0" expanded="false" />
+            <element signature="e#4677#7917#0" expanded="false" />
+            <element signature="e#7924#8164#0" expanded="false" />
+            <element signature="e#8230#8552#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#69#994#0" expanded="false" />
+            <element signature="e#1020#1053#0" expanded="false" />
+            <element signature="e#1059#1355#0" expanded="false" />
+            <element signature="e#2129#2323#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#1291#1516#0" expanded="false" />
+            <element signature="e#1523#1605#0" expanded="false" />
+            <element signature="e#1664#1907#0" expanded="false" />
+            <element signature="e#1976#2311#0" expanded="false" />
+            <element signature="e#2379#2716#0" expanded="false" />
+            <element signature="e#2781#2913#0" expanded="false" />
+            <element signature="e#2979#3113#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

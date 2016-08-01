@@ -30,6 +30,12 @@ define([],function(){
         this.head = null;
     }
 
+    /**
+     * Adds an event to the clock at the given time. The function event is called with the parameter(s) passed in via params.
+     * @param time The time to fire the event at
+     * @param action The function for the event
+     * @param params Parameters needed by the event function.
+     */
     DeltaClock.prototype.add = function(time, action, params){
         var self = this;
         var focus = self.head;
@@ -55,9 +61,14 @@ define([],function(){
         }
     };
 
+    /**
+     * Ticks the deltaClock, calling all events within the given dt amount.
+     * @param dt The amount of time elapsed. Should have units relative to the events stored in the clock.
+     */
     DeltaClock.prototype.tick = function(dt){
         var self = this;
         while(self.head && self.head.time <= dt){
+            console.log("Firing event data:", self.head);
             self.head.action(self.head.params);
             dt -= self.head.time;
             self.head = self.head.next;

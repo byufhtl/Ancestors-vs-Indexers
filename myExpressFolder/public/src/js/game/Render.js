@@ -114,6 +114,7 @@ define(['img/ImageManager'],function(ImageManager) {
         var indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
         for (var i = 0; i < activeIndexers.length; i++)
         {
+            console.log("Animating Indexer of type:", activeIndexers[i].type);
             switch(activeIndexers[i].type){
                 case "hobbyist":
                     indexerImg = this.imageManager.getImage(ImageManager.HOBB_IDX);
@@ -128,9 +129,15 @@ define(['img/ImageManager'],function(ImageManager) {
                 default:
 
                     indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
-                    var location = activeIndexers[i].animation.currentLocation();
-                    this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50,50,50,activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer,activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer,50,50);
-                    return;
+                    // if(activeIndexers[i].hasOwnProperty("getAnimation")) {
+                        var location = activeIndexers[i].getAnimation().currentLocation();
+                        console.log("Drawing sprite", location);
+                        this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50, 50, 50, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, 50, 50);
+                        return;
+                    // }
+                    // else{
+                    //     console.log(activeIndexers[i]);
+                    // }
             }
             this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
             if(activeIndexers[i].type == "specialist"){
@@ -226,14 +233,12 @@ define(['img/ImageManager'],function(ImageManager) {
         }
         */
         this.ctx.drawImage(tree, 0, 0, tree.width/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, tree.width/8 * levelStructure.length, tree.height);
-    }
+    };
 
     Render.prototype.reset = function()
     {
         this.resizeOnce = true;
-    }
-
-
+    };
 
     Render.prototype.render = function(active, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);

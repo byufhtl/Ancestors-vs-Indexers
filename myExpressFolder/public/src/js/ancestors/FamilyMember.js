@@ -9,6 +9,7 @@ define(['model/IAncestor'],function(IAncestor){
         this.type = "familyMember";
         this.name = "joe";
         this.data;
+        this.animTimer = 0;
     }
 
     FamilyMember.prototype = new IAncestor(FamilyMember.prototype.lane);
@@ -18,8 +19,6 @@ define(['model/IAncestor'],function(IAncestor){
     FamilyMember.prototype.hp = 1;
 
     FamilyMember.prototype.animTimer = 0;
-
-    FamilyMember.prototype.animFrame = 0;
 
     FamilyMember.prototype.numFrames = 13;
 

@@ -25,8 +25,8 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         var doThis = function(resolution){
             if(resolution) {
                 self.userData = resolution;
-                self.currentFocusLevel.act = self.userData.data.furthestAct;
-                self.currentFocusLevel.scene = self.userData.data.furthestScene;
+                // self.currentFocusLevel.act = self.userData.data.furthestAct;
+                // self.currentFocusLevel.scene = self.userData.data.furthestScene;
             }
             else{
                 if(userInformation.data.id == "cis.user.MMMM-6M3N") {

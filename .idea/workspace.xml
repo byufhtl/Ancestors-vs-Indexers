@@ -3,13 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/npm-debug.log" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/FamilyMember.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/FamilyMember.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/UserProfile.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/UserProfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Update.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Update.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="38" column="74" selection-start-line="38" selection-start-column="74" selection-end-line="38" selection-end-column="74" />
+            <state relative-caret-position="309">
+              <caret line="170" column="92" selection-start-line="170" selection-start-column="92" selection-end-line="170" selection-end-column="92" />
               <folding />
             </state>
           </provider>
@@ -85,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commander.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Commander.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
+            <state relative-caret-position="144">
+              <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -204,12 +201,12 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/model/UserProfile.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js" />
       </list>
     </option>
   </component>
@@ -713,12 +710,12 @@
       <workItem from="1469752259939" duration="14000" />
       <workItem from="1469805048257" duration="4778000" />
       <workItem from="1469901176619" duration="12593000" />
-      <workItem from="1470077064946" duration="2824000" />
+      <workItem from="1470077064946" duration="3376000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69229000" />
+    <option name="totallyTimeSpent" value="69781000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -953,14 +950,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="38" column="74" selection-start-line="38" selection-start-column="74" selection-end-line="38" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-54">
@@ -1003,8 +992,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
+        <state relative-caret-position="144">
+          <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="170" column="92" selection-start-line="170" selection-start-column="92" selection-end-line="170" selection-end-column="92" />
           <folding />
         </state>
       </provider>

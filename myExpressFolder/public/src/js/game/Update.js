@@ -1,4 +1,4 @@
-define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
+define(['util/DeltaClock'],function(DeltaClock) {
 
 
     function Update() {
@@ -18,8 +18,6 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
     Update.prototype.checkVictory = function (active) {
         //did you beat the level?
         if (this.doneSpawning && active.ancestors().length == 0) {
-            console.log('victory');
-            console.log('i guess we won and active.ancestors is: ', active.ancestors);
             active.vtry = true;
             active.ended = true;
         }
@@ -30,7 +28,6 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
             if (active.ancestors()[i].xCoord <= 0) {
                 active.vtry = false;
                 active.ended = true;
-                console.log('defeat');
             }
         }
     };
@@ -201,8 +198,9 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
             this.checkVictory(active);
             this.checkDefeat(active);
 
-            this.moveAnimFrames(active.ancestors(), timeElapsed);
+            this.moveAnimFrames(active.ancestors(), nodeStructure, timeElapsed);
             this.dsTimer.tick(timeElapsed);
+
         }
     };
 

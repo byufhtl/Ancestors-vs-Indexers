@@ -24,7 +24,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         var self = this;
         ServerFacade.retrieveUserData(userInformation.data.id).then(function(resolution){
             self.userData = resolution;
-            self.currentFocusLevel.act = self.userData.data.furthestAct; self.currentFocusLevel.scene = self.userData.data.furthestScene;
+            //self.currentFocusLevel.act = self.userData.data.furthestAct; self.currentFocusLevel.scene = self.userData.data.furthestScene;
             console.log("currentFocusLevel: ", self.currentFocusLevel);
             self.viewController.assign(self);
             self.eightGenerations = eightGens;

@@ -22,9 +22,19 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
 
     Commander.prototype.start = function(eightGens, userInformation){
         var self = this;
-        ServerFacade.retrieveUserData(userInformation.data.id).then(function(resolution){
-            self.userData = resolution;
-            self.currentFocusLevel.act = self.userData.data.furthestAct; self.currentFocusLevel.scene = self.userData.data.furthestScene;
+        var doThis = function(resolution){
+            if(resolution) {
+                self.userData = resolution;
+                self.currentFocusLevel.act = self.userData.data.furthestAct;
+                self.currentFocusLevel.scene = self.userData.data.furthestScene;
+            }
+            else{
+                if(userInformation.data.id == "cis.user.MMMM-6M3N") {
+                    console.log("HACK!!!");
+                    self.userData = {data:{furthestAct: 1, furthestAct: 1}};
+                    self.currentFocusLevel.act = self.currentFocusLevel.scene = 1;
+                }
+            }
             console.log("currentFocusLevel: ", self.currentFocusLevel);
             self.viewController.assign(self);
             self.eightGenerations = eightGens;
@@ -40,7 +50,8 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
                     }
                 }
             );
-        });
+        };
+        ServerFacade.retrieveUserData(userInformation.data.id).then(doThis,doThis);
         //ServerFacade.postUserData(null);
         //ServerFacade.retrieveUserData('bilbo');
     };
@@ -90,7 +101,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
 
     Commander.prototype.returnMainMenu = function(){
         this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC));
-    }
+    };
 
     Commander.prototype.updateUser = function(event){
         var self = this;

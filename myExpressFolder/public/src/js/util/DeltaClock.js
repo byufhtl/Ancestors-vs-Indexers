@@ -65,7 +65,7 @@ define([],function(){
         if(self.head){
             self.head.time -= dt;
         }
-        console.log("tock...");
+        console.log("tock...", dt, self.head ? self.head.time : null);
     };
 
     return DeltaClock;

@@ -82,6 +82,7 @@ define([],function(){
 
     IndexerAnimation.prototype.safeIntervalTime = function(){
         return this.longestAnimatedSequence * this.dtAnim;
-    }
+    };
+    
     return IndexerAnimation;
 });

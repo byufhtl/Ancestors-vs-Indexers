@@ -37,7 +37,6 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
 
     //check if record ready to spawn
     Update.prototype.spawnRecord = function (activeRecords, timeElapsed) {
-
         this.spawnRecordTimer += timeElapsed;
         if (this.spawnRecordTimer > this.timeToNextRecordSpawn) {
             var collectableRecord = {
@@ -80,16 +79,12 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
 
 
     Update.prototype.checkProjectileCollision = function (activeProjectiles, activeAncestors) {
-
-        for (var i = 0; i < activeAncestors.length; i++)
-        {
-            for (var j = 0; j < activeProjectiles.length; j++)
-            {
+        for (var i = 0; i < activeAncestors.length; i++) {
+            for (var j = 0; j < activeProjectiles.length; j++) {
                 var distanceX = Math.abs(activeProjectiles[j].xCoord - (activeAncestors[i].xCoord));
                 var distanceY = Math.abs(activeProjectiles[j].yCoord - activeAncestors[i].yCoord);
                 //check if within hitting distance
-                if (distanceX < 20 && distanceY < 20)
-                {
+                if (distanceX < 20 && distanceY < 20) {
                     //deal damage to ancestor
                     activeAncestors[i].hp -= activeProjectiles[j].dmg;
                     //remove records
@@ -103,8 +98,7 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
     Update.prototype.checkDeadAncestors = function (activeAncestors, defeatedAncestorInfo) {
         for (var i = 0; i < activeAncestors.length; i++) {
             if (activeAncestors[i].hp <= 0) {
-                if (activeAncestors[i].type == "familyMember" && activeAncestors[i].name != 'joe')
-                {
+                if (activeAncestors[i].type == "familyMember" && activeAncestors[i].name != 'joe') {
                     defeatedAncestorInfo.push(activeAncestors[i].data);
                 }
                 activeAncestors.splice(i, 1);
@@ -121,14 +115,12 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
         }
         if (level[this.wave] != null) {
             for (var i = 0; i < level[this.wave].length; i++) {
-
                 activeAncestors.push(level[this.wave][i]);
                 console.log("adding an ancestor", activeAncestors);
             }
             level[this.wave] = [];
         }
         if (!this.doneSpawning) {
-
             if (this.wave >= level.length - 1) {
                 console.log("DONE SPAWNING");
                 this.doneSpawning = true;
@@ -136,11 +128,8 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
         }
     };
 
-    Update.prototype.updateIndexers = function(activeIndexers, activeAncestors, timeElapsed, activeProjectiles, levelStructure)
-    {
-
-        for (var i = 0; i < activeIndexers.length; i++)
-        {
+    Update.prototype.updateIndexers = function(activeIndexers, activeAncestors, timeElapsed, activeProjectiles, levelStructure) {
+        for (var i = 0; i < activeIndexers.length; i++) {
             activeIndexers[i].update(activeAncestors, timeElapsed, activeProjectiles, levelStructure, this.dsTimer);
         }
     };
@@ -148,7 +137,6 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
 
 
     Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed) {
-
         for (var i = 0; i < activeAncestors.length; i++) {
             activeAncestors[i].move(timeElapsed);
         }
@@ -168,36 +156,25 @@ define(['model/IAncestor','util/DeltaClock'],function(IAncestor, DeltaClock) {
 
     Update.prototype.buffer = function (timeElapsed) {
         this.levelStartBuffer += timeElapsed;
-        if (this.levelStartBuffer > 20) {
-            return true;
-        }
-        else return false;
+        return (this.levelStartBuffer > 20);
     };
 
-    Update.prototype.moveAnimFrames = function(activeAncestors, nodeStructure, timeElapsed)
-    {
-        for (var i = 0; i < activeAncestors.length; i++)
-        {
-
+    Update.prototype.moveAnimFrames = function(activeAncestors, nodeStructure, timeElapsed) {
+        for (var i = 0; i < activeAncestors.length; i++) {
             activeAncestors[i].animTimer += timeElapsed;
-            if (activeAncestors[i].animTimer > activeAncestors[i].timeBetweenFrames)
-            {
+            if (activeAncestors[i].animTimer > activeAncestors[i].timeBetweenFrames) {
                 activeAncestors[i].animTimer = 0;
                 activeAncestors[i].animFrame++;
                 if (activeAncestors[i].animFrame >= (activeAncestors[i].numFrames - 1)) activeAncestors[i].animFrame = 0;
             }
         }
-        console
-        for (var i = 0; i < nodeStructure.length; i++)
-        {
-            for (var j = 0; j < nodeStructure[i].length; j++)
-            {
+        for (var i = 0; i < nodeStructure.length; i++) {
+            for (var j = 0; j < nodeStructure[i].length; j++) {
                 nodeStructure[i][j].animTimer += timeElapsed;
-                if (nodeStructure[i][j].animTimer > nodeStructure[i][j].timeBetweenFrames)
-                {
+                if (nodeStructure[i][j].animTimer > nodeStructure[i][j].timeBetweenFrames) {
                     nodeStructure[i][j].animTimer = 0;
                     nodeStructure[i][j].animFrame++;
-                    if (nodeStructure[i][j].animFrame >= (nodeStructure[i][j].numFrames - 1)) nodeStructure[i][j].animFrame = 0;
+                    if (nodeStructure[i][j].animFrame >= (nodeStructure[i][j].numFrames - 1)){ nodeStructure[i][j].animFrame = 0; }
                 }
             }
         }

@@ -71,6 +71,7 @@ define(['jquery','util/Sig'], function($, Sig){
                 switch (event.value){
                     case Sig.BLDG_PNL:  self.loadBuildingButtons(event.data);                                   break;
                     case Sig.INDX_PNL:  self.loadIndexerButtons(event.data);                                    break;
+                    case Sig.DROP_PNL:  self.loadDropButtons(event.data);                                       break;
                     case Sig.VTRY_PNL:  self.loadVictoryButtons(event.data);                                    break;
                     case Sig.DEFT_PNL:  self.loadDefeatButtons(event.data);                                     break;
                 }                                                                                               break;
@@ -132,6 +133,7 @@ define(['jquery','util/Sig'], function($, Sig){
 
         var structures_button = $('#structures-button');
         var indexers_button = $('#indexers-button');
+        var drops_button = $('#drops-button');
 
         self.topbarButtons = [structures_button, indexers_button];
 
@@ -142,6 +144,10 @@ define(['jquery','util/Sig'], function($, Sig){
         indexers_button.click(function () {
             self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.INDX_PNL, data));
         });
+
+        drops_button.click(function() {
+            self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.DROP_PNL, data));
+        })
     };
 
 
@@ -221,6 +227,25 @@ define(['jquery','util/Sig'], function($, Sig){
         });
         button_4_image.click(function () {
             button_4.click()
+        });
+    };
+
+    ButtonManager.prototype.loadDropButtons = function (data) {
+        var self = this;
+        self.killAll(self.sidebarButtons);
+        var button_1 = $('#button-1-i');
+
+        var button_1_image = $('#button-1-img-i');
+
+        self.sidebarButtons.push(button_1);
+
+        button_1.click(function () {
+            console.log("clicked standIndexer btuton");
+            self.viewController.handle(new Sig(Sig.ST_CLICK, Sig.STRY_DRP, {}));
+        });
+
+        button_1_image.click(function () {
+            button_1.click()
         });
     };
 

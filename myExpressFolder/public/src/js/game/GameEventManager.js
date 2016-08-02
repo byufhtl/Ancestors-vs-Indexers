@@ -2,8 +2,8 @@
  * Created by calvin on 7/26/16.
  */
 
-define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library'],
-function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library){
+define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'drops/StoryTeller'],
+function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library, StoryTeller){
 
     function GameEventManager(controller){
         this.controller = controller;
@@ -148,6 +148,25 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         }
     };
 
+    GameEventManager.prototype.getNewDrop = function()
+    {
+        switch(this.clickContext.class){
+          case "StoryTeller":
+            return new StoryTeller();
+            break;
+        }
+    };
+
+
+    GameEventManager.prototype.addDrop = function(pointClicked) {
+        if (this.clickContext.elementType == "StoryTeller"){
+            var activeStoryTellers = self.controller.active.storyTellers();
+            var tempStoryTeller = new StoryTeller();
+            tempStoryTeller.xCoord =pointClicked.X;
+            tempStoryTeller.yCoord =pointClicked.Y;
+            activeStoryTellers.push(tempStoryTeller);
+        }
+    };
 
     GameEventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick) {
         var self = this;
@@ -175,6 +194,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
             tempIndexer.yNode = nearestNodeToClick.Y;
             this.controller.active.indexers().push(tempIndexer);
         }
+
         nodeStructure[nearestNodeToClick.X][nearestNodeToClick.Y].occupied = true;
         this.controller.active.resourcePoints -= this.clickContext.cost;
         $('#points').text(this.controller.active.resourcePoints);
@@ -188,14 +208,19 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         //check if we clicked on a record. If not, check if we clicked a node
         if (!this.recordClicked(realPointClicked))
         {
-            var nearestNodeToClick = this.getClosestNode(realPointClicked);
-            if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost <= this.controller.active.resourcePoints)
-            {
-                this.addIndexerOrBuilding(nearestNodeToClick);
+            if (this.clickContext.elementType == "drop"){
+                this.addDrop(realPointClicked);
+            }
+            else{
+                var nearestNodeToClick = this.getClosestNode(realPointClicked);
+                if (nearestNodeToClick != null && this.clickContext && this.clickContext.cost <= this.controller.active.resourcePoints)
+                {
+                    this.addIndexerOrBuilding(nearestNodeToClick);
+                }
             }
         }
     };
-    
+
     /**
      * Changes the context that controls what happens when the user clicks on the main board.
      * @param event - See [Sig.js]
@@ -225,6 +250,9 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
                 break;
             case Sig.RSCH_IDX:
                 self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
+                break;
+            case Sig.STRY_DRP:
+                self.clickContext = {elementType:"drop", class:"StoryTeller", cost:30};
                 break;
         }
     };

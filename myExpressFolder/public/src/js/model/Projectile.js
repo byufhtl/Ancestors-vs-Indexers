@@ -6,7 +6,7 @@ define([],function() {
         this.dmg = 0;
         this.type = "normal";
         this.orientation = "downRight";
-        this.projectileSpeed = 80;
+        this.projectileSpeed = 100;
     }
 
     Projectile.prototype.move = function(timeElapsed){

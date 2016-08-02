@@ -221,6 +221,9 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
             case Sig.INDX_PNL:
                 self.loadSidebar("src/html/indexers.html", value);
                 break;
+            case Sig.DROP_PNL:
+                self.loadSidebar("src/html/drops.html", value);
+                break;
             case Sig.VTRY_PNL:
                 self.loadSidebar("src/html/victory.html", value);
                 break;

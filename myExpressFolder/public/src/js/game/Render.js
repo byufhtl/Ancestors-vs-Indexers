@@ -228,7 +228,7 @@ define(['img/ImageManager'],function(ImageManager) {
           console.log(tree.width);
         }
         */
-        this.ctx.drawImage(tree, 100, 100, tree.width/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, tree.width/8 * levelStructure.length, tree.height);
+        this.ctx.drawImage(tree, 100, 100, (tree.width - 200)/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, (tree.width - 200)/8 * levelStructure.length, tree.height);
     };
 
     Render.prototype.reset = function()

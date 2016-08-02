@@ -72,6 +72,7 @@ define([],function(){
 
     Sig.    BLDG_PNL =          "bldpl";                // Building Panel
     Sig.    INDX_PNL =          "indpl";                // Indexer Panel
+    Sig.    DROP_PNL =          "dropl";                // Drops Panel
     Sig.    BLNK_PNL =          "blkpl";                // Blank Panel
     Sig.    VTRY_PNL =          "vtrpl";                // Victory Panel
     Sig.    DEFT_PNL =          "dftpl";                // Defeat Panel
@@ -99,6 +100,8 @@ define([],function(){
     Sig.    HOBB_IDX =          "hbidx";                // Hobbyist
     Sig.    UBER_IDX =          "ubidx";                // Unbeatable
     Sig.    RSCH_IDX =          "rsidx";                // Researcher
+
+    Sig.    STRY_DRP =          "stryd";                // StoryTeller
 
     // KEY SIGNALS =================================================================================================[]>
     Sig.    KEY_ACTN =          "kyact";                // Key Press                                *

@@ -9,15 +9,15 @@ define(['img/ImageManager'],function(ImageManager) {
         this.viewTransform = ViewTransform;
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
-        this.ancestorYBuffer = -50;
+        this.ancestorYBuffer = -70;
 
-        this.indexerXBuffer = -36;
-        this.indexerYBuffer = -50;
+        this.indexerXBuffer = -38;
+        this.indexerYBuffer = -73;
 
         this.nodeOffset = -25;
 
         this.projectileXOffset = -33;
-        this.projectileYOffset = -50;
+        this.projectileYOffset = -65;
 
         this.standardBuildingXOffset = -72/2;
         this.standardBuildingYOffset = -110/2;
@@ -78,11 +78,11 @@ define(['img/ImageManager'],function(ImageManager) {
 
                     ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,80,80);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,80,80);
             }
         }
     };
@@ -138,7 +138,7 @@ define(['img/ImageManager'],function(ImageManager) {
                     indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
                     var location = activeIndexers[i].getAnimation().currentLocation();
                     // console.log("Drawing sprite", location);
-                    this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50, 50, 50, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, 50, 50);
+                    this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50, 50, 50, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, 80, 80);
                     break;
             }
         }

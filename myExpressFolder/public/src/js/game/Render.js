@@ -42,8 +42,10 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderBackground = function()
     {
-        var bgImg = this.imageManager.getImage(ImageManager.GM_BKGRD);
-        this.ctx.drawImage(bgImg, -this.viewTransform.t_offset_X, -this.viewTransform.t_offset_Y, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
+        var bgImg = this.imageManager.getImage(ImageManager.BKGD_IMG);
+        // console.log("W/H:", bgImg.width, bgImg.height);
+        this.ctx.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height, 0, 0, this.canvas.width, this.canvas.height);
+        // this.ctx.drawImage(bgImg, (bgImg.width+this.viewTransform.t_offset_X/2)/4, (bgImg.height+this.viewTransform.t_offset_Y/2)/4, bgImg.width, bgImg.height, 0, 0, bgImg.width, bgImg.height); //, this.canvas.width, this.canvas.height);
     };
 
     Render.prototype.renderLightBeam = function()
@@ -114,40 +116,35 @@ define(['img/ImageManager'],function(ImageManager) {
         var indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
         for (var i = 0; i < activeIndexers.length; i++)
         {
-            console.log("Animating Indexer of type:", activeIndexers[i].type);
+            // console.log("Animating Indexer of type:", activeIndexers[i].type, "(" + i + "/" + activeIndexers.length + ")");
             switch(activeIndexers[i].type){
                 case "hobbyist":
                     indexerImg = this.imageManager.getImage(ImageManager.HOBB_IDX);
+                    this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
                     break;
                 case "uber":
                     indexerImg = this.imageManager.getImage(ImageManager.UBER_IDX);
+                    this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
                     break;
                 case "specialist":
                     indexerImg = this.imageManager.getImage(ImageManager.HOBB_IDX);
+                    this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
+                    if (activeIndexers[i].type == "specialist") {
+                        this.drawSpecialist(activeIndexers, i);
+                    }
                     break;
                 // More cases to be installed as we get more coded up.
                 default:
-
                     indexerImg = this.imageManager.getImage(ImageManager.STAN_IDX);
-                    // if(activeIndexers[i].hasOwnProperty("getAnimation")) {
-                        var location = activeIndexers[i].getAnimation().currentLocation();
-                        console.log("Drawing sprite", location);
-                        this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50, 50, 50, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, 50, 50);
-                        return;
-                    // }
-                    // else{
-                    //     console.log(activeIndexers[i]);
-                    // }
-            }
-            this.ctx.drawImage(indexerImg, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer);
-            if(activeIndexers[i].type == "specialist"){
-                this.drawSpecialist(activeIndexers, i);
+                    var location = activeIndexers[i].getAnimation().currentLocation();
+                    // console.log("Drawing sprite", location);
+                    this.ctx.drawImage(indexerImg, location.x * 50, location.y * 50, 50, 50, activeIndexers[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeIndexers[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, 50, 50);
+                    break;
             }
         }
     };
 
-    Render.prototype.renderProjectiles = function(activeProjectiles)
-    {
+    Render.prototype.renderProjectiles = function(activeProjectiles) {
         var recordImg = this.imageManager.getImage(ImageManager.REC_BRWN);
         for (var i = 0; i < activeProjectiles.length; i++) {
             switch (activeProjectiles[i].type) {
@@ -164,8 +161,7 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
-    Render.prototype.renderBuildings = function(activeBuildings)
-    {
+    Render.prototype.renderBuildings = function(activeBuildings) {
         var buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
         for (var i = 0; i < activeBuildings.length; i++) {
             switch (activeBuildings[i].type) {
@@ -243,7 +239,7 @@ define(['img/ImageManager'],function(ImageManager) {
     Render.prototype.render = function(active, canvas, translation, levelStructure, nodeStructure) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //this.renderBackground();
+        this.renderBackground();
         this.renderTree(levelStructure);
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);

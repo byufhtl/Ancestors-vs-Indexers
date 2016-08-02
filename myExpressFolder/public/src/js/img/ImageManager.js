@@ -137,7 +137,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
-            // order.addItem(ImageManager.GM_BKGRD, Order.IMAGE, 15);
+            order.addItem(ImageManager.BKGD_IMG, Order.IMAGE, 15);
             // order.addItem(ImageManager.GM_FRGRD, Order.IMAGE, 15);
             order.addItem(ImageManager.GM_VCTRY, Order.IMAGE, 15);
             order.addItem(ImageManager.GM_DFEAT, Order.IMAGE, 15);
@@ -288,6 +288,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.NODE_CIR =     "src/img/field/Nodes/node_blue.png";                   // NODE CIRCLE
     ImageManager.UND_TREE =     "src/img/field/underlayTree.png";           // UNDERLAY TREE
 
+    ImageManager.BKGD_IMG =     "src/img/field/Backdrop.png";               // BACKDROP IMAGE
     ImageManager.GM_VCTRY =     "src/img/victory.png";                      // VICTORY SCREEN
     ImageManager.GM_DFEAT =     "src/img/defeat.png";                       // DEFEAT SCREEN
 

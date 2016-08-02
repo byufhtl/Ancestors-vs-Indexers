@@ -285,8 +285,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA
-    ImageManager.NODE_CIR =     "src/img/field/Nodes/node_blue.png";                   // NODE CIRCLE
-    ImageManager.UND_TREE =     "src/img/field/underlayTree.png";           // UNDERLAY TREE
+    ImageManager.NODE_CIR =     "src/img/field/Nodes/node_blue.png";        // NODE CIRCLE
+    ImageManager.UND_TREE =     "src/img/field/underlay.png";               // UNDERLAY TREE
 
     ImageManager.BKGD_IMG =     "src/img/field/Backdrop.png";               // BACKDROP IMAGE
     ImageManager.GM_VCTRY =     "src/img/victory.png";                      // VICTORY SCREEN

@@ -98,8 +98,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         }
     };
 
-    GameEventManager.prototype.recordClicked = function(clickLocation)
-    {
+    GameEventManager.prototype.recordClicked = function(clickLocation) {
         var activeRecords = this.controller.active.records();
         for (var i = 0; i < activeRecords.length; i++)
         {
@@ -117,8 +116,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         return false;
     };
 
-    GameEventManager.prototype.getNewIndexer = function()
-    {
+    GameEventManager.prototype.getNewIndexer = function() {
         switch (this.clickContext.class){
             case "standardIndexer":
                 console.log("Indexer:", Indexer_Animated);
@@ -139,8 +137,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         }
     };
 
-    GameEventManager.prototype.getNewBuilding = function()
-    {
+    GameEventManager.prototype.getNewBuilding = function() {
         switch (this.clickContext.class){
           case "standardBuilding":
             return new IBuilding();
@@ -152,8 +149,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
     };
 
 
-    GameEventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick)
-    {
+    GameEventManager.prototype.addIndexerOrBuilding = function(nearestNodeToClick) {
         var self = this;
         var nodeStructure = this.controller.nodeStructure;
         if (this.clickContext.elementType == "building")

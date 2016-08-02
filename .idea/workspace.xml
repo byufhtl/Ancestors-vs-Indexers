@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/util/NodeStructure.js" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/myExpressFolder/npm-debug.log" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/img/field/Backdrop.png" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/img/field/Backdrop.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/NamelessAncestor.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/NamelessAncestor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,44 +53,9 @@
       <file leaf-file-name="Update.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3060">
-              <caret line="170" column="92" selection-start-line="170" selection-start-column="92" selection-end-line="170" selection-end-column="92" />
+            <state relative-caret-position="1238">
+              <caret line="179" column="88" selection-start-line="179" selection-start-column="88" selection-end-line="179" selection-end-column="88" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IndexerAnimation.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Animations/IndexerAnimation.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#40#0" expanded="false" />
-                <element signature="e#1291#1516#0" expanded="false" />
-                <element signature="e#1523#1605#0" expanded="false" />
-                <element signature="e#1664#1907#0" expanded="false" />
-                <element signature="e#1976#2311#0" expanded="false" />
-                <element signature="e#2379#2716#0" expanded="false" />
-                <element signature="e#2781#2913#0" expanded="false" />
-                <element signature="e#2979#3113#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeltaClock.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/util/DeltaClock.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#40#0" expanded="false" />
-                <element signature="e#69#994#0" expanded="false" />
-                <element signature="e#1020#1053#0" expanded="false" />
-                <element signature="e#1059#1355#0" expanded="false" />
-                <element signature="e#2129#2323#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -104,20 +70,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2988">
-              <caret line="166" column="36" selection-start-line="166" selection-start-column="36" selection-end-line="166" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Render.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
+            <state relative-caret-position="518">
               <caret line="230" column="41" selection-start-line="230" selection-start-column="41" selection-end-line="230" selection-end-column="41" />
               <folding />
             </state>
@@ -127,8 +83,30 @@
       <file leaf-file-name="LevelDefinition.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-756">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="864">
+              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="77" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NodeStructure.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/util/NodeStructure.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="655">
+              <caret line="51" column="95" selection-start-line="51" selection-start-column="95" selection-end-line="51" selection-end-column="95" />
+              <folding>
+                <element signature="e#0#39#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NamelessAncestor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/NamelessAncestor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -137,28 +115,42 @@
       <file leaf-file-name="GameEventManager.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2682">
-              <caret line="4" column="83" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
+            <state relative-caret-position="331">
+              <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="97" selection-end-column="9" />
               <folding>
-                <element signature="e#7910#8539#0" expanded="false" />
-                <element signature="e#8550#8690#0" expanded="false" />
-                <element signature="e#8756#9996#0" expanded="false" />
-                <element signature="e#10003#10066#0" expanded="false" />
-                <element signature="e#10130#10206#0" expanded="false" />
-                <element signature="e#10213#10267#0" expanded="false" />
-                <element signature="e#10335#10910#0" expanded="false" />
-                <element signature="e#10980#11473#0" expanded="false" />
-                <element signature="e#11542#11576#0" expanded="false" />
+                <element signature="e#4571#5195#0" expanded="false" />
+                <element signature="e#5256#5858#0" expanded="false" />
+                <element signature="e#5920#6148#0" expanded="false" />
+                <element signature="e#6235#7824#0" expanded="false" />
+                <element signature="e#7894#8523#0" expanded="false" />
+                <element signature="e#8534#8674#0" expanded="false" />
+                <element signature="e#8740#9980#0" expanded="false" />
+                <element signature="e#9987#10050#0" expanded="false" />
+                <element signature="e#10114#10190#0" expanded="false" />
+                <element signature="e#10197#10251#0" expanded="false" />
+                <element signature="e#10319#10894#0" expanded="false" />
+                <element signature="e#10964#11457#0" expanded="false" />
+                <element signature="e#11526#11560#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageManager.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ImageManager.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="182">
               <caret line="287" column="76" selection-start-line="287" selection-start-column="76" selection-end-line="287" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IAncestor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -181,7 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ViewController.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ImageManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/GameController.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/Render.js" />
@@ -219,7 +210,6 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/css/stylesheet.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/css/levels.css" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/html/levelsinterface.html" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ServerFacade.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/model/UserProfile.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
@@ -229,6 +219,11 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/NamelessAncestor.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/util/NodeStructure.js" />
       </list>
     </option>
   </component>
@@ -337,32 +332,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="structure" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -427,156 +396,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildings" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="ancestors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -600,28 +419,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ancestors-vs-Indexers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="myExpressFolder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -733,12 +530,12 @@
       <workItem from="1469805048257" duration="4778000" />
       <workItem from="1469901176619" duration="12593000" />
       <workItem from="1470077064946" duration="12180000" />
-      <workItem from="1470148754965" duration="5037000" />
+      <workItem from="1470148754965" duration="10619000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83622000" />
+    <option name="totallyTimeSpent" value="89204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -750,7 +547,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3309157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3309157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -798,15 +595,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/menu.html" />
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/index.html" />
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/html/mainmenu.html" />
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/Animator.js" />
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/structure/src/js/LevelDefinition.js" />
@@ -966,44 +754,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3060">
-          <caret line="170" column="92" selection-start-line="170" selection-start-column="92" selection-end-line="170" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2682">
-          <caret line="4" column="83" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
-          <folding>
-            <element signature="e#7910#8539#0" expanded="false" />
-            <element signature="e#8550#8690#0" expanded="false" />
-            <element signature="e#8756#9996#0" expanded="false" />
-            <element signature="e#10003#10066#0" expanded="false" />
-            <element signature="e#10130#10206#0" expanded="false" />
-            <element signature="e#10213#10267#0" expanded="false" />
-            <element signature="e#10335#10910#0" expanded="false" />
-            <element signature="e#10980#11473#0" expanded="false" />
-            <element signature="e#11542#11576#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-756">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1028,19 +782,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="230" column="41" selection-start-line="230" selection-start-column="41" selection-end-line="230" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="287" column="76" selection-start-line="287" selection-start-column="76" selection-end-line="287" selection-end-column="76" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Render.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="230" column="41" selection-start-line="230" selection-start-column="41" selection-end-line="230" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/Update.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1238">
+          <caret line="179" column="88" selection-start-line="179" selection-start-column="88" selection-end-line="179" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/model/IAncestor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/ancestors/NamelessAncestor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/game/GameEventManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="97" selection-end-column="9" />
+          <folding>
+            <element signature="e#4571#5195#0" expanded="false" />
+            <element signature="e#5256#5858#0" expanded="false" />
+            <element signature="e#5920#6148#0" expanded="false" />
+            <element signature="e#6235#7824#0" expanded="false" />
+            <element signature="e#7894#8523#0" expanded="false" />
+            <element signature="e#8534#8674#0" expanded="false" />
+            <element signature="e#8740#9980#0" expanded="false" />
+            <element signature="e#9987#10050#0" expanded="false" />
+            <element signature="e#10114#10190#0" expanded="false" />
+            <element signature="e#10197#10251#0" expanded="false" />
+            <element signature="e#10319#10894#0" expanded="false" />
+            <element signature="e#10964#11457#0" expanded="false" />
+            <element signature="e#11526#11560#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/LevelDefinition.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="77" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/util/NodeStructure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="655">
+          <caret line="51" column="95" selection-start-line="51" selection-start-column="95" selection-end-line="51" selection-end-column="95" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

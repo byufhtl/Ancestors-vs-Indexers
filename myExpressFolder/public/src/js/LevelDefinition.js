@@ -44,21 +44,17 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         return levelStructure;
     };
 
-    LevelDefinition.getNodeStructure = function(levelNum)
-    {
+    LevelDefinition.getNodeStructure = function(levelNum) {
         var nodeStructure = [];
         var offset = 300;
-        for (var i = 0; i < levelNum + 1; i++)
-        {
+        for (var i = 0; i < levelNum + 1; i++) {
             var type = "alpha";
             var nodesForGeneration = [];
             var numNodes = i * 2 + 1;
             var xCoord = i * 300;
             var yCoord = - i * 150 + offset;
-            for (var j = 0; j < numNodes; j++)
-            {
-                if (type == "alpha")
-                {
+            for (var j = 0; j < numNodes; j++) {
+                if (type == "alpha") {
                     var tempNode = {};
                     tempNode.xCoord = xCoord;
                     tempNode.yCoord = yCoord;
@@ -67,15 +63,14 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                     tempNode.numFrames = 50;
                     tempNode.timeBetweenFrames = .07;
                     tempNode.occupied = false;
+                    tempNode.redirect = "none";
                     nodesForGeneration.push(tempNode);
                 }
                 yCoord += 150;
-                if (type == "alpha")
-                {
+                if (type == "alpha") {
                   type = "beta";
                 }
-                else
-                {
+                else {
                   type = "alpha";
                 }
             }
@@ -99,8 +94,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 // Draw up coordinates
                 var y_coord = firstNodeYCoord + randNode * 300;
                 var x_coord = (levelNum) * 300;
-                levelData[i][j].xCoord = x_coord;
-                levelData[i][j].yCoord = y_coord;
+                levelData[i][j].setX(x_coord, levelNum);
+                levelData[i][j].setY(y_coord, firstNodeYCoord + randNode);
                 levelData[i][j].currentGeneration = levelNum;
             }
         }
@@ -144,10 +139,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                     for(var j in wave_scheme){                      // for each element in the subarray
                         switch(wave_scheme[j]){                     //  -push the correct ancestor type
                             case 'a':
-                                wave.push(new IAncestor(j));
+                                wave.push(new IAncestor());
                                 break;
                             case 'n':
-                                wave.push(new Nameless(j));
+                                wave.push(new Nameless());
                                 break;
                             case 'f':
                                 wave.push(LevelDefinition.addFamilyMember(lvl, scene, eightGenerations));

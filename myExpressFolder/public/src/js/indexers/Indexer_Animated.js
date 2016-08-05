@@ -21,6 +21,44 @@ define(['indexers/Animations/IndexerAnimation', 'model/Projectile'],function (An
         }
     }
 
+    Indexer_Animated.prototype.initialize = function(numGenerations){
+        var self = this;
+        self.canShootUpLeft = true;
+        self.canShootUpRight = true;
+        self.canShootDownLeft = true;
+        self.canShootDownRight = true;
+
+        if (this.yNode == 0) {
+            self.canShootUpLeft = false;
+        }
+        if (this.yNode == this.xNode)
+        {
+            self.canShootDownLeft = false;
+        }
+        if (this.xNode == numGenerations)
+        {
+            self.canShootUpRight = false;
+            self.canShootDownRight = false;
+        }
+        if (this.xNode == 0)
+        {
+            self.canShootUpLeft = false;
+            self.canShootDownLeft = false;
+        }
+        if (this.xNode == numGenerations && this.yNode == numGenerations)
+        {
+            self.canShootDownLeft = false;
+            self.canShootUpRight = false;
+            self.canShootDownRight = false;
+        }
+        if (this.xNode == numGenerations && this.yNode == 0)
+        {
+            self.canShootUpRight = false;
+            self.canShootDownRight = false;
+            self.canShootUpLeft = false;
+        }
+    };
+
     Indexer_Animated.prototype.getAnimation = function(){
         // console.log(this.animation.getStatus());
         return this.animation;
@@ -96,88 +134,50 @@ define(['indexers/Animations/IndexerAnimation', 'model/Projectile'],function (An
     Indexer_Animated.prototype.getProjectile = function(numGenerations){
         var self = this;
 
-        var canShootUpLeft = true;
-        var canShootUpRight = true;
-        var canShootDownLeft = true;
-        var canShootDownRight = true;
-
-        if (this.yNode == 0) {
-            canShootUpLeft = false;
-        }
-        if (this.yNode == this.xNode)
-        {
-            canShootDownLeft = false;
-        }
-        if (this.xNode == numGenerations)
-        {
-            canShootUpRight = false;
-            canShootDownRight = false;
-        }
-        if (this.xNode == 0)
-        {
-            canShootUpLeft = false;
-            canShootDownLeft = false;
-        }
-        if (this.xNode == numGenerations && this.yNode == numGenerations)
-        {
-            canShootDownLeft = false;
-            canShootUpRight = false;
-            canShootDownRight = false;
-        }
-        if (this.xNode == numGenerations && this.yNode == 0)
-        {
-            canShootUpRight = false;
-            canShootDownRight = false;
-            canShootUpLeft = false;
-        }
-        // console.log("canShootDownLeft", canShootDownLeft);
-        // console.log("the x node: ", this.xNode);
-        // console.log("the y node: ", this.yNode);
-        // console.log("the number of genearations: ", numGenerations);
         switch(this.projectileOrientation)
         {
             case "upRight":
-                if (canShootDownRight){
+                if (self.canShootDownRight){
                     this.projectileOrientation = "downRight";
                 }
-                else if (canShootDownLeft){
+                else if (self.canShootDownLeft){
                     this.projectileOrientation = "downLeft";
                 }
-                else if (canShootUpLeft){
+                else if (self.canShootUpLeft){
                     this.projectileOrientation = "upLeft";
                 }
                 break;
             case "downRight":
-                if (canShootDownLeft){
+                if (self.canShootDownLeft){
                     this.projectileOrientation = "downLeft";
                 }
-                else if (canShootUpLeft){
+                else if (self.canShootUpLeft){
                     this.projectileOrientation = "upLeft";
                 }
-                else if (canShootUpRight){
+                else if (self.canShootUpRight){
                     this.projectileOrientation = "upRight";
                 }
                 break;
             case "downLeft":
-                if (canShootUpLeft){
+                if (self.canShootUpLeft){
                     this.projectileOrientation = "upLeft";
                 }
-                else if (canShootUpRight){
+                else if (self.canShootUpRight){
                     this.projectileOrientation = "upRight";
                 }
-                else if (canShootDownRight){
+                else if (self.canShootDownRight){
                     this.projectileOrientation = "downRight";
                 }
                 break;
             case "upLeft":
-                if (canShootUpRight)
+                if (self.canShootUpRight)
                 {
                     this.projectileOrientation = "upRight";
                 }
-                else if (canShootDownRight){
+                else if (self.canShootDownRight){
                     this.projectileOrientation = "downRight";
                 }
-                else if (canShootDownLeft){
+                else if (self.canShootDownLeft){
                     this.projectileOrientation = "downLeft";
                 }
                 break;

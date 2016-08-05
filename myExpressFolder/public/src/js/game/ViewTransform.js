@@ -46,8 +46,8 @@ define(['util/Point'],function(Point){
      * @constructor
      */
     ViewTransform.prototype.WtoV = function(pt){
-        var newX = pt.X - this.t_offset_X - 200;
-        var newY = pt.Y - this.t_offset_Y - 135;
+        var newX = pt.X - this.t_offset_X - 0;
+        var newY = pt.Y - this.t_offset_Y - 60;
         return new Point(newX, newY);
     };
 
@@ -58,8 +58,8 @@ define(['util/Point'],function(Point){
      * @constructor
      */
     ViewTransform.prototype.VtoW = function(pt){
-        var newX = pt.X + this.t_offset_X + 200;
-        var newY = pt.Y + this.t_offset_Y + 135;
+        var newX = pt.X + this.t_offset_X + 0;
+        var newY = pt.Y + this.t_offset_Y + 60;
         return new Point(newX, newY);
     };
 

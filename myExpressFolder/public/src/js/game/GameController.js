@@ -135,9 +135,13 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.activeProjectiles = [];
           this.activeRecords = [];
           this.activeBuildings = [];
-          this.resourcePoints = 0;
+          this.activeDrops = [];
+          this.resourcePoints = 20;
           this.ended = false;
           this.vtry = false;
+      }
+      ActiveData.prototype.drops = function(){
+          return this.activeDrops;
       }
       ActiveData.prototype.points = function(){
           return this.resourcePoints;

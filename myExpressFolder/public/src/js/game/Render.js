@@ -74,7 +74,6 @@ define(['img/ImageManager'],function(ImageManager) {
                     this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 case "familyMember":
-                  console.log("anime frame is: ", activeAncestors[i].animFrame);
 
                     ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
@@ -161,6 +160,13 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
+    Render.prototype.renderDrops = function(activeDrops) {
+        for (var i = 0; i < activeDrops.length; i++){
+            var dropImg = this.imageManager.getImage(activeDrops[i].imgURL);
+            this.ctx.drawImage(dropImg, activeDrops[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeDrops[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, dropImg.width * 1.6, dropImg.height * 1.6);
+        }
+    }
+
     Render.prototype.renderBuildings = function(activeBuildings) {
         var buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
         for (var i = 0; i < activeBuildings.length; i++) {
@@ -243,6 +249,7 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderTree(levelStructure);
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);
+        this.renderDrops(active.drops());
         this.renderIndexers(active.indexers());
         this.renderBuildings(active.buildings());
         this.renderAncestors(active.ancestors());

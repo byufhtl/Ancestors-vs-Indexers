@@ -9,8 +9,9 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
     CanvasManager.prototype.init = function() {
         var canvasContainer = $('#canvas-div');
         var myCanvas = document.createElement('canvas');
-        myCanvas.width = 1000;
-        myCanvas.height = 600;
+        myCanvas.width = window.innerWidth;
+        myCanvas.height = window.innerHeight - 65;
+        console.log("canvasContainer", canvasContainer);
         myCanvas.id = 'canvas';
         canvasContainer.append(myCanvas);
         this.canvas = myCanvas;
@@ -63,6 +64,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             draggable = false;
             if(!dragged){
                 var pt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
+                console.log("clicked at X: " + event.pageX +' Y: ' + event.pageY);
                 self.viewController.handle(new Sig(Sig.CNVS_CLK, "", {point:pt}));
             }
             dragged = false;

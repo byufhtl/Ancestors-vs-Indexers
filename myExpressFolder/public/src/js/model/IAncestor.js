@@ -15,10 +15,17 @@ define([],function() {
         this.animFrame = 0;
         this.numFrames = 4;
         this.timeBetweenFrames = .2;
+
+        this.slowed = 15;
+        this.slowDuration = 0;
     }
 
     IAncestor.prototype.move = function(timeElapsed){
       var self = this;
+      this.slowDuration -= timeElapsed;
+      if (this.slowDuration <= 0) this.slowDuration = 0;
+      if (this.slowDuration == 0) this.slowed = 0;
+      else this.slowed = 15;
       //check whether to move up or down
       if (self.distanceMovedX >= 300)
       {
@@ -50,15 +57,16 @@ define([],function() {
           self.currentGeneration--;
       }
       //move ancestor diagonally according to speed
-      self.distanceMovedX += timeElapsed * self.speed;
-      self.xCoord -= timeElapsed * self.speed;
+      console.log("myCurrentSpeed:", (self.speed - self.slowed));
+      self.distanceMovedX += timeElapsed * (self.speed -self.slowed);
+      self.xCoord -= timeElapsed * (self.speed -self.slowed);
       if (self.upOrDown == "up")
       {
-          self.yCoord += timeElapsed * self.speed / 2;
+          self.yCoord += timeElapsed * (self.speed -self.slowed) / 2;
       }
       else if (self.upOrDown == "down")
       {
-          self.yCoord -= timeElapsed * self.speed / 2;
+          self.yCoord -= timeElapsed * (self.speed -self.slowed) / 2;
       }
     }
 

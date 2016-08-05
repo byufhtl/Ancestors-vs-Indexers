@@ -68,7 +68,6 @@ define([],function(){
     DeltaClock.prototype.tick = function(dt){
         var self = this;
         while(self.head && self.head.time <= dt){
-            console.log("Firing event data:", self.head);
             self.head.action(self.head.params);
             dt -= self.head.time;
             self.head = self.head.next;
@@ -76,7 +75,6 @@ define([],function(){
         if(self.head){
             self.head.time -= dt;
         }
-        console.log("tock...", dt, self.head ? self.head.time : null);
     };
 
     return DeltaClock;

@@ -231,6 +231,22 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
+    ImageManager.prototype.loadStoryTellerSprites = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.STY_TELL, Order.IMAGE, 15);
+            self.loader.loadResources(order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    }
+
 
 
     ImageManager.prototype.loadAll = function(){
@@ -280,6 +296,13 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     partialResolve();
                 }
             );
+            self.loadStoryTellerSprites().then(partialResolve,
+                function(rejection){
+                    console.log("Loading the ancestors claims to have failed...");
+                    failed.push(Sig.STY_TELL);
+                    partialResolve();
+                }
+            );
         });
     };
 
@@ -314,6 +337,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
 
     ImageManager.ANC_STAN =     "src/img/ancestors/animAnc.png";            // STANDARD ANCESTOR
     ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";       // NAMELESS ANCESTOR
+
+    ImageManager.STY_TELL =     "src/img/Storyteller.png"                   // STORY TELLER
 
     return ImageManager;
 });

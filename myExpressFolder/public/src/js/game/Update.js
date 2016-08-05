@@ -156,6 +156,12 @@ define(['util/DeltaClock'],function(DeltaClock) {
         return (this.levelStartBuffer > 20);
     };
 
+    Update.prototype.updateDrops = function(activeDrops, activeAncestors) {
+        for (var i = 0; i < activeDrops.length; i++) {
+            activeDrops[i].update(activeAncestors);
+        }
+    }
+
     Update.prototype.moveAnimFrames = function(activeAncestors, nodeStructure, timeElapsed) {
         for (var i = 0; i < activeAncestors.length; i++) {
             activeAncestors[i].animTimer += timeElapsed;
@@ -187,6 +193,8 @@ define(['util/DeltaClock'],function(DeltaClock) {
         if (this.buffer(timeElapsed)) {
             //update indexers
             this.updateIndexers(active.indexers(), active.ancestors(), timeElapsed, active.projectiles(), levelStructure);
+            //update drops
+            this.updateDrops(active.drops(), active.ancestors());
             //update ancestors
             this.updateAncestorsPosition(active.ancestors(), timeElapsed);
             this.checkDeadAncestors(active.ancestors(), defeatedAncestorInfo);

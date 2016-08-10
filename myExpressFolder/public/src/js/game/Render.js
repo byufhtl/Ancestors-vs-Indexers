@@ -85,9 +85,9 @@ define(['img/ImageManager'],function(ImageManager) {
                     this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,80,80);
                     break;
                 case "nameless":
-                    ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
+                    ancImg = this.imageManager.getImage(ImageManager.ANC_MOTR);
                     // this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 70,0,70,65,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,70,65);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 70,0,70,65,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,112,104);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);

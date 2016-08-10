@@ -375,7 +375,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
 
     ImageManager.ANC_STAN =     "src/img/ancestors/animAnc.png";            // STANDARD ANCESTOR
     ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";       // NAMELESS ANCESTOR
-    ImageManager.ANC_MOTR =     "src/img/ancestors/Ghostorist2.png";        // MOTORCYCLE ANCESTOR
+    ImageManager.ANC_MOTR =     "src/img/ancestors/Ghostorist.png";        // MOTORCYCLE ANCESTOR
 
     ImageManager.STY_TELL =     "src/img/Storyteller.png";                  // STORY TELLER
 

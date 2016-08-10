@@ -2,8 +2,8 @@
  * Created by calvin on 7/26/16.
  */
 
-define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'drops/StoryTeller'],
-function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library, StoryTeller){
+define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'drops/StoryTeller', 'game/GameButtons'],
+function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library, StoryTeller, GameButtons){
 
     function GameEventManager(controller){
         this.controller = controller;
@@ -214,23 +214,64 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         $('#points').text(this.controller.active.resourcePoints);
     };
 
+    GameEventManager.prototype.loadButtons = function(name) {
+        var self = this;
+        self.controller.active.activePlaceButtons = [];
+        switch(name){
+          case "indexerButton":
+                GameButtons.addPlacePeopleButtons(self.controller.active.activePlaceButtons);
+                break;
+          case "buildingButton":
+                GameButtons.addPlaceBuildingButtons(self.controller.active.activePlaceButtons);
+                break;
+          case "specialButton":
+                GameButtons.addPlaceSpecialButtons(self.controller.active.activePlaceButtons);
+                break;
+        }
+    };
+
+    GameEventManager.prototype.buttonClicked = function(adjustedPointClicked) {
+        console.log("checking if a button was clicked");
+        var self = this;
+        var activeButtons = this.controller.active.activeButtons;
+        for (var i = 0; i < activeButtons.length; i++){
+          if ((adjustedPointClicked.X > activeButtons[i].xCoord && adjustedPointClicked.X < activeButtons[i].xCoord + 100)
+          && (adjustedPointClicked.Y > activeButtons[i].yCoord && adjustedPointClicked.Y < activeButtons[i].yCoord + 100)) {
+              //button has been clicked
+              self.loadButtons(activeButtons[i].name);
+          }
+        }
+
+        var activePlaceButtons = this.controller.active.activePlaceButtons;
+        for (var i = 0; i < activePlaceButtons.length; i++){
+          if ((adjustedPointClicked.X > activePlaceButtons[i].xCoord && adjustedPointClicked.X < activePlaceButtons[i].xCoord + 100)
+          && (adjustedPointClicked.Y > activePlaceButtons[i].yCoord && adjustedPointClicked.Y < activePlaceButtons[i].yCoord + 100)) {
+              //button has been clicked
+              self.handle(new Sig(Sig.ST_CLICK, activePlaceButtons[i].name));
+          }
+        }
+    };
+
     GameEventManager.prototype.handleCanvasClick = function(event) {
         // last selected:  this.clickContext (object)
         // coordinates (raw) : event.data[0] (.pageX, .pageY, etc...)
-        var realPointClicked = event.data.point;
-
+        var adjustedPointClicked = event.data.point;
+        var realPointClicked = event.data.realPoint;
         //check if we clicked on a record. If not, check if we clicked a node
-        if (!this.recordClicked(realPointClicked))
-        {
-            if (this.clickContext && this.clickContext.cost <= this.controller.active.resourcePoints){
-                if (this.clickContext.elementType == "drop"){
-                    this.addDrop(realPointClicked);
-                }
-                else{
-                    var nearestNodeToClick = this.getClosestNode(realPointClicked);
-                    if (nearestNodeToClick != null)
-                    {
-                        this.addIndexerOrBuilding(nearestNodeToClick);
+        if (!this.buttonClicked(realPointClicked)){
+
+            if (!this.recordClicked(adjustedPointClicked))
+            {
+                if (this.clickContext && this.clickContext.cost <= this.controller.active.resourcePoints){
+                    if (this.clickContext.elementType == "drop"){
+                        this.addDrop(adjustedPointClicked);
+                    }
+                    else{
+                        var nearestNodeToClick = this.getClosestNode(adjustedPointClicked);
+                        if (nearestNodeToClick != null)
+                        {
+                            this.addIndexerOrBuilding(nearestNodeToClick);
+                        }
                     }
                 }
             }
@@ -265,6 +306,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
             case Sig.RSCH_IDX:
+                console.log("seting type to researcher");
                 self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
                 break;
             case Sig.STRY_DRP:

@@ -224,18 +224,22 @@ define(['img/ImageManager'],function(ImageManager) {
     Render.prototype.renderTree = function(levelStructure)
     {
         var tree = this.imageManager.getImage(ImageManager.UND_TREE);
-        /*
-        if (this.resizeOnce)
-        {
-          var numGenerations = levelStructure.length;
-          console.log("numGenerations: " + numGenerations);
-          tree.width = Math.floor(this.treeWidth/8) * numGenerations;
-          this.resizeOnce = false;
-          console.log(tree.width);
-        }
-        */
         this.ctx.drawImage(tree, 100, 100, (tree.width - 200)/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, (tree.width - 200)/8 * levelStructure.length, tree.height);
     };
+
+    Render.prototype.renderButtons = function(activeButtons, activePlaceButtons) {
+        for (var i = 0; i < activeButtons.length; i++) {
+            var buttonImg = this.imageManager.getImage(activeButtons[i].imgURL);
+            //console.log("trying to draw button", activeButtons[i]);
+
+            this.ctx.drawImage(buttonImg, activeButtons[i].xCoord, activeButtons[i].yCoord);
+        }
+        for (var i = 0; i < activePlaceButtons.length; i++) {
+            var buttonImg = this.imageManager.getImage(activePlaceButtons[i].imgURL);
+
+            this.ctx.drawImage(buttonImg, activePlaceButtons[i].xCoord, activePlaceButtons[i].yCoord);
+        }
+    }
 
     Render.prototype.reset = function()
     {
@@ -255,6 +259,7 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderAncestors(active.ancestors());
         this.renderProjectiles(active.projectiles());
         this.renderRecords(active.records());
+        this.renderButtons(active.activeButtons, active.activePlaceButtons);
     };
 
     return Render;

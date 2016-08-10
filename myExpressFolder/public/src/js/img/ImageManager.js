@@ -247,6 +247,31 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     }
 
+    ImageManager.prototype.loadButtonsImgs = function() {
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+            order.addItem(ImageManager.BLDG_BTN, Order.IMAGE, 15);
+            order.addItem(ImageManager.PEPL_BTN, Order.IMAGE, 15);
+            order.addItem(ImageManager.SPCL_BTN, Order.IMAGE, 15);
+
+            order.addItem(ImageManager.INDX_BTN, Order.IMAGE, 15);
+            order.addItem(ImageManager.RSCH_BTN, Order.IMAGE, 15);
+            order.addItem(ImageManager.SPCT_BTN, Order.IMAGE, 15);
+
+            order.addItem(ImageManager.STRY_BTN, Order.IMAGE, 15);
+            self.loader.loadResources(order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
+
+
 
 
     ImageManager.prototype.loadAll = function(){
@@ -303,6 +328,13 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     partialResolve();
                 }
             );
+            self.loadButtonsImgs().then(partialResolve,
+                function(rejection){
+                    console.log("Loading the buttons claims to have failed...");
+                    failed.push(Sig.STY_TELL);
+                    partialResolve();
+                }
+            );
         });
     };
 
@@ -338,7 +370,17 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.ANC_STAN =     "src/img/ancestors/animAnc.png";            // STANDARD ANCESTOR
     ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";       // NAMELESS ANCESTOR
 
-    ImageManager.STY_TELL =     "src/img/Storyteller.png"                   // STORY TELLER
+    ImageManager.STY_TELL =     "src/img/Storyteller.png";                  // STORY TELLER
+
+    ImageManager.PEPL_BTN =     "src/img/buttons/PeopleButton.png";         // INDEXERS BUTTON
+    ImageManager.BLDG_BTN =     "src/img/buttons/BuildingsButton.png";      // BUILDINGS BUTTON
+    ImageManager.SPCL_BTN =     "src/img/buttons/SpecialsButton.png";       // SPECIALS BUTTON
+
+    ImageManager.INDX_BTN =     "src/img/buttons/People/IndexerButton.png"; // INDEXERS BUTTON
+    ImageManager.RSCH_BTN =     "src/img/buttons/People/ResearchersButton.png"; // RESEARCHERS BUTTON
+    ImageManager.SPCT_BTN =     "src/img/buttons/People/SpecialistsButton.png"; // SPECIALIST BUTTON
+
+    ImageManager.STRY_BTN =     "src/img/buttons/Specials/StorytellerButton.png"; //STORYTELLER BUTTON
 
     return ImageManager;
 });

@@ -1,5 +1,5 @@
-define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager'],
-  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager) {
+define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager', 'game/GameButtons'],
+  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons) {
 
       function GameController(lieutenant) {
           this.controller = lieutenant;
@@ -75,7 +75,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.currentScene = scene ? scene : 1; // Set scene (default: 1)
 
           this.active = new ActiveData();
-
+          console.log("game buttons is: ", GameButtons);
+          GameButtons.addAll(this.active.activeButtons);
           this.defeatedAncestorInfo = [];
 
           this.playerInfo = playerInfo;
@@ -130,6 +131,9 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
       };
 
       function ActiveData(){
+          this.activeButtons = [];
+          this.activePlaceButtons = [];
+          this.optionButtons = [];
           this.activeAncestors = [];
           this.activeIndexers = [];
           this.activeProjectiles = [];

@@ -64,8 +64,9 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             draggable = false;
             if(!dragged){
                 var pt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
+                var realPt = new Point(event.pageX, event.pageY - 60);
                 console.log("clicked at X: " + event.pageX +' Y: ' + event.pageY);
-                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", {point:pt}));
+                self.viewController.handle(new Sig(Sig.CNVS_CLK, "", {point:pt, realPoint:realPt}));
             }
             dragged = false;
         });

@@ -29,7 +29,8 @@ define(['model/IIndexer'],function(IIndexer){
 
     Specialist.prototype = new IIndexer();
 
-
+    Specialist.prototype.initialize = function(){};
+    
     Specialist.prototype.update = function(activeAncestors, timeElapsed, activeProjectiles, levelStructure)
     {
         var checkDistance;

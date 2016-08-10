@@ -172,11 +172,11 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
     };
 
     LevelDefinition.levels = {
-        1: { // Max of two per wave
+        1: { // Max of two per wave (5 total)
             1: [['f'],['f']], // a(2)
             2: [['a', 'a'], ['f']] // a(3)
         },
-        2: { // Max of three per wave
+        2: { // Max of three per wave (28 total)
             1:[
                 ['a', 'a'], ['a'], ['a', 'f', 'a'] // a(6)
             ],
@@ -187,7 +187,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 ['a'],['a','a'],['f','a','a'],['a','a'],['a','a','a'],['f','a'] // a(13)
             ]
         },
-        3: { // Max of four per wave
+        3: { // Max of four per wave (31 total)
             1: [
                 ['f', 'a'], ['f','a'], ['a','a','a'],['f','a'] // a(9)
             ],
@@ -198,7 +198,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 ['a', 'a'], ['a','n','a'], ['a','a','a','a'],['a','n'],['a','n','n'] // a(9) n(4)
             ]
         },
-        4: { // Max of 5 per wave
+        4: { // Max of 5 per wave (115 total)
             1: [ // a(19) n(4)
                 ['a','a'],
                 ['a', 'n', 'a'],
@@ -226,7 +226,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 ['n', 'a', 'a', 'n', 'n'],
                 ['a', 'n', 'a', 'n', 'a']
             ],
-            4:[
+            4: [ // a(21) n(18)
                 ['a','a'],
                 ['a', 'n', 'a'],
                 ['a', 'a', 'a', 'n'],
@@ -239,6 +239,72 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
                 ['n', 'n', 'a', 'n', 'a'],
                 ['n', 'n', 'a', 'n', 'a'],
                 ['a', 'n', 'n', 'n', 'n']
+            ]
+        },
+        5: { // Max of 6 per wave (251 total)
+            1: [ // a(19) f(9) n(2) : 30
+                ['a', 'a', 'f', 'a'],
+                ['a', 'n', 'a', 'f'],
+                ['a', 'a', 'a', 'f', 'a', 'a'],
+                ['a', 'a', 'n', 'a'],
+                ['a', 'f', 'a', 'f', 'a', 'a'],
+                ['a', 'f', 'a', 'f', 'f', 'f']
+            ],
+            2: [ // a(17) f(9) n(6) : 32
+                ['n', 'a', 'f', 'a'],
+                ['a', 'n', 'a', 'f','n'],
+                ['a', 'a', 'a', 'f', 'a', 'a'],
+                ['a', 'a', 'n', 'a', 'n'],
+                ['n', 'f', 'a', 'f', 'a', 'a'],
+                ['a', 'f', 'a', 'f', 'f', 'f']
+            ],
+            3: [ // a(18) f(14) n(13) : 45
+                ['n', 'a', 'f', 'a', 'a'],
+                ['a', 'n', 'a', 'f', 'n'],
+                ['a', 'a', 'a', 'f', 'a', 'a'],
+                ['a', 'a', 'n', 'a', 'n'],
+                ['n', 'f', 'a', 'f', 'a', 'a'],
+                ['n', 'f', 'n', 'f', 'n', 'a'],
+                ['n', 'f', 'n', 'f', 'f', 'n'],
+                ['a', 'f', 'n', 'f', 'f', 'f']
+            ],
+            4: [ // a(17) f(24) n(22) : 63
+                ['n', 'a', 'f', 'a', 'a'],
+                ['a', 'n', 'a', 'f','n'],
+                [],
+                [],
+                ['a', 'a', 'a', 'f', 'a', 'a'],
+                ['a', 'a', 'n', 'a', 'n'],
+                ['n', 'f', 'a', 'f', 'a', 'a'],
+                ['n', 'f', 'n', 'f', 'n', 'a'],
+                ['n', 'f', 'n', 'f', 'f', 'n'],
+                [],
+                [],
+                ['n', 'f', 'n', 'f', 'f', 'f'],
+                ['n', 'f', 'n', 'f', 'f', 'f'],
+                ['n', 'n', 'n', 'n', 'f', 'f'],
+                ['n', 'f', 'n', 'f', 'f', 'f']
+            ],
+            5: [ // a(19) f(31) n(31) : 81
+                ['n', 'a', 'f', 'a', 'a'],
+                ['a', 'n', 'a', 'f','n'],
+                [],
+                [],
+                ['a', 'a', 'a', 'f', 'a', 'a'],
+                ['a', 'a', 'n', 'a', 'n'],
+                ['n', 'f', 'a', 'f', 'a', 'a'],
+                [],
+                ['n', 'f', 'n', 'f', 'n', 'a'],
+                ['n', 'f', 'n', 'f', 'n', 'a'],
+                ['n', 'a', 'n', 'f', 'f', 'n'],
+                [],
+                [],
+                ['n', 'f', 'n', 'f', 'f', 'f'],
+                ['n', 'f', 'n', 'f', 'f', 'f'],
+                ['n', 'n', 'n', 'n', 'n', 'n'],
+                ['n', 'n', 'n', 'n', 'n', 'n'],
+                ['f', 'f', 'f', 'f', 'f', 'f'],
+                ['f', 'f', 'f', 'f', 'f', 'f']
             ]
         }
     };

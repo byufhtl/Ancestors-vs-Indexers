@@ -1,12 +1,14 @@
 define([],function() {
 
-    function IAncestor(lane) {
+    function IAncestor() {
         this.hp = 1;
         this.speed = 30;
         this.currentGeneration = 3;
         this.animation;
         this.xCoord = 1000;
         this.yCoord = 300;
+        this.nodeX = null;
+        this.nodeY = null;
         this.distanceMovedX = 300;
         this.upOrDown = "up";
         this.type = "standard";
@@ -20,7 +22,17 @@ define([],function() {
         this.slowDuration = 0;
     }
 
-    IAncestor.prototype.move = function(timeElapsed){
+    IAncestor.prototype.setX = function(x, nodex){
+        this.xCoord = x;
+        this.nodeX = nodex;
+    };
+
+    IAncestor.prototype.setY = function (y, nodey) {
+        this.yCoord = y;
+        this.nodeY = nodey;
+    };
+    
+    IAncestor.prototype.move = function(timeElapsed, nodeStructure){
       var self = this;
       this.slowDuration -= timeElapsed;
       if (this.slowDuration <= 0) this.slowDuration = 0;
@@ -32,6 +44,7 @@ define([],function() {
           var numNodes = self.currentGeneration + 1;
           var firstNodeY = - self.currentGeneration * 150 + 300;
           //check if moving up is impossible
+          
           if (Math.abs(firstNodeY - self.yCoord) < 150)
           {
                self.upOrDown = "up";
@@ -68,7 +81,7 @@ define([],function() {
       {
           self.yCoord -= timeElapsed * (self.speed -self.slowed) / 2;
       }
-    }
+    };
 
     return IAncestor;
 

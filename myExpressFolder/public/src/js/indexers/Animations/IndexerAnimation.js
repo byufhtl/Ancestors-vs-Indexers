@@ -69,7 +69,7 @@ define([],function(){
         var i;
         delay = (delay) ? delay : 0;
         for(i = 0; i < 3; i++){ clock.add((this.dtAnim * i) + delay, this.jumpTo, {item: this, place:this.LEFTTHROW + i}); }
-        clock.add((this.dtAnim * ++i) + delay, this.jumpTo, {item: this, place:this.LEFTFACE + i});
+        clock.add((this.dtAnim * ++i) + delay, this.jumpTo, {item: this, place:this.LEFTFACE});
         return(this.dtAnim * i); // return the lapse
     };
 

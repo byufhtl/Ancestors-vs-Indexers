@@ -79,15 +79,15 @@ define(['img/ImageManager'],function(ImageManager) {
         for (var i = 0; i < activeAncestors.length; i++)
         {
             switch(activeAncestors[i].type){
-                case "nameless":
-                    ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
-                    break;
                 case "familyMember":
-
                     ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,120,120);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,80,80);
+                    break;
+                case "nameless":
+                    ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
+                    // this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 70,0,70,65,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,70,65);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);

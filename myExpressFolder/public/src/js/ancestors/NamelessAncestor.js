@@ -4,8 +4,7 @@
 
 define(['model/IAncestor'],function(IAncestor){
 
-    function Nameless(lane){
-        this.lane = lane;
+    function Nameless(){
         this.type = "nameless";
         this.speed = 50;
 
@@ -15,7 +14,7 @@ define(['model/IAncestor'],function(IAncestor){
         this.timeBetweenFrames = .05;
     }
 
-    Nameless.prototype = new IAncestor(Nameless.prototype.lane);
+    Nameless.prototype = new IAncestor();
 
     Nameless.prototype.animation = null;
 

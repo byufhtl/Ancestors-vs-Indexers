@@ -28,16 +28,26 @@ define(['img/ImageManager'],function(ImageManager) {
         this.treeWidth = 2400;
     }
 
-    Render.prototype.renderVictory = function()
+    Render.prototype.renderVictory = function(optionButtons)
     {
         var victoryImg = this.imageManager.getImage(ImageManager.GM_VCTRY);
         this.ctx.drawImage(victoryImg, 0, 0, victoryImg.width, victoryImg.height, 0, 0, this.canvas.width, this.canvas.height);
+        for (var i = 0; i < optionButtons.length; i++) {
+            var buttonImg = this.imageManager.getImage(optionButtons[i].imgURL);
+            console.log("drawing victory buttons");
+            this.ctx.drawImage(buttonImg, optionButtons[i].xCoord, optionButtons[i].yCoord);
+        }
     };
 
-    Render.prototype.renderDefeat = function()
+    Render.prototype.renderDefeat = function(optionButtons)
     {
         var defeatImg = this.imageManager.getImage(ImageManager.GM_DFEAT);
         this.ctx.drawImage(defeatImg, 0, 0, defeatImg.width, defeatImg.height, 0, 0, this.canvas.width, this.canvas.height);
+        for (var i = 0; i < optionButtons.length; i++) {
+            var buttonImg = this.imageManager.getImage(optionButtons[i].imgURL);
+            console.log("drawing defeat buttons");
+            this.ctx.drawImage(buttonImg, optionButtons[i].xCoord, optionButtons[i].yCoord);
+        }
     };
 
     Render.prototype.renderBackground = function()
@@ -77,7 +87,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
                     ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,80,80);
+                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,120,120);
                     break;
                 default:
                     ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
@@ -227,7 +237,7 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.drawImage(tree, 100, 100, (tree.width - 200)/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, (tree.width - 200)/8 * levelStructure.length, tree.height);
     };
 
-    Render.prototype.renderButtons = function(activeButtons, activePlaceButtons) {
+    Render.prototype.renderButtons = function(activeButtons, activePlaceButtons, optionButtons) {
         for (var i = 0; i < activeButtons.length; i++) {
             var buttonImg = this.imageManager.getImage(activeButtons[i].imgURL);
             //console.log("trying to draw button", activeButtons[i]);
@@ -239,7 +249,16 @@ define(['img/ImageManager'],function(ImageManager) {
 
             this.ctx.drawImage(buttonImg, activePlaceButtons[i].xCoord, activePlaceButtons[i].yCoord);
         }
+
     }
+
+    Render.prototype.renderPoints = function(points) {
+        this.ctx.font = "50px Arial";
+        this.ctx.fillStyle = "white";
+        this.ctx.fillText(points,window.innerWidth / 2, window.innerHeight / 12);
+        this.ctx.font = "10px Arial";
+        this.ctx.fillStyle = "black";
+    };
 
     Render.prototype.reset = function()
     {
@@ -259,7 +278,8 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderAncestors(active.ancestors());
         this.renderProjectiles(active.projectiles());
         this.renderRecords(active.records());
-        this.renderButtons(active.activeButtons, active.activePlaceButtons);
+        this.renderButtons(active.activeButtons, active.activePlaceButtons, active.optionButtons);
+        this.renderPoints(active.points());
     };
 
     return Render;

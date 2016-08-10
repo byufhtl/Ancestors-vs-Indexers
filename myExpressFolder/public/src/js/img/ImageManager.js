@@ -220,6 +220,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             var order = new Order;
             order.addItem(ImageManager.ANC_STAN, Order.IMAGE, 15);
             order.addItem(ImageManager.ANC_NMLS, Order.IMAGE, 15);
+            order.addItem(ImageManager.ANC_MOTR, Order.IMAGE, 15);
             self.loader.loadResources(order).then(
                 function(success){
                     resolve(success);
@@ -251,6 +252,11 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         var self = this;
         return new Promise(function(resolve, reject){
             var order = new Order;
+
+            order.addItem(ImageManager.MAIN_BTN, Order.IMAGE, 15);
+            order.addItem(ImageManager.NEXT_BTN, Order.IMAGE, 15);
+            order.addItem(ImageManager.AGAN_BTN, Order.IMAGE, 15);
+
             order.addItem(ImageManager.BLDG_BTN, Order.IMAGE, 15);
             order.addItem(ImageManager.PEPL_BTN, Order.IMAGE, 15);
             order.addItem(ImageManager.SPCL_BTN, Order.IMAGE, 15);
@@ -369,6 +375,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
 
     ImageManager.ANC_STAN =     "src/img/ancestors/animAnc.png";            // STANDARD ANCESTOR
     ImageManager.ANC_NMLS =     "src/img/ancestors/FarmerSprite.png";       // NAMELESS ANCESTOR
+    ImageManager.ANC_MOTR =     "src/img/ancestors/Ghostorist2.png";        // MOTORCYCLE ANCESTOR
 
     ImageManager.STY_TELL =     "src/img/Storyteller.png";                  // STORY TELLER
 
@@ -381,6 +388,10 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.SPCT_BTN =     "src/img/buttons/People/SpecialistsButton.png"; // SPECIALIST BUTTON
 
     ImageManager.STRY_BTN =     "src/img/buttons/Specials/StorytellerButton.png"; //STORYTELLER BUTTON
+
+    ImageManager.MAIN_BTN =     "src/img/buttons/MainMenuButton.png";       // MAIN MENU BUTTON
+    ImageManager.NEXT_BTN =     "src/img/buttons/NextLevelButton.png";      // NEXT LEVEL BUTTON
+    ImageManager.AGAN_BTN =     "src/img/buttons/PlayAgainButton.png";      // PLAY AGAIN BUTTON
 
     return ImageManager;
 });

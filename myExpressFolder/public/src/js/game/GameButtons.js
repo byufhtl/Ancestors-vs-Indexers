@@ -4,30 +4,45 @@ define(['util/Sig'],function(Sig) {
     }
 
 
-    GameButtons.addNextlevelButton = function () {
-
+    GameButtons.addNextlevelButton = function (optionButtons) {
+        var nextLevelButton = {
+            imgURL : "src/img/buttons/NextLevelButton.png",
+            xCoord : window.innerWidth/15 * 13,
+            yCoord : window.innerHeight/2 - 150,
+            name : Sig.NEXT_BTN
+        };
+        optionButtons.push(nextLevelButton);
     };
 
-    GameButtons.addPlayAgainButton = function() {
-
+    GameButtons.addPlayAgainButton = function(optionButtons) {
+        var playAgainButton = {
+            imgURL : "src/img/buttons/PlayAgainButton.png",
+            xCoord : window.innerWidth/15 * 13,
+            yCoord : window.innerHeight/2 - 150,
+            name : Sig.AGAN_BTN
+        };
+        optionButtons.push(playAgainButton);
     };
 
-    GameButtons.addMainMenuButton = function() {
-
+    GameButtons.addMainMenuButton = function(optionButtons) {
+        var mainMenuButton = {
+            imgURL : "src/img/buttons/MainMenuButton.png",
+            xCoord : window.innerWidth/15 * 1,
+            yCoord : window.innerHeight/2 - 150,
+            name : Sig.MENU_BTN
+        };
+        optionButtons.push(mainMenuButton);
     };
 
-    GameButtons.addVictoryButtons = function() {
-        GameButtons.addNextlevelButton();
-        GameButtons.addMainMenuButton();
+    GameButtons.addVictoryButtons = function(optionButtons) {
+        GameButtons.addNextlevelButton(optionButtons);
+        GameButtons.addMainMenuButton(optionButtons);
     };
-    GameButtons.addDefeatButtons = function() {
-        GameButtons.addPlayAgainButton();
-        GameButtons.addMainMenuButton();
+    GameButtons.addDefeatButtons = function(optionButtons) {
+        GameButtons.addMainMenuButton(optionButtons);
+        GameButtons.addPlayAgainButton(optionButtons);
     };
 
-    GameButtons.addDefeatButtons = function() {
-
-    };
 
     GameButtons.removeAllButtons = function removeAllButtons(activeButtons) {
         activeButtons = [];
@@ -36,7 +51,7 @@ define(['util/Sig'],function(Sig) {
     GameButtons.addPeopleButton = function(activeButtons) {
         var indexerButton = {
             imgURL : "src/img/buttons/PeopleButton.png",
-            xCoord : window.innerWidth/15 * 6,
+            xCoord : window.innerWidth/15 * 12,
             yCoord : 20,
             name : "indexerButton"
         };
@@ -47,7 +62,7 @@ define(['util/Sig'],function(Sig) {
     GameButtons.addBuildingsButton = function(activeButtons) {
         var buildingButton = {
             imgURL : "src/img/buttons/BuildingsButton.png",
-            xCoord : window.innerWidth/15 * 7,
+            xCoord : window.innerWidth/15 * 13,
             yCoord : 20,
             name : "buildingButton"
         };
@@ -58,7 +73,7 @@ define(['util/Sig'],function(Sig) {
     GameButtons.addSpecialsButton = function(activeButtons) {
         var specialButton = {
             imgURL : "src/img/buttons/SpecialsButton.png",
-            xCoord : window.innerWidth/15 * 8,
+            xCoord : window.innerWidth/15 * 14,
             yCoord : 20,
             name : "specialButton"
         };

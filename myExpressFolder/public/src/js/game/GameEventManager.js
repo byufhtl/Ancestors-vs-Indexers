@@ -236,7 +236,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         var activeButtons = this.controller.active.activeButtons;
         for (var i = 0; i < activeButtons.length; i++){
           if ((adjustedPointClicked.X > activeButtons[i].xCoord && adjustedPointClicked.X < activeButtons[i].xCoord + 100)
-          && (adjustedPointClicked.Y > activeButtons[i].yCoord && adjustedPointClicked.Y < activeButtons[i].yCoord + 100)) {
+          && (adjustedPointClicked.Y > activeButtons[i].yCoord && adjustedPointClicked.Y < activeButtons[i].yCoord + 70)) {
               //button has been clicked
               self.loadButtons(activeButtons[i].name);
           }
@@ -245,9 +245,19 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         var activePlaceButtons = this.controller.active.activePlaceButtons;
         for (var i = 0; i < activePlaceButtons.length; i++){
           if ((adjustedPointClicked.X > activePlaceButtons[i].xCoord && adjustedPointClicked.X < activePlaceButtons[i].xCoord + 100)
-          && (adjustedPointClicked.Y > activePlaceButtons[i].yCoord && adjustedPointClicked.Y < activePlaceButtons[i].yCoord + 100)) {
+          && (adjustedPointClicked.Y > activePlaceButtons[i].yCoord && adjustedPointClicked.Y < activePlaceButtons[i].yCoord + 70)) {
               //button has been clicked
               self.handle(new Sig(Sig.ST_CLICK, activePlaceButtons[i].name));
+          }
+        }
+
+        var optionButtons = this.controller.active.optionButtons;
+        for (var i = 0; i < optionButtons.length; i++){
+          if ((adjustedPointClicked.X > optionButtons[i].xCoord && adjustedPointClicked.X < optionButtons[i].xCoord + 180)
+          && (adjustedPointClicked.Y > optionButtons[i].yCoord && adjustedPointClicked.Y < optionButtons[i].yCoord + 300)) {
+              //button has been clicked
+              console.log("clicked an options button");
+              self.controller.controller.handle(new Sig(Sig.BTN_ACTN, optionButtons[i].name));
           }
         }
     };

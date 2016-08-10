@@ -111,20 +111,19 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           }
           else {
               if (this.active.victory() == true) {
-                  this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.VTRY_PNL));
-                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.EM_TPBAR));
                   this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_VCTR));
-                  this.myRender.renderVictory();
+                  GameButtons.addVictoryButtons(this.active.optionButtons);
+                  this.myRender.renderVictory(this.active.optionButtons);
                   this.myRender.reset();
                   if (this.defeatedAncestorInfo.length != 0) {
                       this.handle(new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData:0}));
                   }
               }
               else {
-                  this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.DEFT_PNL));
-                  this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.EM_TPBAR));
                   this.controller.handle(new Sig(Sig.UPD_USER, Sig.LVL_DEFT));
-                  this.myRender.renderDefeat();
+                  GameButtons.addDefeatButtons(this.active.optionButtons);
+                  console.log("WHERE ARE MY DEFEAT BUTTONS", this.active.optionButtons);
+                  this.myRender.renderDefeat(this.active.optionButtons);
                   this.myRender.reset();
               }
           }

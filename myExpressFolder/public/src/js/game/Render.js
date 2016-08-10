@@ -74,7 +74,6 @@ define(['img/ImageManager'],function(ImageManager) {
                     this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
                     break;
                 case "familyMember":
-                  console.log("anime frame is: ", activeAncestors[i].animFrame);
 
                     ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
                     this.renderFamilyMemberName(activeAncestors, i);
@@ -161,6 +160,13 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
+    Render.prototype.renderDrops = function(activeDrops) {
+        for (var i = 0; i < activeDrops.length; i++){
+            var dropImg = this.imageManager.getImage(activeDrops[i].imgURL);
+            this.ctx.drawImage(dropImg, activeDrops[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeDrops[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, dropImg.width * 1.6, dropImg.height * 1.6);
+        }
+    }
+
     Render.prototype.renderBuildings = function(activeBuildings) {
         var buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
         for (var i = 0; i < activeBuildings.length; i++) {
@@ -218,18 +224,22 @@ define(['img/ImageManager'],function(ImageManager) {
     Render.prototype.renderTree = function(levelStructure)
     {
         var tree = this.imageManager.getImage(ImageManager.UND_TREE);
-        /*
-        if (this.resizeOnce)
-        {
-          var numGenerations = levelStructure.length;
-          console.log("numGenerations: " + numGenerations);
-          tree.width = Math.floor(this.treeWidth/8) * numGenerations;
-          this.resizeOnce = false;
-          console.log(tree.width);
-        }
-        */
         this.ctx.drawImage(tree, 100, 100, (tree.width - 200)/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, (tree.width - 200)/8 * levelStructure.length, tree.height);
     };
+
+    Render.prototype.renderButtons = function(activeButtons, activePlaceButtons) {
+        for (var i = 0; i < activeButtons.length; i++) {
+            var buttonImg = this.imageManager.getImage(activeButtons[i].imgURL);
+            //console.log("trying to draw button", activeButtons[i]);
+
+            this.ctx.drawImage(buttonImg, activeButtons[i].xCoord, activeButtons[i].yCoord);
+        }
+        for (var i = 0; i < activePlaceButtons.length; i++) {
+            var buttonImg = this.imageManager.getImage(activePlaceButtons[i].imgURL);
+
+            this.ctx.drawImage(buttonImg, activePlaceButtons[i].xCoord, activePlaceButtons[i].yCoord);
+        }
+    }
 
     Render.prototype.reset = function()
     {
@@ -243,11 +253,13 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderTree(levelStructure);
         this.renderTriangularPlayingField(levelStructure);
         this.renderNodeStructure(nodeStructure);
+        this.renderDrops(active.drops());
         this.renderIndexers(active.indexers());
         this.renderBuildings(active.buildings());
         this.renderAncestors(active.ancestors());
         this.renderProjectiles(active.projectiles());
         this.renderRecords(active.records());
+        this.renderButtons(active.activeButtons, active.activePlaceButtons);
     };
 
     return Render;

@@ -287,3 +287,7 @@ body{
 .fill-width{
     min-width: 100%;
 }
+
+.absolute{
+    position: absolute;
+}

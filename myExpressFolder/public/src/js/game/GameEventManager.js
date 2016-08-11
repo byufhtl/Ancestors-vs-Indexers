@@ -319,6 +319,9 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
             case Sig.STRY_DRP:
                 self.clickContext = {elementType:"drop", class:"StoryTeller", cost:30};
                 break;
+            case null:
+                self.clickContext = {};
+                break;
         }
     };
 

@@ -12,7 +12,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.gameBoardGrid = {};
 
           this.viewTransform;
-
+          this.audio = null;
           this.paused = false;
       }
 
@@ -73,7 +73,10 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.myUpdate = new Update();
           this.currentAct = act ? act : 1; // Set act (default: 1)
           this.currentScene = scene ? scene : 1; // Set scene (default: 1)
+          this.eventManager.handle(new Sig(Sig.ST_CLICK, null, {}));
 
+          // this.audio = new Audio("src/audio/better.wav");
+          // this.audio.play();
           this.active = new ActiveData();
           console.log("game buttons is: ", GameButtons);
           GameButtons.addAll(this.active.activeButtons);
@@ -145,7 +148,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
       }
       ActiveData.prototype.drops = function(){
           return this.activeDrops;
-      }
+      };
       ActiveData.prototype.points = function(){
           return this.resourcePoints;
       };

@@ -96,7 +96,9 @@ define(['util/DeltaClock'],function(DeltaClock) {
         for (var i = 0; i < activeAncestors.length; i++) {
             if (activeAncestors[i].hp <= 0) {
                 if (activeAncestors[i].type == "familyMember" && activeAncestors[i].name != 'joe') {
-                    defeatedAncestorInfo.push(activeAncestors[i].data);
+                    if(defeatedAncestorInfo.indexOf(activeAncestors[i].data) == -1) {
+                        defeatedAncestorInfo.push(activeAncestors[i].data);
+                    }
                 }
                 activeAncestors.splice(i, 1);
                 i--;
@@ -160,7 +162,7 @@ define(['util/DeltaClock'],function(DeltaClock) {
         for (var i = 0; i < activeDrops.length; i++) {
             activeDrops[i].update(activeAncestors);
         }
-    }
+    };
 
     Update.prototype.moveAnimFrames = function(activeAncestors, nodeStructure, timeElapsed) {
         for (var i = 0; i < activeAncestors.length; i++) {

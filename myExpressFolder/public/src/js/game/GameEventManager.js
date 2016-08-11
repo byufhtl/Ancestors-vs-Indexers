@@ -7,6 +7,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
 
     function GameEventManager(controller){
         this.controller = controller;
+        this.clickContext = {};
     }
 
     GameEventManager.prototype.handle = function(event){
@@ -325,6 +326,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
      * Handler for when the start button is clicked
      */
     GameEventManager.prototype.startButtonClicked = function() {
+        this.clickContext = {};
         this.controller.handle(new Sig(Sig.CMND_ACT, Sig.STRT_BTN));
     };
 
@@ -336,6 +338,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
         this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
         this.controller.handle(new Sig(Sig.LVL_CMND, Sig.STRT_LVL));    // Continue
+        this.clickContext = {};
         // var levelToLoad = LevelDefinition.getNextSceneInfo(this.controller.currentAct, this.controller.currentScene);
         // this.controller.initializeGame(levelToLoad.act, levelToLoad.scene, {});
         // this.controller.loop();
@@ -346,6 +349,7 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
         this.controller.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
         this.controller.handle(new Sig(Sig.LD_SDBAR, Sig.BLNK_PNL));
         this.controller.handle(new Sig(Sig.LVL_CMND, Sig.STRT_LVL));    // Continue
+        this.clickContext = {};
         // this.controller.initializeGame(this.controller.currentAct, this.controller.currentScene, {}); // replay level.
         // this.controller.loop();
     };

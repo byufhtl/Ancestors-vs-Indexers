@@ -41,7 +41,7 @@ define([],function(){
 
     IndexerAnimation.prototype.turnLeft = function(clock){
         for(var i = this.RIGHTFACE; i <= this.LEFTFACE; i++){
-            clock.add(this.dtAnim * i, this.jumpTo, {item: this, place:this.RIGHTFACE + i});
+            clock.addManual(this.dtAnim * i, this.jumpTo, {item: this, place:this.RIGHTFACE + i});
         }
         return(this.dtAnim * i); // return the lapse
     };
@@ -52,7 +52,7 @@ define([],function(){
      */
     IndexerAnimation.prototype.turnRight = function(clock){
         for(var i = this.LEFTFACE; i >= this.RIGHTFACE; i--){
-            clock.add(this.dtAnim * i, this.jumpTo, {item: this, place:this.RIGHTFACE + i});
+            clock.addManual(this.dtAnim * i, this.jumpTo, {item: this, place:this.RIGHTFACE + i});
         }
         return(this.dtAnim * (this.LEFTFACE - i)); // return the lapse
     };
@@ -60,16 +60,16 @@ define([],function(){
     IndexerAnimation.prototype.throwRight = function(clock, delay){
         var i;
         delay = (delay) ? delay : 0;
-        for(i = 0; i < 3; i++){ clock.add((this.dtAnim * i) + delay, this.jumpTo, {item: this, place:this.RIGHTTHROW + i}); }
-        clock.add((this.dtAnim * ++i) + delay, this.jumpTo, {item: this, place:this.RIGHTFACE});
+        for(i = 0; i < 3; i++){ clock.addManual((this.dtAnim * i) + delay, this.jumpTo, {item: this, place:this.RIGHTTHROW + i}); }
+        clock.addManual((this.dtAnim * ++i) + delay, this.jumpTo, {item: this, place:this.RIGHTFACE});
         return(this.dtAnim * i); // return the lapse
     };
 
     IndexerAnimation.prototype.throwLeft = function(clock, delay){
         var i;
         delay = (delay) ? delay : 0;
-        for(i = 0; i < 3; i++){ clock.add((this.dtAnim * i) + delay, this.jumpTo, {item: this, place:this.LEFTTHROW + i}); }
-        clock.add((this.dtAnim * ++i) + delay, this.jumpTo, {item: this, place:this.LEFTFACE});
+        for(i = 0; i < 3; i++){ clock.addManual((this.dtAnim * i) + delay, this.jumpTo, {item: this, place:this.LEFTTHROW + i}); }
+        clock.addManual((this.dtAnim * ++i) + delay, this.jumpTo, {item: this, place:this.LEFTFACE});
         return(this.dtAnim * i); // return the lapse
     };
 

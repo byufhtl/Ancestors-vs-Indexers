@@ -27,14 +27,25 @@ require(['jquery', 'familysearch', 'bootstrap', 'spleash'],function($, FamilySea
     var header = "[]===================================================================[]";
     console.log(header, "\n\tFinalreFactory Code Base\n", header, "\n\n");
     var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
-
-    var FS = new FamilySearch({
-        // Copy your app key into the client_id parameter
-        client_id: 'a02j000000HBHf4AAH',
-        redirect_uri: 'http://127.0.0.1:8080',
-        save_access_token: true,
-        environment: 'sandbox'
-    });
+    var FS = null;
+    if(0) {
+         FS = new FamilySearch({
+            // Copy your app key into the client_id parameter
+            client_id: 'a02j000000HBHf4AAH',
+            redirect_uri: 'http://127.0.0.1:3005',
+            save_access_token: true,
+            environment: 'sandbox'
+        });
+    }
+    else{
+        FS = new FamilySearch({
+            // Copy your app key into the client_id parameter
+            client_id: 'a02j000000CBcjqAAD',
+            redirect_uri: 'http://127.0.0.1:8080',
+            save_access_token: true,
+            environment: 'sandbox'
+        });
+    }
     var splash = new Splash(FS);
     splash.init();
 });

@@ -93,19 +93,19 @@ define(['indexers/Animations/IndexerAnimation', 'model/Projectile'],function (An
             if(eventClock) {
                 if (tempProjectile.orientation == "upRight" || tempProjectile.orientation == "downRight") {
                     if (this.direction == "right") {
-                        eventClock.add(this.animation.throwRight(eventClock, 0) - this.animation.dtAnim, this.shootProjectile, projectileData);
+                        eventClock.addManual(this.animation.throwRight(eventClock, 0) - this.animation.dtAnim, this.shootProjectile, projectileData);
                     }
                     else if (this.direction == "left") {
-                        eventClock.add(this.animation.turnRightThrow(eventClock) - this.animation.dtAnim, this.shootProjectile, projectileData);
+                        eventClock.addManual(this.animation.turnRightThrow(eventClock) - this.animation.dtAnim, this.shootProjectile, projectileData);
                         this.direction = "right";
                     }
                 }
                 else if (tempProjectile.orientation == "upLeft" || tempProjectile.orientation == "downLeft") {
                     if (this.direction == "left") {
-                        eventClock.add(this.animation.throwLeft(eventClock, 0) - this.animation.dtAnim, this.shootProjectile, projectileData);
+                        eventClock.addManual(this.animation.throwLeft(eventClock, 0) - this.animation.dtAnim, this.shootProjectile, projectileData);
                     }
                     else if (this.direction == "right") {
-                        eventClock.add(this.animation.turnLeftThrow(eventClock) - this.animation.dtAnim, this.shootProjectile, projectileData);
+                        eventClock.addManual(this.animation.turnLeftThrow(eventClock) - this.animation.dtAnim, this.shootProjectile, projectileData);
                         this.direction = "left";
                     }
                 }

@@ -80,20 +80,26 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
      */
     HTMLManager.prototype.loadInterface = function(url, value){
         var self = this;
-        var request = new Order();
-        request.addItem(url, Order.HTML, 15);
-        self.loader.loadResources(request).then(
-            function(successResponse) {
-                var content = HTMLManager.getMainDiv();
-                var resource = self.loader.getResource(url);
-                content.html(self.loader.getResource(url));
-                console.log("loaded:", url);
-                self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_SCESS}));
-            },
-            function(failureResponse){
-                self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_FAILD, response:failureResponse}));
-            }
-        );
+        return new Promise(function(resolve, reject){
+            var request = new Order();
+            request.addItem(url, Order.HTML, 15);
+            self.loader.loadResources(request).then(
+                function(successResponse) {
+                    var content = HTMLManager.getMainDiv();
+                    var resource = self.loader.getResource(url);
+                    content.html(self.loader.getResource(url));
+                    console.log("loaded:", url);
+                    if(value != Sig.UG_INTFC && value != Sig.LV_INTFC) {
+                        self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success: Sig.LD_SCESS}));
+                    }
+                    resolve();
+                },
+                function(failureResponse){ // Ultimate failure handler.
+                    self.viewController.handle(new Sig(Sig.INTFC_LD, value, {success:Sig.LD_FAILD, response:failureResponse}));
+                    reject(failureResponse);
+                }
+            );
+        });
     };
 
     /**
@@ -116,14 +122,23 @@ define(['jquery','util/Sig','util/LoaderUtils','util/Order'],function($, Sig, Lo
                 self.loadInterface("src/html/levelsinterface.html", value);
                 break;
             case Sig.UG_INTFC:
-                self.loadInterface("src/html/upgradesinterface.html", value);
+                self.loadInterface("src/html/upgradesinterface.html", value)
+                    .then(function(resolution){
+
+                    });
                 break;
             case Sig.LD_INTFC:
-                self.loadInterface("src/html/loadingPage.html", value);
+                self.loadInterface("src/html/loadingPage.html", value)
+                    .then(function(resolution){
+
+                    });
                 break;
         }
     };
 
+    HTMLManager.prototype.constructUGInterface = function(name){
+        
+    };
     // TOPBAR LOADING ==================================================================================================
 
     /**

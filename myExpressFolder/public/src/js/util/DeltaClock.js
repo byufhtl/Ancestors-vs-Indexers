@@ -36,7 +36,7 @@ define([],function(){
      * @param action The function for the event
      * @param params Parameters needed by the event function.
      */
-    DeltaClock.prototype.add = function(time, action, params){
+    DeltaClock.prototype.addManual = function(time, action, params){
         var self = this;
         var focus = self.head;
         if(!focus || focus.time > time){

@@ -2,7 +2,8 @@
  * Created by calvin on 7/8/16.
  */
 
-define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform', 'ServerFacade'],function(Sig, GameController, LevelDefinition, ViewTransform, ServerFacade){
+define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform', 'ServerFacade', 'audio/AudioManager'],
+    function(Sig, GameController, LevelDefinition, ViewTransform, ServerFacade, AudioManager){
 
 
     function Commander(imageManager, viewController, king){
@@ -16,6 +17,12 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.currentFocusLevel = {act: 3, scene: 2};
         this.userInformation = null;
         this.buttonFocus = this.gameController;
+        this.audioManager = new AudioManager;
+        this.audioManager.init();
+        this.audioManager.play();
+        console.log("Now Playing:", this.audioManager.getTrackData());
+        var output = new Audio("src/audio/mountains.opus");
+        // output.play();
 
         this.userData = null;
     }

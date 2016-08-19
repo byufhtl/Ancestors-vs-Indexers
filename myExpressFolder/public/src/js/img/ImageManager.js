@@ -87,8 +87,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.prototype.launch = function(area){
         var self = this;
 
-        self.status = "Loading images...";
-        console.log(self.status, area);
+        self.status = "Loading Image Package";
+        console.log("<<PACKAGE MANAGER>>", self.status, "[" + area + "].");
         switch(area){
             case Sig.FLD_IMGS:
                 return self.loadFieldPieces();
@@ -246,7 +246,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                 }
             );
         });
-    }
+    };
 
     ImageManager.prototype.loadButtonsImgs = function() {
         var self = this;

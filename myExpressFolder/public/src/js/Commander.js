@@ -20,7 +20,6 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.audioManager = new AudioManager;
         this.audioManager.init();
         this.audioManager.play();
-        console.log("Now Playing:", this.audioManager.getTrackData());
         var output = new Audio("src/audio/mountains.opus");
         // output.play();
 
@@ -37,12 +36,12 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
             }
             else{
                 if(userInformation.data.id == "cis.user.MMMM-6M3N") {
-                    console.log("HACK!!!");
+                    console.log("<<CLIENT>> Forwarding around server");
                     self.userData = {data:{furthestAct: 1, furthestAct: 1}};
                     self.currentFocusLevel.act = self.currentFocusLevel.scene = 1;
                 }
             }
-            console.log("currentFocusLevel: ", self.currentFocusLevel);
+            console.log("<<COMMANDER - SETUP>> currentFocusLevel: ", self.currentFocusLevel);
             self.viewController.assign(self);
             self.eightGenerations = eightGens;
             // Load up all of the images

@@ -1,7 +1,7 @@
 /**
  * Created by calvinmcm on 6/21/16.
  */
-
+var __development = 0;
 require.config({
     baseUrl: 'src/js',
     paths: {
@@ -28,7 +28,7 @@ require(['jquery', 'familysearch', 'bootstrap', 'spleash'],function($, FamilySea
     console.log(header, "\n\tFinalreFactory Code Base\n", header, "\n\n");
     var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
     var FS = null;
-    if(0) {
+    if(__development) {
          FS = new FamilySearch({
             // Copy your app key into the client_id parameter
             client_id: 'a02j000000HBHf4AAH',

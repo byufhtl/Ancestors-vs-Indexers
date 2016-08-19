@@ -36,6 +36,39 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
                     tempObj["FS"] = this.familySearchHandler;
                     console.log("loading the splash page");
                     self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
+
+                    // =================================================================================================
+                    // JUST CHECKING THIS BIT OF CODE REALLY FAST vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+                    self.familySearchHandler.scanUser(function success(history){
+                        var userID = self.familySearchHandler.getCurrentUser();
+                        if(userID) {
+                            var userChanges = [];
+                            var checked  = 0;
+                            var len = history.entries.length;
+                            var updateUser = function(changes){
+                                for(var change of changes){
+                                    console.log("User's points increase by 10.")
+                                }
+                            };
+                            for (var entry of history.entries.length) {
+                                self.familySearchHandler.matchPersonChangeHistory(entry, userID).then(
+                                    function success(response){
+                                        userChanges.push(response);
+                                        if(++checked == len){
+                                            updateUser(userChanges);
+                                        }
+                                    }
+                                    ,function failure(response){
+                                        if(++checked == len){
+                                            updateUser(userChanges);
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    });
+                    // END TEMP CODE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    // =================================================================================================
                 }
             });
         });

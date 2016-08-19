@@ -14,6 +14,7 @@ define(["jquery","util/Sig"],function($,Sig){
     };
 
     FamilySearchHandler.prototype.getParameterByName = function(name) {
+        name = (name == "Authcode" || name == "Authorization Code") ? "code" : name; // Make a few provisionary parallels.
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         var code = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
         code = code.replace(new RegExp('/'), "");
@@ -36,21 +37,19 @@ define(["jquery","util/Sig"],function($,Sig){
                 });
         }
         else if (typeof(Storage) !== "undefined" && localStorage.getItem('fs_access_token')) {
-                        var accessToken = localStorage.getItem('fs_access_token');
-                        self.FS.getAccessToken(accessToken).then(function(newAccessToken){
-                        self.getEightGens(function(response){
-                            callback(response);
-                        });
+                var accessToken = localStorage.getItem('fs_access_token');
+                self.FS.getAccessToken(accessToken).then(function(newAccessToken){
+                self.getEightGens(function(response){
+                    callback(response);
                 });
+            });
         }
         else {
           callback(null);
         }
     };
 
-
-    FamilySearchHandler.prototype.getEightGens = function(callback)
-    {
+    FamilySearchHandler.prototype.getEightGens = function(callback){
         var self = this;
         //get user and ID
         self.FS.getCurrentUser().then(function(response)
@@ -66,7 +65,7 @@ define(["jquery","util/Sig"],function($,Sig){
 
           self.FS.getAncestry(self.id, params).then(function parse(ancestors){
 
-              listOfAncestors = ancestors.getPersons();
+              var listOfAncestors = ancestors.getPersons();
               for (var i = 0; i < listOfAncestors.length; i++)
               {
                     /* each person has under data.display
@@ -79,10 +78,91 @@ define(["jquery","util/Sig"],function($,Sig){
                         name
                      */
               }
+              console.log("<<INITIALIZATION>> Ancestry Obtained!");
               callback(listOfAncestors);
           });
         });
     };
 
+    /**
+     * Provides a way of obtaining the current user's information, whether or not it has been fetched already. Makes
+     * use of previously retrieved data where possible, unless the override variable is defined and set to true.
+     * @returns {Promise} resolves with FS user data. rejects with null if request cannot succeed.
+     */
+    FamilySearchHandler.prototype.getCurrentUser = function(override){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            if(self.user && (self.user != {}) && !override){
+                resolve(self.user);
+            }
+            else{
+                self.FS.getCurrentUser().then(function resolved(user){
+                    self.user = user;
+                    resolve(user);
+                },
+                function failed(response){
+                    console.log("<<ERROR-FS/API>> User could not be identified.", response);
+                    resolve(null);
+                })
+            }
+        });
+    };
+
+    FamilySearchHandler.prototype.matchPersonChangeHistory = function(personData, userID){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var url = "https://" + ((__development) ? ("beta.") : ("sandbox.")) + ("familysearch.org/platform/persons/" + personData.id + "/changes");
+            console.log("<<DEBUG-AJAX>> TARGET URL:", url);
+            self.FS.getChanges(url).then(
+                function success(response){
+                    var changes = response.getChanges();
+                    console.log("<<FS RETURN>> Changes:", changes);
+                    resolve(changes);
+                },
+                function failure(response){
+                    console.log("<<FS RETURN>> Changelog failed or could not be found.", this, response);
+                    resolve(response)
+                }
+            )
+        });
+    };
+
+    FamilySearchHandler.prototype.scanUser = function(onSuccess){
+        var self = this;
+        console.log("<<DEBUG>> Scan User in progress.");
+        var promise = new Promise(function(resolve, reject){
+            self.getCurrentUser().then(function(user){ //Retrieve the user's ID
+                var userID = user.getUser().data.id;
+                var url = (__development) ? ("https://beta.familysearch.org/platform/users/" + userID + "/history") : ("https://sandbox.familysearch.org/platform/users/" + userID + "/history");
+                $.ajax(url,{ // Request the user's history
+                    method: 'GET',
+                    headers: {
+                        Accept: "application/x-gedcomx-atom+json"
+                    },
+                    data: {
+                        uid: userID,
+                        // Authorization: "Bearer " + (self.getParameterByName('code')).toString(),
+                        access_token: localStorage.getItem('fs_access_token')
+                    }
+                }).then(
+                    function success(response){ // If the user's change history has been obtained
+                        console.log("<<FAMILYSEARCH>> History obtained:", response);
+                        resolve(response);
+                    },
+                    function failure(response){ // If the user's history was unobtainable
+                        console.log("<<DEBUG>> History request rejected. this:", this, ".\nResponse:", response);
+                        reject(response);
+                    }
+                );
+            });
+        });
+        promise.then(function(histData){
+            console.log("<<DEBUG>> Making request to callback.");
+            onSuccess(histData);
+        },
+        function(response){
+            console.log("<<DEBUG>> Promise failed:", response);
+        });
+    };
     return FamilySearchHandler;
 });

@@ -1,5 +1,8 @@
 /**
  * Created by calvin on 8/16/16.
+ * This class and it's attendant Playlist class are designed to make musical effects more easily streamable. It currently
+ * deals only with songs and is not capable of playing sound effects in parallel. That will be the upgraded version
+ * coming up when we come around to needing it. Actually, that might end up being something else...
  */
 
 define(['jquery'],function($){
@@ -22,7 +25,7 @@ define(['jquery'],function($){
             song.audio.preload = "auto";
             // song.audio.load();
             song.audio.addEventListener('ended',function(e){
-                console.log("<<MUSIC>>\t\"" + song.name + "\"", "has finished playing.");
+                // console.log("<<MUSIC>>\t\"" + song.name + "\"", "has finished playing.");
                 manager.pause();
                 song.audio.currentTime = 0;
                 song.audio.playbackRate = 1;
@@ -35,7 +38,7 @@ define(['jquery'],function($){
         this.next = function(){
             if(this.all_songs.length != 0){
                 if(this.remaining_songs.length == 0){
-                    console.log("Reloading playlist [" + this.name + "]");
+                    // console.log("Reloading playlist [" + this.name + "]");
                     this.remaining_songs = this.all_songs.slice(); // Copies a segment, which in this case includes everything.
                     if(this.remaining_songs.length > 2) { // If there are more than two songs, randomize their order in the list.
                         var posA;
@@ -86,9 +89,10 @@ define(['jquery'],function($){
         this.init = function(){
 
             this.menuList.addSong(AudioManager.songs.COMMITMENT);
+            this.gameList.addSong(AudioManager.songs.ASCENDANCY);
             this.gameList.addSong(AudioManager.songs.JOURNEYMAN);
             this.gameList.addSong(AudioManager.songs.MOUNTAINS);
-            this.gameList.addSong(AudioManager.songs.PSYCHOPATH);
+            // this.gameList.addSong(AudioManager.songs.PSYCHOPATH);
             this.playlists[AudioManager.playlists.MENUS] = this.menuList;
             this.playlists[AudioManager.playlists.GAMEPLAY] = this.gameList;
 
@@ -121,23 +125,25 @@ define(['jquery'],function($){
             }
             else if(self.current_playlist){
                 if(!self.audio){
-                    console.log("Loading Music");
+                    // console.log("Loading Music");
                     self.current_piece = self.current_playlist.next();
                     if(self.current_piece && self.current_piece.audio) {
                         self.audio = self.current_piece.audio;
-                        console.log("Load to Playing:", this.getTrackData());
+                        // console.log("Load to Playing:", this.getTrackData());
                         this.setTempo();
                         this.setVolume();
                         this.playing = true;
                         self.audio.play();
+                        console.log("<<MUSIC>> Now Playing:", this.getTrackData());
                     }
                 }
                 else {
-                    console.log("Naturally Playing:", this.getTrackData());
+                    // console.log("Naturally Playing:", this.getTrackData());
                     this.setTempo();
                     this.setVolume();
                     this.playing = true;
                     self.audio.play();
+                    console.log("<<MUSIC>> Now Playing:", this.getTrackData());
                 }
             }
         };
@@ -194,8 +200,8 @@ define(['jquery'],function($){
             return {
                 playlist : this.current_playlist.name,
                 song : this.current_piece.name,
-                totaltime : this.current_piece.duration,
-                currentPlace : this.current_piece.currentTime,
+                totaltime : this.current_piece.audio.duration,
+                currentPlace : this.current_piece.audio.currentTime,
                 audiofile: this.current_piece.audio
             };
         };
@@ -288,7 +294,8 @@ define(['jquery'],function($){
         // GAMEPLAY
         JOURNEYMAN:         {name: "journeyman", audio: new Audio("src/audio/journeyman.opus")},
         MOUNTAINS:          {name: "mountains",  audio: new Audio("src/audio/mountains.opus")},
-        PSYCHOPATH:         {name: "psychopath", audio: new Audio("src/audio/weird.opus")},
+        // PSYCHOPATH:         {name: "psychopath", audio: new Audio("src/audio/weird.opus")},
+        ASCENDANCY:         {name: "ascendancy", audio: new Audio("src/audio/ascend.opus")},
 
         // MENU MANAGEMENT
         COMMITMENT:         {name: "commitment", audio: new Audio("src/audio/commitment.opus")}

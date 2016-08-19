@@ -5,7 +5,7 @@
 
 define(['indexers/Animations/IndexerAnimation', 'model/Projectile'],function (Animation, Projectile) {
 
-    console.log("\n\n\nHEY!!! HELLO!!! LISTEN!!!\n\n\nHEY!!! HELLO!!! LISTEN!!!\n\n\n-");
+    console.log("<<Using Custom Indexer>>");
     function Indexer_Animated(){
         this.throwDelay = 4;
         this.throwTimer = 0;

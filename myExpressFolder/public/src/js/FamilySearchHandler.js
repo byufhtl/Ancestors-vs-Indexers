@@ -108,19 +108,35 @@ define(["jquery","util/Sig"],function($,Sig){
         });
     };
 
-    FamilySearchHandler.prototype.matchPersonChangeHistory = function(personData, userID){
+    FamilySearchHandler.prototype.matchPersonChangeHistory = function(personData, user){
         var self = this;
         return new Promise(function(resolve, reject){
             var url = "https://" + ((__development) ? ("beta.") : ("sandbox.")) + ("familysearch.org/platform/persons/" + personData.id + "/changes");
             console.log("<<DEBUG-AJAX>> TARGET URL:", url);
-            self.FS.getChanges(url).then(
+            self.FS.getPerson(personData.id).then(
                 function success(response){
-                    var changes = response.getChanges();
-                    console.log("<<FS RETURN>> Changes:", changes);
-                    resolve(changes);
+                    response.getPerson().getChanges().then(function success(changeLog){
+                        var changes = changeLog.getChanges();
+                        console.log("<<FS RETURN>> Changes:", changes);
+                        var matches = 0;
+                        var username = user.data.contactName;
+                        for(var change of changes){
+                            for(var contributor of change.data.contributors){
+                                if(contributor.name == username){
+                                    console.log("<<FS MATCHER>> MATCH!!!");
+                                    matches = (change.data.updated > matches) ? change.data.updated : matches; // Logs the most recent change.
+                                }
+                            }
+                        }
+                        resolve(matches);
+                    },
+                    function failure(response){
+                        console.log("<<FS RETURN>> Changelog failed or could not be found.");
+                        resolve(response);
+                    });
                 },
                 function failure(response){
-                    console.log("<<FS RETURN>> Changelog failed or could not be found.", this, response);
+                    console.log("<<FS RETURN>> Person could not be found.", this, response);
                     resolve(response)
                 }
             )
@@ -132,7 +148,7 @@ define(["jquery","util/Sig"],function($,Sig){
         console.log("<<DEBUG>> Scan User in progress.");
         var promise = new Promise(function(resolve, reject){
             self.getCurrentUser().then(function(user){ //Retrieve the user's ID
-                var userID = user.getUser().data.id;
+                var userID = user.data.id;
                 var url = (__development) ? ("https://beta.familysearch.org/platform/users/" + userID + "/history") : ("https://sandbox.familysearch.org/platform/users/" + userID + "/history");
                 $.ajax(url,{ // Request the user's history
                     method: 'GET',

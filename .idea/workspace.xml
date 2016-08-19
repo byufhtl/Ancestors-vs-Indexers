@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8730eb8-4655-4692-941a-c753ab5d7db8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/main.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/audio/AudioManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/audio/AudioManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/view/HTMLManager.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/view/HTMLManager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myExpressFolder/public/src/js/view/ViewController.js" afterPath="$PROJECT_DIR$/myExpressFolder/public/src/js/view/ViewController.js" />
     </list>
     <ignored path="Ancestors-vs-Indexers.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,10 +37,11 @@
       <file leaf-file-name="FamilySearchHandler.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="80" column="46" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
+            <state relative-caret-position="478">
+              <caret line="126" column="142" selection-start-line="126" selection-start-column="142" selection-end-line="126" selection-end-column="142" />
               <folding>
                 <element signature="e#233#329#0" expanded="false" />
+                <element signature="e#3148#3488#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -60,8 +50,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+            <state relative-caret-position="54">
+              <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -70,8 +60,8 @@
       <file leaf-file-name="RevisedSplash.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="41" column="80" selection-start-line="41" selection-start-column="80" selection-end-line="41" selection-end-column="80" />
+            <state relative-caret-position="187">
+              <caret line="52" column="65" selection-start-line="52" selection-start-column="65" selection-end-line="52" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -220,12 +210,12 @@
         <option value="$PROJECT_DIR$/myExpressFolder/public/index.html" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/audio/AudioManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/main.js" />
-        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/view/HTMLManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/view/ViewController.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/img/ImageManager.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/indexers/Indexer_Animated.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/Commander.js" />
+        <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js" />
         <option value="$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js" />
       </list>
     </option>
@@ -517,12 +507,12 @@
       <workItem from="1471460999824" duration="1258000" />
       <workItem from="1471463676439" duration="9479000" />
       <workItem from="1471558510303" duration="1761000" />
-      <workItem from="1471617234785" duration="10284000" />
+      <workItem from="1471617234785" duration="13645000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142064000" />
+    <option name="totallyTimeSpent" value="145425000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -535,7 +525,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33998185" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33998185" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -673,6 +663,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#233#329#0" expanded="false" />
+            <element signature="e#3148#3488#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -806,6 +797,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#233#329#0" expanded="false" />
+            <element signature="e#3148#3488#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -901,6 +893,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#233#329#0" expanded="false" />
+            <element signature="e#3148#3488#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1044,22 +1037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="41" column="80" selection-start-line="41" selection-start-column="80" selection-end-line="41" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/view/HTMLManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -1108,12 +1085,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/RevisedSplash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="52" column="65" selection-start-line="52" selection-start-column="65" selection-end-line="52" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/myExpressFolder/public/src/js/FamilySearchHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="80" column="46" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
+        <state relative-caret-position="478">
+          <caret line="126" column="142" selection-start-line="126" selection-start-column="142" selection-end-line="126" selection-end-column="142" />
           <folding>
             <element signature="e#233#329#0" expanded="false" />
+            <element signature="e#3148#3488#0" expanded="false" />
           </folding>
         </state>
       </provider>

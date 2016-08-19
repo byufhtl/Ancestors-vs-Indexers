@@ -31,47 +31,55 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
                     imageManager.injectLoader(self.viewController.handle(new Sig(Sig.GET_LODR, Sig.HTM_LODR, null)));
                     self.controller = new Commander(imageManager, self.viewController, self);
                     self.controller.start(eightGens, self.familySearchHandler.user);
+                    self.__tempCheckUser();
                 }
                 else {
                     tempObj["FS"] = this.familySearchHandler;
                     console.log("loading the splash page");
                     self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
-
-                    // =================================================================================================
-                    // JUST CHECKING THIS BIT OF CODE REALLY FAST vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-                    self.familySearchHandler.scanUser(function success(history){
-                        var userID = self.familySearchHandler.getCurrentUser();
-                        if(userID) {
-                            var userChanges = [];
-                            var checked  = 0;
-                            var len = history.entries.length;
-                            var updateUser = function(changes){
-                                for(var change of changes){
-                                    console.log("User's points increase by 10.")
-                                }
-                            };
-                            for (var entry of history.entries.length) {
-                                self.familySearchHandler.matchPersonChangeHistory(entry, userID).then(
-                                    function success(response){
-                                        userChanges.push(response);
-                                        if(++checked == len){
-                                            updateUser(userChanges);
-                                        }
-                                    }
-                                    ,function failure(response){
-                                        if(++checked == len){
-                                            updateUser(userChanges);
-                                        }
-                                    }
-                                );
-                            }
-                        }
-                    });
-                    // END TEMP CODE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    // =================================================================================================
+                    self.__tempCheckUser();
                 }
             });
         });
+    };
+
+    Splash.prototype.__tempCheckUser = function(){
+        // =============================================================================================================
+        // JUST CHECKING THIS BIT OF CODE REALLY FAST vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        var self = this;
+        self.familySearchHandler.scanUser(function success(history){
+            self.familySearchHandler.getCurrentUser().then(function(user){
+                if(user) {
+                    console.log("<<SPLASH - TEMP>> User:", user);
+                    var userChanges = [];
+                    var checked  = 0;
+                    var len = history.entries.length;
+                    var updateUser = function(changes){
+                        for(var change of changes){
+                            console.log("User's points increase by 10.")
+                        }
+                    };
+                    for (var entry of history.entries) {
+                        self.familySearchHandler.matchPersonChangeHistory(entry, user).then(
+                            function success(response){
+                                userChanges.push(response);
+                                if(++checked == len){
+                                    updateUser(userChanges);
+                                }
+                            }
+                            ,function failure(response){
+                                if(++checked == len){
+                                    updateUser(userChanges);
+                                }
+                            }
+                        );
+                    }
+                }
+            });
+
+        });
+        // END TEMP CODE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        // =============================================================================================================
     };
 
     Splash.prototype.handle = function(event){

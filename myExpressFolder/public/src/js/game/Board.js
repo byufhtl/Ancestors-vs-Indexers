@@ -6,11 +6,15 @@ define([],function() {
 
     /**
      * Generates and returns the 2d array representing all board tiles
-     * @param levelData {#ofDatabases, #extraClumps, #Clumpiness}
+     * @param levelData {#ofDatabases, #extraClumps, #Clumpiness, #ofLockedClumps}
      */
-    Board.generate = function(levelData){
-
+    Board.prototype.generate = function(levelData){
+        var self = this;
+        var clumps = [];
         for(var dbi = 0; dbi < levelData.numDBs; dbi++){
+            var clump = {};
+            clump.array = self.makeClump(true);
+
             /*
              * Make a clump with a DB in it
              * Add it to the field.
@@ -30,14 +34,14 @@ define([],function() {
     /**
      * Makes a cycle.
      */
-    Board.makeCycles = function(){
+    Board.prototype.makeCycles = function(){
 
     };
 
     /**
      * Combines cycles within a clump.
      */
-    Board.combineCycles = function(){
+    Board.prototype.combineCycles = function(){
 
     };
 
@@ -46,14 +50,14 @@ define([],function() {
      * represented by null.
      * @param hasDatabase whether or not the clump should contain a database.
      */
-    Board.makeClump = function(hasDatabase){
+    Board.prototype.makeClump = function(hasDatabase){
 
     };
 
     /**
-     * Builds the links between clumps within the field.
+     * Adds a clump and any necessary bridging to connect it to the other clumps.
      */
-    Board.combineClumps = function(){
+    Board.prototype.addClump = function(clumpToAdd){
 
     };
 

@@ -1,8 +1,10 @@
-define([],function() {
+define(['game/Tile'],function(Tile) {
+
 
     function Board(){
         this.tileArray = [];
     }
+
 
     /**
      * Generates and returns the 2d array representing all board tiles
@@ -45,9 +47,7 @@ define([],function() {
 
     };
 
-    /**
-     * Creates a single clump, represented as a two-dimensional array of Tiles. Spaces with no tiles should be
-     * represented by null.
+    /*
      * @param hasDatabase whether or not the clump should contain a database.
      */
     Board.prototype.makeClump = function(hasDatabase){

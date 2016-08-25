@@ -1,16 +1,30 @@
 define(['game/Tile'],function(Tile) {
 
-    function Board(){}
+
+    function Board(){
+        this.tileArray = [];
+    }
+
 
     /**
      * Generates and returns the 2d array representing all board tiles
      * @param levelData {#ofDatabases, #extraClumps, #Clumpiness}
      */
     Board.generate = function(levelData){
+
+        for(var dbi = 0; dbi < levelData.numDBs; dbi++){
+            /*
+             * Make a clump with a DB in it
+             * Add it to the field.
+             */
+        }
+        for(var clumpi = 0; clumpi < levelData.numExtraClumps; clumpi++){
+            /*
+             * Make a database-free clump
+             * Add it to the field.
+             */
+        }
         /*
-            For # of clumps
-                var clump = makeClump();
-                Add it to the field
             Combine clumps
         */
     };
@@ -19,7 +33,7 @@ define(['game/Tile'],function(Tile) {
      * Makes a cycle.
      */
     Board.makeCycles = function(){
-        
+
     };
 
     /**
@@ -29,11 +43,10 @@ define(['game/Tile'],function(Tile) {
 
     };
 
-    /**
-     * Creates a single clump, represented as a two-dimensional array of Tiles. Spaces with no tiles should be
-     * represented by null.
+    /*
+     * @param hasDatabase whether or not the clump should contain a database.
      */
-    Board.makeClump = function(){
+    Board.makeClump = function(hasDatabase){
 
     };
 

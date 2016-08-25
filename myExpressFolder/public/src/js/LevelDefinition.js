@@ -5,7 +5,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
     //returns the 2dimensional structure of the level
     LevelDefinition.generateBoard = function(level){
         var levelData = LevelDefinition.getLevelData(level);
-        var board = Board.generate(levelData);
+        var board = new Board();
+        board.generate(levelData);
         return board;
     };
 

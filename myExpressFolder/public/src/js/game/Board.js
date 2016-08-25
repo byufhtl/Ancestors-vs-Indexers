@@ -13,7 +13,7 @@ define(['game/Tile'],function(Tile) {
     Board.prototype.generate = function(levelData){
         var self = this;
         var clumps = [];
-        for(var dbi = 0; dbi < levelData.numDBs; dbi++){
+        for(var dbi = 0; dbi < levelData.numDatabase; dbi++){
             var clump = {};
             clump.array = self.makeClump(true);
 
@@ -22,7 +22,7 @@ define(['game/Tile'],function(Tile) {
              * Add it to the field.
              */
         }
-        for(var clumpi = 0; clumpi < levelData.numExtraClumps; clumpi++){
+        for(var clumpi = 0; clumpi < levelData.numAdditionalClumps; clumpi++){
             /*
              * Make a database-free clump
              * Add it to the field.

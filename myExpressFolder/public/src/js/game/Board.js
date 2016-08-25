@@ -1,4 +1,4 @@
-define([],function() {
+define(['game/Tile'],function(Tile) {
 
     function Board(){}
 
@@ -9,7 +9,7 @@ define([],function() {
 
     //
     Board.makeCycles = function(){
-
+        
     };
 
     //

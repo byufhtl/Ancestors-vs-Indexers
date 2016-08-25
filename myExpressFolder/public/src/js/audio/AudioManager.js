@@ -100,7 +100,7 @@ define(['jquery'],function($){
             this.current_piece = this.current_playlist.next();
             this.audio = this.current_piece.audio;
             this.playbackRate = 1;
-            this.volume = .5;
+            this.volume = .3;
             this.playing = false;
             this.muted = false;
         };

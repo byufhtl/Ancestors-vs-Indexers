@@ -59,6 +59,7 @@ define(['game/Tile'],function(Tile) {
             --totalLeft;
             clump = self.makeClump((dbi < levelData.numDBs), levelData.clumpiness);
             console.log("<<BOARD>> Made Clump *v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*");
+            console.log(clump);
             Board.printArray(clump.array);
             console.log('<<BOARD>> End Clump  *^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*');
             if(self.__conditionalLock(clump, locksRemaining, totalLeft)){
@@ -67,7 +68,7 @@ define(['game/Tile'],function(Tile) {
             }
             clumps.push(clump);
         }
-        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array));
+        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs + levelData.numExtraClumps);
     };
 
     Board.isReverse = function(random, previousDirection){
@@ -311,6 +312,14 @@ define(['game/Tile'],function(Tile) {
         return isletHeads;
     };
 
+    /**
+     * Draws a linear path between two points within a 2d array.
+     * @param array The array to draw the path in
+     * @param start The start point
+     * @param end The end point
+     * @returns {*} The array. Just in case you forgot that you passed it in.
+     * @private Keep out of reach of children.
+     */
     Board.__drawLinearPath = function(array, start, end){
         console.log("<<BOARD>> Drawing Additional Paths:", array, start, end);
         var xDiff = end.col - start.col;
@@ -370,13 +379,14 @@ define(['game/Tile'],function(Tile) {
         Board.printArray(array);
         var isletCoords = this.__identifyIslets(array);
         if(!isletCoords.length){
-            console.log("No map was found in bridging the islets...");
+            console.error("No map was found for bridging the islets...");
             return null;
         }
         else if(isletCoords.length == 1){
             return array;
         }
         else{
+            console.log("<<BOARD>> Islet Heads:", isletCoords);
             while(isletCoords.length > 1){
                 var startHead = isletCoords.shift();
                 var endHead = isletCoords.pop();
@@ -391,34 +401,39 @@ define(['game/Tile'],function(Tile) {
         return array;
     };
 
-    Board.__reconnect = function(array){
+    Board.__reconnect = function(array, numPaths){
+        console.log("<<BOARD>> Reconnecting:", numPaths);
         var height = array.length;
         var width = array[0].length;
         var start = {};
         var end = {};
         var y, x;
         var count = 0;
-        for(var z = 0; z = Math.sqrt(width*width + height*height)/2; z++) {
+        for(var z = 0; z < numPaths; z++) {
             start = null;
             while (!start) {
-                y = Math.random() * (height-1);
-                x = Math.random() * (width-1);
+                y = Math.floor(Math.random() * (height-1));
+                x = Math.floor(Math.random() * (width-1));
                 if (array[y][x]) {
+                    console.log("<<BOARD>> Reconnect message START:", array, y, x);
                     start = {row: y, col: x};
                 }
             }
             end = null;
             while (!end) {
-                y = Math.random() * height;
-                x = Math.random() * width;
+                y = Math.floor(Math.random() * height);
+                x = Math.floor(Math.random() * width);
                 if (array[y][x]) {
+                    console.log("<<BOARD>> Reconnect message: END", array, y, x);
                     end = {row: y, col: x};
                 }
             }
             Board.__drawLinearPath(array, start, end);
             ++count;
         }
-        console.log("<<BOARD>> Reconnected", count, "times.")
+        console.log("<<BOARD>> Reconnected", count, "times. \n<<BOARD>> Reconnected board:");
+        Board.printArray(array);
+        return array;
     };
 
     /**

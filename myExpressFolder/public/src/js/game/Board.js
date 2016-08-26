@@ -116,6 +116,24 @@ define(['game/Tile'],function(Tile) {
       return false;
     };
 
+    Board.lastRemainingIsOpposite = function(up,down,left,right,firstTile){
+      switch(firstTile) {
+        case 1: //up
+            if (up == 0 && right == 0 && left == 0 && down == 1) return true;
+            break;
+        case 2: //down
+            if (right == 0 && left == 0 && down == 0 && up == 1) return true;
+            break;
+        case 3: //left
+            if (left == 0 && down == 0 && up == 0 && right == 1) return true;
+            break;
+        case 4: //right
+            if (down == 0 && up == 0 && right == 0 && left == 1) return true;
+            break;
+      }
+      return false;
+    };
+
     /**
      * Makes a cycle.
      */
@@ -141,7 +159,7 @@ define(['game/Tile'],function(Tile) {
         var xPos = size;
 
         cycle[yPos][xPos] = new Tile();
-
+        var firstMove;
         var random = Math.floor(Math.random() * (5-1) + 1);
 
         while (up > 0 || down > 0 || left > 0 || right > 0) {
@@ -152,6 +170,16 @@ define(['game/Tile'],function(Tile) {
 
                 random = Math.floor(Math.random() * (5-1) + 1);
 
+                if (Board.lastRemainingIsOpposite(up,down,left,right,firstMove)){
+                  if (up == 1 || down == 1){
+                    left++; right++;
+                    random = 3;
+                  }
+                  else{
+                    up++; down++;
+                    random = 1;
+                  }
+                }
                 //can't go in reverse direction because it can create a lane
                 if (Board.isReverse(random, previous)) randomAgain = true;
                 //finally ensure that there are actually any of the direction left
@@ -171,7 +199,7 @@ define(['game/Tile'],function(Tile) {
                         }
                 }
             }
-
+            if (firstMove == null) firstMove = random;
             switch(random){
                 case 1: //up
                     console.log("up");
@@ -384,7 +412,7 @@ define(['game/Tile'],function(Tile) {
                 isletCoords.push(endHead);
             }
         }
-        
+
         console.log("<<BOARD>> Islets Bridged:");
         Board.printArray(array);
         console.log("<<BOARD>> DONE[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]");
@@ -547,7 +575,7 @@ define(['game/Tile'],function(Tile) {
                 /*
                     Adjust the total width height of the array and move the center coordinates accordingly
                  */
-                
+
                 // console.log("<<BOARD>> Adjusting Array.\n<<BOARD>> Before:");
                 // Board.printArray(glob.array);
 

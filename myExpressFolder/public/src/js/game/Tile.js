@@ -1,7 +1,7 @@
 define([],function() {
 
     function Tile(){
-      this.image;
+      this.image = null;
       this.locked = false;
       this.hotspot = false;
     }

@@ -14,7 +14,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
     LevelDefinition.getLevelData = function(level){
         var data = {};
         switch(level){
-          case: 1
+          case 1:
             data.numDatabase = 1;
             data.numAdditionalClumps = 0;
             data.clumpiness = 3;

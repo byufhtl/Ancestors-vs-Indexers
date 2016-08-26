@@ -1,6 +1,6 @@
 define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
-    'view/ViewController', 'Commander', 'util/Order'],
-    function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander, Order) {
+    'view/ViewController', 'Commander', 'util/Order', 'game/Board'],
+    function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander, Order, Board) {
 
     var Splash = function(FS)
     {
@@ -13,6 +13,8 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
 
     Splash.prototype.init = function()
     {
+        var board = new Board();
+        board.makeCycle();
         var self =  this;
         var request = new Order();
         request.addItem("src/html/loadingPage.html", Order.HTML, 15);

@@ -13,11 +13,13 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
 
     Splash.prototype.init = function()
     {
+      /*
         var testBoard = new Board();
-        testBoard.generate({numDBs: 3, numExtraClumps: 2, numLocked: 0, clumpiness: 7});
+        testBoard.generate({numDBs: 3, numExtraClumps: 5, numLocked: 0, clumpiness: 12});
         console.log("<<BOARD>> Print Test:");
         testBoard.printTest();
         console.log("<<BOARD>> --End Print Test");
+      */
         var self =  this;
         var request = new Order();
         request.addItem("src/html/loadingPage.html", Order.HTML, 15);

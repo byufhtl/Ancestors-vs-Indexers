@@ -19,9 +19,6 @@ define(['img/ImageManager'],function(ImageManager) {
         this.projectileXOffset = -33;
         this.projectileYOffset = -65;
 
-        this.standardBuildingXOffset = -72/2;
-        this.standardBuildingYOffset = -110/2;
-
         this.recordOffset = -50;
         this.resizeOnce = true;
 
@@ -177,66 +174,6 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     }
 
-    Render.prototype.renderBuildings = function(activeBuildings) {
-        var buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
-        for (var i = 0; i < activeBuildings.length; i++) {
-            switch (activeBuildings[i].type) {
-                case "library":
-                    buildingImg = this.imageManager.getImage(ImageManager.BLD_LIBR);
-                    break;
-                default:
-                    buildingImg = this.imageManager.getImage(ImageManager.BLD_FHCR);
-            }
-            this.ctx.drawImage(buildingImg, activeBuildings[i].xCoord + this.viewTransform.t_offset_X + this.standardBuildingXOffset, activeBuildings[i].yCoord + this.viewTransform.t_offset_Y + this.standardBuildingYOffset);
-            //console.log("drawing building: " + i + " x: " + activeBuildings[i].xCoord + this.viewTransform.t_offset_X + " y: " + activeBuildings[i].yCoord + this.viewTransform.t_offset_Y);
-        }
-    };
-
-
-    Render.prototype.renderTriangularPlayingField = function(levelStructure)
-    {
-        var alphaImg = this.imageManager.getImage(ImageManager.TRI_ALPH);
-
-        var betaImg = this.imageManager.getImage(ImageManager.TRI_BETA);
-          for (var i = 0; i < levelStructure.length; i++)
-          {
-              for (var j = 0; j < levelStructure[i].length; j++)
-              {
-                  if (levelStructure[i][j].type == "alpha")
-                  {
-                      this.ctx.drawImage(alphaImg, levelStructure[i][i].xCoord + this.viewTransform.t_offset_X, levelStructure[i][j].yCoord + this.viewTransform.t_offset_Y);
-                  }
-                  else
-                  {
-                      this.ctx.drawImage(betaImg, levelStructure[i][i].xCoord + this.viewTransform.t_offset_X, levelStructure[i][j].yCoord + this.viewTransform.t_offset_Y);
-                  }
-              }
-          }
-    };
-
-    Render.prototype.renderNodeStructure = function(nodeStructure)
-    {
-        //get node image here
-        var nodeImg = this.imageManager.getImage(ImageManager.NODE_CIR);
-        for (var i = 0; i < nodeStructure.length; i++)
-        {
-            for (var j = 0; j < nodeStructure[i].length; j++)
-            {
-                if (!nodeStructure[i][j].occupied)
-                {
-                    //draw node here
-                    this.ctx.drawImage(nodeImg, nodeStructure[i][j].animFrame * 50,0,50,50,nodeStructure[i][j].xCoord + this.viewTransform.t_offset_X + this.nodeOffset,nodeStructure[i][j].yCoord + this.viewTransform.t_offset_Y + this.nodeOffset,50,50);
-                }
-            }
-        }
-    };
-
-    Render.prototype.renderTree = function(levelStructure)
-    {
-        var tree = this.imageManager.getImage(ImageManager.UND_TREE);
-        this.ctx.drawImage(tree, 100, 100, (tree.width - 200)/8 * levelStructure.length, tree.height, 0 + this.viewTransform.t_offset_X, -900 + this.viewTransform.t_offset_Y, (tree.width - 200)/8 * levelStructure.length, tree.height);
-    };
-
     Render.prototype.renderButtons = function(activeButtons, activePlaceButtons, optionButtons) {
         for (var i = 0; i < activeButtons.length; i++) {
             var buttonImg = this.imageManager.getImage(activeButtons[i].imgURL);
@@ -265,16 +202,40 @@ define(['img/ImageManager'],function(ImageManager) {
         this.resizeOnce = true;
     };
 
-    Render.prototype.render = function(active, canvas, translation, levelStructure, nodeStructure) {
+    Render.prototype.renderBoard = function(board)
+    {
+        for (var y = 0; y < board.length; y++){
+            for (var x = 0; x < board[y].length; x++){
+                if (board[y][x] != null){
+                    var img = this.imageManager.getImage(board[y][x].image);
+                    this.ctx.drawImage(img, x * 150 + this.viewTransform.t_offset_X, y * 150 + this.viewTransform.t_offset_Y);
+                }
+            }
+        }
+    };
+
+    Render.prototype.renderMiniMap = function(board)
+    {
+      this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
+      this.ctx.fillRect(30, 30, board[0].length * 3,  board.length * 3);
+      this.ctx.fillStyle = "blue";
+      for (var y = 0; y < board.length; y++){
+          for (var x = 0; x < board[y].length; x++){
+              if (board[y][x] != null){
+                  this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);              }
+          }
+      }
+      this.ctx.fillStyle = "black";
+    };
+
+    Render.prototype.render = function(active, board, canvas, translation) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
+
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
-        this.renderBackground();
-        this.renderTree(levelStructure);
-        this.renderTriangularPlayingField(levelStructure);
-        this.renderNodeStructure(nodeStructure);
+        //this.renderBackground();
+        this.renderBoard(board);
+        this.renderMiniMap(board);
         this.renderDrops(active.drops());
-        this.renderIndexers(active.indexers());
-        this.renderBuildings(active.buildings());
         this.renderAncestors(active.ancestors());
         this.renderProjectiles(active.projectiles());
         this.renderRecords(active.records());

@@ -1,4 +1,4 @@
-define(['game/Tile'],function(Tile) {
+define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
 
     function Board(){
@@ -59,6 +59,7 @@ define(['game/Tile'],function(Tile) {
             --totalLeft;
             clump = self.makeClump((dbi < levelData.numDBs), levelData.clumpiness);
             console.log("<<BOARD>> Made Clump *v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*");
+            console.log(clump);
             Board.printArray(clump.array);
             console.log('<<BOARD>> End Clump  *^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*');
             if(self.__conditionalLock(clump, locksRemaining, totalLeft)){
@@ -67,8 +68,62 @@ define(['game/Tile'],function(Tile) {
             }
             clumps.push(clump);
         }
-        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array));
+        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs + levelData.numExtraClumps);
+        Board.setTileImages(this.tileArray);
     };
+
+    Board.setTileImages = function(tileArray) {
+      for (var y = 0; y < tileArray.length; y++){
+          for (var x = 0; x < tileArray[y].length; x++){
+              if (tileArray[y][x] != null){
+                  var leftOpen = true;
+                  var rightOpen = true;
+                  var topOpen = true;
+                  var bottomOpen = true;
+                  if (y == 0 || tileArray[y - 1][x] == null) topOpen = false;
+                  if (y == (tileArray.length - 1) || tileArray[y+1][x] == null) bottomOpen = false;
+                  if (x == 0 || tileArray[y][x-1] == null) leftOpen = false;
+                  if (x == (tileArray[y].length - 1) || tileArray[y][x+1] == null) rightOpen = false;
+                  if (topOpen&&bottomOpen&&leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TBLR;
+                  }
+                  else if (topOpen&&leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TLR;
+                  }
+                  else if (topOpen&&bottomOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TBR;
+                  }
+                  else if (topOpen&&bottomOpen&&leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TBL;
+                  }
+                  else if (bottomOpen&&leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_BLR;
+                  }
+                  else if (bottomOpen&&leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_BL;
+                  }
+                  else if (bottomOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_BR;
+                  }
+                  else if (leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_LR;
+                  }
+                  else if (topOpen&&bottomOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TB;
+                  }
+                  else if (topOpen&&leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TL;
+                  }
+                  else if (topOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TR;
+                  }
+                  else {
+                    tileArray[y][x].image = ImageManager.ANC_STAN;
+                  }
+              }
+          }
+      }
+    }
 
     Board.isReverse = function(random, previousDirection){
         var reverse = false;
@@ -339,6 +394,14 @@ define(['game/Tile'],function(Tile) {
         return isletHeads;
     };
 
+    /**
+     * Draws a linear path between two points within a 2d array.
+     * @param array The array to draw the path in
+     * @param start The start point
+     * @param end The end point
+     * @returns {*} The array. Just in case you forgot that you passed it in.
+     * @private Keep out of reach of children.
+     */
     Board.__drawLinearPath = function(array, start, end){
         console.log("<<BOARD>> Drawing Additional Paths:", array, start, end);
         var xDiff = end.col - start.col;
@@ -398,13 +461,14 @@ define(['game/Tile'],function(Tile) {
         Board.printArray(array);
         var isletCoords = this.__identifyIslets(array);
         if(!isletCoords.length){
-            console.log("No map was found in bridging the islets...");
+            console.error("No map was found for bridging the islets...");
             return null;
         }
         else if(isletCoords.length == 1){
             return array;
         }
         else{
+            console.log("<<BOARD>> Islet Heads:", isletCoords);
             while(isletCoords.length > 1){
                 var startHead = isletCoords.shift();
                 var endHead = isletCoords.pop();
@@ -419,34 +483,39 @@ define(['game/Tile'],function(Tile) {
         return array;
     };
 
-    Board.__reconnect = function(array){
+    Board.__reconnect = function(array, numPaths){
+        console.log("<<BOARD>> Reconnecting:", numPaths);
         var height = array.length;
         var width = array[0].length;
         var start = {};
         var end = {};
         var y, x;
         var count = 0;
-        for(var z = 0; z = Math.sqrt(width*width + height*height)/2; z++) {
+        for(var z = 0; z < numPaths; z++) {
             start = null;
             while (!start) {
-                y = Math.random() * (height-1);
-                x = Math.random() * (width-1);
+                y = Math.floor(Math.random() * (height-1));
+                x = Math.floor(Math.random() * (width-1));
                 if (array[y][x]) {
+                    console.log("<<BOARD>> Reconnect message START:", array, y, x);
                     start = {row: y, col: x};
                 }
             }
             end = null;
             while (!end) {
-                y = Math.random() * height;
-                x = Math.random() * width;
+                y = Math.floor(Math.random() * height);
+                x = Math.floor(Math.random() * width);
                 if (array[y][x]) {
+                    console.log("<<BOARD>> Reconnect message: END", array, y, x);
                     end = {row: y, col: x};
                 }
             }
             Board.__drawLinearPath(array, start, end);
             ++count;
         }
-        console.log("<<BOARD>> Reconnected", count, "times.")
+        console.log("<<BOARD>> Reconnected", count, "times. \n<<BOARD>> Reconnected board:");
+        Board.printArray(array);
+        return array;
     };
 
     /**
@@ -458,7 +527,7 @@ define(['game/Tile'],function(Tile) {
      * @private
      */
     Board.__getRandomPeripheralOrders = function(){
-        var pOrders = [1,2,3,4,5,6,7,8];
+        var pOrders = [3,8,1,6,5,4,7,2];
         for(var i = 0; i < 16; i++){
             var j = i%8;
             var k = Math.floor(Math.random() * 8);

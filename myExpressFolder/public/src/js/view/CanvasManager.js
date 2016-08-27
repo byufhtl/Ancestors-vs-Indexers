@@ -39,7 +39,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             var wToVPt = self.viewTransform.WtoV(new Point(event.pageX, event.pageY));
             var onCanvas = (wToVPt.X >= 0 && wToVPt.X <= 1000 && wToVPt.Y >= 0 && wToVPt.Y <= 600);
             var inCanvas = true;
-            if(draggable && onCanvas){
+            if(draggable /*&& onCanvas*/){
                 var diff = new Point(event.pageX - start.X, event.pageY - start.Y);
                 start = new Point(event.pageX, event.pageY);
                 if(buffer) { // If we still have a buffer, keep going

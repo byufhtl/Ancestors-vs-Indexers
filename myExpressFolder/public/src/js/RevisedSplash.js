@@ -14,7 +14,7 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
     Splash.prototype.init = function()
     {
         var testBoard = new Board();
-        testBoard.generate({numDBs: 3, numExtraClumps: 2, numLocked: 0, clumpiness: 7});
+        testBoard.generate({numDBs: 8, numExtraClumps: 7, numLocked: 0, clumpiness: 25});
         console.log("<<BOARD>> Print Test:");
         testBoard.printTest();
         console.log("<<BOARD>> --End Print Test");

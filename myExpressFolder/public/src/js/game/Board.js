@@ -458,6 +458,10 @@ define(['game/Tile'],function(Tile) {
         // pOrders = [2,3,1]; // Always grow up
         // pOrders = [4,3,5,]; // Always grow right
         // pOrders = [8,1,7,]; // Always grow left
+        pOrders.pop();
+        pOrders.pop();
+        pOrders.pop();
+        pOrders.pop();
         // End Force Orders
 
         console.log("<<BOARD>> Peripheral Orders:",pOrders);
@@ -660,7 +664,12 @@ define(['game/Tile'],function(Tile) {
                     output.push(' ');
                 }
                 else{
-                    output.push('#');
+                    if(array[i][j].locked){
+                        output.push('#');
+                    }
+                    else{
+                        output.push('O');
+                    }
                 }
             }
             output.push('|\n');

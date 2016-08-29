@@ -138,12 +138,22 @@ define(['util/DeltaClock'],function(DeltaClock) {
         }
     };
 
-    Update.prototype.update = function (active, timeElapsed, defeatedAncestorInfo) {
+    Update.prototype.updateBoardPosition = function(board){
+
+    };
+
+    Update.prototype.updatePlayerPosition = function(player, timeElapsed) {
+        console.log("player: ", player);
+        player.movePlayer(timeElapsed);
+    }
+
+
+    Update.prototype.update = function (active, timeElapsed, defeatedAncestorInfo, player) {
         //spawn records and move them
         this.spawnRecord(active.records(), timeElapsed);
         this.moveRecords(active.records(), timeElapsed);
         this.moveAnimFrames(active.ancestors(), timeElapsed);
-
+        this.updatePlayerPosition(player, timeElapsed);
         if (this.buffer(timeElapsed)) {
 
             //update drops

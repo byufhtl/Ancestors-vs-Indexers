@@ -202,39 +202,65 @@ define(['img/ImageManager'],function(ImageManager) {
         this.resizeOnce = true;
     };
 
-    Render.prototype.renderBoard = function(board)
+    Render.prototype.renderBoard = function(board, player)
     {
         for (var y = 0; y < board.length; y++){
             for (var x = 0; x < board[y].length; x++){
                 if (board[y][x] != null){
+                    if (board[y][x].database){
+                      var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                      this.ctx.drawImage(databaseImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord - window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord - window.innerHeight/2);
+                    }
                     var img = this.imageManager.getImage(board[y][x].image);
-                    this.ctx.drawImage(img, x * 150 + this.viewTransform.t_offset_X, y * 150 + this.viewTransform.t_offset_Y);
+                    this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X - window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord -window.innerHeight/2 + this.viewTransform.t_offset_Y);
                 }
             }
         }
     };
 
-    Render.prototype.renderMiniMap = function(board)
+    Render.prototype.renderMiniMap = function(board, player)
     {
-      this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
+      this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
       this.ctx.fillRect(30, 30, board[0].length * 3,  board.length * 3);
       this.ctx.fillStyle = "blue";
+
       for (var y = 0; y < board.length; y++){
           for (var x = 0; x < board[y].length; x++){
               if (board[y][x] != null){
-                  this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);              }
+                  if (board[y][x].database) {
+                      console.log("drawing in a database");
+                      this.ctx.fillStyle = "red";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                      this.ctx.fillStyle = "blue";
+                  }
+                  else if (x == player.playerCellPosition.xCoord && y == player.playerCellPosition.yCoord){
+                      console.log("drawing in a player");
+                      this.ctx.fillStyle = "white";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                      this.ctx.fillStyle = "blue";
+                  }
+                  else {
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                  }
+              }
           }
       }
       this.ctx.fillStyle = "black";
     };
 
-    Render.prototype.render = function(active, board, canvas, translation) {
+    Render.prototype.renderPlayer = function(player){
+        var playerImage = this.imageManager.getImage(ImageManager.REC_BLUE);
+        this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
+    }
+
+    Render.prototype.render = function(active, board, canvas, translation, player) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
 
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
-        this.renderBoard(board);
-        this.renderMiniMap(board);
+        this.renderBoard(board, player);
+        this.renderMiniMap(board, player);
+        this.renderPlayer(player);
         this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors());
         this.renderProjectiles(active.projectiles());

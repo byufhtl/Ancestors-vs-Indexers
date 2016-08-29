@@ -1,5 +1,5 @@
-define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager', 'game/GameButtons', 'game/Board'],
-  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons, Board) {
+define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager', 'game/GameButtons', 'game/Board', 'game/Player'],
+  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons, Board, Player) {
 
       function GameController(lieutenant) {
           this.controller = lieutenant;
@@ -80,6 +80,14 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.playerInfo = playerInfo;
 
           this.board = LevelDefinition.generateBoard(this.currentAct);
+          this.player = new Player();
+          console.log("playerStartingPosition", this.board.playerStartingPosition);
+          this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.xCoord, yCoord: this.board.playerStartingPosition.yCoord};
+          this.player.playerPixelPosition = {xCoord: this.board.playerStartingPosition.xCoord * 150, yCoord: this.board.playerStartingPosition.yCoord * 150};
+
+          console.log("player x Position", this.player.playerPixelPosition.xCoord);
+          console.log("player y Position", this.player.playerPixelPosition.yCoord);
+
           this.lastTime = Date.now();
 
           this.loop();
@@ -96,8 +104,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
-              this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo);
-              this.myRender.render(this.active, this.board.tileArray, this.canvas, this.translation);
+              this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo, this.player);
+              this.myRender.render(this.active, this.board.tileArray, this.canvas, this.translation, this.player);
               this.updateCoordinates(0, 0);
           }
           if (this.active.gameEnded() == false) // game end condition.

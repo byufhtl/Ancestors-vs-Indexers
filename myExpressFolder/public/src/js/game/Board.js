@@ -425,11 +425,13 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         if(array[start.row][start.col] == null || array[end.row][end.col] == null){return array;}
         var newTile = null;
         var locked = (array[start.row][start.col].locked || array[end.row][end.col].locked);
+        var printKey = Math.floor(Math.random()*7) + 2;
         if(xDiff > 0){
             for(idx = 1; idx <= xDiff; idx++){
                 if(array[start.row][start.col + idx] == null){ // Initiates a new tile.
                     newTile = new Tile();
                     newTile.locked = locked;
+                    newTile.type = printKey;
                     array[start.row][start.col + idx] = newTile;
                 }
                 else if(!locked){ // Unlocks intersections with locked paths.
@@ -443,6 +445,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 if(array[start.row][start.col - idx] == null){
                     newTile = new Tile();
                     newTile.locked = locked;
+                    newTile.type = printKey;
                     array[start.row][start.col - idx] = newTile;
                 }
                 else if(!locked){
@@ -455,6 +458,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 if(array[start.row + idx][start.col + xDiff] == null){
                     newTile = new Tile();
                     newTile.locked = locked;
+                    newTile.type = printKey;
                     array[start.row + idx][start.col + xDiff] = newTile;
                 }
                 else if(!locked){
@@ -468,6 +472,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 if(array[start.row - idx][start.col + xDiff] == null){
                     newTile = new Tile();
                     newTile.locked = locked;
+                    newTile.type = printKey;
                     array[start.row - idx][start.col + xDiff] = newTile;
                 }
                 else if(!locked){
@@ -776,14 +781,17 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     output.push(' ');
                 }
                 else{
-                    if(array[i][j].locked == true){
-                        output.push('#');
+                    if(array[i][j].hasOwnProperty('type')) {
+                        output.push(array[i][j].type);
                     }
                     else if(array[i][j].hasOwnProperty('head')){
                         output.push('H');
                     }
                     else if(array[i][j].hasOwnProperty('tail')){
                         output.push('T');
+                    }
+                    else if(array[i][j].locked == true){
+                        output.push('#');
                     }
                     else{
                         output.push('O');

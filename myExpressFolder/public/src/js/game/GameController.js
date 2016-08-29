@@ -1,15 +1,10 @@
-define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager', 'game/GameButtons'],
-  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons) {
+define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager', 'game/GameButtons', 'game/Board'],
+  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons, Board) {
 
       function GameController(lieutenant) {
           this.controller = lieutenant;
           this.myUpdate = new Update();
           this.translation = {dx: 0, dy: 0};
-
-          this.levelStructure = null;
-          this.nodeStructure = null;
-
-          this.gameBoardGrid = {};
 
           this.viewTransform;
           this.audio = null;
@@ -84,10 +79,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
 
           this.playerInfo = playerInfo;
 
-          this.level = LevelDefinition.getScene(this.currentAct, scene, this.eightGenerations); // Wave information location
-          this.levelStructure = LevelDefinition.getLevelStructure(act);
-          this.nodeStructure = LevelDefinition.getNodeStructure(act);
-
+          this.board = LevelDefinition.generateBoard(this.currentAct);
           this.lastTime = Date.now();
 
           this.loop();
@@ -104,8 +96,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
-              this.myUpdate.update(this.active, delta_s, this.level, this.levelStructure, this.nodeStructure, this.defeatedAncestorInfo);
-              this.myRender.render(this.active, this.canvas, this.translation, this.levelStructure, this.nodeStructure);
+              this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo);
+              this.myRender.render(this.active, this.board.tileArray, this.canvas, this.translation);
               this.updateCoordinates(0, 0);
           }
           if (this.active.gameEnded() == false) // game end condition.
@@ -137,10 +129,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.activePlaceButtons = [];
           this.optionButtons = [];
           this.activeAncestors = [];
-          this.activeIndexers = [];
           this.activeProjectiles = [];
           this.activeRecords = [];
-          this.activeBuildings = [];
           this.activeDrops = [];
           this.resourcePoints = 20;
           this.ended = false;

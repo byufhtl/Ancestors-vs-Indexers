@@ -277,6 +277,38 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
+    ImageManager.prototype.loadBoardTiles = function() {
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+
+            order.addItem(ImageManager.BLU_BL, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_BLR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_BR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_LR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TB, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TBL, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TBLR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TBR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TL, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TLR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_TR, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_T, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_B, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_L, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_R, Order.IMAGE, 15);
+            order.addItem(ImageManager.BLU_ISLD, Order.IMAGE, 15);
+
+            self.loader.loadResources(order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
 
 
 
@@ -341,8 +373,33 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     partialResolve();
                 }
             );
+            self.loadBoardTiles().then(partialResolve,
+                function(rejection){
+                    console.log("Loading the board tiles claims to have failed...");
+                    failed.push(Sig.STY_TELL);
+                    partialResolve();
+                }
+            );
         });
     };
+
+
+    ImageManager.BLU_BL   =     "src/img/GameTiles/bl.png";                 // BOTTOM LEFT TILE
+    ImageManager.BLU_BLR  =     "src/img/GameTiles/blr.png";                // BOTTOM LEFT RIGHT TILE
+    ImageManager.BLU_BR   =     "src/img/GameTiles/br.png";                 // BOTTOM RIGHT TILE
+    ImageManager.BLU_LR   =     "src/img/GameTiles/lr.png";                 // LEFT RIGHT TILE
+    ImageManager.BLU_TB   =     "src/img/GameTiles/tb.png";                 // TOP BOTTOM TILE
+    ImageManager.BLU_TBL  =     "src/img/GameTiles/tbl.png";                // TOP BOTTOM LEFT TILE
+    ImageManager.BLU_TBLR =     "src/img/GameTiles/tblr.png";               // TOP BOTTOM LEFT RIGHT TILE
+    ImageManager.BLU_TBR  =     "src/img/GameTiles/tbr.png";                // TOP BOTTOM  RIGHT TILE
+    ImageManager.BLU_TL   =     "src/img/GameTiles/tl.png";                 // TOP LEFT TILE
+    ImageManager.BLU_TLR  =     "src/img/GameTiles/tlr.png";                // TOP LEFT RIGHT TILE
+    ImageManager.BLU_TR   =     "src/img/GameTiles/tr.png";                 // TOP RIGHT TILE
+    ImageManager.BLU_T    =     "src/img/GameTiles/t.png";                  // TOP TILE
+    ImageManager.BLU_B    =     "src/img/GameTiles/b.png";                  // BOTTOM TILE
+    ImageManager.BLU_L    =     "src/img/GameTiles/l.png";                  // LEFT TILE
+    ImageManager.BLU_R    =     "src/img/GameTiles/r.png";                  // RIGHT TILE
+    ImageManager.BLU_ISLD =     "src/img/GameTiles/island.png";             // ISLAND TILE (disconnected)
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA

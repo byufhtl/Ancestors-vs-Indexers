@@ -9,15 +9,16 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         board.generate(levelData);
         return board;
     };
-
     //returns the core elements of board construction based on level
     LevelDefinition.getLevelData = function(level){
         var data = {};
         switch(level){
           case 1:
-            data.numDatabase = 1;
-            data.numAdditionalClumps = 0;
-            data.clumpiness = 3;
+            data.numDBs = 3;
+            data.numExtraClumps = 5;
+            data.clumpiness = 12;
+            data.numLocked = 0;
+            return data;
         }
     }
 

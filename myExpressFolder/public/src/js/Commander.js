@@ -14,7 +14,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
         this.gameController = null;
         this.levelsController = null;
         this.upgradesController = null;
-        this.currentFocusLevel = {act: 3, scene: 2};
+        this.currentFocusLevel = {act: 1, scene: 1};
         this.userInformation = null;
         this.buttonFocus = this.gameController;
         this.audioManager = new AudioManager;

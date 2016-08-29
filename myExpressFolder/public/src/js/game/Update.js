@@ -106,34 +106,6 @@ define(['util/DeltaClock'],function(DeltaClock) {
         }
     };
 
-    Update.prototype.checkAncestorSpawnTimes = function (level, activeAncestors, timeElapsed) {
-        this.timer += timeElapsed;
-        if (this.timer > this.secondsBetweenWaves) {
-            this.wave++;
-            this.timer = 0;
-        }
-        if (level[this.wave] != null) {
-            for (var i = 0; i < level[this.wave].length; i++) {
-                activeAncestors.push(level[this.wave][i]);
-                console.log("adding an ancestor", activeAncestors);
-            }
-            level[this.wave] = [];
-        }
-        if (!this.doneSpawning) {
-            if (this.wave >= level.length - 1) {
-                console.log("DONE SPAWNING");
-                this.doneSpawning = true;
-            }
-        }
-    };
-
-    Update.prototype.updateIndexers = function(activeIndexers, activeAncestors, timeElapsed, activeProjectiles, levelStructure) {
-        for (var i = 0; i < activeIndexers.length; i++) {
-            activeIndexers[i].update(activeAncestors, timeElapsed, activeProjectiles, levelStructure, this.dsTimer);
-        }
-    };
-
-
 
     Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed) {
         for (var i = 0; i < activeAncestors.length; i++) {
@@ -142,16 +114,7 @@ define(['util/DeltaClock'],function(DeltaClock) {
     };
 
 
-    Update.prototype.spawnRecordsFromBuildings = function (activeBuildings, activeRecords, timeElapsed, active) {
-        for (var i = 0; i < activeBuildings.length; i++) {
-            activeBuildings[i].spawnTimer += timeElapsed;
-            if (activeBuildings[i].spawnTimer >= activeBuildings[i].timeBetweenSpawns) {
-                activeBuildings[i].spawnTimer = 0;
-                active.resourcePoints += 10;
-                $('#points').html(active.resourcePoints);
-            }
-        }
-    };
+
 
     Update.prototype.buffer = function (timeElapsed) {
         this.levelStartBuffer += timeElapsed;
@@ -164,7 +127,7 @@ define(['util/DeltaClock'],function(DeltaClock) {
         }
     };
 
-    Update.prototype.moveAnimFrames = function(activeAncestors, nodeStructure, timeElapsed) {
+    Update.prototype.moveAnimFrames = function(activeAncestors, timeElapsed) {
         for (var i = 0; i < activeAncestors.length; i++) {
             activeAncestors[i].animTimer += timeElapsed;
             if (activeAncestors[i].animTimer > activeAncestors[i].timeBetweenFrames) {
@@ -173,34 +136,21 @@ define(['util/DeltaClock'],function(DeltaClock) {
                 if (activeAncestors[i].animFrame >= (activeAncestors[i].numFrames - 1)) activeAncestors[i].animFrame = 0;
             }
         }
-        for (var i = 0; i < nodeStructure.length; i++) {
-            for (var j = 0; j < nodeStructure[i].length; j++) {
-                nodeStructure[i][j].animTimer += timeElapsed;
-                if (nodeStructure[i][j].animTimer > nodeStructure[i][j].timeBetweenFrames) {
-                    nodeStructure[i][j].animTimer = 0;
-                    nodeStructure[i][j].animFrame++;
-                    if (nodeStructure[i][j].animFrame >= (nodeStructure[i][j].numFrames - 1)){ nodeStructure[i][j].animFrame = 0; }
-                }
-            }
-        }
     };
 
-    Update.prototype.update = function (active, timeElapsed, level, levelStructure, nodeStructure, defeatedAncestorInfo) {
+    Update.prototype.update = function (active, timeElapsed, defeatedAncestorInfo) {
         //spawn records and move them
         this.spawnRecord(active.records(), timeElapsed);
         this.moveRecords(active.records(), timeElapsed);
-        this.spawnRecordsFromBuildings(active.buildings(), active.records(), timeElapsed, active);
-        this.moveAnimFrames(active.ancestors(), nodeStructure, timeElapsed);
+        this.moveAnimFrames(active.ancestors(), timeElapsed);
 
         if (this.buffer(timeElapsed)) {
-            //update indexers
-            this.updateIndexers(active.indexers(), active.ancestors(), timeElapsed, active.projectiles(), levelStructure);
+
             //update drops
             this.updateDrops(active.drops(), active.ancestors());
             //update ancestors
             this.updateAncestorsPosition(active.ancestors(), timeElapsed);
             this.checkDeadAncestors(active.ancestors(), defeatedAncestorInfo);
-            this.checkAncestorSpawnTimes(level, active.ancestors(), timeElapsed);
             //update projectiles
             this.moveProjectiles(active.projectiles(), timeElapsed);
             this.checkProjectileCollision(active.projectiles(), active.ancestors());
@@ -208,7 +158,7 @@ define(['util/DeltaClock'],function(DeltaClock) {
             this.checkVictory(active);
             this.checkDefeat(active);
 
-            this.moveAnimFrames(active.ancestors(), nodeStructure, timeElapsed);
+            this.moveAnimFrames(active.ancestors(), timeElapsed);
             this.dsTimer.tick(timeElapsed);
 
         }

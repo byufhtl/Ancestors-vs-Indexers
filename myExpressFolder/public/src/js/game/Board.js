@@ -1,4 +1,4 @@
-define(['game/Tile'],function(Tile) {
+define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
 
     function Board(){
@@ -69,6 +69,76 @@ define(['game/Tile'],function(Tile) {
             clumps.push(clump);
         }
         this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs + levelData.numExtraClumps);
+        Board.setTileImages(this.tileArray);
+    };
+
+    /**
+     * Traverses a double array of tiles and determines their image.
+     * @param tileArray The tile array to set.
+     */
+    Board.setTileImages = function(tileArray) {
+      for (var y = 0; y < tileArray.length; y++){
+          for (var x = 0; x < tileArray[y].length; x++){
+              if (tileArray[y][x] != null){
+                  var leftOpen = true;
+                  var rightOpen = true;
+                  var topOpen = true;
+                  var bottomOpen = true;
+                  if (y == 0 || tileArray[y - 1][x] == null) topOpen = false;
+                  if (y == (tileArray.length - 1) || tileArray[y+1][x] == null) bottomOpen = false;
+                  if (x == 0 || tileArray[y][x-1] == null) leftOpen = false;
+                  if (x == (tileArray[y].length - 1) || tileArray[y][x+1] == null) rightOpen = false;
+                  if (topOpen&&bottomOpen&&leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TBLR;
+                  }
+                  else if (topOpen&&leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TLR;
+                  }
+                  else if (topOpen&&bottomOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TBR;
+                  }
+                  else if (topOpen&&bottomOpen&&leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TBL;
+                  }
+                  else if (bottomOpen&&leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_BLR;
+                  }
+                  else if (bottomOpen&&leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_BL;
+                  }
+                  else if (bottomOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_BR;
+                  }
+                  else if (leftOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_LR;
+                  }
+                  else if (topOpen&&bottomOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TB;
+                  }
+                  else if (topOpen&&leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TL;
+                  }
+                  else if (topOpen&&rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_TR;
+                  }
+                  else if (topOpen){
+                    tileArray[y][x].image = ImageManager.BLU_T;
+                  }
+                  else if (bottomOpen){
+                    tileArray[y][x].image = ImageManager.BLU_B;
+                  }
+                  else if (rightOpen){
+                    tileArray[y][x].image = ImageManager.BLU_R;
+                  }
+                  else if (leftOpen){
+                    tileArray[y][x].image = ImageManager.BLU_L;
+                  }
+                  else {
+                    tileArray[y][x].image = ImageManager.STAN_IDX;
+                  }
+              }
+          }
+      }
     };
 
     Board.isReverse = function(random, previousDirection){
@@ -117,6 +187,24 @@ define(['game/Tile'],function(Tile) {
       return false;
     };
 
+    Board.lastRemainingIsOpposite = function(up,down,left,right,firstTile){
+      switch(firstTile) {
+        case 1: //up
+            if (up == 0 && right == 0 && left == 0 && down == 1) return true;
+            break;
+        case 2: //down
+            if (right == 0 && left == 0 && down == 0 && up == 1) return true;
+            break;
+        case 3: //left
+            if (left == 0 && down == 0 && up == 0 && right == 1) return true;
+            break;
+        case 4: //right
+            if (down == 0 && up == 0 && right == 0 && left == 1) return true;
+            break;
+      }
+      return false;
+    };
+
     /**
      * Makes a cycle.
      */
@@ -132,7 +220,6 @@ define(['game/Tile'],function(Tile) {
           }
           cycle.push(temp);
         }
-        console.log("cycle",cycle);
         var up = size;
         var down = size;
         var left = size;
@@ -142,7 +229,7 @@ define(['game/Tile'],function(Tile) {
         var xPos = size;
 
         cycle[yPos][xPos] = new Tile();
-
+        var firstMove;
         var random = Math.floor(Math.random() * (5-1) + 1);
 
         while (up > 0 || down > 0 || left > 0 || right > 0) {
@@ -153,6 +240,16 @@ define(['game/Tile'],function(Tile) {
 
                 random = Math.floor(Math.random() * (5-1) + 1);
 
+                if (Board.lastRemainingIsOpposite(up,down,left,right,firstMove)){
+                  if (up == 1 || down == 1){
+                    left++; right++;
+                    random = 3;
+                  }
+                  else{
+                    up++; down++;
+                    random = 1;
+                  }
+                }
                 //can't go in reverse direction because it can create a lane
                 if (Board.isReverse(random, previous)) randomAgain = true;
                 //finally ensure that there are actually any of the direction left
@@ -172,7 +269,7 @@ define(['game/Tile'],function(Tile) {
                         }
                 }
             }
-
+            if (firstMove == null) firstMove = random;
             switch(random){
                 case 1: //up
                     console.log("up");
@@ -245,10 +342,10 @@ define(['game/Tile'],function(Tile) {
         for(var c = 0; c < Math.floor(clumpiness* 1.5); c++){
             clump.array.push({array:this.makeCycle()});
         }
-        console.log("<<BOARD>> About to merge cycles:", clump.array);
+        // console.log("<<BOARD>> About to merge cycles:", clump.array);
         clump.array = Board.__bridgeIslets(Board.__merge(clump.array, -(Math.floor(Math.sqrt(clumpiness)))).array); // Works for me. :)
-        console.log("<<BOARD>> Fresh-made clump:", clump);
-        Board.printArray(clump.array);
+        // console.log("<<BOARD>> Fresh-made clump:", clump);
+        // Board.printArray(clump.array);
         return clump;
     };
 
@@ -325,14 +422,18 @@ define(['game/Tile'],function(Tile) {
         var xDiff = end.col - start.col;
         var yDiff = end.row - start.row;
         var idx = 0; // index marker (reusable after each loop)
+        if(array[start.row][start.col] == null || array[end.row][end.col] == null){return array;}
         var newTile = null;
         var locked = (array[start.row][start.col].locked || array[end.row][end.col].locked);
         if(xDiff > 0){
             for(idx = 1; idx <= xDiff; idx++){
-                if(!array[start.row][start.col + idx]){
+                if(!array[start.row][start.col + idx]){ // Initiates a new tile.
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row][start.col + idx] = newTile;
+                }
+                else if(!locked){ // Unlocks intersections with locked paths.
+                    array[start.row][start.col + idx].locked = false;
                 }
             }
         }
@@ -344,6 +445,9 @@ define(['game/Tile'],function(Tile) {
                     newTile.locked = locked;
                     array[start.row][start.col - idx] = newTile;
                 }
+                else if(!locked){
+                    array[start.row][start.col + idx].locked = false;
+                }
             }
         }
         if(yDiff > 0){
@@ -352,6 +456,9 @@ define(['game/Tile'],function(Tile) {
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row + idx][start.col + xDiff] = newTile;
+                }
+                else if(!locked){
+                    array[start.row][start.col + idx].locked = false;
                 }
             }
         }
@@ -362,6 +469,9 @@ define(['game/Tile'],function(Tile) {
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row - idx][start.col + xDiff] = newTile;
+                }
+                else if(!locked){
+                    array[start.row][start.col + idx].locked = false;
                 }
             }
         }
@@ -394,7 +504,7 @@ define(['game/Tile'],function(Tile) {
                 isletCoords.push(endHead);
             }
         }
-        
+
         console.log("<<BOARD>> Islets Bridged:");
         Board.printArray(array);
         console.log("<<BOARD>> DONE[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]");
@@ -414,7 +524,7 @@ define(['game/Tile'],function(Tile) {
             while (!start) {
                 y = Math.floor(Math.random() * (height-1));
                 x = Math.floor(Math.random() * (width-1));
-                if (array[y][x]) {
+                if (array[y][x] && array[y][x].hasOwnProperty('image')) {
                     console.log("<<BOARD>> Reconnect message START:", array, y, x);
                     start = {row: y, col: x};
                 }
@@ -423,7 +533,7 @@ define(['game/Tile'],function(Tile) {
             while (!end) {
                 y = Math.floor(Math.random() * height);
                 x = Math.floor(Math.random() * width);
-                if (array[y][x]) {
+                if (array[y][x] && array[y][x].hasOwnProperty('image')) {
                     console.log("<<BOARD>> Reconnect message: END", array, y, x);
                     end = {row: y, col: x};
                 }
@@ -445,7 +555,7 @@ define(['game/Tile'],function(Tile) {
      * @private
      */
     Board.__getRandomPeripheralOrders = function(){
-        var pOrders = [1,2,3,4,5,6,7,8];
+        var pOrders = [3,8,1,6,5,4,7,2];
         for(var i = 0; i < 16; i++){
             var j = i%8;
             var k = Math.floor(Math.random() * 8);
@@ -515,11 +625,11 @@ define(['game/Tile'],function(Tile) {
      * @private Because it's highly adapted to the Board's setup.
      */
     Board.__copyArray = function (base, add, startx, starty) {
-        console.log("<<BOARD>> Copying. \n\tBase:", base);
-        Board.printArray(add);
-        console.log("<<BOARD>> into.", "\n\tAdd:", add);
-        Board.printArray(base);
-        console.log("<<BOARD>> y:", starty, "\tx:", startx);
+        // console.log("<<BOARD>> Copying. \n\tBase:", base);
+        // Board.printArray(add);
+        // console.log("<<BOARD>> into.", "\n\tAdd:", add);
+        // Board.printArray(base);
+        // console.log("<<BOARD>> y:", starty, "\tx:", startx);
         if(startx < 0 || starty < 0){
             return 0;
         }
@@ -544,7 +654,7 @@ define(['game/Tile'],function(Tile) {
      */
     Board.__merge = function(arrays, space){
         if(arrays.length < 1){return;}
-        console.log("<<BOARD>> Now merging:", arrays);
+        // console.log("<<BOARD>> Now merging:", arrays);
         var glob = arrays.shift();
         var centerDim = null;
         while(arrays.length){
@@ -556,17 +666,17 @@ define(['game/Tile'],function(Tile) {
                 var next = arrays.shift();
                 var nextDim = {w: Math.floor(next.array[0].length), h: Math.floor(next.array.length)};
                 var pOrder = ordering.shift();
-                console.log("<<BOARD>> Merging", next.array, "with", glob.array, "in sector", pOrder);
+                // console.log("<<BOARD>> Merging", next.array, "with", glob.array, "in sector", pOrder);
                 var startCoords = Board.__placeCopyPoint(pOrder, centerDim.w, centerDim.h, nextDim.w, nextDim.h, space);
-                console.log("<<BOARD>> Central Metadata:", centerDim, "starting:", center_y, center_x);
-                console.log("<<BOARD>> Staring Coordinates from Center:", startCoords, "(" + space + " for spacing)");
-                console.log("<<BOARD>> Dimensions:", nextDim);
+                // console.log("<<BOARD>> Central Metadata:", centerDim, "starting:", center_y, center_x);
+                // console.log("<<BOARD>> Staring Coordinates from Center:", startCoords, "(" + space + " for spacing)");
+                // console.log("<<BOARD>> Dimensions:", nextDim);
                 var i, j;
                 var newRow;
                 /*
                     Adjust the total width height of the array and move the center coordinates accordingly
                  */
-                
+
                 // console.log("<<BOARD>> Adjusting Array.\n<<BOARD>> Before:");
                 // Board.printArray(glob.array);
 
@@ -624,9 +734,9 @@ define(['game/Tile'],function(Tile) {
                     Now that we have some room, go ahead and merge in.
                  */
                 if(Board.__copyArray(glob.array, next.array, centerDim.x - center_x + startCoords.x, centerDim.y - center_y + startCoords.y)){
-                    console.log("Merged arrays:");
-                    Board.printArray(glob.array);
-                    console.log("\n\n==================================================================================\n");
+                    // console.log("Merged arrays:");
+                    // Board.printArray(glob.array);
+                    // console.log("\n\n==================================================================================\n");
                 }
                 else{
                     console.error("Merge boundaries failed:", centerDim.x + startCoords.x, ",", centerDim.y + startCoords.y);

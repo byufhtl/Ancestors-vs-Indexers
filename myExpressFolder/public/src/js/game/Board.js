@@ -419,69 +419,58 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      */
     Board.__drawLinearPath = function(array, start, end){
         console.log("<<BOARD>> Drawing Additional Paths:", array, start, end);
+        var error = ((array[start.row][start.col] == null) << 8);
+        error &= ((array[end.row][end.col] == null) << 7);
+        error &= ((array[start.row][start.col] == array[end.row][end.col]) << 6);
+        if(error){
+            console.log("Selected path was not buildable. Error", error);
+            return array;
+        }
         var xDiff = end.col - start.col;
         var yDiff = end.row - start.row;
+        var curry = start.row;
+        var currx = start.col;
         var idx = 0; // index marker (reusable after each loop)
-        if(array[start.row][start.col] == null || array[end.row][end.col] == null){return array;}
         var newTile = null;
         var locked = (array[start.row][start.col].locked || array[end.row][end.col].locked);
         var printKey = Math.floor(Math.random()*7) + 2;
+        array[start.row][start.col].head = true;
+        array[end.row][end.col].tail = true;
+        function placePath(i,j) {
+            if(array[curry][currx] == null){ // Initiates a new tile.
+                newTile = new Tile();
+                newTile.locked = locked;
+                newTile.type = printKey;
+                array[i][j] = newTile;
+            }
+            else if(!locked){ // Unlocks intersections with locked paths.
+                array[i][j].locked = false;
+            }
+        }
+
         if(xDiff > 0){
             for(idx = 1; idx <= xDiff; idx++){
-                if(array[start.row][start.col + idx] == null){ // Initiates a new tile.
-                    newTile = new Tile();
-                    newTile.locked = locked;
-                    newTile.type = printKey;
-                    array[start.row][start.col + idx] = newTile;
-                }
-                else if(!locked){ // Unlocks intersections with locked paths.
-                    array[start.row][start.col + idx].locked = false;
-                }
+                placePath(curry, currx = start.col + idx);
             }
         }
         else if(xDiff < 0){
             xDiff *= -1;
             for(idx = 1; idx <= xDiff; idx++){
-                if(array[start.row][start.col - idx] == null){
-                    newTile = new Tile();
-                    newTile.locked = locked;
-                    newTile.type = printKey;
-                    array[start.row][start.col - idx] = newTile;
-                }
-                else if(!locked){
-                    array[start.row][start.col - idx].locked = false;
-                }
+                placePath(curry, currx = start.col - idx);
             }
         }
         if(yDiff > 0){
             for(idx = 1; idx <= yDiff; idx++){
-                if(array[start.row + idx][start.col + xDiff] == null){
-                    newTile = new Tile();
-                    newTile.locked = locked;
-                    newTile.type = printKey;
-                    array[start.row + idx][start.col + xDiff] = newTile;
-                }
-                else if(!locked){
-                    array[start.row + idx][start.col + xDiff].locked = false;
-                }
+                placePath(curry = start.row + idx, currx);
             }
         }
         else if(yDiff < 0){
             yDiff *= -1;
             for(idx = 1; idx <= yDiff; idx++){
-                if(array[start.row - idx][start.col + xDiff] == null){
-                    newTile = new Tile();
-                    newTile.locked = locked;
-                    newTile.type = printKey;
-                    array[start.row - idx][start.col + xDiff] = newTile;
-                }
-                else if(!locked){
-                    array[start.row - idx][start.col + xDiff].locked = false;
-                }
+                placePath(curry = start.row - idx, currx);
             }
         }
-        array[start.row][start.col].head = true;
-        array[end.row][end.col].tail = true;
+
         return array;
     };
 

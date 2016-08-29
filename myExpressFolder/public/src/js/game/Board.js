@@ -134,7 +134,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     tileArray[y][x].image = ImageManager.BLU_L;
                   }
                   else {
-                    tileArray[y][x].image = ImageManager.STAN_IDX;
+                    tileArray[y][x].image = ImageManager.BLU_ISLD;
                   }
               }
           }
@@ -427,7 +427,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var locked = (array[start.row][start.col].locked || array[end.row][end.col].locked);
         if(xDiff > 0){
             for(idx = 1; idx <= xDiff; idx++){
-                if(!array[start.row][start.col + idx]){ // Initiates a new tile.
+                if(array[start.row][start.col + idx] == null){ // Initiates a new tile.
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row][start.col + idx] = newTile;
@@ -440,41 +440,43 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         else if(xDiff < 0){
             xDiff *= -1;
             for(idx = 1; idx <= xDiff; idx++){
-                if(!array[start.row][start.col - idx]){
+                if(array[start.row][start.col - idx] == null){
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row][start.col - idx] = newTile;
                 }
                 else if(!locked){
-                    array[start.row][start.col + idx].locked = false;
+                    array[start.row][start.col - idx].locked = false;
                 }
             }
         }
         if(yDiff > 0){
             for(idx = 1; idx <= yDiff; idx++){
-                if(!array[start.row + idx][start.col + xDiff]){
+                if(array[start.row + idx][start.col + xDiff] == null){
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row + idx][start.col + xDiff] = newTile;
                 }
                 else if(!locked){
-                    array[start.row][start.col + idx].locked = false;
+                    array[start.row + idx][start.col + xDiff].locked = false;
                 }
             }
         }
         else if(yDiff < 0){
             yDiff *= -1;
             for(idx = 1; idx <= yDiff; idx++){
-                if(!array[start.row - idx][start.col + xDiff]){
+                if(array[start.row - idx][start.col + xDiff] == null){
                     newTile = new Tile();
                     newTile.locked = locked;
                     array[start.row - idx][start.col + xDiff] = newTile;
                 }
                 else if(!locked){
-                    array[start.row][start.col + idx].locked = false;
+                    array[start.row - idx][start.col + xDiff].locked = false;
                 }
             }
         }
+        array[start.row][start.col].head = true;
+        array[end.row][end.col].tail = true;
         return array;
     };
 
@@ -774,8 +776,14 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     output.push(' ');
                 }
                 else{
-                    if(array[i][j].locked){
+                    if(array[i][j].locked == true){
                         output.push('#');
+                    }
+                    else if(array[i][j].hasOwnProperty('head')){
+                        output.push('H');
+                    }
+                    else if(array[i][j].hasOwnProperty('tail')){
+                        output.push('T');
                     }
                     else{
                         output.push('O');

@@ -209,10 +209,10 @@ define(['img/ImageManager'],function(ImageManager) {
                 if (board[y][x] != null){
                     if (board[y][x].database){
                       var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                      this.ctx.drawImage(databaseImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord - window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord - window.innerHeight/2);
+                      this.ctx.drawImage(databaseImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord + window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord + window.innerHeight/2);
                     }
                     var img = this.imageManager.getImage(board[y][x].image);
-                    this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X - window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord -window.innerHeight/2 + this.viewTransform.t_offset_Y);
+                    this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                 }
             }
         }

@@ -6,7 +6,7 @@ define([],function(IAncestor, Nameless, FamilyMember, Board) {
       this.currentDirection = Player.UP;
       this.nextDirection = Player.RIGHT;
       this.distanceTraveled = 0;
-      this.speed = 30;
+      this.speed = 200;
     }
 
     Player.prototype.movePlayer = function(timeElapsed){

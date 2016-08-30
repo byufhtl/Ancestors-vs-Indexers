@@ -90,16 +90,16 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
             for(var index in keys){
                 switch(keys[index]){
                     case "up":
-                        moveBy.Y -= move;
+                        self.viewController.handle(new Sig(Sig.KEY_ACTN, Sig.KY_PRS_U));
                         break;
                     case "down":
-                        moveBy.Y += move;
+                        self.viewController.handle(new Sig(Sig.KEY_ACTN, Sig.KY_PRS_D));
                         break;
                     case "left":
-                        moveBy.X -= move;
+                        self.viewController.handle(new Sig(Sig.KEY_ACTN, Sig.KY_PRS_L));
                         break;
                     case "right":
-                        moveBy.X += move;
+                        self.viewController.handle(new Sig(Sig.KEY_ACTN, Sig.KY_PRS_R));
                         break;
                 }
             }

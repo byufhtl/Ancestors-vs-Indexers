@@ -31,7 +31,6 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.drawImage(victoryImg, 0, 0, victoryImg.width, victoryImg.height, 0, 0, this.canvas.width, this.canvas.height);
         for (var i = 0; i < optionButtons.length; i++) {
             var buttonImg = this.imageManager.getImage(optionButtons[i].imgURL);
-            console.log("drawing victory buttons");
             this.ctx.drawImage(buttonImg, optionButtons[i].xCoord, optionButtons[i].yCoord);
         }
     };
@@ -42,7 +41,6 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.drawImage(defeatImg, 0, 0, defeatImg.width, defeatImg.height, 0, 0, this.canvas.width, this.canvas.height);
         for (var i = 0; i < optionButtons.length; i++) {
             var buttonImg = this.imageManager.getImage(optionButtons[i].imgURL);
-            console.log("drawing defeat buttons");
             this.ctx.drawImage(buttonImg, optionButtons[i].xCoord, optionButtons[i].yCoord);
         }
     };
@@ -211,6 +209,10 @@ define(['img/ImageManager'],function(ImageManager) {
                       var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
                       this.ctx.drawImage(databaseImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord + window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord + window.innerHeight/2);
                     }
+                    if (board[y][x].startingPosition){
+                      var treeImg = this.imageManager.getImage(ImageManager.UBER_IDX);
+                      this.ctx.drawImage(treeImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord + window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord + window.innerHeight/2);
+                    }
                     var img = this.imageManager.getImage(board[y][x].image);
                     this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                 }
@@ -228,17 +230,21 @@ define(['img/ImageManager'],function(ImageManager) {
           for (var x = 0; x < board[y].length; x++){
               if (board[y][x] != null){
                   if (board[y][x].database) {
-                      console.log("drawing in a database");
                       this.ctx.fillStyle = "red";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                       this.ctx.fillStyle = "blue";
                   }
+                  else if (board[y][x].startingPosition){
+                      this.ctx.fillStyle = "green";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                      this.ctx.fillStyle = "blue";
+                  }
                   else if (x == player.playerCellPosition.xCoord && y == player.playerCellPosition.yCoord){
-                      console.log("drawing in a player");
                       this.ctx.fillStyle = "white";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                       this.ctx.fillStyle = "blue";
                   }
+
                   else {
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }

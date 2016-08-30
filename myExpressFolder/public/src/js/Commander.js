@@ -96,6 +96,9 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
             case Sig.CNVS_DRG:
                 self.buttonFocus.handle(event);
                 break;
+            case Sig.KEY_ACTN:
+                self.buttonFocus.handle(event);
+                break;
             case Sig.LD_SDBAR:
                 self.viewController.handle(event);
                 break;

@@ -2,8 +2,8 @@
  * Created by calvin on 7/26/16.
  */
 
-define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'drops/StoryTeller', 'game/GameButtons'],
-function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library, StoryTeller, GameButtons){
+define(["util/Sig", "util/Point", "LevelDefinition",  'model/IIndexer',  'indexers/Indexer_Animated', 'indexers/Hobbyist', 'indexers/Uber', 'indexers/Specialist', 'model/IBuilding', 'buildings/Library', 'drops/StoryTeller', 'game/GameButtons', 'game/Player'],
+function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber, Specialist, IBuilding, Library, StoryTeller, GameButtons, Player){
 
     function GameEventManager(controller){
         this.controller = controller;
@@ -29,10 +29,33 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
                 }
                 break;
             case Sig.CNVS_CLK:          self.handleCanvasClick(event);                                          break;
+            case Sig.KEY_ACTN:          self.handleKeyBoardPress(event);                                        break;
         }
     };
 
+    GameEventManager.prototype.handleKeyBoardPress = function(data){
+        var self = this;
+        console.log("data in handleKeyBoardPress", data);
+        switch(data.value){
+            case Sig.KY_PRS_U:
+                console.log("up");
+                self.controller.player.nextDirection = Player.UP;
+                break;
+            case Sig.KY_PRS_D:
+                console.log("down");
+                self.controller.player.nextDirection = Player.DOWN;
+                break;
+            case Sig.KY_PRS_L:
+                console.log("left");
+                self.controller.player.nextDirection = Player.LEFT;
+                break;
+            case Sig.KY_PRS_R:
+                console.log("right");
+                self.controller.player.nextDirection = Player.RIGHT;
+                break;
 
+        }
+    }
     GameEventManager.prototype.showAncestorInfo = function(data)
     {
         var self = this;

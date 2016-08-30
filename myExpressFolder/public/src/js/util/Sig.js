@@ -108,6 +108,11 @@ define([],function(){
 
     Sig.    KY_PRS_P =          "pkypr";                // 'p' Key (ASCII 112)
 
+    Sig.    KY_PRS_U =          "pkyup";                // up key pressed
+    Sig.    KY_PRS_D =          "pkydn";                // down key pressedd
+    Sig.    KY_PRS_L =          "pkylf";                // left key pressedd
+    Sig.    KY_PRS_R =          "pkyrt";                // right key pressed
+
 
     // MODAL DISPLAY ===============================================================================================[]>
     Sig.    LD_MODAL =          "ldmdl";                // Load Modal                               *

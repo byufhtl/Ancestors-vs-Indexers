@@ -42,6 +42,9 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               case Sig.CNVS_DRG:
                   self.eventManager.handle(event);
                   break;
+              case Sig.KEY_ACTN:
+                  self.eventManager.handle(event);
+                  break;
               case Sig.LD_MODAL:
                   self.eventManager.handle(event);
           }
@@ -104,7 +107,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
-              this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo, this.player);
+              this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo, this.player, this.board);
               this.myRender.render(this.active, this.board.tileArray, this.canvas, this.translation, this.player);
               this.updateCoordinates(0, 0);
           }

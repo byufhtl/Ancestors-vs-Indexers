@@ -68,7 +68,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
             clumps.push(clump);
         }
-        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs + levelData.numExtraClumps);
+        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs * 2 + levelData.numExtraClumps);
         Board.setTileImages(this.tileArray);
     };
 
@@ -564,10 +564,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         // pOrders = [2,3,1]; // Always grow up
         // pOrders = [4,3,5,]; // Always grow right
         // pOrders = [8,1,7,]; // Always grow left
-        pOrders.pop();
-        pOrders.pop();
-        pOrders.pop();
-        pOrders.pop();
+        // pOrders.pop();
+        // pOrders.pop();
+        // pOrders.pop();
+        // pOrders.pop();
         // End Force Orders
 
         console.log("<<BOARD>> Peripheral Orders:",pOrders);

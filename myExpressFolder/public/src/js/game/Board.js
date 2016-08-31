@@ -69,9 +69,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
             clumps.push(clump);
         }
+        Board.addPlayer(this.tileArray, this.playerStartingPosition);
         this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs + levelData.numExtraClumps);
         Board.setTileImages(this.tileArray);
-        Board.addPlayer(this.tileArray, this.playerStartingPosition);
+
     };
 
     /**

@@ -18,6 +18,7 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
             data.numExtraClumps = 5;
             data.clumpiness = 12;
             data.numLocked = 0;
+            data.numAncestors = 5;
             return data;
         }
     }

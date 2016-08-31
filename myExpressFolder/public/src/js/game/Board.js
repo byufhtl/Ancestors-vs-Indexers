@@ -808,8 +808,15 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var width = array[0].length;
         var i = 0;
         var j = 0;
+        var k = 0;
+        var l = 0;
         var output = ['|'];
-        for(i; i < width; i++){
+        for(i = 0; i < width; i++){
+            output.push((l++)%10);
+        }
+        output.push('|\n');
+        output.push('|');
+        for(i = 0; i < width; i++){
             output.push('_');
         }
         output.push('|\n');
@@ -843,7 +850,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     }
                 }
             }
-            output.push('|\n');
+            output.push('|' + (k++) + '\n');
         }
         output.push('|');
         for(i = 0; i < width; i++){
@@ -858,14 +865,23 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
     Board.prototype.scan = function(){
         console.log("<<BOARD>> Commencing Scan...");
-        for(var ccol = 0; ccol < this.tileArray.length; ccol++){
-            for(var crow = 0; crow < this.tileArray[0].length; crow++){
+        var ccol = 0;
+        var crow = 0;
+        for(ccol = 0; ccol < this.tileArray.length; ccol++){
+            for(crow = 0; crow < this.tileArray[0].length; crow++){
+                console.log("<<BOARD>> <<TILE REPORT>>", ccol + "/" + this.tileArray.length, crow + "/" + this.tileArray[0].length/*, "(" + this.tileArray[ccol].length + ")"*/);
                 var ctile = this.tileArray[ccol][crow];
                 if(ctile != null){
                     if(ctile.clumpID == 0){
+                        if(!this.bridgeTiles[ccol]){
+                            this.bridgeTiles[ccol] = {};
+                        }
                         this.bridgeTiles[ccol][crow] = ctile;
                     }
-                    if(ctile.database != null){
+                    if(ctile.database){
+                        if(!this.databases[ccol]){
+                            this.databases[ccol] = {};
+                        }
                         this.databases[ccol][crow] = ctile;
                     }
                 }

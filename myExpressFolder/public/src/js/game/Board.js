@@ -103,10 +103,11 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
         this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs * 2 + levelData.numExtraClumps);
         this.scan();
+
         Board.setTileImages(this.tileArray);
         this.printTest();
-        Board.addPlayer(this.tileArray, this.playerStartingPosition);
-        Board.addRelativePositions(this.tileArray, levelData.numAncestors);
+        this.addPlayer(this.tileArray, this.playerStartingPosition, levelData.numDBs + levelData.numExtraClumps);
+        this.addRelativePositions(this.tileArray, levelData.numAncestors, levelData.numDBs + levelData.numExtraClumps);
     };
 
 
@@ -394,29 +395,22 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         }
     };
 
-    Board.addPlayer = function(array, playerStartingPosition){
-      while(true){
-          var randomColumn = Math.floor(Math.random() * array.length);
-          var randomRow = Math.floor(Math.random() * array[0].length);
-          for (var i = 0; i < array.length; i++){
-            if (i > randomColumn) randomColumn = Math.floor(Math.random() * (array.length - i)) + i;
-            for (var j = 0; j < array.length; j++){
-              if (j > randomColumn) randomRow = Math.floor(Math.random() * (array.length - j)) + j;
-              if (i == randomColumn &&  j == randomRow && array[i][j] != null && !array[i][j].locked)
-              {
-                  console.log("adding a player");
-                  playerStartingPosition.xCoord = j;
-                  playerStartingPosition.yCoord = i;
-                  array[i][j].startingPosition = true;
-                  return;
-              }
-            }
-          }
-      }
+    Board.prototype.addPlayer = function(array, playerStartingPosition, numClumps){
+        var clumpArray = this.__clumpToTile[Math.floor(Math.random() * (numClumps) + 1)];
+        console.log("row " + clumpArray[0].row + " column: " + clumpArray[0].col);
+        while (array[clumpArray[0].row][clumpArray[0].col].locked){
+            clump = Math.floor(Math.random() * (numClumps));
+        }
+        var randomTile = this.__clumpToTile[clump][Math.floor(Math.random() * this.__clumpToTile[clump].length)];
+        var randomRow = randomTile.row;
+        var randomColumn = randomTile.col;
+        array[randomColumn][randomRow].playerStartingPosition = true;
+        playerStartingPosition.xCoord = randomRow;
+        playerStartingPosition.yCoord = randomColumn;
     };
 
 
-    Board.addRelativePositions = function(array, numAncestors){
+    Board.prototype.addRelativePositions = function(array, numAncestors, numClumps){
 
 
     };
@@ -933,21 +927,22 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.metaData.databaseCount = 0;
         for(ccol = 0; ccol < cols; ccol++){
             for(crow = 0; crow < rows; crow++){
-                console.log("<<BOARD>> <<TILE REPORT>>", crow + "/" + rows, ccol + "/" + cols/*, "(" + this.tileArray[ccol].length + ")"*/);
-                var ctile = this.tileArray[ccol][crow];
+                //console.log("<<BOARD>> <<TILE REPORT>>", crow + "/" + rows, ccol + "/" + cols/*, "(" + this.tileArray[ccol].length + ")"*/ + "tileArray", this.tileArray);
+
+                var ctile = this.tileArray[crow][ccol];
                 if(ctile != null){
                     if(ctile.clumpID == 0){
-                        if(!this.bridgeTiles[ccol]){
-                            this.bridgeTiles[ccol] = {};
+                        if(!this.bridgeTiles[crow]){
+                            this.bridgeTiles[crow] = {};
                         }
-                        this.bridgeTiles[ccol][crow] = ctile;
+                        this.bridgeTiles[crow][ccol] = ctile;
                         ++this.metaData.bridgeTileCount;
                     }
                     if(ctile.database){
-                        if(!this.databases[ccol]){
-                            this.databases[ccol] = {};
+                        if(!this.databases[crow]){
+                            this.databases[crow] = {};
                         }
-                        this.databases[ccol][crow] = ctile;
+                        this.databases[crow][ccol] = ctile;
                         ++this.metaData.databaseCount;
                     }
                 }

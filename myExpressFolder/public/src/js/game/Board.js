@@ -69,11 +69,14 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
             clumps.push(clump);
         }
-        Board.addPlayer(this.tileArray, this.playerStartingPosition);
+
         this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs + levelData.numExtraClumps);
         Board.setTileImages(this.tileArray);
-
+        Board.addPlayer(this.tileArray, this.playerStartingPosition);
+        Board.addRelativePositions(this.tileArray, levelData.numAncestors);
     };
+
+
 
     /**
      * Traverses a double array of tiles and determines their image.
@@ -375,7 +378,12 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
           }
       }
-    }
+    };
+
+    Board.addRelativePositions = function(array, numAncestors){
+
+          
+    };
 
 
     Board.prototype.makeClump = function(hasDatabase, clumpiness){

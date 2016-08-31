@@ -235,6 +235,7 @@ define(['img/ImageManager'],function(ImageManager) {
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                       this.ctx.fillStyle = "blue";
                   }
+
                   else if (board[y][x].startingPosition){
                       this.ctx.fillStyle = "green";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
@@ -244,6 +245,16 @@ define(['img/ImageManager'],function(ImageManager) {
                       this.ctx.fillStyle = "white";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                       this.ctx.fillStyle = "blue";
+                  }
+                  else if (board[y][x].ancestorStartingPosition){
+                      this.ctx.fillStyle = "yellow";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                      this.ctx.fillStyle = "blue";
+                  }
+                  else if (board[y][x].locked){
+                    this.ctx.fillStyle = "black";
+                    this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                    this.ctx.fillStyle = "blue";
                   }
 
                   else {

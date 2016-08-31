@@ -6,6 +6,7 @@ define([],function() {
         this.hotspot = false;
         this.database = false;
         this.startingPosition = false;
+        this.ancestorStartingPosition = false;
     }
 
     return Tile;

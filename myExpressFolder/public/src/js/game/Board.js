@@ -3,13 +3,36 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
     function Board(){
         this.tileArray = [];
+        this.bridgeTiles = {};
+        this.databases = {};
+        this.locked = {};
+        this.open = {};
+        this.__clumpToTile = {};
+        this.clumpID = 0;
     }
+
+    /**
+     * Gets the tile at the given location. Returns null if the tile does not exist or if the point passed in is out
+     * of the boundaries of the field.
+     * @param row The row in which the desired tile resides.
+     * @param col The column in which the desired tile resides.
+     * @returns {*} The tile, if present, null otherwise.
+     */
+    Board.prototype.getTileAt = function(row, col){
+        if(row < 0 || row > this.tileArray.length || col < 0 || col > this.tileArray[0].length){return null;}
+        return this.tileArray[row][col];
+    };
 
     /**
      * Prints the board to the console.
      */
     Board.prototype.printTest = function(){
         Board.printArray(this.tileArray);
+        console.log("<<BOARD>> Bridge Tiles:", this.bridgeTiles);
+        console.log("<<BOARD>> Database Tiles:", this.databases);
+        console.log("<<BOARD>> Locked Tiles:", this.locked);
+        console.log("<<BOARD>> Open Tiles:", this.open);
+        console.log("<<BOARD>> Clumpings:", this.__clumpToTile);
     };
 
     /**
@@ -51,6 +74,13 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      */
     Board.prototype.generate = function(levelData){
         var self = this;
+        this.clumpID = 0;
+        this.tileArray = [];
+        this.bridgeTiles = {};
+        this.databases = {};
+        this.locked = {};
+        this.open = {};
+        this.__clumpToTile = {};
         var clumps = [];
         var locksRemaining = levelData.numLocked;
         var totalLeft = levelData.numDBs + levelData.numExtraClumps;
@@ -69,7 +99,9 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             clumps.push(clump);
         }
         this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs * 2 + levelData.numExtraClumps);
+        this.scan();
         Board.setTileImages(this.tileArray);
+        this.printTest();
     };
 
     /**
@@ -209,9 +241,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * Makes a cycle.
      */
     Board.prototype.makeCycle = function(){
+        var self = this;
         var cycle = [];
         //size of cycle between 2 and 5
-        var size = Math.floor(Math.random() * (6-2) + 2);
+        var size = Math.floor(Math.random() * (6-3) + 2);
         console.log("size is: ", size);
         for (var i = 0; i < (size*2+1); i++){
           var temp = [];
@@ -229,7 +262,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var xPos = size;
 
         cycle[yPos][xPos] = new Tile();
-        var firstMove;
+        var firstMove = null;
         var random = Math.floor(Math.random() * (5-1) + 1);
 
         while (up > 0 || down > 0 || left > 0 || right > 0) {
@@ -270,30 +303,35 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 }
             }
             if (firstMove == null) firstMove = random;
+            function genTile(row, col){
+                cycle[row][col] = new Tile();
+                cycle[row][col].clumpID = self.clumpID;
+                self.__clumpToTile[self.clumpID].push({row: row, col: col});
+            }
             switch(random){
                 case 1: //up
                     console.log("up");
                     yPos++;
                     up--;
-                    cycle[yPos][xPos] = new Tile();
+                    genTile(yPos, xPos);
                     break;
                 case 2: //down
                     console.log("down");
                     yPos--;
                     down--;
-                    cycle[yPos][xPos] = new Tile();
+                    genTile(yPos, xPos);
                     break;
                 case 3: //left
                     console.log("left");
                     xPos--;
                     left--;
-                    cycle[yPos][xPos] = new Tile();
+                    genTile(yPos, xPos);
                     break;
                 case 4: //right
                     console.log("right");
                     xPos++;
                     right--;
-                    cycle[yPos][xPos] = new Tile();
+                    genTile(yPos, xPos);
                     break;
             }
 
@@ -339,6 +377,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      */
     Board.prototype.makeClump = function(hasDatabase, clumpiness){
         var clump = {array: [], database: null};
+        ++this.clumpID;
+        if(!this.__clumpToTile.hasOwnProperty(this.clumpID)){
+            this.__clumpToTile[this.clumpID] = [];
+        }
         for(var c = 0; c < Math.floor(clumpiness* 1.5); c++){
             clump.array.push({array:this.makeCycle()});
         }
@@ -414,10 +456,11 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @param array The array to draw the path in
      * @param start The start point
      * @param end The end point
+     * @param makeBridge Whether or not the tiles in the new path should be specifically designated as bridges
      * @returns {*} The array. Just in case you forgot that you passed it in.
      * @private Keep out of reach of children.
      */
-    Board.__drawLinearPath = function(array, start, end){
+    Board.__drawLinearPath = function(array, start, end, makeBridge){
         console.log("<<BOARD>> Drawing Additional Paths:", array, start, end);
         var error = ((array[start.row][start.col] == null) << 8);
         error &= ((array[end.row][end.col] == null) << 7);
@@ -441,8 +484,9 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 newTile = new Tile();
                 newTile.locked = locked;
                 newTile.type = printKey;
+                newTile.clumpID = (makeBridge) ? 0 : (array[end.row][end.col].locked ? array[end.row][end.col].clumpID : array[start.row][start.col].clumpID);
                 array[i][j] = newTile;
-            }
+                            }
             else if(!locked){ // Unlocks intersections with locked paths.
                 array[i][j].locked = false;
             }
@@ -496,7 +540,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             while(isletCoords.length > 1){
                 var startHead = isletCoords.shift();
                 var endHead = isletCoords.pop();
-                array = Board.__drawLinearPath(array, startHead, endHead);
+                array = Board.__drawLinearPath(array, startHead, endHead, true);
                 isletCoords.push(endHead);
             }
         }
@@ -507,6 +551,13 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         return array;
     };
 
+    /**
+     * Sets up additional connections between random filled tiles on the board, marking them as bridges.
+     * @param array The array to make the additions to and to compare against.
+     * @param numPaths The number of additional paths to create.
+     * @returns {*} The supplied array to support chain array editting calls
+     * @private Nobody needs to know about this function outside of this class.
+     */
     Board.__reconnect = function(array, numPaths){
         console.log("<<BOARD>> Reconnecting:", numPaths);
         var height = array.length;
@@ -534,7 +585,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     end = {row: y, col: x};
                 }
             }
-            Board.__drawLinearPath(array, start, end);
+            Board.__drawLinearPath(array, start, end, true);
             ++count;
         }
         console.log("<<BOARD>> Reconnected", count, "times. \n<<BOARD>> Reconnected board:");
@@ -770,8 +821,13 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     output.push(' ');
                 }
                 else{
-                    if(array[i][j].hasOwnProperty('type')) {
-                        output.push(array[i][j].type);
+                    if(array[i][j].clumpID == 0){
+                        if(array[i][j].hasOwnProperty('type')) {
+                            output.push(array[i][j].type);
+                        }
+                        else{
+                            output.push('B');
+                        }
                     }
                     else if(array[i][j].hasOwnProperty('head')){
                         output.push('H');
@@ -798,6 +854,24 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         output.push('|');
         // console.log("<<BOARD>> output:", output);
         console.log(output.join(""));
+    };
+
+    Board.prototype.scan = function(){
+        console.log("<<BOARD>> Commencing Scan...");
+        for(var ccol = 0; ccol < this.tileArray.length; ccol++){
+            for(var crow = 0; crow < this.tileArray[0].length; crow++){
+                var ctile = this.tileArray[ccol][crow];
+                if(ctile != null){
+                    if(ctile.clumpID == 0){
+                        this.bridgeTiles[ccol][crow] = ctile;
+                    }
+                    if(ctile.database != null){
+                        this.databases[ccol][crow] = ctile;
+                    }
+                }
+            }
+        }
+        console.log("<<BOARD>> Scan Complete!");
     };
 
     return Board;

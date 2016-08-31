@@ -205,16 +205,19 @@ define(['img/ImageManager'],function(ImageManager) {
         for (var y = 0; y < board.length; y++){
             for (var x = 0; x < board[y].length; x++){
                 if (board[y][x] != null){
-                    if (board[y][x].database){
-                      var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                      this.ctx.drawImage(databaseImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord + window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord + window.innerHeight/2);
-                    }
-                    if (board[y][x].startingPosition){
-                      var treeImg = this.imageManager.getImage(ImageManager.UBER_IDX);
-                      this.ctx.drawImage(treeImg, x * 150 + this.viewTransform.t_offset_X - player.xCoord + window.innerWidth/2, y * 150 + this.viewTransform.t_offset_Y - player.yCoord + window.innerHeight/2);
-                    }
+
                     var img = this.imageManager.getImage(board[y][x].image);
                     this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+                    if (board[y][x].database){
+                      var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                      console.log("rendering the board");
+                      this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+                    }
+                    if (board[y][x].startingPosition){
+                      console.log("rendering tree");
+                      var treeImg = this.imageManager.getImage(ImageManager.UBER_IDX);
+                      this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+                    }
                 }
             }
         }

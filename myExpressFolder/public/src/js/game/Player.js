@@ -59,16 +59,20 @@ define([],function() {
                     if (self.playerCellPosition.xCoord + 1 < board.tileArray[self.playerCellPosition.yCoord].length && board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord + 1] != null)
                     {
                         this.playerCellPosition.xCoord++; this.currentDirection = Player.RIGHT;
+                        this.nextDirection = Player.RIGHT;
                     }
                     else if (self.playerCellPosition.xCoord - 1 >= 0 && board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord - 1] != null){
                         this.playerCellPosition.xCoord--; this.currentDirection = Player.LEFT;
+                        this.nextDirection = Player.LEFT;
                     }
                     else{
                         if (this.currentDirection == Player.UP) {
                             this.playerCellPosition.yCoord--; this.currentDirection = Player.UP;
+                            this.nextDirection = Player.UP;
                         }
                         else{
                             this.playerCellPosition.yCoord++; this.currentDirection = Player.DOWN;
+                            this.nextDirection = Player.DOWN;
                         }
                     }
                 }
@@ -76,17 +80,21 @@ define([],function() {
                     if (self.playerCellPosition.yCoord - 1 >= 0 && board.tileArray[self.playerCellPosition.yCoord - 1][self.playerCellPosition.xCoord] != null)
                     {
                         this.playerCellPosition.yCoord--; this.currentDirection = Player.UP;
+                        this.nextDirection = Player.UP;
                     }
                     else if (self.playerCellPosition.yCoord + 1 < board.tileArray.length && board.tileArray[self.playerCellPosition.yCoord + 1][self.playerCellPosition.xCoord] != null)
                     {
                         this.playerCellPosition.yCoord++; this.currentDirection = Player.DOWN;
+                        this.nextDirection = Player.DOWN;
                     }
                     else{
                         if (this.currentDirection == Player.RIGHT) {
                             this.playerCellPosition.xCoord--; this.currentDirection = Player.LEFT;
+                            this.nextDirection = Player.LEFT;
                         }
                         else{
                             this.playerCellPosition.yCoord++; this.currentDirection = Player.RIGHT;
+                            this.nextDirection = Player.RIGHT;
                         }
                     }
                 }

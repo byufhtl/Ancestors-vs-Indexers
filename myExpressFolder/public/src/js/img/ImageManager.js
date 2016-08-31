@@ -91,7 +91,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         console.log("<<PACKAGE MANAGER>>", self.status, "[" + area + "].");
         switch(area){
             case Sig.FLD_IMGS:
-                return self.loadFieldPieces();
+                return self.loadBoardTiles();
                 break;
             case Sig.BKG_IMGS:
                 return self.loadBackgroundSkins();
@@ -299,6 +299,13 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.BLU_R, Order.IMAGE, 15);
             order.addItem(ImageManager.BLU_ISLD, Order.IMAGE, 15);
             order.addItem(ImageManager.DTB_TILE, Order.IMAGE, 15);
+            order.addItem(ImageManager.CRK_TILE, Order.IMAGE, 15);
+            order.addItem(ImageManager.SPD_TILE, Order.IMAGE, 15);
+            order.addItem(ImageManager.RLF_COIN, Order.IMAGE, 15);
+            order.addItem(ImageManager.VIP_COIN, Order.IMAGE, 15);
+            order.addItem(ImageManager.OPG_COIN, Order.IMAGE, 15);
+            order.addItem(ImageManager.GMP_COIN, Order.IMAGE, 15);
+            order.addItem(ImageManager.GNP_COIN, Order.IMAGE, 15);
 
             self.loader.loadResources(order).then(
                 function(success){
@@ -377,7 +384,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             self.loadBoardTiles().then(partialResolve,
                 function(rejection){
                     console.log("Loading the board tiles claims to have failed...");
-                    failed.push(Sig.STY_TELL);
+                    failed.push(Sig.FLD_IMGS);
                     partialResolve();
                 }
             );
@@ -402,7 +409,15 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.BLU_R    =     "src/img/GameTiles/r.png";                  // RIGHT TILE
     ImageManager.BLU_ISLD =     "src/img/GameTiles/island.png";             // ISLAND TILE (disconnected)
 
-    ImageManager.DTB_TILE =     "src/img/GameTiles/Database.png";           // DATABASE TILE
+    ImageManager.DTB_TILE =     "src/img/GameTiles/DBTile.png";             // DATABASE TILE
+    ImageManager.CRK_TILE =     "src/img/GameTiles/fragile.png";            // CRACKED/FRAGILE TILE
+    ImageManager.SPD_TILE =     "src/img/GameTiles/HighSpeed.png";          // HIGH-SPEED TILE
+
+    ImageManager.RLF_COIN =     "src/img/GameTiles/rfCoin.png";             // RELATIVEFINDER COIN
+    ImageManager.VIP_COIN =     "src/img/GameTiles/vpCoin.png";             // VIRTUAL PEDIGREE COIN
+    ImageManager.OPG_COIN =     "src/img/GameTiles/opgCoin.png";            // ONE PAGE GENEALOGY COIN
+    ImageManager.GMP_COIN =     "src/img/GameTiles/gpCoin.png";             // GRANDMAS PIE COIN
+    ImageManager.GNP_COIN =     "src/img/GameTiles/gnpdyCoin.png";          // GENEOPARDY COIN
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA

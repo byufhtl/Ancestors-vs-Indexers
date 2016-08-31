@@ -10,6 +10,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.__clumpToTile = {};
         this.clumpID = 0;
         this.playerStartingPosition = {xCoord: 0, yCoord: 0};
+        this.metaData = {bridgeTileCount:0, databaseCount:0};
     }
 
     /**
@@ -43,7 +44,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @return true if locked, false otherwise.
      */
     Board.prototype.__conditionalLock = function(clump, locksRemaining, clumpsRemaining){
-        if(clumpsRemaining > locksRemaining){
+        if(clumpsRemaining > locksRemaining && locksRemaining > 0){
             clump.lock = (Math.floor(Math.random() + .5) == 1);
             return clump.lock;
         }
@@ -373,11 +374,6 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         return cycle;
     };
 
-    /**
-     * Creates a clump out of a number of cycles, and optionally includes a database as part of the clump.
-     * @param hasDatabase whether or not a database ought to be included in the new clump
-     * @param clumpiness How close together the clumps ought to be.
-     */
 
     Board.addDatabase = function(array){
         while(true){
@@ -419,12 +415,19 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
       }
     };
 
+
     Board.addRelativePositions = function(array, numAncestors){
 
 
     };
 
 
+
+    /**
+     * Creates a clump out of a number of cycles, and optionally includes a database as part of the clump.
+     * @param hasDatabase whether or not a database ought to be included in the new clump
+     * @param clumpiness How close together the clumps ought to be.
+     */
     Board.prototype.makeClump = function(hasDatabase, clumpiness){
         var clump = {array: [], database: null};
         ++this.clumpID;
@@ -922,9 +925,15 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         console.log("<<BOARD>> Commencing Scan...");
         var ccol = 0;
         var crow = 0;
-        for(ccol = 0; ccol < this.tileArray.length; ccol++){
-            for(crow = 0; crow < this.tileArray[0].length; crow++){
-                console.log("<<BOARD>> <<TILE REPORT>>", ccol + "/" + this.tileArray.length, crow + "/" + this.tileArray[0].length/*, "(" + this.tileArray[ccol].length + ")"*/);
+        var rows = this.tileArray.length;
+        var cols = this.tileArray[0].length;
+        this.metaData.cols = cols;
+        this.metaData.rows = rows;
+        this.metaData.bridgeTileCount = 0;
+        this.metaData.databaseCount = 0;
+        for(ccol = 0; ccol < cols; ccol++){
+            for(crow = 0; crow < rows; crow++){
+                console.log("<<BOARD>> <<TILE REPORT>>", crow + "/" + rows, ccol + "/" + cols/*, "(" + this.tileArray[ccol].length + ")"*/);
                 var ctile = this.tileArray[ccol][crow];
                 if(ctile != null){
                     if(ctile.clumpID == 0){
@@ -932,12 +941,14 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                             this.bridgeTiles[ccol] = {};
                         }
                         this.bridgeTiles[ccol][crow] = ctile;
+                        ++this.metaData.bridgeTileCount;
                     }
                     if(ctile.database){
                         if(!this.databases[ccol]){
                             this.databases[ccol] = {};
                         }
                         this.databases[ccol][crow] = ctile;
+                        ++this.metaData.databaseCount;
                     }
                 }
             }

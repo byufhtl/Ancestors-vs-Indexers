@@ -4,9 +4,9 @@ define([],function() {
         this.image = null;
         this.locked = false;
         this.hotspot = false;
-        this.database = null;
+        this.database = false;
         this.clumpID = null;
-        this.startingPoint = false;
+        this.startingPosition = false;
     }
 
     return Tile;

@@ -9,6 +9,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.open = {};
         this.__clumpToTile = {};
         this.clumpID = 0;
+        this.playerStartingPosition = {xCoord: 0, yCoord: 0};
     }
 
     /**
@@ -88,10 +89,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             var clump = {};
             --totalLeft;
             clump = self.makeClump((dbi < levelData.numDBs), levelData.clumpiness);
-            console.log("<<BOARD>> Made Clump *v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*");
-            console.log(clump);
+            //console.log("<<BOARD>> Made Clump *v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*v*");
+            //console.log(clump);
             Board.printArray(clump.array);
-            console.log('<<BOARD>> End Clump  *^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*');
+            //console.log('<<BOARD>> End Clump  *^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*^*');
             if(self.__conditionalLock(clump, locksRemaining, totalLeft)){
                 Board.__lockClump(clump);
                 --locksRemaining;
@@ -102,6 +103,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.scan();
         Board.setTileImages(this.tileArray);
         this.printTest();
+        Board.addPlayer(this.tileArray, this.playerStartingPosition);
     };
 
     /**
@@ -246,6 +248,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         //size of cycle between 2 and 5
         var size = Math.floor(Math.random() * (6-3) + 2);
         console.log("size is: ", size);
+        //console.log("size is: ", size);
         for (var i = 0; i < (size*2+1); i++){
           var temp = [];
           for (var j = 0; j < (size*2+1); j++){
@@ -293,11 +296,11 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 if (Board.remainingIsOpposite(up, down, left, right, previous))
                 {
                         if (previous == 1 || previous == 2){
-                          console.log("right left incremented");
+                          //console.log("right left incremented");
                           right++; left++;
                         }
                         else if (previous == 3 || previous == 4){
-                          console.log("up down incremented");
+                          //console.log("up down incremented");
                           up++; down++;
                         }
                 }
@@ -310,25 +313,21 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
             switch(random){
                 case 1: //up
-                    console.log("up");
                     yPos++;
                     up--;
                     genTile(yPos, xPos);
                     break;
                 case 2: //down
-                    console.log("down");
                     yPos--;
                     down--;
                     genTile(yPos, xPos);
                     break;
                 case 3: //left
-                    console.log("left");
                     xPos--;
                     left--;
                     genTile(yPos, xPos);
                     break;
                 case 4: //right
-                    console.log("right");
                     xPos++;
                     right--;
                     genTile(yPos, xPos);
@@ -366,7 +365,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
         }
 
-        console.log("cycle", cycle);
+        //console.log("cycle", cycle);
         return cycle;
     };
 
@@ -375,6 +374,48 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @param hasDatabase whether or not a database ought to be included in the new clump
      * @param clumpiness How close together the clumps ought to be.
      */
+
+    Board.addDatabase = function(array){
+        while(true){
+            var randomColumn = Math.floor(Math.random() * array.length);
+            var randomRow = Math.floor(Math.random() * array[0].length);
+            for (var i = 0; i < array.length; i++){
+              if (i > randomColumn) randomColumn = Math.floor(Math.random() * (array.length - i)) + i;
+              for (var j = 0; j < array.length; j++){
+                if (j > randomColumn) randomRow = Math.floor(Math.random() * (array.length - j)) + j;
+                if (i == randomColumn &&  j == randomRow && array[i][j] != null)
+                {
+                    console.log("adding a database");
+                    array[i][j].database = true;
+                    return;
+                }
+              }
+            }
+        }
+    };
+
+    Board.addPlayer = function(array, playerStartingPosition){
+      while(true){
+          var randomColumn = Math.floor(Math.random() * array.length);
+          var randomRow = Math.floor(Math.random() * array[0].length);
+          for (var i = 0; i < array.length; i++){
+            if (i > randomColumn) randomColumn = Math.floor(Math.random() * (array.length - i)) + i;
+            for (var j = 0; j < array.length; j++){
+              if (j > randomColumn) randomRow = Math.floor(Math.random() * (array.length - j)) + j;
+              if (i == randomColumn &&  j == randomRow && array[i][j] != null && !array[i][j].locked)
+              {
+                  console.log("adding a player");
+                  playerStartingPosition.xCoord = j;
+                  playerStartingPosition.yCoord = i;
+                  array[i][j].startingPosition = true;
+                  return;
+              }
+            }
+          }
+      }
+    }
+
+
     Board.prototype.makeClump = function(hasDatabase, clumpiness){
         var clump = {array: [], database: null};
         ++this.clumpID;
@@ -386,6 +427,11 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         }
         // console.log("<<BOARD>> About to merge cycles:", clump.array);
         clump.array = Board.__bridgeIslets(Board.__merge(clump.array, -(Math.floor(Math.sqrt(clumpiness)))).array); // Works for me. :)
+        // add in a database
+        if (hasDatabase){
+            Board.addDatabase(clump.array);
+        }
+
         // console.log("<<BOARD>> Fresh-made clump:", clump);
         // Board.printArray(clump.array);
         return clump;
@@ -442,7 +488,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         for(var i = 0; i < array.length; i++){
             for(var j = 0; j < array[0].length; j++){
                 if(this.__mapIslet(array, markup, i, j)){
-                    console.log("Islet discovered");
+                    //console.log("Islet discovered");
                     isletHeads.push({row:i, col:j});
                 }
             }
@@ -525,18 +571,18 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @private Nobody else should be using this.
      */
     Board.__bridgeIslets = function(array){
-        console.log("<<BOARD>> Attempting to bridge[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]:");
+        //console.log("<<BOARD>> Attempting to bridge[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]:");
         Board.printArray(array);
         var isletCoords = this.__identifyIslets(array);
         if(!isletCoords.length){
-            console.error("No map was found for bridging the islets...");
+            //console.error("No map was found for bridging the islets...");
             return null;
         }
         else if(isletCoords.length == 1){
             return array;
         }
         else{
-            console.log("<<BOARD>> Islet Heads:", isletCoords);
+            //console.log("<<BOARD>> Islet Heads:", isletCoords);
             while(isletCoords.length > 1){
                 var startHead = isletCoords.shift();
                 var endHead = isletCoords.pop();
@@ -545,9 +591,9 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
         }
 
-        console.log("<<BOARD>> Islets Bridged:");
+        //console.log("<<BOARD>> Islets Bridged:");
         Board.printArray(array);
-        console.log("<<BOARD>> DONE[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]");
+        //console.log("<<BOARD>> DONE[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]");
         return array;
     };
 
@@ -559,7 +605,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @private Nobody needs to know about this function outside of this class.
      */
     Board.__reconnect = function(array, numPaths){
-        console.log("<<BOARD>> Reconnecting:", numPaths);
+        //console.log("<<BOARD>> Reconnecting:", numPaths);
         var height = array.length;
         var width = array[0].length;
         var start = {};
@@ -572,7 +618,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 y = Math.floor(Math.random() * (height-1));
                 x = Math.floor(Math.random() * (width-1));
                 if (array[y][x] && array[y][x].hasOwnProperty('image')) {
-                    console.log("<<BOARD>> Reconnect message START:", array, y, x);
+                    //console.log("<<BOARD>> Reconnect message START:", array, y, x);
                     start = {row: y, col: x};
                 }
             }
@@ -581,14 +627,14 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 y = Math.floor(Math.random() * height);
                 x = Math.floor(Math.random() * width);
                 if (array[y][x] && array[y][x].hasOwnProperty('image')) {
-                    console.log("<<BOARD>> Reconnect message: END", array, y, x);
+                    //console.log("<<BOARD>> Reconnect message: END", array, y, x);
                     end = {row: y, col: x};
                 }
             }
             Board.__drawLinearPath(array, start, end, true);
             ++count;
         }
-        console.log("<<BOARD>> Reconnected", count, "times. \n<<BOARD>> Reconnected board:");
+        //console.log("<<BOARD>> Reconnected", count, "times. \n<<BOARD>> Reconnected board:");
         Board.printArray(array);
         return array;
     };
@@ -621,7 +667,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         // pOrders.pop();
         // End Force Orders
 
-        console.log("<<BOARD>> Peripheral Orders:",pOrders);
+        //console.log("<<BOARD>> Peripheral Orders:",pOrders);
         return pOrders;
     };
 
@@ -860,7 +906,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         // console.log("<<BOARD>> output:", 10);
         output.push('|');
         // console.log("<<BOARD>> output:", output);
-        console.log(output.join(""));
+        //console.log(output.join(""));
     };
 
     Board.prototype.scan = function(){

@@ -298,6 +298,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.BLU_L, Order.IMAGE, 15);
             order.addItem(ImageManager.BLU_R, Order.IMAGE, 15);
             order.addItem(ImageManager.BLU_ISLD, Order.IMAGE, 15);
+            order.addItem(ImageManager.DTB_TILE, Order.IMAGE, 15);
 
             self.loader.loadResources(order).then(
                 function(success){
@@ -400,6 +401,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.BLU_L    =     "src/img/GameTiles/l.png";                  // LEFT TILE
     ImageManager.BLU_R    =     "src/img/GameTiles/r.png";                  // RIGHT TILE
     ImageManager.BLU_ISLD =     "src/img/GameTiles/island.png";             // ISLAND TILE (disconnected)
+
+    ImageManager.DTB_TILE =     "src/img/GameTiles/Database.png";           // DATABASE TILE
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA

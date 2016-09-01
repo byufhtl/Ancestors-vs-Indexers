@@ -1,87 +1,94 @@
 define([],function() {
 
-    function IAncestor() {
-        this.hp = 1;
-        this.speed = 30;
-        this.currentGeneration = 3;
-        this.animation;
-        this.xCoord = 1000;
-        this.yCoord = 300;
-        this.nodeX = null;
-        this.nodeY = null;
-        this.distanceMovedX = 300;
-        this.upOrDown = "up";
-        this.type = "standard";
+    function IAncestor(row, column) {
+        this.cellPosition = {xCoord:column,yCoord:row};
+        this.pixelPosition = {xCoord:column*150, yCoord:row*150};
+        this.currentDirection = null;
+        this.nextDirection = null;
+        this.distanceTraveled = 0;
+        this.speed = 250;
+        this.type = "default";
 
         this.animTimer = 0;
         this.animFrame = 0;
-        this.numFrames = 4;
-        this.timeBetweenFrames = .2;
-
-        this.slowed = 15;
-        this.slowDuration = 0;
+        this.timeBetweenFrames = 1;
     }
 
-    IAncestor.prototype.setX = function(x, nodex){
-        this.xCoord = x;
-        this.nodeX = nodex;
-    };
+    IAncestor.prototype.move = function(timeElapsed, board){
+        var self = this;
 
-    IAncestor.prototype.setY = function (y, nodey) {
-        this.yCoord = y;
-        this.nodeY = nodey;
-    };
-    
-    IAncestor.prototype.move = function(timeElapsed, nodeStructure){
-      var self = this;
-      this.slowDuration -= timeElapsed;
-      if (this.slowDuration <= 0) this.slowDuration = 0;
-      if (this.slowDuration == 0) this.slowed = 0;
-      else this.slowed = 15;
-      //check whether to move up or down
-      if (self.distanceMovedX >= 300)
-      {
-          var numNodes = self.currentGeneration + 1;
-          var firstNodeY = - self.currentGeneration * 150 + 300;
-          //check if moving up is impossible
-          
-          if (Math.abs(firstNodeY - self.yCoord) < 150)
-          {
-               self.upOrDown = "up";
-          }
-          //check if moving down is impossible
-          else if (((firstNodeY + (numNodes - 1) * 300) - self.yCoord) < 150)
-          {
-                self.upOrDown = "down";
-          }
-          else
-          {
-              var random = Math.random();
-              if (random > 0.5)
-              {
-                  self.upOrDown = "up";
+        this.distanceTraveled += timeElapsed * this.speed;
+
+        if (this.distanceTraveled >= 150){
+            this.distanceTraveled = 0;
+
+            //choose a random direction
+            var canGoRight = (self.cellPosition.xCoord + 1 < board.tileArray[self.cellPosition.yCoord].length && board.tileArray[self.cellPosition.yCoord][self.cellPosition.xCoord + 1] != null);
+            var canGoLeft = (self.cellPosition.xCoord - 1 >= 0 && board.tileArray[self.cellPosition.yCoord][self.cellPosition.xCoord - 1] != null);
+            var canGoUp = (self.cellPosition.yCoord - 1 >= 0 && board.tileArray[self.cellPosition.yCoord - 1][self.cellPosition.xCoord] != null);
+            var canGoDown = (self.cellPosition.yCoord + 1 < board.tileArray.length && board.tileArray[self.cellPosition.yCoord + 1][self.cellPosition.xCoord] != null);
+
+            var newPosChosen = false;
+            while (!newPosChosen){
+              var random = Math.floor(Math.random()*5);
+              switch (random) {
+                case 1:
+                  if (canGoUp){
+                    this.cellPosition.yCoord--;
+                    this.currentDirection = IAncestor.UP;
+                    newPosChosen = true;
+                  }
+                  break;
+                case 2:
+                  if (canGoDown){
+                    this.cellPosition.yCoord++;
+                    this.currentDirection = IAncestor.DOWN;
+                    newPosChosen = true;
+                  }
+                  break;
+                case 3:
+                  if (canGoLeft){
+                    this.cellPosition.xCoord--;
+                    this.currentDirection = IAncestor.LEFT;
+                    newPosChosen = true;
+                  }
+                  break;
+                case 4:
+                  if (canGoRight){
+                    this.cellPosition.xCoord++;
+                    this.currentDirection = IAncestor.RIGHT;
+                    newPosChosen = true;
+                  }
+                  break;
+
               }
-              else
-              {
-                  self.upOrDown = "down";
-              }
-          }
-          self.distanceMovedX = 0;
-          self.currentGeneration--;
-      }
-      //move ancestor diagonally according to speed
-      console.log("myCurrentSpeed:", (self.speed - self.slowed));
-      self.distanceMovedX += timeElapsed * (self.speed -self.slowed);
-      self.xCoord -= timeElapsed * (self.speed -self.slowed);
-      if (self.upOrDown == "up")
-      {
-          self.yCoord += timeElapsed * (self.speed -self.slowed) / 2;
-      }
-      else if (self.upOrDown == "down")
-      {
-          self.yCoord -= timeElapsed * (self.speed -self.slowed) / 2;
-      }
-    };
+            }
+
+
+
+
+        }
+
+        switch(this.currentDirection){
+          case IAncestor.RIGHT:
+            self.pixelPosition.xCoord += timeElapsed * self.speed;
+            break;
+          case IAncestor.LEFT:
+            self.pixelPosition.xCoord -= timeElapsed * self.speed;
+            break;
+          case IAncestor.UP:
+            self.pixelPosition.yCoord -= timeElapsed * self.speed;
+            break;
+          case IAncestor.DOWN:
+            self.pixelPosition.yCoord += timeElapsed * self.speed;
+            break;
+        }
+    }
+
+    IAncestor.RIGHT = "right";
+    IAncestor.LEFT = "left";
+    IAncestor.UP = "up";
+    IAncestor.DOWN = "down";
 
     return IAncestor;
 

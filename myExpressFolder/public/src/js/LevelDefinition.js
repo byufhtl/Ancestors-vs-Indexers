@@ -17,11 +17,14 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
             data.numDBs = 3;
             data.numExtraClumps = 5;
             data.clumpiness = 12;
-            data.numLocked = 0;
+
             data.numAncestors = 25;
+
+            data.numLocked = 3;
+
             return data;
         }
-    }
+    };
 
     return LevelDefinition;
 });

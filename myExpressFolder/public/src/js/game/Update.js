@@ -107,9 +107,9 @@ define(['util/DeltaClock'],function(DeltaClock) {
     };
 
 
-    Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed) {
+    Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed, board) {
         for (var i = 0; i < activeAncestors.length; i++) {
-            activeAncestors[i].move(timeElapsed);
+            activeAncestors[i].move(timeElapsed, board);
         }
     };
 
@@ -153,12 +153,13 @@ define(['util/DeltaClock'],function(DeltaClock) {
         this.moveRecords(active.records(), timeElapsed);
         this.moveAnimFrames(active.ancestors(), timeElapsed);
         this.updatePlayerPosition(player, timeElapsed, board);
+        this.updateAncestorsPosition(active.ancestors(), timeElapsed, board);
+
         if (this.buffer(timeElapsed)) {
 
             //update drops
             this.updateDrops(active.drops(), active.ancestors());
             //update ancestors
-            this.updateAncestorsPosition(active.ancestors(), timeElapsed);
             this.checkDeadAncestors(active.ancestors(), defeatedAncestorInfo);
             //update projectiles
             this.moveProjectiles(active.projectiles(), timeElapsed);

@@ -10,7 +10,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.__clumpToTile = {};
         this.clumpID = 0;
         this.playerStartingPosition = {xCoord: 0, yCoord: 0};
-        this.metaData = {bridgeTileCount:0, databaseCount:0};
+        this.metaData = {bridgeTileCount:0, databaseCount:0, rows:0, cols:0};
     }
 
     /**
@@ -44,14 +44,12 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @return true if locked, false otherwise.
      */
     Board.prototype.__conditionalLock = function(clump, locksRemaining, clumpsRemaining){
-        if(clumpsRemaining > locksRemaining && locksRemaining > 0){
-            clump.lock = (Math.floor(Math.random() + .5) == 1);
-            return clump.lock;
+        if(locksRemaining > 0) {
+            if (clumpsRemaining > locksRemaining) { clump.lock = (Math.floor(Math.random() + .5) == 1); }
+            else { clump.lock = true; }
         }
-        else{
-            clump.lock = true;
-            return true;
-        }
+        else{ clump.lock = false; }
+        return clump.lock;
     };
 
     /**
@@ -874,6 +872,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         output.push('|\n');
         for(i = 0; i < height; i++){
             output.push('|');
+            width = array[i].length;
             for(j = 0; j < width; j++){
                 // console.log("<<BOARD>> output:", output, i, j);
                 if(array[i][j] == null){

@@ -7,7 +7,7 @@
 4 verbose stack Error: ENOENT: no such file or directory, open '/home/ztnelson/Desktop/AncestorsVSIndexers/Ancestors-vs-Indexers/package.json'
 4 verbose stack     at Error (native)
 5 verbose cwd /home/ztnelson/Desktop/AncestorsVSIndexers/Ancestors-vs-Indexers
-6 error Linux 4.4.0-31-generic
+6 error Linux 4.4.0-36-generic
 7 error argv "/home/ztnelson/.nvm/versions/node/v5.0.0/bin/node" "/home/ztnelson/.nvm/versions/node/v5.0.0/bin/npm" "start"
 8 error node v5.0.0
 9 error npm  v3.3.6

@@ -210,11 +210,11 @@ define(['img/ImageManager'],function(ImageManager) {
                     this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     if (board[y][x].database){
                       var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                      console.log("rendering the board");
+                      // console.log("rendering the board");
                       this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     }
                     if (board[y][x].startingPosition){
-                      console.log("rendering tree");
+                      // console.log("rendering tree");
                       var treeImg = this.imageManager.getImage(ImageManager.UBER_IDX);
                       this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     }
@@ -235,22 +235,22 @@ define(['img/ImageManager'],function(ImageManager) {
                   if (board[y][x].database) {
                       this.ctx.fillStyle = "red";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                      this.ctx.fillStyle = "blue";
                   }
                   else if (board[y][x].startingPosition){
                       this.ctx.fillStyle = "green";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                      this.ctx.fillStyle = "blue";
                   }
                   else if (x == player.playerCellPosition.xCoord && y == player.playerCellPosition.yCoord){
                       this.ctx.fillStyle = "white";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                      this.ctx.fillStyle = "blue";
                   }
-
                   else {
+                      if(board[y][x].locked){
+                          this.ctx.fillStyle = "gray";
+                      }
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
+                  this.ctx.fillStyle = "blue";
               }
           }
       }

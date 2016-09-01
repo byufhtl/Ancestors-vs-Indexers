@@ -301,6 +301,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.DTB_TILE, Order.IMAGE, 15);
             order.addItem(ImageManager.CRK_TILE, Order.IMAGE, 15);
             order.addItem(ImageManager.SPD_TILE, Order.IMAGE, 15);
+            order.addItem(ImageManager.LCK_TILE, Order.IMAGE, 15);
             order.addItem(ImageManager.RLF_COIN, Order.IMAGE, 15);
             order.addItem(ImageManager.VIP_COIN, Order.IMAGE, 15);
             order.addItem(ImageManager.OPG_COIN, Order.IMAGE, 15);
@@ -412,6 +413,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.DTB_TILE =     "src/img/GameTiles/DBTile.png";             // DATABASE TILE
     ImageManager.CRK_TILE =     "src/img/GameTiles/fragile.png";            // CRACKED/FRAGILE TILE
     ImageManager.SPD_TILE =     "src/img/GameTiles/HighSpeed.png";          // HIGH-SPEED TILE
+    ImageManager.LCK_TILE =     "src/img/GameTiles/locked.png";             // LOCK TILE
 
     ImageManager.RLF_COIN =     "src/img/GameTiles/rfCoin.png";             // RELATIVEFINDER COIN
     ImageManager.VIP_COIN =     "src/img/GameTiles/vpCoin.png";             // VIRTUAL PEDIGREE COIN

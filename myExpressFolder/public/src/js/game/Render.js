@@ -204,6 +204,10 @@ define(['img/ImageManager'],function(ImageManager) {
                       var treeImg = this.imageManager.getImage(ImageManager.UBER_IDX);
                       this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     }
+                    if (board[y][x].locked){
+                        var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
+                        this.ctx.drawImage(lockImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+                    }
                 }
             }
         }
@@ -224,7 +228,7 @@ define(['img/ImageManager'],function(ImageManager) {
                   }
 
                   else if (board[y][x].startingPosition){
-                      this.ctx.fillStyle = "green";
+                      this.ctx.fillStyle = "yellow";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
                   else if (x == player.playerCellPosition.xCoord && y == player.playerCellPosition.yCoord){
@@ -236,12 +240,12 @@ define(['img/ImageManager'],function(ImageManager) {
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
                   else if (board[y][x].locked){
-                    this.ctx.fillStyle = "black";
-                    this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                      this.ctx.fillStyle = "black";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
                   else{
-                  this.ctx.fillStyle = "blue";
-                  this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                      this.ctx.fillStyle = "blue";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
               }
           }
@@ -262,10 +266,10 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderBoard(board, player);
         this.renderMiniMap(board, player);
         this.renderPlayer(player);
-        this.renderDrops(active.drops());
+        //this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors(), player);
-        this.renderProjectiles(active.projectiles());
-        this.renderRecords(active.records());
+        //this.renderProjectiles(active.projectiles());
+        //this.renderRecords(active.records());
         this.renderButtons(active.activeButtons, active.activePlaceButtons, active.optionButtons);
         this.renderPoints(active.points());
     };

@@ -56,7 +56,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
             }
             clumps.push(clump);
         }
-        this.tileArray = Board.__reconnect(Board.__bridgeIslets(Board.__merge(clumps, 4).array), levelData.numDBs * 2 + levelData.numExtraClumps);
+        this.tileArray = Board.__merge(clumps, 4).array;
+        this.tileArray = Board.__bridgeIslets(this.tileArray, false);
+        this.tileArray = Board.__bridgeIslets(this.tileArray, true);
+        this.tileArray = Board.__reconnect(this.tileArray, levelData.numDBs * 2 + levelData.numExtraClumps);
         this.scan();
         Board.setTileImages(this.tileArray);
         this.printTest();
@@ -542,7 +545,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @returns {boolean} Whether or not the given coordinate marked the beginning of a new island.
      * @private Nobody else needs it.
      */
-    Board.__mapIslet = function (map, markup, starty, startx) {
+    Board.__mapIslet = function (map, markup, starty, startx, mapOnlyUnlockedTile) {
         var curry = starty;
         var currx = startx;
         if(
@@ -552,10 +555,12 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         {
             markup[curry][currx] = 1; // mark the node in the markup array
             if(map[curry][currx]) {   // if there is anything interesting here, check neighbors and return true for hit.
-                this.__mapIslet(map, markup, starty + 1, startx);
-                this.__mapIslet(map, markup, starty - 1, startx);
-                this.__mapIslet(map, markup, starty, startx + 1);
-                this.__mapIslet(map, markup, starty, startx - 1);
+                if((!mapOnlyUnlockedTile || !map[curry][currx].locked)){
+                    this.__mapIslet(map, markup, starty + 1, startx);
+                    this.__mapIslet(map, markup, starty - 1, startx);
+                    this.__mapIslet(map, markup, starty, startx + 1);
+                    this.__mapIslet(map, markup, starty, startx - 1);
+                }
                 return true;
             }
         }
@@ -568,7 +573,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @returns {Array} the coordinates of the upper-left corners of the found islands.
      * @private Nobody else needs it.
      */
-    Board.__identifyIslets = function(array){
+    Board.__identifyIslets = function(array, mapOnlyUnlockedTile){
         // Make an array for marking purposes.
         var markup = [];
         for(var n = 0; n < array.length; n++){
@@ -582,7 +587,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var isletHeads = [];
         for(var i = 0; i < array.length; i++){
             for(var j = 0; j < array[0].length; j++){
-                if(this.__mapIslet(array, markup, i, j)){
+                if(this.__mapIslet(array, markup, i, j, mapOnlyUnlockedTile)){
                     //console.log("Islet discovered");
                     isletHeads.push({row:i, col:j});
                 }
@@ -598,10 +603,10 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @returns {*} The bridged array.
      * @private Nobody else should be using this.
      */
-    Board.__bridgeIslets = function(array){
+    Board.__bridgeIslets = function(array, bridgeUnlockedTiles){
         //console.log("<<BOARD>> Attempting to bridge[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]:");
         Board.printArray(array);
-        var isletCoords = this.__identifyIslets(array);
+        var isletCoords = this.__identifyIslets(array, bridgeUnlockedTiles);
         if(!isletCoords.length){
             //console.error("No map was found for bridging the islets...");
             return null;

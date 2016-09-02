@@ -144,7 +144,7 @@ define(['util/DeltaClock'],function(DeltaClock) {
 
     Update.prototype.updatePlayerPosition = function(player, timeElapsed, board) {
         player.movePlayer(timeElapsed, board);
-    }
+    };
 
 
     Update.prototype.update = function (active, timeElapsed, defeatedAncestorInfo, player, board) {

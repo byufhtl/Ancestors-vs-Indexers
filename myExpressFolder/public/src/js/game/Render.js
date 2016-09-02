@@ -68,26 +68,13 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.fillStyle = "black";
     };
 
-    Render.prototype.renderAncestors = function(activeAncestors)
+    Render.prototype.renderAncestors = function(activeAncestors, player)
     {
         var ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
         for (var i = 0; i < activeAncestors.length; i++)
         {
-            switch(activeAncestors[i].type){
-                case "familyMember":
-                    ancImg = this.imageManager.getImage(ImageManager.ANC_NMLS);
-                    this.renderFamilyMemberName(activeAncestors, i);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,100,100);
-                    break;
-                case "nameless":
-                    ancImg = this.imageManager.getImage(ImageManager.ANC_MOTR);
-                    // this.ctx.drawImage(ancImg, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 70,0,70,65,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,112,104);
-                    break;
-                default:
-                    ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
-                    this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,80,80);
-            }
+              ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
+              this.ctx.drawImage(ancImg, activeAncestors[i].pixelPosition.xCoord - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  activeAncestors[i].pixelPosition.yCoord - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
         }
     };
 
@@ -210,7 +197,6 @@ define(['img/ImageManager'],function(ImageManager) {
                     this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     if (board[y][x].database){
                       var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                      // console.log("rendering the board");
                       this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     }
                     if (board[y][x].startingPosition){
@@ -229,7 +215,7 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderMiniMap = function(board, player)
     {
-      this.ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+      this.ctx.fillStyle = "rgba(40, 40, 40, 0.5)";
       this.ctx.fillRect(30, 30, board[0].length * 3,  board.length * 3);
       this.ctx.fillStyle = "blue";
 
@@ -240,6 +226,7 @@ define(['img/ImageManager'],function(ImageManager) {
                       this.ctx.fillStyle = "red";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
+
                   else if (board[y][x].startingPosition){
                       this.ctx.fillStyle = "yellow";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
@@ -248,13 +235,18 @@ define(['img/ImageManager'],function(ImageManager) {
                       this.ctx.fillStyle = "white";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
-                  else {
-                      if(board[y][x].locked){
-                          this.ctx.fillStyle = "green";
-                      }
+                  else if (board[y][x].ancestorStartingPosition){
+                      this.ctx.fillStyle = "orange";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
-                  this.ctx.fillStyle = "blue";
+                  else if (board[y][x].locked){
+                      this.ctx.fillStyle = "green";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                  }
+                  else{
+                      this.ctx.fillStyle = "blue";
+                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
+                  }
               }
           }
       }
@@ -274,10 +266,10 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderBoard(board, player);
         this.renderMiniMap(board, player);
         this.renderPlayer(player);
-        this.renderDrops(active.drops());
-        this.renderAncestors(active.ancestors());
-        this.renderProjectiles(active.projectiles());
-        this.renderRecords(active.records());
+        //this.renderDrops(active.drops());
+        this.renderAncestors(active.ancestors(), player);
+        //this.renderProjectiles(active.projectiles());
+        //this.renderRecords(active.records());
         this.renderButtons(active.activeButtons, active.activePlaceButtons, active.optionButtons);
         this.renderPoints(active.points());
     };

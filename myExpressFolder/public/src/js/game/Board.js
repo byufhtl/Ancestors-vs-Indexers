@@ -17,6 +17,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.clumpID = 0;
         this.playerStartingPosition = {xCoord: 0, yCoord: 0};
         this.metaData = {bridgeTileCount:0, databaseCount:0, rows:0, cols:0, numClumps:0};
+        this.ancestorStartingPositions = [];
     }
 
     // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -63,7 +64,8 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.scan();
         Board.setTileImages(this.tileArray);
         this.printTest();
-        Board.addPlayer(this.tileArray, this.playerStartingPosition);
+        this.addPlayer(this.tileArray, this.playerStartingPosition, levelData.numDBs + levelData.numExtraClumps);
+        this.addAncestors(levelData.numDBs + levelData.numExtraClumps, levelData.numAncestors);
     };
 
     /**
@@ -510,26 +512,32 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         }
     };
 
-    Board.addPlayer = function(array, playerStartingPosition){
-        while(true){
-            var randomColumn = Math.floor(Math.random() * array.length);
-            var randomRow = Math.floor(Math.random() * array[0].length);
-            for (var i = 0; i < array.length; i++){
-                if (i > randomColumn) randomColumn = Math.floor(Math.random() * (array.length - i)) + i;
-                for (var j = 0; j < array.length; j++){
-                    if (j > randomColumn) randomRow = Math.floor(Math.random() * (array.length - j)) + j;
-                    if (i == randomColumn &&  j == randomRow && array[i][j] != null && !array[i][j].locked)
-                    {
-                        console.log("adding a player");
-                        playerStartingPosition.xCoord = j;
-                        playerStartingPosition.yCoord = i;
-                        array[i][j].startingPosition = true;
-                        return;
-                    }
-                }
+    Board.prototype.addPlayer = function(array, playerStartingPosition, numClumps){
+
+        var randomClump = this.__clumpToTile[Math.floor(Math.random()*numClumps + 1)];
+        while (array[randomClump[0].row][randomClump[0].col].locked){
+          var randomClump = this.__clumpToTile[Math.floor(Math.random()*numClumps + 1)];
+        }
+
+        var randomCoords = randomClump[Math.floor(Math.random()*randomClump.length)];
+
+        playerStartingPosition.xCoord = randomCoords.row;
+        playerStartingPosition.yCoord = randomCoords.col;
+        array[randomCoords.row][randomCoords.col].startingPosition = true;
+    };
+
+    Board.prototype.addAncestors = function(numClumps, numAncestors){
+        var numAncestorsPerClump = numAncestors/numClumps;
+        for (var i = 1; i <= numClumps; i++){
+            for (var j = 0; j < numAncestorsPerClump; j++){
+                var randomClump = this.__clumpToTile[i];
+                var randomCoords = randomClump[Math.floor(Math.random()*randomClump.length)];
+                this.ancestorStartingPositions.push({row:randomCoords.row,col:randomCoords.col});
+                this.tileArray[randomCoords.row][randomCoords.col].ancestorStartingPosition = true;
             }
         }
-    };
+    }
+
 
 
 

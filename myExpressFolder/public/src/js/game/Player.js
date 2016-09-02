@@ -11,8 +11,10 @@ define([],function() {
 
     Player.prototype.movePlayer = function(timeElapsed, board){
         var self = this;
-        console.log("player x: " + this.playerCellPosition.xCoord + " y: " + this.playerCellPosition.yCoord);
-        console.log("board height: " + board.tileArray.length + " board width" + board.tileArray[0].length);
+
+        // console.log("player x: " + this.playerCellPosition.xCoord + " y: " + this.playerCellPosition.yCoord);
+        // console.log("board height: " + board.tileArray.length + " board width" + board.tileArray[0].length);
+
         this.distanceTraveled += timeElapsed * self.speed;
 
         if (this.distanceTraveled >= 150){

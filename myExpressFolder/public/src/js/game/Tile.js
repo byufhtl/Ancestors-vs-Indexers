@@ -7,6 +7,7 @@ define([],function() {
         this.database = false;
         this.clumpID = null;
         this.startingPosition = false;
+        this.ancestorStartingPosition = false;
     }
 
     return Tile;

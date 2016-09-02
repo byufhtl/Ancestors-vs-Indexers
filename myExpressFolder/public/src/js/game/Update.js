@@ -107,9 +107,9 @@ define(['util/DeltaClock'],function(DeltaClock) {
     };
 
 
-    Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed) {
+    Update.prototype.updateAncestorsPosition = function (activeAncestors, timeElapsed, board) {
         for (var i = 0; i < activeAncestors.length; i++) {
-            activeAncestors[i].move(timeElapsed);
+            activeAncestors[i].move(timeElapsed, board);
         }
     };
 
@@ -149,28 +149,23 @@ define(['util/DeltaClock'],function(DeltaClock) {
 
     Update.prototype.update = function (active, timeElapsed, defeatedAncestorInfo, player, board) {
         //spawn records and move them
-        this.spawnRecord(active.records(), timeElapsed);
-        this.moveRecords(active.records(), timeElapsed);
+        //this.spawnRecord(active.records(), timeElapsed);
+        //this.moveRecords(active.records(), timeElapsed);
         this.moveAnimFrames(active.ancestors(), timeElapsed);
         this.updatePlayerPosition(player, timeElapsed, board);
-        if (this.buffer(timeElapsed)) {
-
+        this.updateAncestorsPosition(active.ancestors(), timeElapsed, board);
+        this.dsTimer.tick(timeElapsed);
             //update drops
-            this.updateDrops(active.drops(), active.ancestors());
+            //this.updateDrops(active.drops(), active.ancestors());
             //update ancestors
-            this.updateAncestorsPosition(active.ancestors(), timeElapsed);
-            this.checkDeadAncestors(active.ancestors(), defeatedAncestorInfo);
+            //this.checkDeadAncestors(active.ancestors(), defeatedAncestorInfo);
             //update projectiles
-            this.moveProjectiles(active.projectiles(), timeElapsed);
-            this.checkProjectileCollision(active.projectiles(), active.ancestors());
+            //this.moveProjectiles(active.projectiles(), timeElapsed);
+            //this.checkProjectileCollision(active.projectiles(), active.ancestors());
             //check victory conditions
-            this.checkVictory(active);
-            this.checkDefeat(active);
+            //this.checkVictory(active);
+            //this.checkDefeat(active);
 
-            this.moveAnimFrames(active.ancestors(), timeElapsed);
-            this.dsTimer.tick(timeElapsed);
-
-        }
     };
 
     return Update;

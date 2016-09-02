@@ -85,11 +85,12 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.board = LevelDefinition.generateBoard(this.currentAct);
           this.player = new Player();
           console.log("playerStartingPosition", this.board.playerStartingPosition);
-          this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.xCoord, yCoord: this.board.playerStartingPosition.yCoord};
-          this.player.playerPixelPosition = {xCoord: this.board.playerStartingPosition.xCoord * 150, yCoord: this.board.playerStartingPosition.yCoord * 150};
+          this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.yCoord, yCoord: this.board.playerStartingPosition.xCoord};
+          this.player.playerPixelPosition = {xCoord: this.board.playerStartingPosition.yCoord * 150, yCoord: this.board.playerStartingPosition.xCoord * 150};
 
-          console.log("player x Position", this.player.playerPixelPosition.xCoord);
-          console.log("player y Position", this.player.playerPixelPosition.yCoord);
+          for (var i = 0; i < this.board.ancestorStartingPositions.length; i++){
+              this.active.activeAncestors.push(new IAncestor(this.board.ancestorStartingPositions[i].row,this.board.ancestorStartingPositions[i].col));
+          }
 
           this.lastTime = Date.now();
 

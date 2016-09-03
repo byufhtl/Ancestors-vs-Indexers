@@ -34,6 +34,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var self = this;
         this.clumpID = 0;
         this.tileArray = [];
+        this.tileCoordList = [];
         this.bridgeTiles = {};
         this.databases = {};
         this.locked = {};
@@ -91,6 +92,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         console.log("<<BOARD>> Locked Tiles:", this.locked);
         console.log("<<BOARD>> Open Tiles:", this.open);
         console.log("<<BOARD>> Clumpings:", this.__clumpToTile);
+        console.log("<<BOARD>> Tile Coord List:", this.tileCoordList);
     };
 
     /**
@@ -106,6 +108,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.metaData.rows = rows;
         this.metaData.bridgeTileCount = 0;
         this.metaData.databaseCount = 0;
+        this.tileCoordList = [];
         for(crow = 0; crow < rows; crow++){
             for(ccol = 0; ccol < cols; ccol++){
                 // console.log("<<BOARD>> <<TILE REPORT>>", crow + "/" + rows, ccol + "/" + cols/*, "(" + this.tileArray[ccol].length + ")"*/);
@@ -143,6 +146,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                         }
                         this.open[crow][ccol] = ctile;
                     }
+                    this.tileCoordList.push({row: crow, col: ccol});
                 }
             }
         }
@@ -235,7 +239,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var cycle = [];
         //size of cycle between 2 and 5
         var size = Math.floor(Math.random() * (6-3) + 2);
-        console.log("size is: ", size);
+        // console.log("size is: ", size);
         //console.log("size is: ", size);
         for (var i = 0; i < (size*2+1); i++){
             var temp = [];
@@ -503,7 +507,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     if (j > randomColumn) randomRow = Math.floor(Math.random() * (array.length - j)) + j;
                     if (i == randomColumn &&  j == randomRow && array[i][j] != null)
                     {
-                        console.log("adding a database");
+                        // console.log("adding a database");
                         array[i][j].database = true;
                         return;
                     }
@@ -536,7 +540,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 this.tileArray[randomCoords.row][randomCoords.col].ancestorStartingPosition = true;
             }
         }
-    }
+    };
 
 
 
@@ -652,7 +656,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      * @private Keep out of reach of children.
      */
     Board.__drawLinearPath = function(array, start, end, makeBridge){
-        console.log("<<BOARD>> Drawing Additional Paths:", array, start, end);
+        // console.log("<<BOARD>> Drawing Additional Paths:", array, start, end);
         var error = ((array[start.row][start.col] == null) << 8);
         error &= ((array[end.row][end.col] == null) << 7);
         error &= ((array[start.row][start.col] == array[end.row][end.col]) << 6);

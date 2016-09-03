@@ -6,6 +6,7 @@ define(['img/ImageManager'],function(ImageManager) {
         this.imageManager = imageManager;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
+        this.boardCanvas = null;
         this.viewTransform = ViewTransform;
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
@@ -189,26 +190,78 @@ define(['img/ImageManager'],function(ImageManager) {
 
     Render.prototype.renderBoard = function(board, player)
     {
-        for (var y = 0; y < board.length; y++){
-            for (var x = 0; x < board[y].length; x++){
-                if (board[y][x] != null){
+        // for (var y = 0; y < board.length; y++){
+        //     for (var x = 0; x < board[y].length; x++){
+        //         if (board[y][x] != null){
+        //
+        //             var img = this.imageManager.getImage(board[y][x].image);
+        //             this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+        //             if (board[y][x].database){
+        //               var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+        //               this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+        //             }
+        //             if (board[y][x].startingPosition){
+        //               // console.log("rendering tree");
+        //               var treeImg = this.imageManager.getImage(ImageManager.STRT_POS);
+        //               this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+        //             }
+        //             if (board[y][x].locked){
+        //                 var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
+        //                 this.ctx.drawImage(lockImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+        //             }
+        //         }
+        //     }
+        // }
 
-                    var img = this.imageManager.getImage(board[y][x].image);
-                    this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-                    if (board[y][x].database){
-                      var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                      this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-                    }
-                    if (board[y][x].startingPosition){
-                      // console.log("rendering tree");
-                      var treeImg = this.imageManager.getImage(ImageManager.STRT_POS);
-                      this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-                    }
-                    if (board[y][x].locked){
-                        var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
-                        this.ctx.drawImage(lockImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-                    }
-                }
+        for(var z = 0; z < board.tileCoordList.length; z++){
+            var y = board.tileCoordList[z].row;
+            var x = board.tileCoordList[z].col;
+            // console.log("<<RENDERER>> Rendering tile @ (" + y + "," + x + ").");
+            var fTile = board.tileArray[y][x];
+            var img = this.imageManager.getImage(fTile.image);
+            this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+            if (fTile.database){
+                var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+            }
+            if (fTile.startingPosition){
+                var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
+                this.ctx.drawImage(startingPointImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+            }
+            if (fTile.locked){
+                var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
+                this.ctx.drawImage(lockImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+            }
+        }
+    };
+
+    Render.prototype.renderBoardFast = function(player){
+        this.ctx.drawImage(this.boardCanvas,  -player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  -player.playerPixelPosition.yCoord + window.innerHeight/2 + this.viewTransform.t_offset_Y)
+    };
+
+    Render.prototype.setBoard = function(board){
+        this.boardCanvas = document.createElement('canvas');
+        this.boardCanvas.height = 150 * board.metaData.rows;
+        this.boardCanvas.width = 150 * board.metaData.cols;
+        var bCtx = this.boardCanvas.getContext('2d');
+        for(var z = 0; z < board.tileCoordList.length; z++){
+            var y = board.tileCoordList[z].row;
+            var x = board.tileCoordList[z].col;
+            // console.log("<<RENDERER>> Rendering tile @ (" + y + "," + x + ").");
+            var fTile = board.tileArray[y][x];
+            var img = this.imageManager.getImage(fTile.image);
+            bCtx.drawImage(img, x * 150, y * 150);
+            if (fTile.database){
+                var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                bCtx.drawImage(databaseImg, x * 150, y * 150);
+            }
+            if (fTile.startingPosition){
+                var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
+                bCtx.drawImage(startingPointImg, x * 150, y * 150);
+            }
+            if (fTile.locked){
+                var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
+                bCtx.drawImage(lockImg, x * 150, y * 150);
             }
         }
     };
@@ -256,15 +309,21 @@ define(['img/ImageManager'],function(ImageManager) {
     Render.prototype.renderPlayer = function(player){
         var playerImage = this.imageManager.getImage(ImageManager.REC_BLUE);
         this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
-    }
+    };
 
     Render.prototype.render = function(active, board, canvas, translation, player) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
 
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
-        this.renderBoard(board, player);
-        this.renderMiniMap(board, player);
+        if(!this.boardCanvas) {
+            this.renderBoard(board, player);
+        }
+        else{
+            // console.log("<<RENDER>> FAST VERSION");
+            this.renderBoardFast(player);
+        }
+        this.renderMiniMap(board.tileArray, player);
         this.renderPlayer(player);
         //this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors(), player);

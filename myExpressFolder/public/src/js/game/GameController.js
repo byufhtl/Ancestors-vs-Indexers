@@ -83,6 +83,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.playerInfo = playerInfo;
 
           this.board = LevelDefinition.generateBoard(this.currentAct);
+          this.myRender.setBoard(this.board);
+
           this.player = new Player();
           console.log("playerStartingPosition", this.board.playerStartingPosition);
           this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.yCoord, yCoord: this.board.playerStartingPosition.xCoord};
@@ -109,7 +111,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               this.lastTime = now;
 
               this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo, this.player, this.board);
-              this.myRender.render(this.active, this.board.tileArray, this.canvas, this.translation, this.player);
+              this.myRender.render(this.active, this.board, this.canvas, this.translation, this.player);
               this.updateCoordinates(0, 0);
           }
           if (this.active.gameEnded() == false) // game end condition.

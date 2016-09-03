@@ -298,6 +298,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.BLU_L, Order.IMAGE, 15);
             order.addItem(ImageManager.BLU_R, Order.IMAGE, 15);
             order.addItem(ImageManager.BLU_ISLD, Order.IMAGE, 15);
+            order.addItem(ImageManager.STRT_POS, Order.IMAGE, 15);
             order.addItem(ImageManager.DTB_TILE, Order.IMAGE, 15);
             order.addItem(ImageManager.CRK_TILE, Order.IMAGE, 15);
             order.addItem(ImageManager.SPD_TILE, Order.IMAGE, 15);
@@ -410,6 +411,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.BLU_R    =     "src/img/GameTiles/r.png";                  // RIGHT TILE
     ImageManager.BLU_ISLD =     "src/img/GameTiles/island.png";             // ISLAND TILE (disconnected)
 
+    ImageManager.STRT_POS =     "src/img/GameTiles/startingPoint.png";      // STARTING POINT
     ImageManager.DTB_TILE =     "src/img/GameTiles/DBTile.png";             // DATABASE TILE
     ImageManager.CRK_TILE =     "src/img/GameTiles/fragile.png";            // CRACKED/FRAGILE TILE
     ImageManager.SPD_TILE =     "src/img/GameTiles/HighSpeed.png";          // HIGH-SPEED TILE

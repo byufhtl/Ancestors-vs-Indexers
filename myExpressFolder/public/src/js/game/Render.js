@@ -201,7 +201,7 @@ define(['img/ImageManager'],function(ImageManager) {
                     }
                     if (board[y][x].startingPosition){
                       // console.log("rendering tree");
-                      var treeImg = this.imageManager.getImage(ImageManager.UBER_IDX);
+                      var treeImg = this.imageManager.getImage(ImageManager.STRT_POS);
                       this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
                     }
                     if (board[y][x].locked){

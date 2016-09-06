@@ -12,6 +12,13 @@ define([],function(){
         this.currSeek = this.__meanderSeek(board);
     }
 
+    /**
+     * The movement function for the virus. Selects a destination point based on a number of different factors, and then
+     * moves towards that destination point in the most efficient way possible.
+     * @param timeElapsed
+     * @param board
+     * @param player
+     */
     Virus.prototype.move = function(timeElapsed, board, player){
         if(player){
             var currPlayerClump = board[player.playerCellPosition.yCoord][player.playerCellPosition.xCoor].clumpID;
@@ -21,10 +28,13 @@ define([],function(){
                 this.currSeek = this.__huntSeek();
             }
         }
-
-
     };
 
+    /**
+     * The logic for selecting a new destination in hunting mode.
+     * @param board
+     * @private
+     */
     Virus.prototype.__huntSeek = function(board){
         if(board && this.target){
 
@@ -34,6 +44,11 @@ define([],function(){
         }
     };
 
+    /**
+     * A wandering path-selection function
+     * @param board
+     * @private
+     */
     Virus.prototype.__meanderSeek = function(board){
         if(board){
 

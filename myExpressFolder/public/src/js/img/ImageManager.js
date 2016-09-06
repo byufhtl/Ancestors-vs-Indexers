@@ -185,6 +185,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.DESK_SML, Order.IMAGE, 15);
             order.addItem(ImageManager.DESK_MED, Order.IMAGE, 15);
             order.addItem(ImageManager.DESK_LRG, Order.IMAGE, 15);
+            order.addItem(ImageManager.VRS_FORE, Order.IMAGE, 15);
+            order.addItem(ImageManager.VRS_BACK, Order.IMAGE, 15);
             self.loader.loadResources(order).then(
                 function(success){
                     resolve(success);
@@ -422,6 +424,9 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.OPG_COIN =     "src/img/GameTiles/opgCoin.png";            // ONE PAGE GENEALOGY COIN
     ImageManager.GMP_COIN =     "src/img/GameTiles/gpCoin.png";             // GRANDMAS PIE COIN
     ImageManager.GNP_COIN =     "src/img/GameTiles/gnpdyCoin.png";          // GENEOPARDY COIN
+
+    ImageManager.VRS_FORE =     "src/img/Virus/CompVirusForward.png";       // VIRUS - FRONT FACING
+    ImageManager.VRS_BACK =     "src/img/Virus/CompVirusBack.png";          // VIRUS - REAR FACING
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA

@@ -1,12 +1,13 @@
 define([],function() {
 
-    function Player(){
-      this.playerCellPosition = {};
-      this.playerPixelPosition = {};
-      this.currentDirection = null;
-      this.nextDirection = null;
-      this.distanceTraveled = 0;
-      this.speed = 250;
+    function Player() {
+        this.playerCellPosition = {};
+        this.playerPixelPosition = {};
+        this.currentDirection = null;
+        this.nextDirection = null;
+        this.distanceTraveled = 0;
+        this.speed = 250;
+        this.animCorrect = 5;
     }
 
     Player.prototype.movePlayer = function(timeElapsed, board) {
@@ -121,7 +122,8 @@ define([],function() {
         }
 
         // Per-tile movement overflow corrections. Called once per overall tile moved.
-        if(!self.distanceTraveled){
+        if(!self.distanceTraveled && !(this.animCorrect--)){
+            this.animCorrect = 5;
             var xOver = self.playerPixelPosition.xCoord % 150;
             var yOver = self.playerPixelPosition.yCoord % 150;
             if(xOver >= 75){

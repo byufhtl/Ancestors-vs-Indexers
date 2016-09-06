@@ -158,7 +158,7 @@ define(['img/ImageManager'],function(ImageManager) {
             var dropImg = this.imageManager.getImage(activeDrops[i].imgURL);
             this.ctx.drawImage(dropImg, activeDrops[i].xCoord + this.viewTransform.t_offset_X + this.indexerXBuffer, activeDrops[i].yCoord + this.viewTransform.t_offset_Y + this.indexerYBuffer, dropImg.width * 1.6, dropImg.height * 1.6);
         }
-    }
+    };
 
     Render.prototype.renderButtons = function(activeButtons, activePlaceButtons, optionButtons) {
         for (var i = 0; i < activeButtons.length; i++) {
@@ -173,7 +173,7 @@ define(['img/ImageManager'],function(ImageManager) {
             this.ctx.drawImage(buttonImg, activePlaceButtons[i].xCoord, activePlaceButtons[i].yCoord);
         }
 
-    }
+    };
 
     Render.prototype.renderPoints = function(points) {
         this.ctx.font = "50px Arial";
@@ -307,7 +307,7 @@ define(['img/ImageManager'],function(ImageManager) {
     };
 
     Render.prototype.renderPlayer = function(player){
-        var playerImage = this.imageManager.getImage(ImageManager.REC_BLUE);
+        var playerImage = this.imageManager.getImage(ImageManager.VRS_FORE);
         this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
     };
 

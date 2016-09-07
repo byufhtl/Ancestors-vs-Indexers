@@ -138,9 +138,6 @@ define(['util/DeltaClock'],function(DeltaClock) {
         }
     };
 
-    Update.prototype.updateBoardPosition = function(board){
-
-    };
 
     Update.prototype.updatePlayerPosition = function(player, timeElapsed, board) {
         player.movePlayer(timeElapsed, board);
@@ -165,8 +162,8 @@ define(['util/DeltaClock'],function(DeltaClock) {
             //check victory conditions
             //this.checkVictory(active);
             //this.checkDefeat(active);
-
     };
+
 
     return Update;
 

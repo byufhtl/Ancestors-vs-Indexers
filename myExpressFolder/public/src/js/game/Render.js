@@ -54,13 +54,6 @@ define(['img/ImageManager'],function(ImageManager) {
         // this.ctx.drawImage(bgImg, (bgImg.width+this.viewTransform.t_offset_X/2)/4, (bgImg.height+this.viewTransform.t_offset_Y/2)/4, bgImg.width, bgImg.height, 0, 0, bgImg.width, bgImg.height); //, this.canvas.width, this.canvas.height);
     };
 
-    Render.prototype.renderLightBeam = function()
-    {
-        var fgImg = this.imageManager.getImage(ImageManager.GM_FRGRD);
-        this.ctx.drawImage(fgImg, 0, 0, fgImg.width, fgImg.height, 0, 0, this.canvas.width, this.canvas.height);
-    };
-
-
     Render.prototype.renderFamilyMemberName = function(activeAncestors, i)
     {
         this.ctx.font = "10px Arial";
@@ -188,6 +181,7 @@ define(['img/ImageManager'],function(ImageManager) {
         this.resizeOnce = true;
     };
 
+
     Render.prototype.renderBoard = function(board, player)
     {
         // for (var y = 0; y < board.length; y++){
@@ -264,23 +258,26 @@ define(['img/ImageManager'],function(ImageManager) {
                 bCtx.drawImage(lockImg, x * 150, y * 150);
             }
         }
+        var keyImage = this.imageManager.getImage(ImageManager.KEY_ICON);
+        bCtx.drawImage(keyImage, board.key.xCoord * 150, board.key.yCoord * 150);
     };
 
-    Render.prototype.renderMiniMap = function(board, player)
+
+
+    Render.prototype.renderMiniMap = function(board, player, ancestors)
     {
       this.ctx.fillStyle = "rgba(40, 40, 40, 0.5)";
-      this.ctx.fillRect(30, 30, board[0].length * 3,  board.length * 3);
+      this.ctx.fillRect(30, 30, board.tileArray[0].length * 3,  board.tileArray.length * 3);
       this.ctx.fillStyle = "blue";
-
-      for (var y = 0; y < board.length; y++){
-          for (var x = 0; x < board[y].length; x++){
-              if (board[y][x] != null){
-                  if (board[y][x].database) {
+      //fill in tile information
+      for (var y = 0; y < board.tileArray.length; y++){
+          for (var x = 0; x < board.tileArray[y].length; x++){
+              if (board.tileArray[y][x] != null){
+                  if (board.tileArray[y][x].database) {
                       this.ctx.fillStyle = "red";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
-
-                  else if (board[y][x].startingPosition){
+                  else if (board.tileArray[y][x].startingPosition){
                       this.ctx.fillStyle = "yellow";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
@@ -288,11 +285,7 @@ define(['img/ImageManager'],function(ImageManager) {
                       this.ctx.fillStyle = "white";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
-                  else if (board[y][x].ancestorStartingPosition){
-                      this.ctx.fillStyle = "orange";
-                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                  }
-                  else if (board[y][x].locked){
+                  else if (board.tileArray[y][x].locked){
                       this.ctx.fillStyle = "green";
                       this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
                   }
@@ -302,7 +295,15 @@ define(['img/ImageManager'],function(ImageManager) {
                   }
               }
           }
+
       }
+      //fill in ancestor information
+      this.ctx.fillStyle = "orange";
+      for (var i = 0; i < ancestors.length; i++){
+          this.ctx.fillRect(ancestors[i].cellPosition.xCoord*3 + 30, ancestors[i].cellPosition.yCoord*3 + 30, 2, 2);
+      }
+      this.ctx.fillStyle = "purple";
+      this.ctx.fillRect(board.key.xCoord*3 + 30, board.key.yCoord*3 + 30, 2, 2);
       this.ctx.fillStyle = "black";
     };
 
@@ -323,7 +324,7 @@ define(['img/ImageManager'],function(ImageManager) {
             // console.log("<<RENDER>> FAST VERSION");
             this.renderBoardFast(player);
         }
-        this.renderMiniMap(board.tileArray, player);
+        this.renderMiniMap(board, player, active.activeAncestors);
         this.renderPlayer(player);
         //this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors(), player);

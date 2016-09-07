@@ -15,8 +15,8 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         switch(level){
           case 1:
             data.numDBs = 3;
-            data.numExtraClumps = 5;
-            data.clumpiness = 12;
+            data.numExtraClumps = 8;
+            data.clumpiness = 4;
 
             data.numAncestors = 25;
 

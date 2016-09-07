@@ -35,22 +35,19 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
 
     GameEventManager.prototype.handleKeyBoardPress = function(data){
         var self = this;
-        console.log("data in handleKeyBoardPress", data);
+
         switch(data.value){
             case Sig.KY_PRS_U:
-                console.log("up");
+
                 self.controller.player.nextDirection = Player.UP;
                 break;
             case Sig.KY_PRS_D:
-                console.log("down");
                 self.controller.player.nextDirection = Player.DOWN;
                 break;
             case Sig.KY_PRS_L:
-                console.log("left");
                 self.controller.player.nextDirection = Player.LEFT;
                 break;
             case Sig.KY_PRS_R:
-                console.log("right");
                 self.controller.player.nextDirection = Player.RIGHT;
                 break;
 
@@ -60,7 +57,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
     {
         var self = this;
         var indexToShow = data.data.tempData;
-        console.log("indexToShow", indexToShow);
         var info = this.controller.defeatedAncestorInfo;
         $('#ancestorName').html(info[indexToShow].data.display.name);
         $('#ancestorInfoText').html(       "birthDate: " + (info[indexToShow].data.display.birthDate || "uknown") + "<br>"
@@ -79,7 +75,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
             modal.modal('hide');
             if (info[indexToShow + 1] != null)
             {
-              console.log("calling again");
               var showAncestorInfoEvent = new Sig(Sig.LD_MODAL, Sig.ANC_INFO, {tempData: indexToShow + 1});
               self.handle(showAncestorInfoEvent);
             }
@@ -143,8 +138,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
     GameEventManager.prototype.getNewIndexer = function() {
         switch (this.clickContext.class){
             case "standardIndexer":
-                console.log("Indexer:", Indexer_Animated);
-                console.log("Specialist:", Specialist);
                 return new Indexer_Animated();
                 break;
             case "hobbyist":
@@ -155,7 +148,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
                 break;
 
             case "researcher":
-                console.log("making a researcher");
                 return new Specialist();
                 break;
         }
@@ -190,7 +182,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
 
         if (this.clickContext.class == "StoryTeller"){
             var activeStoryTellers = this.controller.active.drops();
-            console.log('the storyteller we got is', StoryTeller);
             var tempStoryTeller = new StoryTeller();
             tempStoryTeller.xCoord =pointClicked.X;
             tempStoryTeller.yCoord =pointClicked.Y;
@@ -251,7 +242,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
     };
 
     GameEventManager.prototype.buttonClicked = function(adjustedPointClicked) {
-        console.log("checking if a button was clicked");
         var self = this;
         var activeButtons = this.controller.active.activeButtons;
         for (var i = 0; i < activeButtons.length; i++){
@@ -276,7 +266,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
           if ((adjustedPointClicked.X > optionButtons[i].xCoord && adjustedPointClicked.X < optionButtons[i].xCoord + 180)
           && (adjustedPointClicked.Y > optionButtons[i].yCoord && adjustedPointClicked.Y < optionButtons[i].yCoord + 300)) {
               //button has been clicked
-              console.log("clicked an options button");
               self.controller.controller.handle(new Sig(Sig.BTN_ACTN, optionButtons[i].name));
           }
         }
@@ -336,7 +325,6 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
                 self.clickContext = {elementType:"indexer", class:"uber", cost:0};
                 break;
             case Sig.RSCH_IDX:
-                console.log("seting type to researcher");
                 self.clickContext = {elementType:"indexer", class:"researcher", cost:30};
                 break;
             case Sig.STRY_DRP:

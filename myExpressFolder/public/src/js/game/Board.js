@@ -13,6 +13,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.databases = {};
         this.locked = {};
         this.open = {};
+        this.key = {xCoord: 0, yCoord: 0};
         this.__clumpToTile = {};
         this.clumpID = 0;
         this.playerStartingPosition = {xCoord: 0, yCoord: 0};
@@ -66,7 +67,9 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         Board.setTileImages(this.tileArray);
         this.printTest();
         this.addPlayer(this.tileArray, this.playerStartingPosition, levelData.numDBs + levelData.numExtraClumps);
+        this.addPlayer(this.tileArray, this.key, levelData.numDBs + levelData.numExtraClumps);
         this.addAncestors(levelData.numDBs + levelData.numExtraClumps, levelData.numAncestors);
+        console.log("thingamajig", this.locked);
     };
 
     /**
@@ -525,8 +528,8 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
         var randomCoords = randomClump[Math.floor(Math.random()*randomClump.length)];
 
-        playerStartingPosition.xCoord = randomCoords.row;
-        playerStartingPosition.yCoord = randomCoords.col;
+        playerStartingPosition.yCoord = randomCoords.row;
+        playerStartingPosition.xCoord = randomCoords.col;
         array[randomCoords.row][randomCoords.col].startingPosition = true;
     };
 

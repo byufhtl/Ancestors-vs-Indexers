@@ -169,18 +169,18 @@ define(['img/ImageManager'],function(ImageManager) {
     Render.prototype.renderPoints = function(points) {
         this.ctx.font = "50px Arial";
         this.ctx.fillStyle = "white";
-        this.ctx.fillText(points,window.innerWidth / 2, window.innerHeight / 12);
+        this.ctx.fillText(points + " Records",window.innerWidth / 2, window.innerHeight / 12);
         this.ctx.font = "10px Arial";
         this.ctx.fillStyle = "black";
     };
 
     Render.prototype.renderRecordNames = function(names) {
         var offset = 0;
-        this.ctx.font = "50px Arial";
+        this.ctx.font = "30px Arial";
         this.ctx.fillStyle = "white";
         for (var i = 0; i < names.length; i++) {
             this.ctx.fillText(names[i], 30, window.innerHeight / 2 + offset);
-            offset += 50;
+            offset += 30;
         }
     }
 

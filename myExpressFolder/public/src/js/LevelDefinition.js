@@ -14,10 +14,10 @@ define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember'
         var data = {};
         switch(act){
           case 1:
-            data.numDBs = 1;
+            data.numDBs = 3;
             data.numExtraClumps = 0;
-            data.clumpiness = 10;
-            data.numAncestors = 25;
+            data.clumpiness = 5;
+            data.numAncestors = 21;
             data.numLocked = 0;
             return data;
         }

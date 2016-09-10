@@ -134,12 +134,18 @@ define(['util/Sig'],function(Sig) {
     Player.prototype.checkAncestorCollision = function(ancestors){
         for (var i = 0; i < ancestors.length; i++){
             if (this.playerCellPosition.xCoord == ancestors[i].cellPosition.xCoord && this.playerCellPosition.yCoord == ancestors[i].cellPosition.yCoord) {
-                console.log("collision occured");
                 if (ancestors[i].type == "familyMember"){
                     //check if i've found the name
+                    for (var j = 0; j < this.namedRecords.length; j++){
+                        if (this.namedRecords[j] == ancestors[i].name){
+                            this.namedRecords.splice(j, 1);
+                            this.numRecords--;
+                            ancestors.splice(i, 1); return;
+                        }
+                    }
                 }
                 else{
-
+                    this.numRecords--;
                     ancestors.splice(i, 1); return;
                 }
             }

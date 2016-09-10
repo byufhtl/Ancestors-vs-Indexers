@@ -11,18 +11,13 @@ define(['img/ImageManager'],function(ImageManager) {
         //offsets for different images, since they render from the corner of the image. These are based on image size/2
         this.ancestorXBuffer = -36;
         this.ancestorYBuffer = -70;
-
         this.indexerXBuffer = -38;
         this.indexerYBuffer = -73;
-
         this.nodeOffset = -25;
-
         this.projectileXOffset = -33;
         this.projectileYOffset = -65;
-
         this.recordOffset = -50;
         this.resizeOnce = true;
-
         this.treeWidth = 2400;
     }
 
@@ -54,11 +49,11 @@ define(['img/ImageManager'],function(ImageManager) {
         // this.ctx.drawImage(bgImg, (bgImg.width+this.viewTransform.t_offset_X/2)/4, (bgImg.height+this.viewTransform.t_offset_Y/2)/4, bgImg.width, bgImg.height, 0, 0, bgImg.width, bgImg.height); //, this.canvas.width, this.canvas.height);
     };
 
-    Render.prototype.renderFamilyMemberName = function(activeAncestors, i)
+    Render.prototype.renderFamilyMemberName = function(activeAncestor, player)
     {
         this.ctx.font = "10px Arial";
         this.ctx.fillStyle = "white";
-        this.ctx.fillText(activeAncestors[i].name, activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer, activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer);
+        this.ctx.fillText(activeAncestor.name, activeAncestor.pixelPosition.xCoord - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  activeAncestor.pixelPosition.yCoord - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
         this.ctx.fillStyle = "black";
     };
 
@@ -67,6 +62,9 @@ define(['img/ImageManager'],function(ImageManager) {
         var ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
         for (var i = 0; i < activeAncestors.length; i++)
         {
+              if (activeAncestors[i].type == "familyMember"){
+                  this.renderFamilyMemberName(activeAncestors[i], player);
+              }
               ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
               this.ctx.drawImage(ancImg, activeAncestors[i].pixelPosition.xCoord - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  activeAncestors[i].pixelPosition.yCoord - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
         }
@@ -176,6 +174,16 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.fillStyle = "black";
     };
 
+    Render.prototype.renderRecordNames = function(names) {
+        var offset = 0;
+        this.ctx.font = "50px Arial";
+        this.ctx.fillStyle = "white";
+        for (var i = 0; i < names.length; i++) {
+            this.ctx.fillText(names[i], 30, window.innerHeight / 2 + offset);
+            offset += 50;
+        }
+    }
+
     Render.prototype.reset = function()
     {
         this.resizeOnce = true;
@@ -248,6 +256,9 @@ define(['img/ImageManager'],function(ImageManager) {
             if (fTile.database){
                 var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
                 bCtx.drawImage(databaseImg, x * 150, y * 150);
+                if (fTile.numRecords > 0){
+                  bCtx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), x * 150, y * 150);
+                }
             }
             if (fTile.startingPosition){
                 var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
@@ -256,6 +267,9 @@ define(['img/ImageManager'],function(ImageManager) {
             if (fTile.locked){
                 var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
                 bCtx.drawImage(lockImg, x * 150, y * 150);
+            }
+            if (fTile.clumpID == 0){
+                bCtx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150, y * 150);
             }
         }
         var keyImage = this.imageManager.getImage(ImageManager.KEY_ICON);
@@ -295,7 +309,6 @@ define(['img/ImageManager'],function(ImageManager) {
                   }
               }
           }
-
       }
       //fill in ancestor information
       this.ctx.fillStyle = "orange";
@@ -328,10 +341,11 @@ define(['img/ImageManager'],function(ImageManager) {
         this.renderPlayer(player);
         //this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors(), player);
+        this.renderRecordNames(player.namedRecords);
         //this.renderProjectiles(active.projectiles());
         //this.renderRecords(active.records());
         this.renderButtons(active.activeButtons, active.activePlaceButtons, active.optionButtons);
-        this.renderPoints(active.points());
+        this.renderPoints(player.numRecords);
     };
 
     return Render;

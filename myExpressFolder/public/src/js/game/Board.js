@@ -10,7 +10,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
     function Board(){
         this.tileArray = [];
         this.bridgeTiles = {};
-        this.databases = {};
+        this.databaseLocations = {};
         this.locked = {};
         this.open = {};
         this.key = {xCoord: 0, yCoord: 0};
@@ -19,6 +19,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.playerStartingPosition = {xCoord: 0, yCoord: 0};
         this.metaData = {bridgeTileCount:0, databaseCount:0, rows:0, cols:0, numClumps:0};
         this.ancestorStartingPositions = [];
+        this.databaseTiles = [];
     }
 
     // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -29,15 +30,16 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
     /**
      * Generates and returns the 2d array representing all board tiles
-     * @param levelData {#ofDatabases, #extraClumps, #Clumpiness, #ofLockedClumps}
+     * @param levelData {#ofdatabaseLocations, #extraClumps, #Clumpiness, #ofLockedClumps}
      */
     Board.prototype.generate = function(levelData){
         var self = this;
+        this.levelData = levelData;
         this.clumpID = 0;
         this.tileArray = [];
         this.tileCoordList = [];
         this.bridgeTiles = {};
-        this.databases = {};
+        this.databaseLocations = {};
         this.locked = {};
         this.open = {};
         this.__clumpToTile = {};
@@ -69,7 +71,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.addPlayer(this.tileArray, this.playerStartingPosition, levelData.numDBs + levelData.numExtraClumps);
         this.addPlayer(this.tileArray, this.key, levelData.numDBs + levelData.numExtraClumps);
         this.addAncestors(levelData.numDBs + levelData.numExtraClumps, levelData.numAncestors);
-        console.log("thingamajig", this.locked);
+        console.log("databaseLocations", this.databaseLocations);
     };
 
     /**
@@ -91,7 +93,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         Board.printArray(this.tileArray);
         console.log("<<BOARD>> Metadata:", this.metaData);
         console.log("<<BOARD>> Bridge Tiles:", this.bridgeTiles);
-        console.log("<<BOARD>> Database Tiles:", this.databases);
+        console.log("<<BOARD>> Database Tiles:", this.databaseLocations);
         console.log("<<BOARD>> Locked Tiles:", this.locked);
         console.log("<<BOARD>> Open Tiles:", this.open);
         console.log("<<BOARD>> Clumpings:", this.__clumpToTile);
@@ -131,10 +133,11 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                         this.__clumpToTile[ctile.clumpID].push({row: crow, col: ccol});
                     }
                     if(ctile.database){
-                        if(!this.databases[crow]){
-                            this.databases[crow] = {};
+                        this.databaseTiles.push(ctile);
+                        if(!this.databaseLocations[crow]){
+                            this.databaseLocations[crow] = {};
                         }
-                        this.databases[crow][ccol] = ctile;
+                        this.databaseLocations[crow][ccol] = ctile;
                         ++this.metaData.databaseCount;
                     }
                     if(ctile.locked){
@@ -241,7 +244,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         var self = this;
         var cycle = [];
         //size of cycle between 2 and 5
-        var size = Math.floor(Math.random() * (6-3) + 2);
+        var size = Math.floor(Math.random() * (12-3) + 2);
         // console.log("size is: ", size);
         //console.log("size is: ", size);
         for (var i = 0; i < (size*2+1); i++){
@@ -444,14 +447,14 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
     Board.prototype.makeClump = function(hasDatabase, clumpiness){
         var clump = {array: [], database: null};
         ++this.clumpID;
-        for(var c = 0; c < Math.floor(clumpiness* 1.5); c++){
+        for(var c = 0; c < Math.floor(clumpiness* 1.5 + 1); c++){
             clump.array.push({array:this.makeCycle()});
         }
         // console.log("<<BOARD>> About to merge cycles:", clump.array);
         clump.array = Board.__bridgeIslets(Board.__merge(clump.array, -(Math.floor(Math.sqrt(clumpiness)))).array); // Works for me. :)
         // add in a database
         if (hasDatabase){
-            Board.addDatabase(clump.array);
+            Board.addDatabase(clump.array, this.levelData);
         }
 
         // console.log("<<BOARD>> Fresh-made clump:", clump);
@@ -500,7 +503,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
 
     // Pieces
 
-    Board.addDatabase = function(array){
+    Board.addDatabase = function(array, levelData){
         while(true){
             var randomColumn = Math.floor(Math.random() * array.length);
             var randomRow = Math.floor(Math.random() * array[0].length);
@@ -512,6 +515,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                     {
                         // console.log("adding a database");
                         array[i][j].database = true;
+                        array[i][j].numRecords = levelData.numAncestors/levelData.numDBs;
                         return;
                     }
                 }

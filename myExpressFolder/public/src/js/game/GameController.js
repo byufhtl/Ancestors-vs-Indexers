@@ -47,6 +47,9 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
                   break;
               case Sig.LD_MODAL:
                   self.eventManager.handle(event);
+                  break;
+              case Sig.UPD_RNDR:
+                  self.myRender.setBoard(self.board);
           }
       };
 
@@ -68,7 +71,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
 
       GameController.prototype.initializeGame = function (act, scene, playerInfo, imageManager) {
           this.myRender = new Render(this.canvas, this.viewTransform, imageManager);
-          this.myUpdate = new Update();
+          this.myUpdate = new Update(this);
           this.currentAct = act ? act : 1; // Set act (default: 1)
           this.currentScene = scene ? scene : 1; // Set scene (default: 1)
           this.eventManager.handle(new Sig(Sig.ST_CLICK, null, {}));
@@ -76,23 +79,27 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           // this.audio = new Audio("src/audio/better.wav");
           // this.audio.play();
           this.active = new ActiveData();
-          console.log("game buttons is: ", GameButtons);
+
+          //adding buttons to canvas
           GameButtons.addAll(this.active.activeButtons);
           this.defeatedAncestorInfo = [];
 
+          //player info from the database
           this.playerInfo = playerInfo;
-
-          this.board = LevelDefinition.generateBoard(this.currentAct);
+          console.log("ABOUT TO RENDER BOARD");
+          //get board
+          this.board = LevelDefinition.generateBoard(this.currentAct, this.currentScene);
+          console.log("DONE GENERATING BOARD");
           this.myRender.setBoard(this.board);
 
+          //setting up player
           this.player = new Player();
-          console.log("playerStartingPosition", this.board.playerStartingPosition);
           this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.xCoord, yCoord: this.board.playerStartingPosition.yCoord};
           this.player.playerPixelPosition = {xCoord: this.board.playerStartingPosition.xCoord * 150, yCoord: this.board.playerStartingPosition.yCoord * 150};
 
-          for (var i = 0; i < this.board.ancestorStartingPositions.length; i++){
-              this.active.activeAncestors.push(new IAncestor(this.board.ancestorStartingPositions[i].row,this.board.ancestorStartingPositions[i].col));
-          }
+          //setting up ancestors for level
+          LevelDefinition.setRealAncestors(this.active.activeAncestors, this.eightGenerations, this.board, this.currentAct, this.currentScene);
+
           console.log("we've added: " + this.active.activeAncestors.length + " ancestors");
           this.lastTime = Date.now();
 

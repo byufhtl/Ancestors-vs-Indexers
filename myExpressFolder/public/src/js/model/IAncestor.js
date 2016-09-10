@@ -29,6 +29,29 @@ define([],function() {
             var canGoDown = (self.cellPosition.yCoord + 1 < board.tileArray.length && board.tileArray[self.cellPosition.yCoord + 1][self.cellPosition.xCoord] != null);
 
             var newPosChosen = false;
+
+            //keep going straight with percent chance
+            if ((Math.floor(Math.random() * 5)) > 1){
+
+                if (this.currentDirection == IAncestor.RIGHT && canGoRight){
+                    newPosChosen = true;
+                    this.cellPosition.xCoord++;
+                }
+                else if  (this.currentDirection == IAncestor.LEFT && canGoLeft){
+                    newPosChosen = true;
+                    this.cellPosition.xCoord--;
+                }
+                else if  (this.currentDirection == IAncestor.UP && canGoUp ){
+                    newPosChosen = true;
+                    this.cellPosition.yCoord--;
+                }
+                else if  (this.currentDirection == IAncestor.DOWN && canGoDown ){
+                    newPosChosen = true;
+                    this.cellPosition.yCoord++;
+                }
+            }
+
+
             while (!newPosChosen) {
                 var random = Math.floor(Math.random() * 5);
                 switch (random) {
@@ -60,11 +83,8 @@ define([],function() {
                             newPosChosen = true;
                         }
                         break;
-
                 }
             }
-
-
         }
 
         switch (this.currentDirection) {

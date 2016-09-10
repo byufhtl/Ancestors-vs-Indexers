@@ -59,6 +59,10 @@ define([],function(){
     Sig.    LD_SCESS =          "scess";                // Load was successful.                     d
     Sig.    LD_FAILD =          "faild";                // Load failed.                             d
 
+    // Render Commands ====================================================================================================[]>
+
+    Sig.    UPD_RNDR =          "updrn";                // Update RENDERER
+    Sig.    SET_BOARD =         "setBr";                // Set Board in RENDERER
     // TOP BARS ====================================================================================================[]>
     Sig.    LD_TPBAR =          "Ldtpbr";               // Load Top Bar                             *
     Sig.    TPBAR_LD =          "Tpbrld";               // Top Bar Loaded                           *

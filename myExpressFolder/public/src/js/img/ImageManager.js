@@ -310,6 +310,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.OPG_COIN, Order.IMAGE, 15);
             order.addItem(ImageManager.GMP_COIN, Order.IMAGE, 15);
             order.addItem(ImageManager.GNP_COIN, Order.IMAGE, 15);
+            order.addItem(ImageManager.KEY_ICON, Order.IMAGE, 15);
 
             self.loader.loadResources(order).then(
                 function(success){
@@ -419,11 +420,15 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.SPD_TILE =     "src/img/GameTiles/HighSpeed.png";          // HIGH-SPEED TILE
     ImageManager.LCK_TILE =     "src/img/GameTiles/locked.png";             // LOCK TILE
 
+
+
     ImageManager.RLF_COIN =     "src/img/GameTiles/rfCoin.png";             // RELATIVEFINDER COIN
     ImageManager.VIP_COIN =     "src/img/GameTiles/vpCoin.png";             // VIRTUAL PEDIGREE COIN
     ImageManager.OPG_COIN =     "src/img/GameTiles/opgCoin.png";            // ONE PAGE GENEALOGY COIN
     ImageManager.GMP_COIN =     "src/img/GameTiles/gpCoin.png";             // GRANDMAS PIE COIN
     ImageManager.GNP_COIN =     "src/img/GameTiles/gnpdyCoin.png";          // GENEOPARDY COIN
+
+    ImageManager.KEY_ICON =     "src/img/GameTiles/key.png";                // KEY FOR UNLOCKING LOCKED TILES
 
     ImageManager.VRS_FORE =     "src/img/Virus/CompVirusForward.png";       // VIRUS - FRONT FACING
     ImageManager.VRS_BACK =     "src/img/Virus/CompVirusBack.png";          // VIRUS - REAR FACING

@@ -1,12 +1,10 @@
-define(['util/DeltaClock'],function(DeltaClock) {
+define(['util/DeltaClock', 'util/Sig'],function(DeltaClock, Sig) {
 
 
-    function Update() {
+    function Update(controller) {
+        this.controller = controller;
         this.levelStartBuffer = 0;
-
-        this.wave = 0;
         this.timer = 0;
-        this.secondsBetweenWaves = 5;
         this.spawnRecordTimer = 0;
         this.timeToNextRecordSpawn = 0;
 
@@ -15,20 +13,11 @@ define(['util/DeltaClock'],function(DeltaClock) {
         this.ancestorsDefeated = false;
     }
 
-    Update.prototype.checkVictory = function (active) {
-        //did you beat the level?
-        if (this.doneSpawning && active.ancestors().length == 0) {
-            active.vtry = true;
-            active.ended = true;
-        }
-    };
-
-    Update.prototype.checkDefeat = function (active) {
-        for (var i = 0; i < active.ancestors().length; i++) {
-            if (active.ancestors()[i].xCoord <= 0) {
-                active.vtry = false;
-                active.ended = true;
-            }
+    Update.prototype.handle = function(event){
+        var self = this;
+        switch(event.type){
+            case Sig.UPD_RNDR:
+                self.controller.handle(event);
         }
     };
 
@@ -113,18 +102,9 @@ define(['util/DeltaClock'],function(DeltaClock) {
         }
     };
 
-
-
-
     Update.prototype.buffer = function (timeElapsed) {
         this.levelStartBuffer += timeElapsed;
         return (this.levelStartBuffer > 20);
-    };
-
-    Update.prototype.updateDrops = function(activeDrops, activeAncestors) {
-        for (var i = 0; i < activeDrops.length; i++) {
-            activeDrops[i].update(activeAncestors);
-        }
     };
 
     Update.prototype.moveAnimFrames = function(activeAncestors, timeElapsed) {
@@ -138,12 +118,11 @@ define(['util/DeltaClock'],function(DeltaClock) {
         }
     };
 
-    Update.prototype.updateBoardPosition = function(board){
 
-    };
 
-    Update.prototype.updatePlayerPosition = function(player, timeElapsed, board) {
-        player.movePlayer(timeElapsed, board);
+
+    Update.prototype.updatePlayerPosition = function(player, timeElapsed, ancestors, board) {
+        player.movePlayer(timeElapsed, board, ancestors, this);
     };
 
 
@@ -152,21 +131,17 @@ define(['util/DeltaClock'],function(DeltaClock) {
         //this.spawnRecord(active.records(), timeElapsed);
         //this.moveRecords(active.records(), timeElapsed);
         this.moveAnimFrames(active.ancestors(), timeElapsed);
-        this.updatePlayerPosition(player, timeElapsed, board);
+        this.updatePlayerPosition(player, timeElapsed, active.activeAncestors, board);
         this.updateAncestorsPosition(active.ancestors(), timeElapsed, board);
         this.dsTimer.tick(timeElapsed);
-            //update drops
-            //this.updateDrops(active.drops(), active.ancestors());
             //update ancestors
             //this.checkDeadAncestors(active.ancestors(), defeatedAncestorInfo);
             //update projectiles
             //this.moveProjectiles(active.projectiles(), timeElapsed);
             //this.checkProjectileCollision(active.projectiles(), active.ancestors());
-            //check victory conditions
-            //this.checkVictory(active);
-            //this.checkDefeat(active);
 
     };
+
 
     return Update;
 

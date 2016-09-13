@@ -49,6 +49,7 @@ define([], function(){
                         self.pixelPosition.yCoord -= yOver;
                     }
                 }
+                // if(!this.path.length){
                 while(!this.path.length){
                     console.log("<<Entity>> Seeking path...");
                     this.path = this.newPath(board);

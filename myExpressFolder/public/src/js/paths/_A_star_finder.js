@@ -9,13 +9,13 @@ define([],function(){
      * Attempts to find a shortest path from a starting point to an ending point using an A* algorithm. The algorithm
      * works by analyzing the cost to arrive at a node and the cost to get from the beginning point and the ending point
      * by taking that node. Search algorithm is BFS.
+     * @param board The Board Object being used.
      * @param startCoords The starting coordinates {x:x, y:y}
      * @param endCoords The ending coordinates {x:x, y:y}
-     * @param board The Board Object being used.
      * @returns {Array} The coordinates to move to to follow the path. Sorted first step to last.
      * @private Not really.
      */
-    function _A_star_finder(startCoords, endCoords, board){
+    function _A_star_finder(board, startCoords, endCoords){
 
         function PathNode(x, y, last, score = 0){
             this.x = x;
@@ -66,6 +66,14 @@ define([],function(){
                 node.scoreByNode = node.scoreToNode + _A_star_finder.heuristic(node, end);
             }
 
+            if(openSet.length){
+                openSet.sort(function(a,b){
+                    if(a.scoreByNode < b.scoreByNode){
+                        return -1
+                    }
+                    return 1;
+                })
+            }
         }
         console.error("<<A* Algor>> Path Unfindable.");
         return [];

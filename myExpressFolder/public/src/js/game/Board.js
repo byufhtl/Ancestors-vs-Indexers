@@ -126,6 +126,12 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                         }
                         this.bridgeTiles[crow][ccol] = ctile;
                         ++this.metaData.bridgeTileCount;
+
+                        // Assign to the 0 clump.
+                        if(!this.__clumpToTile[0]){
+                            this.__clumpToTile[0] = [];
+                        }
+                        this.__clumpToTile[0].push({row: crow, col: ccol});
                     }
                     else{
                         if(!this.__clumpToTile[ctile.clumpID]){

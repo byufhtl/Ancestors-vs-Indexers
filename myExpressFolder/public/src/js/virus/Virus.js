@@ -2,7 +2,7 @@
  * Created by calvinm2 on 9/6/16.
  */
 
-define(["../entities/Entity", "../paths/_A_star_finder"],function(Entity, AStarPath){
+define(["../entities/Entity", "../paths/Pathfinder"],function(Entity, Pathfinder){
 
     function Virus(row, col){
         this.cellPosition = {xCoord: col, yCoord: row};
@@ -16,6 +16,8 @@ define(["../entities/Entity", "../paths/_A_star_finder"],function(Entity, AStarP
         this.currImage = null;
         this.animation = null;
 
+        this.pathfinder = new Pathfinder();
+
         // this.target = null;
         // this.currSeek = this.__meanderSeek(board);
     }
@@ -27,7 +29,7 @@ define(["../entities/Entity", "../paths/_A_star_finder"],function(Entity, AStarP
     };
 
     Virus.prototype.newPath = function(board){
-        console.log("<<VIRUS>> A* Algorithm.");
+        console.log("<<VIRUS>> Alternative Algorithm.");
         var virusClumpID = board.tileArray[this.cellPosition.yCoord][this.cellPosition.xCoord].clumpID;
         console.log("Clump id:", virusClumpID);
         var clump = board.__clumpToTile[virusClumpID];
@@ -38,7 +40,7 @@ define(["../entities/Entity", "../paths/_A_star_finder"],function(Entity, AStarP
 
         var startingCoords = {x: this.cellPosition.xCoord, y: this.cellPosition.yCoord};
         var endingCoords = {x: coord.col, y: coord.row};
-        return AStarPath(startingCoords, endingCoords, board);
+        return this.pathfinder.findPathToward(board, startingCoords, endingCoords);
     };
 
     // /**

@@ -279,6 +279,22 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
+    ImageManager.prototype.loadCharacter = function() {
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order  = new Order;
+            order.addItem(ImageManager.MAIN_CHR, Order.IMAGE, 15);
+            self.loader.loadResources(order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
+
     ImageManager.prototype.loadBoardTiles = function() {
         var self = this;
         return new Promise(function(resolve, reject){
@@ -335,6 +351,12 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     resolve(failed);
                 }
             }
+            self.loadCharacter().then(partialResolve,
+                function(rejection){
+                    failed.push(Sig.FLD_IMGS);
+                    partialResolve();
+                }
+            );
             self.loadFieldPieces().then(partialResolve,
                 function(rejection){
                     failed.push(Sig.FLD_IMGS);
@@ -396,6 +418,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
+    ImageManager.MAIN_CHR =     "src/img/guy_480.png";                      // Main Character
 
     ImageManager.BLU_BL   =     "src/img/GameTiles/bl.png";                 // BOTTOM LEFT TILE
     ImageManager.BLU_BLR  =     "src/img/GameTiles/blr.png";                // BOTTOM LEFT RIGHT TILE

@@ -10,6 +10,37 @@ define(['util/Sig'],function(Sig) {
         this.distanceTraveled = 0;
         this.speed = 250;
         this.animCorrect = 5;
+
+        this.animTimer = 0;
+        this.animXFrame = 0;
+        this.previousAnimXFrame = 1;
+        this.animYFrame = 0;
+        this.timeBetweenFrames = .2;
+        this.numFrames = 2;
+    }
+
+    Player.prototype.animate = function(timeElapsed){
+
+        this.animTimer += timeElapsed;
+        if (this.animTimer > this.timeBetweenFrames){
+            console.log("setting up the thingamajig");
+            this.animTimer = 0;
+            if (this.animXFrame == 0) {
+
+              this.animXFrame = 1;
+              this.previousAnimXFrame = 0;
+            }
+            else if (this.animXFrame == this.numFrames) {
+              this.animXFrame = this.numFrames - 1;
+              this.previousAnimXFrame = this.numFrames;
+            }
+            else if (this.animXFrame > 0 && this.animXFrame < this.numFrames){
+              if (this.previousAnimXFrame < this.animXFrame){
+                  this.animXFrame++;
+              }
+              else this.animXFrame--;
+            }
+        }
     }
 
     Player.prototype.checkGotKey = function(board, update){
@@ -116,6 +147,21 @@ define(['util/Sig'],function(Sig) {
               }
           }
       }
+
+      switch(this.currentDirection){
+        case Player.UP:
+            self.animYFrame = 3;
+            break;
+        case Player.DOWN:
+            self.animYFrame = 0;
+            break;
+        case Player.RIGHT:
+            self.animYFrame = 2;
+            break;
+        case Player.LEFT:
+            self.animYFrame = 1;
+            break;
+      }
     };
 
     Player.prototype.checkTileAction = function(board, update) {
@@ -154,9 +200,10 @@ define(['util/Sig'],function(Sig) {
 
     Player.prototype.movePlayer = function(timeElapsed, board, ancestors, update) {
         var self = this;
+        this.timeBetweenFrames = 50 / this.speed;
         // console.log("player x: " + this.playerCellPosition.xCoord + " y: " + this.playerCellPosition.yCoord);
         // console.log("board height: " + board.tileArray.length + " board width" + board.tileArray[0].length);
-
+        this.animate(timeElapsed);
         this.distanceTraveled += timeElapsed * self.speed;
 
         if (this.distanceTraveled >= 150) {

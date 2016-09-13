@@ -332,8 +332,10 @@ define(['img/ImageManager'],function(ImageManager) {
     };
 
     Render.prototype.renderPlayer = function(player){
-        var playerImage = this.imageManager.getImage(ImageManager.VRS_FORE);
-        this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
+        var playerImage = this.imageManager.getImage(ImageManager.MAIN_CHR);
+        //this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
+        this.ctx.drawImage(playerImage, player.animXFrame * 120, player.animYFrame * 120, 120, 120, window.innerWidth/2, window.innerHeight/2, 120, 120);
+        //this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
     };
 
     Render.prototype.render = function(active, board, canvas, translation, player, viruses) {

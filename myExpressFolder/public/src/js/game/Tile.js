@@ -8,6 +8,7 @@ define([],function() {
         this.clumpID = null;
         this.startingPosition = false;
         this.ancestorStartingPosition = false;
+        this.hasVirus = false;
     }
 
     return Tile;

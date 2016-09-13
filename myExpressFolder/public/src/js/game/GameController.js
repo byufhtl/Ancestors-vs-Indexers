@@ -1,5 +1,6 @@
-define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig', 'game/GameEventManager', 'game/GameButtons', 'game/Board', 'game/Player'],
-  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons, Board, Player) {
+define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig',
+        'game/GameEventManager', 'game/GameButtons', 'game/Board', 'game/Player', 'virus/Virus'],
+  function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons, Board, Player, Virus) {
 
       function GameController(lieutenant) {
           this.controller = lieutenant;
@@ -91,7 +92,9 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.board = LevelDefinition.generateBoard(this.currentAct, this.currentScene);
           console.log("DONE GENERATING BOARD");
           this.myRender.setBoard(this.board);
-
+          var pt = this.board.__clumpToTile[1][0];
+          console.log("<<GC>>", pt);
+          this.virus = new Virus(pt.row, pt.col);
           //setting up player
           this.player = new Player();
           this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.xCoord, yCoord: this.board.playerStartingPosition.yCoord};
@@ -117,8 +120,11 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
+              this.virus.move(delta_s, this.board);
+              // this.virus.poll();
+
               this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo, this.player, this.board);
-              this.myRender.render(this.active, this.board, this.canvas, this.translation, this.player);
+              this.myRender.render(this.active, this.board, this.canvas, this.translation, this.player, [this.virus]);
               this.updateCoordinates(0, 0);
           }
           if (this.active.gameEnded() == false) // game end condition.

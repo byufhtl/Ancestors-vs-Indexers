@@ -70,6 +70,15 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
+    Render.prototype.renderEnemies = function(viruses, player)
+    {
+        for (var i = 0; i < viruses.length; i++){
+            this.renderFamilyMemberName(viruses[i], player);
+            var virImg = this.imageManager.getImage(ImageManager.VRS_FORE);
+            this.ctx.drawImage(virImg, viruses[i].pixelPosition.xCoord - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  viruses[i].pixelPosition.yCoord - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+        }
+    };
+
 
     Render.prototype.renderRecords = function(activeRecords)
     {
@@ -182,7 +191,7 @@ define(['img/ImageManager'],function(ImageManager) {
             this.ctx.fillText(names[i], 30, window.innerHeight / 2 + offset);
             offset += 30;
         }
-    }
+    };
 
     Render.prototype.reset = function()
     {
@@ -278,46 +287,48 @@ define(['img/ImageManager'],function(ImageManager) {
 
 
 
-    Render.prototype.renderMiniMap = function(board, player, ancestors)
-    {
-      this.ctx.fillStyle = "rgba(40, 40, 40, 0.5)";
-      this.ctx.fillRect(30, 30, board.tileArray[0].length * 3,  board.tileArray.length * 3);
-      this.ctx.fillStyle = "blue";
-      //fill in tile information
-      for (var y = 0; y < board.tileArray.length; y++){
-          for (var x = 0; x < board.tileArray[y].length; x++){
-              if (board.tileArray[y][x] != null){
-                  if (board.tileArray[y][x].database) {
-                      this.ctx.fillStyle = "red";
-                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                  }
-                  else if (board.tileArray[y][x].startingPosition){
-                      this.ctx.fillStyle = "yellow";
-                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                  }
-                  else if (x == player.playerCellPosition.xCoord && y == player.playerCellPosition.yCoord){
-                      this.ctx.fillStyle = "white";
-                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                  }
-                  else if (board.tileArray[y][x].locked){
-                      this.ctx.fillStyle = "green";
-                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                  }
-                  else{
-                      this.ctx.fillStyle = "blue";
-                      this.ctx.fillRect(x*3 + 30, y*3 + 30, 2, 2);
-                  }
-              }
-          }
-      }
-      //fill in ancestor information
-      this.ctx.fillStyle = "orange";
-      for (var i = 0; i < ancestors.length; i++){
-          this.ctx.fillRect(ancestors[i].cellPosition.xCoord*3 + 30, ancestors[i].cellPosition.yCoord*3 + 30, 2, 2);
-      }
-      this.ctx.fillStyle = "purple";
-      this.ctx.fillRect(board.key.xCoord*3 + 30, board.key.yCoord*3 + 30, 2, 2);
-      this.ctx.fillStyle = "black";
+    Render.prototype.renderMiniMap = function(board, player, ancestors, viruses) {
+        this.ctx.fillStyle = "rgba(40, 40, 40, 0.5)";
+        this.ctx.fillRect(30, 30, board.tileArray[0].length * 3, board.tileArray.length * 3);
+        this.ctx.fillStyle = "blue";
+        //fill in tile information
+        for (var y = 0; y < board.tileArray.length; y++) {
+            for (var x = 0; x < board.tileArray[y].length; x++) {
+                if (board.tileArray[y][x] != null) {
+                    if (board.tileArray[y][x].database) {
+                        this.ctx.fillStyle = "red";
+                        this.ctx.fillRect(x * 3 + 30, y * 3 + 30, 2, 2);
+                    }
+                    else if (board.tileArray[y][x].startingPosition) {
+                        this.ctx.fillStyle = "yellow";
+                        this.ctx.fillRect(x * 3 + 30, y * 3 + 30, 2, 2);
+                    }
+                    else if (x == player.playerCellPosition.xCoord && y == player.playerCellPosition.yCoord) {
+                        this.ctx.fillStyle = "white";
+                        this.ctx.fillRect(x * 3 + 30, y * 3 + 30, 2, 2);
+                    }
+                    else if (board.tileArray[y][x].locked) {
+                        this.ctx.fillStyle = "green";
+                        this.ctx.fillRect(x * 3 + 30, y * 3 + 30, 2, 2);
+                    }
+                    else {
+                        this.ctx.fillStyle = "blue";
+                        this.ctx.fillRect(x * 3 + 30, y * 3 + 30, 2, 2);
+                    }
+                }
+            }
+        }
+        //fill in ancestor information
+        this.ctx.fillStyle = "orange";
+        for (var i = 0; i < ancestors.length; i++) {
+            this.ctx.fillRect(ancestors[i].cellPosition.xCoord * 3 + 30, ancestors[i].cellPosition.yCoord * 3 + 30, 2, 2);
+        }
+        this.ctx.fillStyle = "purple";
+        this.ctx.fillRect(board.key.xCoord * 3 + 30, board.key.yCoord * 3 + 30, 2, 2);
+        this.ctx.fillStyle = "green";
+        for(var k = 0; k < viruses.length; k++) {
+            this.ctx.fillRect(viruses[k].cellPosition.xCoord * 3 + 30, viruses[k].cellPosition.yCoord * 3 + 30, 2, 2);
+        }
     };
 
     Render.prototype.renderPlayer = function(player){
@@ -325,9 +336,8 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
     };
 
-    Render.prototype.render = function(active, board, canvas, translation, player) {
+    Render.prototype.render = function(active, board, canvas, translation, player, viruses) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
-
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderBackground();
         if(!this.boardCanvas) {
@@ -337,10 +347,11 @@ define(['img/ImageManager'],function(ImageManager) {
             // console.log("<<RENDER>> FAST VERSION");
             this.renderBoardFast(player);
         }
-        this.renderMiniMap(board, player, active.activeAncestors);
+        this.renderMiniMap(board, player, active.activeAncestors, viruses[0]);
         this.renderPlayer(player);
         //this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors(), player);
+        this.renderEnemies(viruses, player);
         this.renderRecordNames(player.namedRecords);
         //this.renderProjectiles(active.projectiles());
         //this.renderRecords(active.records());

@@ -9,6 +9,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
      */
     function Board(){
         this.tileArray = [];
+        this.tileCoordList = [];
         this.bridgeTiles = {};
         this.databaseLocations = {};
         this.locked = {};

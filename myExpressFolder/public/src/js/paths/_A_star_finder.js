@@ -17,41 +17,48 @@ define([],function(){
      */
     function _A_star_finder(startCoords, endCoords, board){
 
-        function pathNode(x, y, last, score = 0){
+        function PathNode(x, y, last, score = 0){
             this.x = x;
             this.y = y;
             this.last = last;
             this.scoreToNode = score;
             this.scoreByNode = 0;
 
-            var previous = function(){return last;};
+            this.previous = function(){return this.last;};
 
-            var matchesCoords = function(mx,my){return((x == mx) && (y == my));};
-            var matchesNode = function(node){return((x == node.x) && (y == node.y));};
+            this.matchesCoords = function(mx,my){return((this.x == mx) && (this.y == my));};
+            this.matchesNode = function(node){return((this.x == node.x) && (this.y == node.y));};
         }
 
-        var start = new pathNode(startCoords.x, startCoords.y, null, 0);
-        var end = new pathNode(endCoords.x, endCoords.y, null, 0);
+        console.log("<<A* Algor>> Head/Tail", startCoords, endCoords);
+        var start = new PathNode(startCoords.x, startCoords.y, null, 0);
+        var end = new PathNode(endCoords.x, endCoords.y, null, 0);
         var closedSet = [];
         var openSet = [start];
 
         while(openSet.length){
+            // console.log("<<A* Algor>> Head/Tail", startCoords, endCoords);
+            // console.log("<<A* Algor>> OpenSet", openSet);
+            // console.log("<<A* Algor>> ClosedSet", closedSet);
             var current = openSet.shift();
             if(current.matchesNode(end)){
-                end.last = current;
-                return _A_star_finder.traceBack(end);
+                var tentative_path = _A_star_finder.traceBack(current);
+                console.log("<<A* Algor>> TPath", tentative_path);
+                return tentative_path;
             }
 
             closedSet.push(current); // Keep it close to the back, if possible.
 
             var neighbors = _A_star_finder.getNeighbors(board, current, end); // Look for the next best option.
-            for(var i of neighbors){
-                var neighbor = neighbors[i];
+            // console.log("<<A* Algor>> Neighbors", neighbors);
+            for(var neighbor of neighbors){
                 if(_A_star_finder.__seek(neighbor.x, neighbor.y, closedSet)) {continue; }
-                var newScore = current.score + neighbor.cost;
+                var newScore = current.scoreToNode + neighbor.cost;
                 var node = _A_star_finder.__seek(neighbor.x, neighbor.y, openSet);
                 if(!node){
-                    node = new pathNode(neighbor.x, neighbor.y, current, newScore);
+                    node = new PathNode(neighbor.x, neighbor.y, current, newScore);
+                    // console.log("<<A* Algor>> Pushing...", node);
+                    openSet.push(node);
                 }
                 else if(newScore >= node.scoreToNode){
                     continue;
@@ -60,6 +67,8 @@ define([],function(){
             }
 
         }
+        console.error("<<A* Algor>> Path Unfindable.");
+        return [];
     }
 
     /**
@@ -95,14 +104,14 @@ define([],function(){
             else return 1; // A 0 cost indicates that our movement does not move us closer or farther along the dimension.
         }
         function evalVert(ptx, pty){
-            if(pty >= 0 && pty < board.metadata.rows && board[pty][ptx]){ // If it's a valid array point and a node exists
-                return {x: ptx, y: pty, cost: evalCost(abs(end.y - pty) - abs(end.y - coords.y))};
+            if(pty >= 0 && pty < board.metaData.rows && board.tileArray[pty][ptx] != null){ // If it's a valid array point and a node exists
+                return {x: ptx, y: pty, cost: evalCost(Math.abs(end.y - pty) - Math.abs(end.y - coords.y))};
             }
             return {x: ptx, y: pty, weight: Number.POSITIVE_INFINITY};
         }
         function evalHorz(ptx, pty){
-            if(ptx >= 0 && ptx < board.metadata.cols && board[pty][ptx]){ // If it's a valid array point and a node exists
-                    return {x: ptx, y: pty, cost: evalCost(abs(end.x - ptx) - abs(end.x - coords.x))};
+            if(ptx >= 0 && ptx < board.metaData.cols && board.tileArray[pty][ptx] != null){ // If it's a valid array point and a node exists
+                    return {x: ptx, y: pty, cost: evalCost(Math.abs(end.x - ptx) - Math.abs(end.x - coords.x))};
             }
             return {x: ptx, y: pty, weight: Number.POSITIVE_INFINITY};
         }
@@ -117,13 +126,13 @@ define([],function(){
             closest.push(up);
         }
         if(down.cost < Number.POSITIVE_INFINITY){
-            closest.push(up);
+            closest.push(down);
         }
         if(left.cost < Number.POSITIVE_INFINITY){
-            closest.push(up);
+            closest.push(left);
         }
         if(right.cost < Number.POSITIVE_INFINITY){
-            closest.push(up);
+            closest.push(right);
         }
 
         // Unnecessary
@@ -144,8 +153,8 @@ define([],function(){
      * @returns {number}
      */
     _A_star_finder.heuristic = function(point, end){
-        var yCost = abs(point.y - end.y);
-        var xCost = abs(point.x - end.x);
+        var yCost = Math.abs(point.y - end.y);
+        var xCost = Math.abs(point.x - end.x);
         return(xCost+yCost); // May need watering down.
     };
 
@@ -159,6 +168,7 @@ define([],function(){
         var curr = tail;
         while(curr){
             trace.unshift({x:curr.x, y:curr.y});
+            console.log("Chaining", curr, "to", curr.previous());
             curr = curr.previous();
         }
         return trace;

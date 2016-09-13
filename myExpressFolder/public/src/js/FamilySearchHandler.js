@@ -112,18 +112,18 @@ define(["jquery","util/Sig"],function($,Sig){
         var self = this;
         return new Promise(function(resolve, reject){
             var url = "https://" + ((__development) ? ("beta.") : ("sandbox.")) + ("familysearch.org/platform/persons/" + personData.id + "/changes");
-            console.log("<<DEBUG-AJAX>> TARGET URL:", url);
+            // console.log("<<DEBUG-AJAX>> TARGET URL:", url);
             self.FS.getPerson(personData.id).then(
                 function success(response){
                     response.getPerson().getChanges().then(function success(changeLog){
                         var changes = changeLog.getChanges();
-                        console.log("<<FS RETURN>> Changes:", changes);
+                        // console.log("<<FS RETURN>> Changes:", changes);
                         var matches = 0;
                         var username = user.data.contactName;
                         for(var change of changes){
                             for(var contributor of change.data.contributors){
                                 if(contributor.name == username){
-                                    console.log("<<FS MATCHER>> MATCH!!!");
+                                    // console.log("<<FS MATCHER>> MATCH!!!");
                                     matches = (change.data.updated > matches) ? change.data.updated : matches; // Logs the most recent change.
                                 }
                             }
@@ -166,18 +166,17 @@ define(["jquery","util/Sig"],function($,Sig){
                         resolve(response);
                     },
                     function failure(response){ // If the user's history was unobtainable
-                        console.log("<<DEBUG>> History request rejected. this:", this, ".\nResponse:", response);
+                        console.log("<<FAMILYSEARCH>> History request rejected. this:", this, ".\nResponse:", response);
                         reject(response);
                     }
                 );
             });
         });
         promise.then(function(histData){
-            console.log("<<DEBUG>> Making request to callback.");
             onSuccess(histData);
         },
         function(response){
-            console.log("<<DEBUG>> Promise failed:", response);
+            console.log("<<FAMILYSEARCH>> Promise failed:", response);
         });
     };
     return FamilySearchHandler;

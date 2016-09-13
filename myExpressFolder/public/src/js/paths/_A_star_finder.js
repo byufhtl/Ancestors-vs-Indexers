@@ -168,7 +168,6 @@ define([],function(){
         var curr = tail;
         while(curr){
             trace.unshift({x:curr.x, y:curr.y});
-            console.log("Chaining", curr, "to", curr.previous());
             curr = curr.previous();
         }
         return trace;

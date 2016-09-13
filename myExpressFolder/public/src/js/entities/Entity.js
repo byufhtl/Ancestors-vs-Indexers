@@ -56,7 +56,7 @@ define([], function(){
                 }
                 this.prevDir = this.currDir;
                 this.currDir = this.calculateDirToNext(this.path.shift());
-                console.log("<<Entity>> Now moving", currDir, "to", this.cellPosition);
+                console.log("<<Entity>> Now moving", this.currDir, "to", this.cellPosition);
             }
 
             if(this.currDir){

@@ -215,6 +215,8 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
      * @param player The player to center the image relative to.
      */
     Render.prototype.renderBoard = function(board, player){
+        var xOffset = - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2;
+        var yOffset = - player.playerPixelPosition.yCoord + this.viewTransform.t_offset_Y + window.innerHeight / 2;
         for(var z = 0; z < board.tileCoordList.length; z++){
             var y = board.tileCoordList[z].row;
             var x = board.tileCoordList[z].col;
@@ -222,21 +224,21 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
             if(CoordUtils.proximate(x, y, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 18, 10)) {
                 var fTile = board.tileArray[y][x];
                 var img = this.imageManager.getImage(fTile.image);
-                this.ctx.drawImage(img, x * 150, y * 150);
+                this.ctx.drawImage(img, x * 150 + xOffset, y * 150 + yOffset);
                 if (fTile.database) {
                     var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                    this.ctx.drawImage(databaseImg, x * 150, y * 150);
+                    this.ctx.drawImage(databaseImg, x * 150 + xOffset, y * 150 + yOffset);
                 }
                 if (fTile.startingPosition) {
                     var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
-                    this.ctx.drawImage(startingPointImg, x * 150, y * 150);
+                    this.ctx.drawImage(startingPointImg, x * 150 + xOffset, y * 150 + yOffset);
                 }
                 if (fTile.locked) {
                     var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
-                    this.ctx.drawImage(lockImg, x * 150, y * 150);
+                    this.ctx.drawImage(lockImg, x * 150 + xOffset, y * 150 + yOffset);
                 }
                 if (fTile.clumpID == 0) {
-                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150, y * 150);
+                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150 + xOffset, y * 150 + yOffset);
                 }
             }
         }
@@ -258,16 +260,18 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
      * @param player The player to use as a reference point for whether or not an image needs to be drawn.
      */
     Render.prototype.renderPieces = function(board, player){
+        var xOffset = - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2;
+        var yOffset = - player.playerPixelPosition.yCoord + this.viewTransform.t_offset_Y + window.innerHeight / 2;
         for(var dbt of board.databaseTiles){
             if(CoordUtils.proximate(dbt.xPos, dbt.yPos, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 7, 6)){
                 if (dbt.numRecords > 0){
-                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), dbt.xPos * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2, dbt.yPos * 150 - player.playerPixelPosition.yCoord + window.innerHeight / 2 + this.viewTransform.t_offset_Y);
+                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), dbt.xPos * 150 + xOffset, dbt.yPos * 150 + yOffset);
                 }
             }
         }
         var keyImage = this.imageManager.getImage(ImageManager.KEY_ICON);
         if(CoordUtils.proximate(board.key.xCoord, board.key.yCoord, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 7, 6)) {
-            this.ctx.drawImage(keyImage, board.key.xCoord * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2, board.key.yCoord * 150 - player.playerPixelPosition.yCoord + window.innerHeight / 2 + this.viewTransform.t_offset_Y);
+            this.ctx.drawImage(keyImage, board.key.xCoord * 150 + xOffset, board.key.yCoord * 150 + yOffset);
         }
     };
 

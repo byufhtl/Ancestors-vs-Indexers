@@ -211,6 +211,8 @@ define(['util/Sig'],function(Sig) {
 
         if (this.distanceTraveled >= 150) {
             this.distanceTraveled = 0;
+            this.playerPixelPosition.xCoord = 150* this.playerCellPosition.xCoord;
+            this.playerPixelPosition.yCoord = 150* this.playerCellPosition.yCoord;
             this.changeDirection(board);
             this.checkGotKey(board, update);
             this.checkTileAction(board, update);
@@ -241,24 +243,24 @@ define(['util/Sig'],function(Sig) {
                 break;
         }
 
-        // Per-tile movement overflow corrections. Called once per overall tile moved.
-        if(!self.distanceTraveled && !(this.animCorrect--)){
-            this.animCorrect = 5;
-            var xOver = self.playerPixelPosition.xCoord % 150;
-            var yOver = self.playerPixelPosition.yCoord % 150;
-            if(xOver >= 100){
-                self.playerPixelPosition.xCoord += 150 - xOver;
-            }
-            else{
-                self.playerPixelPosition.xCoord -= xOver;
-            }
-            if(yOver >= 100){
-                self.playerPixelPosition.yCoord += 150 - yOver;
-            }
-            else{
-                self.playerPixelPosition.yCoord -= yOver;
-            }
-        }
+        // // Per-tile movement overflow corrections. Called once per overall tile moved.
+        // if(!self.distanceTraveled && !(this.animCorrect--)){
+        //     this.animCorrect = 5;
+        //     var xOver = self.playerPixelPosition.xCoord % 150;
+        //     var yOver = self.playerPixelPosition.yCoord % 150;
+        //     if(xOver >= 100){
+        //         self.playerPixelPosition.xCoord += 150 - xOver;
+        //     }
+        //     else{
+        //         self.playerPixelPosition.xCoord -= xOver;
+        //     }
+        //     if(yOver >= 100){
+        //         self.playerPixelPosition.yCoord += 150 - yOver;
+        //     }
+        //     else{
+        //         self.playerPixelPosition.yCoord -= yOver;
+        //     }
+        // }
     };
 
     Player.RIGHT = "right";

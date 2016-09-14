@@ -1,4 +1,4 @@
-define(['img/ImageManager'],function(ImageManager) {
+define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) {
 
 
     function Render(canvas, ViewTransform, imageManager)
@@ -21,6 +21,10 @@ define(['img/ImageManager'],function(ImageManager) {
         this.treeWidth = 2400;
     }
 
+    /**
+     * Renders the victory screen.
+     * @param optionButtons Buttons to be rendered on-screen.
+     */
     Render.prototype.renderVictory = function(optionButtons)
     {
         var victoryImg = this.imageManager.getImage(ImageManager.GM_VCTRY);
@@ -31,6 +35,10 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
+    /**
+     * Renders the defeat screen.
+     * @param optionButtons Buttons to be rendered on-screen.
+     */
     Render.prototype.renderDefeat = function(optionButtons)
     {
         var defeatImg = this.imageManager.getImage(ImageManager.GM_DFEAT);
@@ -62,11 +70,14 @@ define(['img/ImageManager'],function(ImageManager) {
         var ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
         for (var i = 0; i < activeAncestors.length; i++)
         {
-              if (activeAncestors[i].type == "familyMember"){
-                  this.renderFamilyMemberName(activeAncestors[i], player);
-              }
-              ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
-              this.ctx.drawImage(ancImg, activeAncestors[i].pixelPosition.xCoord - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  activeAncestors[i].pixelPosition.yCoord - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+            if(CoordUtils.proximate(activeAncestors[i].cellPosition.xCoord, activeAncestors[i].cellPosition.yCoord,
+                player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 18, 10)) {
+                if (activeAncestors[i].type == "familyMember") {
+                    this.renderFamilyMemberName(activeAncestors[i], player);
+                }
+                ancImg = this.imageManager.getImage(ImageManager.ANC_STAN);
+                this.ctx.drawImage(ancImg, activeAncestors[i].pixelPosition.xCoord - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2, activeAncestors[i].pixelPosition.yCoord - player.playerPixelPosition.yCoord + window.innerHeight / 2 + this.viewTransform.t_offset_Y);
+            }
         }
     };
 
@@ -193,66 +204,62 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
-    Render.prototype.reset = function()
-    {
+    Render.prototype.reset = function() {
         this.resizeOnce = true;
     };
 
-
-    Render.prototype.renderBoard = function(board, player)
-    {
-        // for (var y = 0; y < board.length; y++){
-        //     for (var x = 0; x < board[y].length; x++){
-        //         if (board[y][x] != null){
-        //
-        //             var img = this.imageManager.getImage(board[y][x].image);
-        //             this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-        //             if (board[y][x].database){
-        //               var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-        //               this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-        //             }
-        //             if (board[y][x].startingPosition){
-        //               // console.log("rendering tree");
-        //               var treeImg = this.imageManager.getImage(ImageManager.STRT_POS);
-        //               this.ctx.drawImage(treeImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-        //             }
-        //             if (board[y][x].locked){
-        //                 var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
-        //                 this.ctx.drawImage(lockImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-        //             }
-        //         }
-        //     }
-        // }
-
+    /**
+     * The slower way of rendering the board if a pre-rendered board has not been created. Not too great for speed, but
+     * trusty in a jam. Speed enhanced by inclusion of only items that are close to the player.
+     * @param board The Board object being referenced for drawing.
+     * @param player The player to center the image relative to.
+     */
+    Render.prototype.renderBoard = function(board, player){
         for(var z = 0; z < board.tileCoordList.length; z++){
             var y = board.tileCoordList[z].row;
             var x = board.tileCoordList[z].col;
             // console.log("<<RENDERER>> Rendering tile @ (" + y + "," + x + ").");
-            var fTile = board.tileArray[y][x];
-            var img = this.imageManager.getImage(fTile.image);
-            this.ctx.drawImage(img, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-            if (fTile.database){
-                var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
-                this.ctx.drawImage(databaseImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-            }
-            if (fTile.startingPosition){
-                var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
-                this.ctx.drawImage(startingPointImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
-            }
-            if (fTile.locked){
-                var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
-                this.ctx.drawImage(lockImg, x * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2, y * 150 - player.playerPixelPosition.yCoord +window.innerHeight/2 + this.viewTransform.t_offset_Y);
+            if(CoordUtils.proximate(x, y, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 18, 10)) {
+                var fTile = board.tileArray[y][x];
+                var img = this.imageManager.getImage(fTile.image);
+                this.ctx.drawImage(img, x * 150, y * 150);
+                if (fTile.database) {
+                    var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                    this.ctx.drawImage(databaseImg, x * 150, y * 150);
+                }
+                if (fTile.startingPosition) {
+                    var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
+                    this.ctx.drawImage(startingPointImg, x * 150, y * 150);
+                }
+                if (fTile.locked) {
+                    var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
+                    this.ctx.drawImage(lockImg, x * 150, y * 150);
+                }
+                if (fTile.clumpID == 0) {
+                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150, y * 150);
+                }
             }
         }
     };
 
+    /**
+     * Draws the board from the internally pre-rendered board canvas. Significantly faster if such a canvas has been
+     * rendered beforehand
+     * @param player The player to be used in determining where the image ought to be placed to appear centered.
+     */
     Render.prototype.renderBoardFast = function(player){
         this.ctx.drawImage(this.boardCanvas,  -player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  -player.playerPixelPosition.yCoord + window.innerHeight/2 + this.viewTransform.t_offset_Y)
     };
 
+    /**
+     * Renders DYNAMIC non-entities onto the field if they are within an 18 square radius of the player (a.k.a. on-screen).
+     * Dynamic non-entities include things like records and keys, but do not include things like ancestors or viruses.
+     * @param board The board to reference for dynamic non-entities.
+     * @param player The player to use as a reference point for whether or not an image needs to be drawn.
+     */
     Render.prototype.renderPieces = function(board, player){
         for(var dbt of board.databaseTiles){
-            if((Math.abs(dbt.xPos - player.playerCellPosition.xCoord) < 18) || (Math.abs(dbt.xPos - player.playerCellPosition.xCoord) < 18)){
+            if(CoordUtils.proximate(dbt.xPos, dbt.yPos, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 18, 10)){
                 if (dbt.numRecords > 0){
                     this.ctx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), dbt.xPos * 150, dbt.yPos * 150);
                 }
@@ -264,6 +271,12 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
+    /**
+     * Creates a static canvas with a pre-drawn board on it. This then becomes the image used to depict all STATIC
+     * parts of the board (tiles, db's, etc). Dynamic elements such as ancestors, records, keys, viruses, etc are not
+     * included in this pre-render.
+     * @param board The board whose static elements are being identified and included.
+     */
     Render.prototype.setBoard = function(board){
         this.boardCanvas = document.createElement('canvas');
         this.boardCanvas.height = 150 * board.metaData.rows;
@@ -297,8 +310,13 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
-
-
+    /**
+     * Renders a mini map of the board in the top left corner of the canvas. The necessary items are tracked.
+     * @param board The board to display
+     * @param player The player's position
+     * @param ancestors The ancestors to draw
+     * @param viruses The viruses to draw
+     */
     Render.prototype.renderMiniMap = function(board, player, ancestors, viruses) {
         this.ctx.fillStyle = "rgba(40, 40, 40, 0.5)";
         this.ctx.fillRect(30, 30, board.tileArray[0].length * 3, board.tileArray.length * 3);
@@ -343,6 +361,10 @@ define(['img/ImageManager'],function(ImageManager) {
         }
     };
 
+    /**
+     * Renders the player sprite on-screen.
+     * @param player The player whose animation is being tracked.
+     */
     Render.prototype.renderPlayer = function(player){
         var playerImage = this.imageManager.getImage(ImageManager.MAIN_CHR);
         //this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
@@ -350,6 +372,15 @@ define(['img/ImageManager'],function(ImageManager) {
         //this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
     };
 
+    /**
+     * The general rendering function.
+     * @param active A list of active entities
+     * @param board The board being used as a reference for what needs to be drawn and where.
+     * @param canvas The canvas on which to draw everything.
+     * @param translation The overall view transform to be used in calculating relative positions.
+     * @param player The player to use as a reference point for where the player is on the field for centering purposes.
+     * @param viruses A temporary aberration that will eventually be included in the active object.
+     */
     Render.prototype.render = function(active, board, canvas, translation, player, viruses) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);

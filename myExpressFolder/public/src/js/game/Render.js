@@ -259,15 +259,15 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
      */
     Render.prototype.renderPieces = function(board, player){
         for(var dbt of board.databaseTiles){
-            if(CoordUtils.proximate(dbt.xPos, dbt.yPos, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 18, 10)){
+            if(CoordUtils.proximate(dbt.xPos, dbt.yPos, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 7, 6)){
                 if (dbt.numRecords > 0){
-                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), dbt.xPos * 150, dbt.yPos * 150);
+                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), dbt.xPos * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2, dbt.yPos * 150 - player.playerPixelPosition.yCoord + window.innerHeight / 2 + this.viewTransform.t_offset_Y);
                 }
             }
         }
         var keyImage = this.imageManager.getImage(ImageManager.KEY_ICON);
-        if((Math.abs(board.key.xCoord - player.playerCellPosition.xCoord) < 18) || (Math.abs(board.key.yCoord - player.playerCellPosition.xCoord) < 18)) {
-            this.ctx.drawImage(keyImage, board.key.xCoord * 150, board.key.yCoord * 150);
+        if(CoordUtils.proximate(board.key.xCoord, board.key.yCoord, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord, 7, 6)) {
+            this.ctx.drawImage(keyImage, board.key.xCoord * 150 - player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth / 2, board.key.yCoord * 150 - player.playerPixelPosition.yCoord + window.innerHeight / 2 + this.viewTransform.t_offset_Y);
         }
     };
 
@@ -392,8 +392,8 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
             // console.log("<<RENDER>> FAST VERSION");
             this.renderBoardFast(player);
         }
-        this.renderPieces(board, player);
         this.renderMiniMap(board, player, active.activeAncestors, viruses[0]);
+        this.renderPieces(board, player);
         this.renderPlayer(player);
         //this.renderDrops(active.drops());
         this.renderAncestors(active.ancestors(), player);

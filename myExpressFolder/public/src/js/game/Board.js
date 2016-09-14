@@ -12,6 +12,7 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
         this.tileCoordList = [];
         this.bridgeTiles = {};
         this.databaseLocations = {};
+        this.dbCoords = [];
         this.locked = {};
         this.open = {};
         this.key = {xCoord: 0, yCoord: 0};
@@ -120,8 +121,8 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 // console.log("<<BOARD>> <<TILE REPORT>>", crow + "/" + rows, ccol + "/" + cols/*, "(" + this.tileArray[ccol].length + ")"*/);
                 var ctile = this.tileArray[crow][ccol];
                 if(ctile != null){
-                    ctile.xPos = crow;
-                    ctile.yPos = ccol;
+                    ctile.xPos = ccol;
+                    ctile.yPos = crow;
                     if(ctile.clumpID == 0){
                         if(!this.bridgeTiles[crow]){
                             this.bridgeTiles[crow] = {};

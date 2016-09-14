@@ -166,14 +166,17 @@ define(['util/Sig'],function(Sig) {
     Player.prototype.checkTileAction = function(board, update) {
         var tile = board.tileArray[this.playerCellPosition.yCoord][this.playerCellPosition.xCoord];
         if (tile.database){
-            this.numRecords += tile.numRecords;
-            tile.numRecords = 0;
-            for (var i = 0; i < tile.ancestorNames.length; i++){
-                // console.log("pushing", tile.ancestorNames[i]);
-                this.namedRecords.push(tile.ancestorNames[i]);
+            if(tile.numRecords) {
+                this.numRecords += tile.numRecords;
+                tile.numRecords = 0;
             }
-            console.log("A");
-            // update.handle(new Sig(Sig.UPD_RNDR, Sig.SET_BOARD, {}));
+            if(tile.ancestorNames.length) {
+                for (var i = 0; i < tile.ancestorNames.length; i++) {
+                    // console.log("pushing", tile.ancestorNames[i]);
+                    this.namedRecords.push(tile.ancestorNames[i]);
+                }
+                tile.ancestorNames = []; // Get rid of old values.
+            }
         }
     };
 
@@ -243,13 +246,13 @@ define(['util/Sig'],function(Sig) {
             this.animCorrect = 5;
             var xOver = self.playerPixelPosition.xCoord % 150;
             var yOver = self.playerPixelPosition.yCoord % 150;
-            if(xOver >= 75){
+            if(xOver >= 100){
                 self.playerPixelPosition.xCoord += 150 - xOver;
             }
             else{
                 self.playerPixelPosition.xCoord -= xOver;
             }
-            if(yOver >= 75){
+            if(yOver >= 100){
                 self.playerPixelPosition.yCoord += 150 - yOver;
             }
             else{

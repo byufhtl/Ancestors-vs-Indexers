@@ -36,13 +36,13 @@ define([], function(){
                 if(!self.distanceTraveled){
                     var xOver = self.pixelPosition.xCoord % 150;
                     var yOver = self.pixelPosition.yCoord % 150;
-                    if(xOver >= 75){
+                    if(xOver >= 100){
                         self.pixelPosition.xCoord += 150 - xOver;
                     }
                     else{
                         self.pixelPosition.xCoord -= xOver;
                     }
-                    if(yOver >= 75){
+                    if(yOver >= 100){
                         self.pixelPosition.yCoord += 150 - yOver;
                     }
                     else{
@@ -57,7 +57,7 @@ define([], function(){
                 }
                 this.prevDir = this.currDir;
                 this.currDir = this.calculateDirToNext(this.path.shift());
-                console.log("<<Entity>> Now moving", this.currDir, "to", this.cellPosition);
+                // console.log("<<Entity>> Now moving", this.currDir, "to", this.cellPosition);
             }
 
             if(this.currDir){

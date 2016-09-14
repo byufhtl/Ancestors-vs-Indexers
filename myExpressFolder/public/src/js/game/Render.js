@@ -250,6 +250,20 @@ define(['img/ImageManager'],function(ImageManager) {
         this.ctx.drawImage(this.boardCanvas,  -player.playerPixelPosition.xCoord + this.viewTransform.t_offset_X + window.innerWidth/2,  -player.playerPixelPosition.yCoord + window.innerHeight/2 + this.viewTransform.t_offset_Y)
     };
 
+    Render.prototype.renderPieces = function(board, player){
+        for(var dbt of board.databaseTiles){
+            if((Math.abs(dbt.xPos - player.playerCellPosition.xCoord) < 18) || (Math.abs(dbt.xPos - player.playerCellPosition.xCoord) < 18)){
+                if (dbt.numRecords > 0){
+                    this.ctx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), dbt.xPos * 150, dbt.yPos * 150);
+                }
+            }
+        }
+        var keyImage = this.imageManager.getImage(ImageManager.KEY_ICON);
+        if((Math.abs(board.key.xCoord - player.playerCellPosition.xCoord) < 18) || (Math.abs(board.key.yCoord - player.playerCellPosition.xCoord) < 18)) {
+            this.ctx.drawImage(keyImage, board.key.xCoord * 150, board.key.yCoord * 150);
+        }
+    };
+
     Render.prototype.setBoard = function(board){
         this.boardCanvas = document.createElement('canvas');
         this.boardCanvas.height = 150 * board.metaData.rows;
@@ -265,9 +279,9 @@ define(['img/ImageManager'],function(ImageManager) {
             if (fTile.database){
                 var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
                 bCtx.drawImage(databaseImg, x * 150, y * 150);
-                if (fTile.numRecords > 0){
-                  bCtx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), x * 150, y * 150);
-                }
+                // if (fTile.numRecords > 0){
+                //   bCtx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), x * 150, y * 150);
+                // }
             }
             if (fTile.startingPosition){
                 var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
@@ -281,8 +295,6 @@ define(['img/ImageManager'],function(ImageManager) {
                 bCtx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150, y * 150);
             }
         }
-        var keyImage = this.imageManager.getImage(ImageManager.KEY_ICON);
-        bCtx.drawImage(keyImage, board.key.xCoord * 150, board.key.yCoord * 150);
     };
 
 
@@ -349,6 +361,7 @@ define(['img/ImageManager'],function(ImageManager) {
             // console.log("<<RENDER>> FAST VERSION");
             this.renderBoardFast(player);
         }
+        this.renderPieces(board, player);
         this.renderMiniMap(board, player, active.activeAncestors, viruses[0]);
         this.renderPlayer(player);
         //this.renderDrops(active.drops());

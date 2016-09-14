@@ -120,6 +120,8 @@ define(['game/Tile', 'img/ImageManager'],function(Tile, ImageManager) {
                 // console.log("<<BOARD>> <<TILE REPORT>>", crow + "/" + rows, ccol + "/" + cols/*, "(" + this.tileArray[ccol].length + ")"*/);
                 var ctile = this.tileArray[crow][ccol];
                 if(ctile != null){
+                    ctile.xPos = crow;
+                    ctile.yPos = ccol;
                     if(ctile.clumpID == 0){
                         if(!this.bridgeTiles[crow]){
                             this.bridgeTiles[crow] = {};

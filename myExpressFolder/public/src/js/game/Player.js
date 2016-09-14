@@ -23,7 +23,6 @@ define(['util/Sig'],function(Sig) {
 
         this.animTimer += timeElapsed;
         if (this.animTimer > this.timeBetweenFrames){
-            console.log("setting up the thingamajig");
             this.animTimer = 0;
             if (this.animXFrame == 0) {
 
@@ -41,7 +40,7 @@ define(['util/Sig'],function(Sig) {
               else this.animXFrame--;
             }
         }
-    }
+    };
 
     Player.prototype.checkGotKey = function(board, update){
         if (this.playerCellPosition.xCoord == board.key.xCoord && this.playerCellPosition.yCoord == board.key.yCoord){
@@ -51,7 +50,7 @@ define(['util/Sig'],function(Sig) {
                     board.locked[row][tile].locked = false;
                 }
             }
-            update.handle(new Sig(Sig.UPD_RNDR, Sig.SET_BOARD, {}));
+            // update.handle(new Sig(Sig.UPD_RNDR, Sig.SET_BOARD, {}));
         }
     };
 
@@ -170,10 +169,11 @@ define(['util/Sig'],function(Sig) {
             this.numRecords += tile.numRecords;
             tile.numRecords = 0;
             for (var i = 0; i < tile.ancestorNames.length; i++){
-                console.log("pushing", tile.ancestorNames[i]);
+                // console.log("pushing", tile.ancestorNames[i]);
                 this.namedRecords.push(tile.ancestorNames[i]);
             }
-            update.handle(new Sig(Sig.UPD_RNDR, Sig.SET_BOARD, {}));
+            console.log("A");
+            // update.handle(new Sig(Sig.UPD_RNDR, Sig.SET_BOARD, {}));
         }
     };
 
@@ -196,7 +196,7 @@ define(['util/Sig'],function(Sig) {
                 }
             }
         }
-    }
+    };
 
     Player.prototype.movePlayer = function(timeElapsed, board, ancestors, update) {
         var self = this;
@@ -211,7 +211,7 @@ define(['util/Sig'],function(Sig) {
             this.changeDirection(board);
             this.checkGotKey(board, update);
             this.checkTileAction(board, update);
-            if (this.numRecords > 0) this.checkAncestorCollision(ancestors)
+            if (this.numRecords > 0) this.checkAncestorCollision(ancestors);
             if (board.tileArray[this.playerCellPosition.yCoord][this.playerCellPosition.xCoord].clumpID == 0){
                 if (this.speed > 1000) this.speed = 1000;
                 else this.speed *= 1.15;

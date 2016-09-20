@@ -295,6 +295,27 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
+    ImageManager.prototype.loadCitySkin = function(){
+        var self = this;
+        return new Promise(function(resolve, reject){
+            var order = new Order;
+
+            order.addItem(ImageManager.CTY_HOM1, Order.IMAGE, 15);
+            order.addItem(ImageManager.CTY_CTHS, Order.IMAGE, 15);
+            order.addItem(ImageManager.CTY_WALK, Order.IMAGE, 15);
+            order.addItem(ImageManager.SPD_ROAD, Order.IMAGE, 15);
+
+            self.loader.loadResources(order).then(
+                function(success){
+                    resolve(success);
+                },
+                function(failure){
+                    reject(failure);
+                }
+            );
+        });
+    };
+
     ImageManager.prototype.loadBoardTiles = function() {
         var self = this;
         return new Promise(function(resolve, reject){
@@ -415,6 +436,13 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
                     partialResolve();
                 }
             );
+            self.loadCitySkin().then(partialResolve,
+                function(rejection){
+                    console.log("Loading the city skin tiles claims to have failed...");
+                    failed.push(Sig.FLD_IMGS);
+                    partialResolve();
+                }
+            );
         });
     };
 
@@ -455,6 +483,12 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
 
     ImageManager.VRS_FORE =     "src/img/Virus/CompVirusForward.png";       // VIRUS - FRONT FACING
     ImageManager.VRS_BACK =     "src/img/Virus/CompVirusBack.png";          // VIRUS - REAR FACING
+
+    ImageManager.CTY_HOM1 =     "src/img/GameTiles/CityTiles/Building1.png";// TYPE 1 HOME
+    ImageManager.CTY_CTHS =     "src/img/GameTiles/CityTiles/Courthouse.png";// COURTHOUSE
+    ImageManager.CTY_WALK =     "src/img/GameTiles/CityTiles/Sidewalk.png"; // SIDEWALK
+    ImageManager.SPD_ROAD =     "src/img/GameTiles/CityTiles/road_tblr.png";// ROAD OPEN
+
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA

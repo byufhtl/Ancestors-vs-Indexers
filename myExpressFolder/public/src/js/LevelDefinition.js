@@ -1,4 +1,4 @@
-define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember', 'game/Board'],function(IAncestor, Nameless, FamilyMember, Board) {
+define(['model/IAncestor','ancestors/NamelessAncestor', 'ancestors/FamilyMember', 'game/board/Board'],function(IAncestor, Nameless, FamilyMember, Board) {
 
     function LevelDefinition(){}
 

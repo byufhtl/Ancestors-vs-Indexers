@@ -62,7 +62,7 @@ define([],function(){
     // Render Commands ====================================================================================================[]>
 
     Sig.    UPD_RNDR =          "updrn";                // Update RENDERER
-    Sig.    SET_BOARD =         "setBr";                // Set Board in RENDERER
+    Sig.    SET_BOARD =         "setBr";                // Set board in RENDERER
     // TOP BARS ====================================================================================================[]>
     Sig.    LD_TPBAR =          "Ldtpbr";               // Load Top Bar                             *
     Sig.    TPBAR_LD =          "Tpbrld";               // Top Bar Loaded                           *

@@ -11,7 +11,12 @@ define([],function() {
         this.startingPosition = false;
         this.ancestorStartingPosition = false;
         this.hasVirus = false;
+        this.type=null;
     }
+
+    Tile.BRIDGE = 0;
+    Tile.FLAT = 1;
+    Tile.OFFROAD = 2;
 
     return Tile;
 });

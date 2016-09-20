@@ -9,7 +9,7 @@ define([],function(){
      * Attempts to find a shortest path from a starting point to an ending point using an A* algorithm. The algorithm
      * works by analyzing the cost to arrive at a node and the cost to get from the beginning point and the ending point
      * by taking that node. Search algorithm is BFS.
-     * @param board The Board Object being used.
+     * @param board The board Object being used.
      * @param startCoords The starting coordinates {x:x, y:y}
      * @param endCoords The ending coordinates {x:x, y:y}
      * @returns {Array} The coordinates to move to to follow the path. Sorted first step to last.
@@ -177,6 +177,9 @@ define([],function(){
         while(curr){
             trace.unshift({x:curr.x, y:curr.y});
             curr = curr.previous();
+        }
+        if(trace.length){
+            trace.shift();
         }
         return trace;
     };

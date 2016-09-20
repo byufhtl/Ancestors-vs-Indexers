@@ -13,7 +13,7 @@ define(["paths/_A_star_finder","paths/_Radial_finder"],function(AStarPath, Radiu
     /**
      * Creates a path from start to finish and returns it.
      * Primarily used to abstract and blackbox pathfinding algorithms.
-     * @param board The Board Object to be used in generating a path.
+     * @param board The board Object to be used in generating a path.
      * @param startingCoords The starting coordinates in the format {x:x, y:y}.
      * @param endingCoords The ending coordinates in the format {x:x, y:y}.
      * @return {*} Coordinate array in the format [{x:x, y:y},...].
@@ -26,7 +26,7 @@ define(["paths/_A_star_finder","paths/_Radial_finder"],function(AStarPath, Radiu
     /**
      * Creates a path from start towards the finish and returns it.
      * Primarily used to abstract and blackbox pathfinding algorithms.
-     * @param board The Board Object to be used in generating a path.
+     * @param board The board Object to be used in generating a path.
      * @param startingCoords The starting coordinates in the format {x:x, y:y}.
      * @param endingCoords The ending coordinates in the format {x:x, y:y}.
      * @param length The length of the path going towards the destination. DEFAULT = 5.

@@ -32,9 +32,7 @@ define([],function(){
         if(!RadialFinder.isValidBoardSpace(board, startingCoords.x, startingCoords.y)){
             return []; // Maybe not the best return, since it happens only if you're off the map... Error check that before now too, just in case...
         }
-        console.log("<<RAD_FINDER>> Pathfinding @Start:", startingCoords, " | @Finish:", endingCoords);
         var destination = RadialFinder.radialTrace(board, radius, visited, new RadialNode(startingCoords.x, startingCoords.y), new RadialNode(endingCoords.x, endingCoords.y));
-        console.log("<<RAD_FINDER>> Proposed Destination:", destination);
         return RadialFinder.constructTrace(destination);
     }
 
@@ -48,6 +46,9 @@ define([],function(){
         while(destNode){
             trace.unshift({x:destNode.x, y:destNode.y});
             destNode = destNode.last;
+        }
+        if(trace.length){
+            trace.shift();
         }
         return trace;
     };
@@ -146,7 +147,7 @@ define([],function(){
 
     /**
      * Checks the validity of the board.
-     * @param board the Board object being referenced.
+     * @param board the board object being referenced.
      * @param qx The x value being queried.
      * @param qy The y value being queried.
      * @returns {boolean} Whether or not there is a valid tile at that position.

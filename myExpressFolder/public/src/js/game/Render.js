@@ -211,7 +211,7 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
     /**
      * The slower way of rendering the board if a pre-rendered board has not been created. Not too great for speed, but
      * trusty in a jam. Speed enhanced by inclusion of only items that are close to the player.
-     * @param board The Board object being referenced for drawing.
+     * @param board The board object being referenced for drawing.
      * @param player The player to center the image relative to.
      */
     Render.prototype.renderBoard = function(board, player){
@@ -291,25 +291,34 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
             var x = board.tileCoordList[z].col;
             // console.log("<<RENDERER>> Rendering tile @ (" + y + "," + x + ").");
             var fTile = board.tileArray[y][x];
-            var img = this.imageManager.getImage(fTile.image);
+            // var img = this.imageManager.getImage(fTile.image);
+            var img = this.imageManager.getImage(ImageManager.CTY_WALK);
             bCtx.drawImage(img, x * 150, y * 150);
+            if (fTile.clumpID == 0){
+                bCtx.drawImage(this.imageManager.getImage(ImageManager.SPD_ROAD), x * 150, y * 150);
+                // bCtx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150, y * 150);
+            }
             if (fTile.database){
-                var databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                var databaseImg;
+                if(0) {
+                    databaseImg = this.imageManager.getImage(ImageManager.DTB_TILE);
+                }
+                else{
+                    databaseImg = this.imageManager.getImage(ImageManager.CTY_CTHS);
+                }
                 bCtx.drawImage(databaseImg, x * 150, y * 150);
                 // if (fTile.numRecords > 0){
                 //   bCtx.drawImage(this.imageManager.getImage(ImageManager.REC_GOLD), x * 150, y * 150);
                 // }
             }
             if (fTile.startingPosition){
-                var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
+                var startingPointImg = this.imageManager.getImage(ImageManager.CTY_HOM1);
+                // var startingPointImg = this.imageManager.getImage(ImageManager.STRT_POS);
                 bCtx.drawImage(startingPointImg, x * 150, y * 150);
             }
             if (fTile.locked){
                 var lockImg = this.imageManager.getImage(ImageManager.LCK_TILE);
                 bCtx.drawImage(lockImg, x * 150, y * 150);
-            }
-            if (fTile.clumpID == 0){
-                bCtx.drawImage(this.imageManager.getImage(ImageManager.SPD_TILE), x * 150, y * 150);
             }
         }
     };

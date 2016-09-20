@@ -1,5 +1,5 @@
 define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncestor', 'game/ViewTransform', 'util/Sig',
-        'game/GameEventManager', 'game/GameButtons', 'game/Board', 'game/Player', 'virus/Virus'],
+        'game/GameEventManager', 'game/GameButtons', 'game/board/Board', 'game/Player', 'virus/Virus'],
   function($,LevelDefinition, Update, Render, IAncestor, ViewTransform, Sig, GameEventManager, GameButtons, Board, Player, Virus) {
 
       function GameController(lieutenant) {
@@ -92,9 +92,6 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           this.board = LevelDefinition.generateBoard(this.currentAct, this.currentScene);
           console.log("DONE GENERATING BOARD");
           this.myRender.setBoard(this.board);
-          var pt = this.board.__clumpToTile[1][0];
-          console.log("<<GC>>", pt);
-          this.virus = new Virus(pt.row, pt.col);
           //setting up player
           this.player = new Player();
           this.player.playerCellPosition = {xCoord: this.board.playerStartingPosition.xCoord, yCoord: this.board.playerStartingPosition.yCoord};
@@ -104,6 +101,10 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
           LevelDefinition.setRealAncestors(this.active.activeAncestors, this.eightGenerations, this.board, this.currentAct, this.currentScene);
 
           console.log("we've added: " + this.active.activeAncestors.length + " ancestors");
+          var pt = this.board.__clumpToTile[1][0];
+          this.virus = new Virus(pt.row, pt.col);
+          this.virus.setTarget(this.player);
+
           this.lastTime = Date.now();
 
           this.loop();

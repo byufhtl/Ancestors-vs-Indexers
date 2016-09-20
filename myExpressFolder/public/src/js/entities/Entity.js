@@ -50,13 +50,17 @@ define([], function(){
                     }
                 }
                 // if(!this.path.length){
-                while(!this.path.length){
+                if(!this.path.length){
                     console.log("<<Entity>> Seeking path...");
                     this.path = this.newPath(board);
                     console.log("<<Entity>> New path:", this.path);
                 }
+                if(this.path.length == 0){
+                    this.path = this.makeEmergencyPath(board);
+                }
                 this.prevDir = this.currDir;
                 this.currDir = this.calculateDirToNext(this.path.shift());
+                // if(this.currDir == undefined || !this.currDir){this.currDir = this.prevDir;} // Don't use this, but it's an interesting concept.
                 // console.log("<<Entity>> Now moving", this.currDir, "to", this.cellPosition);
             }
 
@@ -124,6 +128,7 @@ define([], function(){
          * @returns {*} The string representation of the direction, a member of Entity.
          */
         calculateDirToNext: function(next){
+            console.log("Calculating... Next:", next, "Cell Position", this.cellPosition);
             if(next.y < this.cellPosition.yCoord){
                 this.cellPosition.yCoord--;
                 return Entity.UP;
@@ -139,6 +144,23 @@ define([], function(){
             else if(next.x > this.cellPosition.xCoord){
                 this.cellPosition.xCoord++;
                 return Entity.RIGHT;
+            }
+            console.log("Can't calculate... Next:", next, "Cell Position", this.cellPosition);
+        },
+        makeEmergencyPath: function(board){
+            var x = this.cellPosition.xCoord;
+            var y = this.cellPosition.yCoord;
+            if(y > 0 && y < board.metaData.rows && board.tileArray[y-1][x]!= null){
+                return[{x:x, y:y-1}];
+            }
+            if(y >= 0 && y + 1 < board.metaData.rows && board.tileArray[y+1][x]!= null){
+                return[{x:x, y:y+1}];
+            }
+            if(x > 0 && x < board.metaData.cols && board.tileArray[y][x-1]!= null){
+                return[{x:x-1, y:y}];
+            }
+            if(x >= 0 && x + 1 < board.metaData.cols && board.tileArray[y][x+1]!= null){
+                return[{x:x+1, y:y}];
             }
         }
     };

@@ -1,5 +1,5 @@
 define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
-    'view/ViewController', 'Commander', 'util/Order', 'game/Board'],
+    'view/ViewController', 'Commander', 'util/Order', 'game/board/Board'],
     function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander, Order, Board) {
 
     var Splash = function(FS)
@@ -14,7 +14,7 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
     Splash.prototype.init = function()
     {
       /*
-        var testBoard = new Board();
+        var testBoard = new board();
         testBoard.generate({numDBs: 3, numExtraClumps: 5, numLocked: 0, clumpiness: 12});
         console.log("<<BOARD>> Print Test:");
         testBoard.printTest();

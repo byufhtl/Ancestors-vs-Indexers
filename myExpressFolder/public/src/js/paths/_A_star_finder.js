@@ -29,8 +29,8 @@ define([],function(){
             this.matchesCoords = function(mx,my){return((this.x == mx) && (this.y == my));};
             this.matchesNode = function(node){return((this.x == node.x) && (this.y == node.y));};
         }
-
-        console.log("<<A* Algor>> Head/Tail", startCoords, endCoords);
+        //
+        // console.log("<<A* Algor>> Head/Tail", startCoords, endCoords);
         var start = new PathNode(startCoords.x, startCoords.y, null, 0);
         var end = new PathNode(endCoords.x, endCoords.y, null, 0);
         var closedSet = [];
@@ -43,7 +43,6 @@ define([],function(){
             var current = openSet.shift();
             if(current.matchesNode(end)){
                 var tentative_path = _A_star_finder.traceBack(current);
-                console.log("<<A* Algor>> TPath", tentative_path);
                 return tentative_path;
             }
 

@@ -62,7 +62,7 @@ define(["../entities/Entity", "../paths/Pathfinder", "../util/CoordUtils"],funct
             }
         }
         // DEFAULT Distance Logic
-        console.log("He shall come to us...");
+        // console.log("He shall come to us...");
         this.speed = 150;
         var virusClumpID = board.tileArray[this.cellPosition.yCoord][this.cellPosition.xCoord].clumpID;
         // console.log("Clump id:", virusClumpID);

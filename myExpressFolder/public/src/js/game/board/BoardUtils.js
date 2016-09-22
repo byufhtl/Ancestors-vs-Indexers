@@ -4,7 +4,38 @@
 
 define(["game/Tile"], function(Tile){
 
+    function RCPair(row, col){
+        this.row = row;
+        this.col = col;
+        this.y = row;
+        this.x = col;
+        this.yCoord = row;
+        this.xCoord = col;
+    }
+
     function BoardUtils(){}
+
+    // Board creation
+
+    BoardUtils.makeBoard = function(w, h, fillAll){
+        var arr = [];for (var i = 0; i < (h); i++){
+            var temp = [];
+            for (var j = 0; j < (w); j++){
+                if(fillAll){
+                    temp.push(new Tile());
+                }
+                else {
+                    temp.push(null);
+                }
+            }
+            arr.push(temp);
+        }
+        return arr;
+    };
+
+    BoardUtils.genPair = function(x,y){
+        return new RCPair(y,x);
+    };
 
     // Board Merging
 
@@ -328,7 +359,6 @@ define(["game/Tile"], function(Tile){
     /**
      * Prints a 2-d array.
      * @param array the array to print
-     * @private
      */
     BoardUtils.printArray = function(array){
         // console.log("<<BOARD>> Printing:", array);
@@ -361,13 +391,29 @@ define(["game/Tile"], function(Tile){
                     output.push(' ');
                 }
                 else{
-                    if(array[i][j].clumpID == 0){
-                        if(array[i][j].hasOwnProperty('type')) {
-                            output.push(array[i][j].type);
-                        }
-                        else{
-                            output.push('B');
-                        }
+                    if(array[i][j].hasTypeOR(Tile.SOURCE)) {
+                        output.push('S');
+                    }
+                    else if(array[i][j].hasTypeOR(Tile.FAST)){
+                        output.push('F');
+                    }
+                    else if(array[i][j].hasTypeOR(Tile.NORMAL)) {
+                        output.push('N');
+                    }
+                    else if(array[i][j].hasTypeOR(Tile.SLOW)) {
+                        output.push('C');
+                    }
+                    else if(array[i][j].hasTypeOR(Tile.ENDPOINT)) {
+                        output.push('D');
+                    }
+                    else if(array[i][j].hasTypeOR(Tile.PORTAL)) {
+                        output.push('P');
+                    }
+                    else if(array[i][j].hasTypeOR(Tile.ENVIRONMENT)) {
+                        output.push('L');
+                    }
+                    else if(array[i][j].clumpID == 0){
+                        output.push('B');
                     }
                     else if(array[i][j].hasOwnProperty('head')){
                         output.push('H');
@@ -393,7 +439,32 @@ define(["game/Tile"], function(Tile){
         // console.log("<<BOARD>> output:", 10);
         output.push('|');
         // console.log("<<BOARD>> output:", output);
-        //console.log(output.join(""));
+        console.log(output.join(""));
+    };
+
+    BoardUtils.isOnBoard = function(row, col, arr){
+        return(!(
+            col < 0 || row < 0 ||
+            row >= arr.length || col >= arr[col].length ||
+            arr[row][col] == null
+        ))
+    };
+
+    BoardUtils.getNeighbors = function(row, col, arr){
+        var results = [];
+        if(BoardUtils.isOnBoard(row - 1, col, arr)){
+            results.push(new RCPair(row-1, col));
+        }
+        if(BoardUtils.isOnBoard(row + 1, col, arr)){
+            results.push(new RCPair(row+1, col));
+        }
+        if(BoardUtils.isOnBoard(row, col - 1, arr)){
+            results.push(new RCPair(row, col-1));
+        }
+        if(BoardUtils.isOnBoard(row, col + 1, arr)){
+            results.push(new RCPair(row, col+1));
+        }
+        return results;
     };
 
 

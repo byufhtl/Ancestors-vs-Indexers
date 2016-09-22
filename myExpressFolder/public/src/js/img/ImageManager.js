@@ -284,6 +284,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         return new Promise(function(resolve, reject){
             var order  = new Order;
             order.addItem(ImageManager.MAIN_CHR, Order.IMAGE, 15);
+            order.addItem(ImageManager.MAIN_GRL, Order.IMAGE, 15);
             self.loader.loadResources(order).then(
                 function(success){
                     resolve(success);
@@ -304,6 +305,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             order.addItem(ImageManager.CTY_CTHS, Order.IMAGE, 15);
             order.addItem(ImageManager.CTY_WALK, Order.IMAGE, 15);
             order.addItem(ImageManager.SPD_ROAD, Order.IMAGE, 15);
+            order.addItem(ImageManager.BKGD_CTY, Order.IMAGE, 15);
 
             self.loader.loadResources(order).then(
                 function(success){
@@ -446,7 +448,8 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         });
     };
 
-    ImageManager.MAIN_CHR =     "src/img/guy_480.png";                      // Main Character
+    ImageManager.MAIN_CHR =     "src/img/guy_480.png";                      // Main Male Character
+    ImageManager.MAIN_GRL =     "src/img/Girl.png";                         // Main Female Character
 
     ImageManager.BLU_BL   =     "src/img/GameTiles/bl.png";                 // BOTTOM LEFT TILE
     ImageManager.BLU_BLR  =     "src/img/GameTiles/blr.png";                // BOTTOM LEFT RIGHT TILE
@@ -471,8 +474,6 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.SPD_TILE =     "src/img/GameTiles/HighSpeed.png";          // HIGH-SPEED TILE
     ImageManager.LCK_TILE =     "src/img/GameTiles/locked.png";             // LOCK TILE
 
-
-
     ImageManager.RLF_COIN =     "src/img/GameTiles/rfCoin.png";             // RELATIVEFINDER COIN
     ImageManager.VIP_COIN =     "src/img/GameTiles/vpCoin.png";             // VIRTUAL PEDIGREE COIN
     ImageManager.OPG_COIN =     "src/img/GameTiles/opgCoin.png";            // ONE PAGE GENEALOGY COIN
@@ -488,7 +489,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
     ImageManager.CTY_CTHS =     "src/img/GameTiles/CityTiles/Courthouse.png";// COURTHOUSE
     ImageManager.CTY_WALK =     "src/img/GameTiles/CityTiles/Sidewalk.png"; // SIDEWALK
     ImageManager.SPD_ROAD =     "src/img/GameTiles/CityTiles/road_tblr.png";// ROAD OPEN
-
+    ImageManager.BKGD_CTY =     "src/img/field/grass.png";                  // GRASS BACKGROUND
 
     ImageManager.TRI_ALPH =     "src/img/field/triangleAlpha.png";          // TRIANGLE ALPHA
     ImageManager.TRI_BETA =     "src/img/field/triangleBeta.png";           // TRIANGLE BETA

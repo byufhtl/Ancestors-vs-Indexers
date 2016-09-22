@@ -8,6 +8,10 @@ define(["game/Tile"],function(GameTile){
 
     }
 
+    CyclicBoard.prototype.generate = function(leveldata){
+
+    };
+
     CyclicBoard.prototype.GenerateClumps = function(leveldata){
 
     };

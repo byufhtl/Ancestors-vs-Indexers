@@ -379,7 +379,7 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
      * @param player The player whose animation is being tracked.
      */
     Render.prototype.renderPlayer = function(player){
-        var playerImage = this.imageManager.getImage(ImageManager.MAIN_CHR);
+        var playerImage = this.imageManager.getImage(ImageManager.MAIN_GRL);
         //this.ctx.drawImage(playerImage,window.innerWidth/2, window.innerHeight/2);
         this.ctx.drawImage(playerImage, player.animXFrame * 120, player.animYFrame * 120, 120, 120, window.innerWidth/2, window.innerHeight/2, 120, 120);
         //this.ctx.drawImage(ancImg, activeAncestors[i].animFrame * 50,0,50,50,activeAncestors[i].xCoord + this.viewTransform.t_offset_X + this.ancestorXBuffer,activeAncestors[i].yCoord + this.viewTransform.t_offset_Y + this.ancestorYBuffer,50,50);
@@ -396,7 +396,8 @@ define(['img/ImageManager','util/CoordUtils'],function(ImageManager,CoordUtils) 
      */
     Render.prototype.render = function(active, board, canvas, translation, player, viruses) {
         //console.log("Render Offsets:", this.xOffset, this.viewTransform.t_offset_Y, translation, translation.dx, translation.dy);
-        this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // this.ctx.fillRect(0, 0, canvas.width, canvas.height);
+        this.ctx.drawImage(this.imageManager.getImage(ImageManager.BKGD_CTY), 0, 0, canvas.width, canvas.height);
         //this.renderBackground();
         if(!this.boardCanvas) {
             this.renderBoard(board, player);

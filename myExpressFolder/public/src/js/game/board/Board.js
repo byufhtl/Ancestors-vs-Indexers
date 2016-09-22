@@ -1,4 +1,4 @@
-define(['game/Tile', 'img/ImageManager', "game/board/BoardUtils"],function(Tile, ImageManager, BoardUtils) {
+define(['game/Tile', 'img/ImageManager', "game/board/BoardUtils", "game/board/City"],function(Tile, ImageManager, BoardUtils,City) {
 
     /**
      * A class for creating a two-dimensional board of tiles for play in the game. The board's functionality is all
@@ -73,6 +73,15 @@ define(['game/Tile', 'img/ImageManager', "game/board/BoardUtils"],function(Tile,
         this.addPlayer(this.tileArray, this.playerStartingPosition, levelData.numDBs + levelData.numExtraClumps);
         this.addPlayer(this.tileArray, this.key, levelData.numDBs + levelData.numExtraClumps);
         this.addAncestors(levelData.numDBs + levelData.numExtraClumps, levelData.numAncestors);
+
+
+
+        // TEMP
+
+        var city = new City();
+        city.generate(levelData);
+
+        /// END TEMP
         console.log("databaseLocations", this.databaseLocations);
     };
 
@@ -91,8 +100,10 @@ define(['game/Tile', 'img/ImageManager', "game/board/BoardUtils"],function(Tile,
     /**
      * Prints the board to the console, along with metadata and statistics about the board.
      */
-    Board.prototype.printTest = function(){
-        BoardUtils.printArray(this.tileArray);
+    Board.prototype.printTest = function(showBoard){
+        if(showBoard) {
+            BoardUtils.printArray(this.tileArray);
+        }
         console.log("<<BOARD>> Metadata:", this.metaData);
         console.log("<<BOARD>> Bridge Tiles:", this.bridgeTiles);
         console.log("<<BOARD>> Database Tiles:", this.databaseLocations);
@@ -254,7 +265,7 @@ define(['game/Tile', 'img/ImageManager', "game/board/BoardUtils"],function(Tile,
         var self = this;
         var cycle = [];
         //size of cycle between 2 and 5
-        var size = Math.floor(Math.random() * (12-3) + 2);
+        var size = Math.floor(Math.random() * (13) + 2);
         // console.log("size is: ", size);
         //console.log("size is: ", size);
         for (var i = 0; i < (size*2+1); i++){

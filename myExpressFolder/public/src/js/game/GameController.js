@@ -102,8 +102,15 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
 
           console.log("we've added: " + this.active.activeAncestors.length + " ancestors");
           var pt = this.board.__clumpToTile[1][0];
-          this.virus = new Virus(pt.row, pt.col);
-          this.virus.setTarget(this.player);
+          var pt2 = this.board.__clumpToTile[2][0];
+          // var pt3 = this.board.__clumpToTile[3][0];
+          this.viruses = [];
+          this.viruses.push(new Virus(pt.row, pt.col));
+          this.viruses.push(new Virus(pt2.row, pt2.col));
+          // this.viruses.push(new Virus(pt3.row, pt3.col));
+          for(var virus of this.viruses){
+              virus.setTarget(this.player);
+          }
 
           this.lastTime = Date.now();
 
@@ -121,11 +128,13 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
               this.lastTime = now;
 
-              this.virus.move(delta_s, this.board);
+              for(var virus of this.viruses) {
+                  virus.move(delta_s, this.board);
+              }
               // this.virus.poll();
 
               this.myUpdate.update(this.active, delta_s, this.defeatedAncestorInfo, this.player, this.board);
-              this.myRender.render(this.active, this.board, this.canvas, this.translation, this.player, [this.virus]);
+              this.myRender.render(this.active, this.board, this.canvas, this.translation, this.player, this.viruses);
               this.updateCoordinates(0, 0);
           }
           if (this.active.gameEnded() == false) // game end condition.

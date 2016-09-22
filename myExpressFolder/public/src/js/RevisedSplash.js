@@ -1,6 +1,6 @@
 define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
-    'view/ViewController', 'Commander', 'util/Order', 'game/board/Board'],
-    function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander, Order, Board) {
+    'view/ViewController', 'Commander', 'util/Order', 'game/board/City'],
+    function($, FamilySearchHandler, ImageManager, Sig, ViewController, Commander, Order, City) {
 
     var Splash = function(FS)
     {
@@ -46,6 +46,7 @@ define(['jquery','FamilySearchHandler','img/ImageManager', 'util/Sig',
                     self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.SP_INTFC, tempObj));
                     self.__tempCheckUser();
                 }
+
             });
         });
     };

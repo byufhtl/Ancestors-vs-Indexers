@@ -51,9 +51,9 @@ define([], function(){
                 }
                 // if(!this.path.length){
                 if(!this.path.length){
-                    console.log("<<Entity>> Seeking path...");
+                    // console.log("<<Entity>> Seeking path...");
                     this.path = this.newPath(board);
-                    console.log("<<Entity>> New path:", this.path);
+                    // console.log("<<Entity>> New path:", this.path);
                 }
                 if(this.path.length == 0){
                     this.path = this.makeEmergencyPath(board);
@@ -128,7 +128,6 @@ define([], function(){
          * @returns {*} The string representation of the direction, a member of Entity.
          */
         calculateDirToNext: function(next){
-            console.log("Calculating... Next:", next, "Cell Position", this.cellPosition);
             if(next.y < this.cellPosition.yCoord){
                 this.cellPosition.yCoord--;
                 return Entity.UP;

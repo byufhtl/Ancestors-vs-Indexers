@@ -55,7 +55,8 @@ define(['util/Sig','view/HTMLManager', 'view/ButtonManager', 'view/CanvasManager
             case Sig.ST_CLICK:  self.doIfEnabled(event, self.controller);                               break;
             case Sig.CNVS_CLK:  self.doIfEnabled(event, self.controller);                               break;
             case Sig.CNVS_DRG:  self.doIfEnabled(event, self.controller);                               break;
-            case Sig.KEY_ACTN:  self.doIfEnabled(event, self.controller);
+            case Sig.KEY_ACTN:  self.doIfEnabled(event, self.controller);                               break;
+
             // OTHER
             case Sig.GET_LODR:
                 if(event.value == Sig.HTM_LODR){

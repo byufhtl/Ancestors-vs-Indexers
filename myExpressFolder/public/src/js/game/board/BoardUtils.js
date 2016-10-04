@@ -37,6 +37,7 @@ define(["game/Tile"], function(Tile){
         return new RCPair(y,x);
     };
 
+
     // Board Merging
 
     /**
@@ -143,7 +144,6 @@ define(["game/Tile"], function(Tile){
      * merged together into a single array.
      * @param arrays an array full of 2-d arrays. If there are no 2d arrays, returns null.
      * @param space a factor of how far arrays are to be placed from each other. negative numbers introduce intrusion.
-     * @private Nobody better be using this but this class.
      */
     BoardUtils.merge = function(arrays, space){
         if(arrays.length < 1){return;}
@@ -151,8 +151,8 @@ define(["game/Tile"], function(Tile){
         var glob = arrays.shift();
         var centerDim = null;
         while(arrays.length){
-            var center_x = Math.floor(glob.array[0].length/2);
             var center_y = Math.floor(glob.array.length/2);
+            var center_x = Math.floor(glob.array[center_y].length/2);
             centerDim = {x : center_x, y: center_y, w: center_x * 2, h: center_y * 2, tw: center_x * 2, th: center_y * 2};
             var ordering = BoardUtils.getRandomPeripheralOrders();
             while(ordering.length && arrays.length) { // prepares the next 8 arrays to merge to the base.
@@ -161,9 +161,9 @@ define(["game/Tile"], function(Tile){
                 var pOrder = ordering.shift();
                 // console.log("<<BOARD>> Merging", next.array, "with", glob.array, "in sector", pOrder);
                 var startCoords = BoardUtils.placeCopyPoint(pOrder, centerDim.w, centerDim.h, nextDim.w, nextDim.h, space);
-                console.log("<<BOARDUTILS>> Central Metadata:", centerDim, "starting:", center_y, center_x);
-                console.log("<<BOARDUTILS>> Staring Coordinates from Center:", startCoords, "(" + space + " for spacing)");
-                console.log("<<BOARDUTILS>> Dimensions:", nextDim);
+                // console.log("<<BOARDUTILS>> Central Metadata:", centerDim, "starting:", center_y, center_x);
+                // console.log("<<BOARDUTILS>> Staring Coordinates from Center:", startCoords, "(" + space + " for spacing)");
+                // console.log("<<BOARDUTILS>> Dimensions:", nextDim);
                 var i, j;
                 var newRow;
                 /*
@@ -391,25 +391,25 @@ define(["game/Tile"], function(Tile){
                     output.push(' ');
                 }
                 else{
-                    if(array[i][j].hasTypeOR(Tile.SOURCE)) {
+                    if(array[i][j].hasType(Tile.SOURCE)) {
                         output.push('S');
                     }
-                    else if(array[i][j].hasTypeOR(Tile.FAST)){
+                    else if(array[i][j].hasType(Tile.FAST)){
                         output.push('F');
                     }
-                    else if(array[i][j].hasTypeOR(Tile.NORMAL)) {
+                    else if(array[i][j].hasType(Tile.NORMAL)) {
                         output.push('N');
                     }
-                    else if(array[i][j].hasTypeOR(Tile.SLOW)) {
+                    else if(array[i][j].hasType(Tile.SLOW)) {
                         output.push('C');
                     }
-                    else if(array[i][j].hasTypeOR(Tile.ENDPOINT)) {
+                    else if(array[i][j].hasType(Tile.ENDPOINT)) {
                         output.push('D');
                     }
-                    else if(array[i][j].hasTypeOR(Tile.PORTAL)) {
+                    else if(array[i][j].hasType(Tile.PORTAL)) {
                         output.push('P');
                     }
-                    else if(array[i][j].hasTypeOR(Tile.ENVIRONMENT)) {
+                    else if(array[i][j].hasType(Tile.ENVIRONMENT)) {
                         output.push('L');
                     }
                     else if(array[i][j].clumpID == 0){

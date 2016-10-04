@@ -53,11 +53,10 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
                     }
                 }
                 if(buffer == null){
-                    self.viewTransform.addX(diff.X);
-                    self.viewTransform.addY(diff.Y);
+                    self.viewController.handle(new Sig(Sig.CNVS_DRG, "", {x:diff.X, y:diff.Y})); // In case there are special drag effects
+                    // self.viewTransform.addX(diff.X);
+                    // self.viewTransform.addY(diff.Y);
                 }
-
-                self.viewController.handle(new Sig(Sig.CNVS_DRG, "", {})); // In case there are special drag effects
             }
         });
         canvas.mouseup(function(event){

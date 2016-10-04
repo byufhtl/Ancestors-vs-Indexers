@@ -43,7 +43,7 @@ define([],function() {
         return this;
     };
 
-    Tile.prototype.hasTypeOR = function(...types){
+    Tile.prototype.hasType = function(...types){
         for(var type of types){
             if((this.type & type) || this.type == type){ // Second condition allows comparison to Tile.NONE
                 return true;
@@ -52,7 +52,7 @@ define([],function() {
         return false;
     };
 
-    Tile.prototype.hasTypeAND = function(...types){
+    Tile.prototype.hasAllTypes = function(...types){
         for(var type of types){
             if(!(this.type & type) && this.type != type){ // Second condition allows comparison to Tile.NONE
                 return false

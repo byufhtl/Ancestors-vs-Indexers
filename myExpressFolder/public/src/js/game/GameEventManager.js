@@ -35,24 +35,70 @@ function(Sig, Point, LevelDefinition, IIndexer, Indexer_Animated, Hobbyist, Uber
 
     GameEventManager.prototype.handleKeyBoardPress = function(data){
         var self = this;
-
-        switch(data.value){
-            case Sig.KY_PRS_U:
-
-                self.controller.player.nextDirection = Player.UP;
-                break;
-            case Sig.KY_PRS_D:
-                self.controller.player.nextDirection = Player.DOWN;
-                break;
-            case Sig.KY_PRS_L:
-                self.controller.player.nextDirection = Player.LEFT;
-                break;
-            case Sig.KY_PRS_R:
-                self.controller.player.nextDirection = Player.RIGHT;
-                break;
-
+        var player = self.controller.player;
+        var board = self.controller.board;
+        if (player.directionSelected == false){
+            console.log("setting current direction");
+            switch(data.value){
+                case Sig.KY_PRS_U:
+                    if (player.changeDirection(board, Player.UP, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord)){
+                        player.currentDirection = Player.UP;
+                        player.directionSelected = true;
+                    }
+                    break;
+                case Sig.KY_PRS_D:
+                    if (player.changeDirection(board, Player.DOWN, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord)){
+                        player.currentDirection = Player.DOWN;
+                        player.directionSelected = true;
+                    }
+                    break;
+                case Sig.KY_PRS_L:
+                    if (player.changeDirection(board, Player.LEFT, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord)){
+                        player.currentDirection = Player.LEFT;
+                        player.directionSelected = true;
+                    }
+                    break;
+                case Sig.KY_PRS_R:
+                    if (player.changeDirection(board, Player.RIGHT, player.playerCellPosition.xCoord, player.playerCellPosition.yCoord)){
+                        player.currentDirection = Player.RIGHT;
+                        player.directionSelected = true;
+                    }
+                    break;
+            }
+        }
+        else{
+          var x = player.playerCellPosition.xCoord;
+          var y = player.playerCellPosition.yCoord;
+          if (player.currentDirection == Player.UP) y--;
+          else if (player.currentDirection == Player.DOWN) y++;
+          else if (player.currentDirection == Player.RIGHT) x++;
+          else if (player.currentDirection == Player.LEFT) x--;
+          switch(data.value){
+              case Sig.KY_PRS_U:
+                  if (player.changeDirection(board, Player.UP, x, y)){
+                      player.directionInQueue = Player.UP;
+                      console.log("setting queue to up");
+                  }
+                  break;
+              case Sig.KY_PRS_D:
+                  if (player.changeDirection(board, Player.DOWN, x, y)){
+                      player.directionInQueue = Player.DOWN;
+                  }
+                  break;
+              case Sig.KY_PRS_L:
+                  if (player.changeDirection(board, Player.LEFT, x, y)){
+                      player.directionInQueue = Player.LEFT;
+                  }
+                  break;
+              case Sig.KY_PRS_R:
+                  if (player.changeDirection(board, Player.RIGHT, x, y)){
+                      player.directionInQueue = Player.RIGHT;
+                  }
+                  break;
+          }
         }
     }
+
     GameEventManager.prototype.showAncestorInfo = function(data)
     {
         var self = this;

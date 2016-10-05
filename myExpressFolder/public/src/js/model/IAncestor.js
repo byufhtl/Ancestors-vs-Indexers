@@ -14,6 +14,24 @@ define([],function() {
         this.timeBetweenFrames = 1;
     }
 
+    IAncestor.prototype.updateBoardPosition = function(){
+      var self = this;
+      switch (this.currentDirection) {
+          case IAncestor.RIGHT:
+              self.cellPosition.xCoord++;
+              break;
+          case IAncestor.LEFT:
+              self.cellPosition.xCoord--;
+              break;
+          case IAncestor.UP:
+              self.cellPosition.yCoord--;
+              break;
+          case IAncestor.DOWN:
+              self.cellPosition.yCoord++;
+              break;
+      }
+    }
+
     IAncestor.prototype.move = function(timeElapsed, board) {
         var self = this;
 
@@ -21,7 +39,7 @@ define([],function() {
 
         if (this.distanceTraveled >= 150) {
             this.distanceTraveled = 0;
-
+            this.updateBoardPosition();
             //choose a random direction
             var canGoRight = (self.cellPosition.xCoord + 1 < board.tileArray[self.cellPosition.yCoord].length && board.tileArray[self.cellPosition.yCoord][self.cellPosition.xCoord + 1] != null);
             var canGoLeft = (self.cellPosition.xCoord - 1 >= 0 && board.tileArray[self.cellPosition.yCoord][self.cellPosition.xCoord - 1] != null);
@@ -35,19 +53,15 @@ define([],function() {
 
                 if (this.currentDirection == IAncestor.RIGHT && canGoRight){
                     newPosChosen = true;
-                    this.cellPosition.xCoord++;
                 }
                 else if  (this.currentDirection == IAncestor.LEFT && canGoLeft){
                     newPosChosen = true;
-                    this.cellPosition.xCoord--;
                 }
                 else if  (this.currentDirection == IAncestor.UP && canGoUp ){
                     newPosChosen = true;
-                    this.cellPosition.yCoord--;
                 }
                 else if  (this.currentDirection == IAncestor.DOWN && canGoDown ){
                     newPosChosen = true;
-                    this.cellPosition.yCoord++;
                 }
             }
 
@@ -57,28 +71,24 @@ define([],function() {
                 switch (random) {
                     case 1:
                         if (canGoUp) {
-                            this.cellPosition.yCoord--;
                             this.currentDirection = IAncestor.UP;
                             newPosChosen = true;
                         }
                         break;
                     case 2:
                         if (canGoDown) {
-                            this.cellPosition.yCoord++;
                             this.currentDirection = IAncestor.DOWN;
                             newPosChosen = true;
                         }
                         break;
                     case 3:
                         if (canGoLeft) {
-                            this.cellPosition.xCoord--;
                             this.currentDirection = IAncestor.LEFT;
                             newPosChosen = true;
                         }
                         break;
                     case 4:
                         if (canGoRight) {
-                            this.cellPosition.xCoord++;
                             this.currentDirection = IAncestor.RIGHT;
                             newPosChosen = true;
                         }

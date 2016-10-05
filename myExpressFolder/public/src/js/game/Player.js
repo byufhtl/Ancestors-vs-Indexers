@@ -6,10 +6,11 @@ define(['util/Sig'],function(Sig) {
         this.playerCellPosition = {};
         this.playerPixelPosition = {};
         this.currentDirection = null;
-        this.nextDirection = null;
         this.distanceTraveled = 0;
         this.speed = 250;
         this.animCorrect = 5;
+        this.directionSelected = false;
+        this.directionInQueue = null;
 
         this.animTimer = 0;
         this.animXFrame = 0;
@@ -54,113 +55,57 @@ define(['util/Sig'],function(Sig) {
         }
     };
 
-    Player.prototype.changeDirection = function(board) {
+    Player.prototype.changeDirection = function(board, nextDirection, x, y) {
       var self = this;
       var successfullyChangedDirections = false;
-      switch (this.nextDirection) {
+      switch (nextDirection) {
           case Player.RIGHT:
-              if (self.playerCellPosition.xCoord + 1 < board.tileArray[self.playerCellPosition.yCoord].length && board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord + 1] != null
-              && !board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord + 1].locked) {
-                  this.playerCellPosition.xCoord++;
-                  this.currentDirection = this.nextDirection;
+              if (x + 1 < board.tileArray[y].length && board.tileArray[y][x + 1] != null
+              && !board.tileArray[y][x + 1].locked) {
                   successfullyChangedDirections = true;
               }
               break;
           case Player.LEFT:
-              if (self.playerCellPosition.xCoord - 1 >= 0 && board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord - 1] != null
-              && !board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord - 1].locked) {
-                  this.playerCellPosition.xCoord--;
-                  this.currentDirection = this.nextDirection;
+              if (x - 1 >= 0 && board.tileArray[y][x - 1] != null
+              && !board.tileArray[y][x - 1].locked) {
                   successfullyChangedDirections = true;
               }
               break;
           case Player.UP:
-              if (self.playerCellPosition.yCoord - 1 >= 0 && board.tileArray[self.playerCellPosition.yCoord - 1][self.playerCellPosition.xCoord] != null
-              && !board.tileArray[self.playerCellPosition.yCoord - 1][self.playerCellPosition.xCoord].locked) {
-                  this.playerCellPosition.yCoord--;
-                  this.currentDirection = this.nextDirection;
+              if (y - 1 >= 0 && board.tileArray[y - 1][x] != null
+              && !board.tileArray[y - 1][x].locked) {
                   successfullyChangedDirections = true;
               }
               break;
           case Player.DOWN:
-              if (self.playerCellPosition.yCoord + 1 < board.tileArray.length && board.tileArray[self.playerCellPosition.yCoord + 1][self.playerCellPosition.xCoord] != null
-              && !board.tileArray[self.playerCellPosition.yCoord + 1][self.playerCellPosition.xCoord].locked) {
-                  self.playerCellPosition.yCoord++;
-                  self.currentDirection = self.nextDirection;
+              if (y + 1 < board.tileArray.length && board.tileArray[y + 1][x] != null
+              && !board.tileArray[y + 1][x].locked) {
                   successfullyChangedDirections = true;
               }
               break;
       }
 
-      if (!successfullyChangedDirections) {
-          if (self.nextDirection == Player.UP || self.nextDirection == Player.DOWN) {
-              if (self.playerCellPosition.xCoord + 1 < board.tileArray[self.playerCellPosition.yCoord].length && board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord + 1] != null
-              && !board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord + 1].locked) {
-                  this.playerCellPosition.xCoord++;
-                  this.currentDirection = Player.RIGHT;
-                  this.nextDirection = Player.RIGHT;
-              }
-              else if (self.playerCellPosition.xCoord - 1 >= 0 && board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord - 1] != null
-              && !board.tileArray[self.playerCellPosition.yCoord][self.playerCellPosition.xCoord - 1].locked) {
-                  this.playerCellPosition.xCoord--;
-                  this.currentDirection = Player.LEFT;
-                  this.nextDirection = Player.LEFT;
-              }
-              else {
-                  if (this.currentDirection == Player.UP) {
-                      this.playerCellPosition.yCoord--;
-                      this.currentDirection = Player.UP;
-                      this.nextDirection = Player.UP;
-                  }
-                  else {
-                      this.playerCellPosition.yCoord++;
-                      this.currentDirection = Player.DOWN;
-                      this.nextDirection = Player.DOWN;
-                  }
-              }
-          }
-          else if (this.nextDirection == Player.RIGHT || this.nextDirection == Player.LEFT) {
-              if (self.playerCellPosition.yCoord - 1 >= 0 && board.tileArray[self.playerCellPosition.yCoord - 1][self.playerCellPosition.xCoord] != null
-              && !board.tileArray[self.playerCellPosition.yCoord - 1][self.playerCellPosition.xCoord].locked) {
-                  this.playerCellPosition.yCoord--;
-                  this.currentDirection = Player.UP;
-                  this.nextDirection = Player.UP;
-              }
-              else if (self.playerCellPosition.yCoord + 1 < board.tileArray.length && board.tileArray[self.playerCellPosition.yCoord + 1][self.playerCellPosition.xCoord] != null
-              && !board.tileArray[self.playerCellPosition.yCoord + 1][self.playerCellPosition.xCoord].locked) {
-                  this.playerCellPosition.yCoord++;
-                  this.currentDirection = Player.DOWN;
-                  this.nextDirection = Player.DOWN;
-              }
-              else {
-                  if (this.currentDirection == Player.RIGHT) {
-                      this.playerCellPosition.xCoord--;
-                      this.currentDirection = Player.LEFT;
-                      this.nextDirection = Player.LEFT;
-                  }
-                  else {
-                      this.playerCellPosition.yCoord++;
-                      this.currentDirection = Player.RIGHT;
-                      this.nextDirection = Player.RIGHT;
-                  }
-              }
-          }
-      }
 
-      switch(this.currentDirection){
-        case Player.UP:
-            self.animYFrame = 3;
-            break;
-        case Player.DOWN:
-            self.animYFrame = 0;
-            break;
-        case Player.RIGHT:
-            self.animYFrame = 2;
-            break;
-        case Player.LEFT:
-            self.animYFrame = 1;
-            break;
-      }
+      return successfullyChangedDirections;
+    };
+
+
+    Player.prototype.setAnim = function(){
+      var self = this;
+        switch(self.currentDirection){
+          case Player.UP:
+              self.animYFrame = 3;
+              break;
+          case Player.DOWN:
+              self.animYFrame = 0;
+              break;
+          case Player.RIGHT:
+              self.animYFrame = 2;
+              break;
+          case Player.LEFT:
+              self.animYFrame = 1;
+              break;
+        }
     };
 
     Player.prototype.checkTileAction = function(board, update) {
@@ -201,19 +146,38 @@ define(['util/Sig'],function(Sig) {
         }
     };
 
+    Player.prototype.updateBoardPosition = function(){
+      var self = this;
+      switch (this.currentDirection) {
+          case Player.RIGHT:
+              self.playerCellPosition.xCoord++;
+              break;
+          case Player.LEFT:
+              self.playerCellPosition.xCoord--;
+              break;
+          case Player.UP:
+              self.playerCellPosition.yCoord--;
+              break;
+          case Player.DOWN:
+              self.playerCellPosition.yCoord++;
+              break;
+      }
+    }
     Player.prototype.movePlayer = function(timeElapsed, board, ancestors, update) {
         var self = this;
+
         this.timeBetweenFrames = 50 / this.speed;
-        // console.log("player x: " + this.playerCellPosition.xCoord + " y: " + this.playerCellPosition.yCoord);
-        // console.log("board height: " + board.tileArray.length + " board width" + board.tileArray[0].length);
+
         this.animate(timeElapsed);
-        this.distanceTraveled += timeElapsed * self.speed;
+        if (this.directionSelected)
+            this.distanceTraveled += timeElapsed * self.speed;
 
         if (this.distanceTraveled >= 150) {
+            //update board position
+            this.updateBoardPosition();
             this.distanceTraveled = 0;
             this.playerPixelPosition.xCoord = 150* this.playerCellPosition.xCoord;
             this.playerPixelPosition.yCoord = 150* this.playerCellPosition.yCoord;
-            this.changeDirection(board);
             this.checkGotKey(board, update);
             this.checkTileAction(board, update);
             if (this.numRecords > 0) this.checkAncestorCollision(ancestors);
@@ -225,42 +189,33 @@ define(['util/Sig'],function(Sig) {
               if (this.speed < 250) this.speed = 250;
               else this.speed *= .90;
             }
-        } //end change directions
-
-
-        switch (this.currentDirection) {
-            case Player.RIGHT:
-                self.playerPixelPosition.xCoord += timeElapsed * self.speed;
-                break;
-            case Player.LEFT:
-                self.playerPixelPosition.xCoord -= timeElapsed * self.speed;
-                break;
-            case Player.UP:
-                self.playerPixelPosition.yCoord -= timeElapsed * self.speed;
-                break;
-            case Player.DOWN:
-                self.playerPixelPosition.yCoord += timeElapsed * self.speed;
-                break;
+            this.directionSelected = false;
+            if (this.directionInQueue != null){
+                this.directionSelected = true;
+                this.currentDirection = this.directionInQueue;
+                this.directionInQueue = null;
+            }
         }
 
-        // // Per-tile movement overflow corrections. Called once per overall tile moved.
-        // if(!self.distanceTraveled && !(this.animCorrect--)){
-        //     this.animCorrect = 5;
-        //     var xOver = self.playerPixelPosition.xCoord % 150;
-        //     var yOver = self.playerPixelPosition.yCoord % 150;
-        //     if(xOver >= 100){
-        //         self.playerPixelPosition.xCoord += 150 - xOver;
-        //     }
-        //     else{
-        //         self.playerPixelPosition.xCoord -= xOver;
-        //     }
-        //     if(yOver >= 100){
-        //         self.playerPixelPosition.yCoord += 150 - yOver;
-        //     }
-        //     else{
-        //         self.playerPixelPosition.yCoord -= yOver;
-        //     }
-        // }
+        if (this.directionSelected){
+            self.setAnim();
+
+            switch (this.currentDirection) {
+                case Player.RIGHT:
+                    self.playerPixelPosition.xCoord += timeElapsed * self.speed;
+                    break;
+                case Player.LEFT:
+                    self.playerPixelPosition.xCoord -= timeElapsed * self.speed;
+                    break;
+                case Player.UP:
+                    self.playerPixelPosition.yCoord -= timeElapsed * self.speed;
+                    break;
+                case Player.DOWN:
+                    self.playerPixelPosition.yCoord += timeElapsed * self.speed;
+                    break;
+            }
+        }
+
     };
 
     Player.RIGHT = "right";

@@ -33,7 +33,7 @@ define(['jquery','GameController','ImageManager', 'Login'],function($, GameContr
                     myGameController.loop();
                 },
                 function (e) {
-                    console.log("Game was not able to load resources...");
+                    console.log("Game was not able to load rec_manage...");
                 }
             );
         });

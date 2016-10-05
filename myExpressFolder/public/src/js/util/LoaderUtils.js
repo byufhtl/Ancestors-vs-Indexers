@@ -135,7 +135,7 @@ define(['jquery','util/Order'],function($, Order){
     };
 
     /**
-     * Attempts to load a batch of resources.
+     * Attempts to load a batch of rec_manage.
      * Once all requests have returned, will either resolve(if all loaded properly), or reject with the number of failures.
      * @param order An array of JSON {url, type}
      * @returns {Promise}

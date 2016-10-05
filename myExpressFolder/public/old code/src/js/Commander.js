@@ -47,7 +47,7 @@ define(['jquery','GameController','GEvent','ServerFacade'],function($, GameContr
                 self.gameController.loop();
             },
             function (e) {
-                console.log("Game was not able to load resources...");
+                console.log("Game was not able to load rec_manage...");
             }
         );
     };

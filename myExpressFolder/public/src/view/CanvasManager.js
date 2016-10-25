@@ -12,7 +12,7 @@ define(['jquery', 'util/Sig', 'util/Point'], function($, Sig, Point){
         myCanvas.width = window.innerWidth;
         myCanvas.height = window.innerHeight - 65;
         console.log("canvasContainer", canvasContainer);
-        myCanvas.id = 'canvas';
+        myCanvas.__next_id = 'canvas';
         canvasContainer.append(myCanvas);
         this.canvas = myCanvas;
         this.initClicking();

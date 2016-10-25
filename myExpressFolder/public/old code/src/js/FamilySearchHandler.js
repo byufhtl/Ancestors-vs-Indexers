@@ -64,17 +64,17 @@ define(["jquery","GEvent"],function($,GEvent){
 
             //url is https://sandbox.familysearch.org/platform/users/{uid}/history
             //okie dokie, we're gonna try to get the users history
-            var userHistoryURL = "https://sandbox.familysearch.org/platform/users/" + response.getUser().data.id + "/history";
+            var userHistoryURL = "https://sandbox.familysearch.org/platform/users/" + response.getUser().data.__next_id + "/history";
             var myAccessToken = self.FS.settings.accessToken;
             var myAuthorizationCode = self.getParameterByName('code');
             var params = {
                 Authorization: myAuthorizationCode,
-                uid: response.getUser().data.id,
+                uid: response.getUser().data.__next_id,
                 access_token: myAccessToken
             };
             $.getJSON(userHistoryURL, params, function(data){
                 console.log("data: ", data);
-                self.FS.getPerson(data.entries[0].id).then(function(person){
+                self.FS.getPerson(data.entries[0].__next_id).then(function(person){
                     person.getPerson().getChanges().then(function(changes){
                         console.log("changes on 0", changes.getChanges());
                     });
@@ -90,14 +90,14 @@ define(["jquery","GEvent"],function($,GEvent){
         self.FS.getCurrentUser().then(function(response)
         {
             self.user = response.getUser();
-            self.id = self.user.data.personId;
+            self.__next_id = self.user.data.personId;
           var params = {
               generations: 8,
               personDetails: true,
               descendants: false,
           };
 
-          self.FS.getAncestry(self.id, params).then(function parse(ancestors){
+          self.FS.getAncestry(self.__next_id, params).then(function parse(ancestors){
 
               listOfAncestors = ancestors.getPersons();
               for (var i = 0; i < listOfAncestors.length; i++)

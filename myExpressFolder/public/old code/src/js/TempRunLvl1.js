@@ -24,7 +24,7 @@ define(['jquery','GameController','ImageManager', 'Login'],function($, GameContr
             var canvas = document.createElement('canvas');
             canvas.width = 1000;
             canvas.height = 600;
-            canvas.id = 'canvas';
+            canvas.__next_id = 'canvas';
             $('#canvas-div').append(canvas);
 
             var myGameController = new GameController(canvas);

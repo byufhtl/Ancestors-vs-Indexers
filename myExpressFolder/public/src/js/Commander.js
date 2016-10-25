@@ -35,7 +35,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
                 // self.currentFocusLevel.scene = self.userData.data.furthestScene;
             }
             else{
-                if(userInformation.data.id == "cis.user.MMMM-6M3N") {
+                if(userInformation.data.__next_id == "cis.user.MMMM-6M3N") {
                     console.log("<<CLIENT>> Forwarding around server");
                     self.userData = {data:{furthestAct: 1, furthestAct: 1}};
                     self.currentFocusLevel.act = self.currentFocusLevel.scene = 1;
@@ -57,7 +57,7 @@ define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform'
                 }
             );
         };
-        ServerFacade.retrieveUserData(userInformation.data.id).then(doThis,doThis);
+        ServerFacade.retrieveUserData(userInformation.data.__next_id).then(doThis,doThis);
         //ServerFacade.postUserData(null);
         //ServerFacade.retrieveUserData('bilbo');
     };

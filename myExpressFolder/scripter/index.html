@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RecordHunter Script Service</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script data-main="main.js" src="lib/requirejs.js"></script>
+</head>
+<body style="overflow: hidden;">
+
+    <div class="container-fluid compact" style="margin-left: 1%;">
+        <div class="navbar navbar-default compact">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand black" href="#"><h3 class="compact black">RecordHunter</h3></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><h3 class="compact black">File<span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu">
+                            <li><button class="btn btn-success cstm-btn-menu" id="menu-new-script">New Script</button></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <h4 align="center">
+                                    Load Script
+                                </h4>
+                                <div align="center">
+                                    <input type="file" class="cstm-btn-menu" id="menu-load-script">
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><button class="btn btn-info cstm-btn-menu" id="menu-save-script">Save Script</button></li>
+                            <li role="separator" class="divider"></li>
+                            <li><button class="btn btn-danger cstm-btn-menu" id="menu-delete-script">Delete Script</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 sidebar" id="sidebar">
+                <h4>
+                    <label for="author-field">Author:</label>
+                    <input type="text" id="author-field" placeholder="Author Name">
+                </h4>
+                <h4>
+                    <label for="script-name-field">Script:</label>
+                    <input type="text" id="script-name-field" placeholder="Script Name">
+                </h4>
+                <hr>
+                <div id="guide-field" class="guide">
+                    <h3 class="compact" align="center">User Guide</h3>
+                    <hr>
+                    <div>
+                        <h3>Getting Started</h3>
+                        Begin by creating or loading a new document from the File menu.<br>
+                        You can always change the name and author information later. Keep scripts all named different things, if you can.<br>
+                        <h3>Filling it in</h3>
+                        Once a file has been created, fill in the speaker and the message for a single character&#39s statement.<br>
+                        A message should be all that you want a player to say <i>in a single frame of text.</i> If what is being said will
+                        require two frames of speach, use the &quot;Next&quot; button to create another dialogue box and continue from there.<br>
+                        Try to keep messages to 2 sentences.<br><br>
+                        Press &quot;Next&quot; to create another dialogue box.<br><br>
+                        Use the &quot;Previous&quot; button to fill in a frame before the current frame of reference.<br><br>
+                        Use the &quot;Delete&quot; button to delete a frame of dialogue. <b>YOU CAN&#39T UNDO THIS.</b><br>
+                        <h3>Events</h3>
+                        If something needs to happen (e.g. another player walks up to you and starts talking), let us know by including a description
+                        of what you would like to have happen. If something needs to be added to the player&#39s inventory, an objective should
+                        be marked as filled, or an objective should be added to the game at the end of a dialogue,
+                        the event should be logged in the event box of the last script in the sequence.
+                        <h3>Saving & Loading</h3>
+                        Once a script has been completed, you may save it to your machine via the File menu.<br>
+                        Be sure to update the Author and Script name fields in the area above.<br>
+                        You may upload a script you have previously worked on using the load feature in the file menu.<br>
+                        If you refresh your page without saving you will lose your work, so save often.<br>
+                        <h3>Submission</h3>
+                        Once you have completed a script and are ready for us to plug it into the game, email us the .scr file you saved to your computer.<br>
+                        <hr>
+                        Thanks for all of your help!<br><br>
+                        Sincerely,<br>
+                        Calvin & Zach
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-9 compact" align="center">
+                <div class="scriptZone" id="script-zone">
+                    <!--<div class="scriptBlock" id="script-start">-->
+                        <!--<h3 class="compact">Beginning of Script</h3>-->
+                        <!--<hr class="compact">-->
+                        <!--<button type="button" class="btn btn-info" id="scr-start-btn">Start</button>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div id="newModal" class="modal" data-backdrop="static">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="xButton" class="close">×</span>
+                <h2>New Script</h2>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid" align="center">
+                    <div class="row">
+                        <h2>
+                            <label for="modal-author">Author:</label>
+                            <input type="text" id="modal-author">
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <h2>
+                            <label for="modal-scr-name">Name:</label>
+                            <input type="text" id="modal-scr-name">
+                        </h2>
+                    </div>
+                    <div class="row">
+                        <p id="modal-warning" class="red-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-start" class="btn btn-info">Start</button>
+                <button id="modal-close" class="btn btn-danger">Close</button>
+            </div>
+        </div>
+    </div>
+    <audio id="audiotag"></audio>
+</body>
+</html>

@@ -9,7 +9,7 @@ define([],function(){
      * @constructor
      */
     function IndexerAnimation(){
-        this.id = IndexerAnimation.count++;
+        this.__next_id = IndexerAnimation.count++;
         this.width = 50;
         this.height = 50;
         this.y = Math.floor(Math.random() * 6);
@@ -26,7 +26,7 @@ define([],function(){
     IndexerAnimation.count = 0;
 
     IndexerAnimation.prototype.getStatus = function(){
-        return {id:this.id, w:this.width, h: this.height, x: this.x, y: this.y, dtAnim:this.dtAnim, fr:this.longestAnimatedSequence};
+        return {__next_id:this.__next_id, w:this.width, h: this.height, x: this.x, y: this.y, dtAnim:this.dtAnim, fr:this.longestAnimatedSequence};
     };
 
     IndexerAnimation.prototype.currentLocation = function(){
@@ -36,7 +36,7 @@ define([],function(){
     IndexerAnimation.prototype.jumpTo = function(params){
         params.item.x= params.place;
         console.log(params.item);
-        console.log("Indexer", params.item.id, "jumping to animation", params.item.x);
+        console.log("Indexer", params.item.__next_id, "jumping to animation", params.item.x);
     };
 
     IndexerAnimation.prototype.turnLeft = function(clock){

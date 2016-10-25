@@ -56,14 +56,14 @@ define(["jquery","util/Sig"],function($,Sig){
         {
 
             self.user = response.getUser();
-            self.id = self.user.data.personId;
+            self.__next_id = self.user.data.personId;
           var params = {
               generations: 8,
               personDetails: true,
               descendants: false
           };
 
-          self.FS.getAncestry(self.id, params).then(function parse(ancestors){
+          self.FS.getAncestry(self.__next_id, params).then(function parse(ancestors){
 
               var listOfAncestors = ancestors.getPersons();
               for (var i = 0; i < listOfAncestors.length; i++)
@@ -111,9 +111,9 @@ define(["jquery","util/Sig"],function($,Sig){
     FamilySearchHandler.prototype.matchPersonChangeHistory = function(personData, user){
         var self = this;
         return new Promise(function(resolve, reject){
-            var url = "https://" + ((__development) ? ("beta.") : ("sandbox.")) + ("familysearch.org/platform/persons/" + personData.id + "/changes");
+            var url = "https://" + ((__development) ? ("beta.") : ("sandbox.")) + ("familysearch.org/platform/persons/" + personData.__next_id + "/changes");
             // console.log("<<DEBUG-AJAX>> TARGET URL:", url);
-            self.FS.getPerson(personData.id).then(
+            self.FS.getPerson(personData.__next_id).then(
                 function success(response){
                     response.getPerson().getChanges().then(function success(changeLog){
                         var changes = changeLog.getChanges();
@@ -148,7 +148,7 @@ define(["jquery","util/Sig"],function($,Sig){
         console.log("<<DEBUG>> Scan User in progress.");
         var promise = new Promise(function(resolve, reject){
             self.getCurrentUser().then(function(user){ //Retrieve the user's ID
-                var userID = user.data.id;
+                var userID = user.data.__next_id;
                 var url = (__development) ? ("https://beta.familysearch.org/platform/users/" + userID + "/history") : ("https://sandbox.familysearch.org/platform/users/" + userID + "/history");
                 $.ajax(url,{ // Request the user's history
                     method: 'GET',

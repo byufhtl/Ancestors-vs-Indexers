@@ -36,7 +36,7 @@
     router.post('/replace', function(req, res){
         console.log('replacing users data with new');
         user.remove({_id:req.body._id}, function(err){
-          if (err) console.log("Couldn't remove, invalid id");
+          if (err) console.log("Couldn't remove, invalid __next_id");
             tempUser = new user(req.body);
             tempUser.save();
         });
@@ -46,9 +46,9 @@
      Yeah, I have no idea what I'm doing here...
      */
     router.get('/profile', function (req, res) {
-        console.log("trying to find the user at", req.query.id);
+        console.log("trying to find the user at", req.query.__next_id);
 
-        user.find({_id: req.query.id}, function (err, docs) {
+        user.find({_id: req.query.__next_id}, function (err, docs) {
             if (docs) {
                 console.log("we found the user ", docs[0]);
                 if (docs[0] != undefined){
@@ -56,7 +56,7 @@
                 }
                 else{
                     console.log("creating a new entry in the database");
-                    var tempData = {_id:req.query.id,data:{furthestAct:1,furthestScene:1,lastUpdate:Date.now()}};
+                    var tempData = {_id:req.query.__next_id,data:{furthestAct:1,furthestScene:1,lastUpdate:Date.now()}};
                     console.log("temp data is:", tempData);
                     var tempUser = new user(tempData);
                     console.log("temp user is:", tempUser);

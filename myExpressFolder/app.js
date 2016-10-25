@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var scripter = require('./routes/scripter');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.get('/', function(req, res){
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/scripter', scripter);
 app.set('port', 8080);
 app.listen(app.get('port'));
 

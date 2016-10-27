@@ -1,33 +1,38 @@
 /**
  * Created by calvin on 7/8/16.
+ * The Commander is in charge of managing the relationships between the controllers and the client-server services
+ * such as Audio, HTML, and Image managers, the FS Manager, and the ServerManager.
+ * It also handles the substitution of the viewManager and Model injection.
  */
 
-define(['util/Sig', 'game/GameController','LevelDefinition','game/ViewTransform', 'ServerFacade', 'audio/AudioManager'],
-    function(Sig, GameController, LevelDefinition, ViewTransform, ServerFacade, AudioManager){
+///<reference path="../util/Signal.ts"
+
+define(['FamilySearchHandler','game/ViewTransform', 'ServerFacade', 'audio/AudioManager'],
+    function(FamilySearchHandler, ViewTransform, ServerFacade, AudioManager){
 
 
-    function Commander(imageManager, viewController, king){
-        this.king = king;
-        this.imageManager = imageManager;
-        this.viewController = viewController;
-        this.eightGenerations = null;
-        this.gameController = null;
-        this.levelsController = null;
-        this.upgradesController = null;
-        this.currentFocusLevel = {act: 1, scene: 1};
-        this.userInformation = null;
-        this.buttonFocus = this.gameController;
-        this.audioManager = new AudioManager;
-        this.audioManager.init();
-        this.audioManager.play();
-        var output = new Audio("src/audio/mountains.opus");
-        // output.play();
+    function Commander(){
 
-        this.userData = null;
+        this.FSManager = null;
+        this.serverManager = null;
+        this.imageManager = null;
+        this.audioManager = null;
+
+
+        this.model = null;
+        this.currController = null;
+        this.viewController = null;
     }
 
     Commander.prototype.start = function(eightGens, userInformation){
         var self = this;
+
+        self.FSManager = new FamilySearchHandler();
+
+        // Open up the audio
+        self.audioManager = new AudioManager();
+        self.audioManager.init();
+        self.audioManager.play();
         var doThis = function(resolution){
             if(resolution) {
                 self.userData = resolution;

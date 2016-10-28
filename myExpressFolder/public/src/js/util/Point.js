@@ -1,13 +1,10 @@
 /**
- * Created by calvinmcm on 6/28/16.
+ * Created by calvinm2 on 10/26/16.
  */
-
-define([],function(){
-
-    function Point(x,y){
-        this.X = x;
-        this.Y = y;
+var Point = (function () {
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
     }
-
     return Point;
-});
+}());

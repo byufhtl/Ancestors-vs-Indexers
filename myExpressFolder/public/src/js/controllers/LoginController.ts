@@ -2,29 +2,33 @@
  * Created by calvinm2 on 10/25/16.
  */
 
-///<reference path="IController.ts"/>
+///<reference path="AbstractController.ts"/>
 ///<reference path="../util/Signal.ts"/>
-class LoginController implements IController{
-    constructor(){
+class LoginController extends AbstractController{
 
+    constructor(boss: ICommander){
+        super("LoginController",boss);
+    }
+
+    activate(): boolean{
+        return true;
+    }
+
+    handleClick(pt: Point): boolean {
+        // Doesn't do much for now.
+        return true;
+    }
+    handleDrag(pt1: Point, pt2: Point): boolean{
+        // Dragging does nothing on this controller.
+        return true;
+    }
+    handleKey(event: any): boolean {
+        // No current usage
+        return true;
     }
 
     public handle(signal:Signal) :void {
-        const self = this;
-        switch(signal.type){
-            case Signal.LOGIN_EV:
-                self.handleLoginType(signal);
-                break;
-        }
+        // Nothing to do here for now.
     }
 
-    private handleLoginType(signal: Signal) :void{
-        const self = this;
-        switch(signal.value){
-            case Signal.DO_LOGIN:
-                break;
-            case Signal.DO_REGST:
-                break;
-        }
-    }
 }

@@ -12,8 +12,4 @@ class Point{
         this.y = y;
     }
 
-    constructor(pt:Point){
-        this.x = pt.x;
-        this.y = pt.y;
-    }
 }

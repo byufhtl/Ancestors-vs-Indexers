@@ -1,1 +1,1 @@
-find . -name "*.ts" | xargs tsc
+find . -name "*.ts" | xargs tsc --module amd

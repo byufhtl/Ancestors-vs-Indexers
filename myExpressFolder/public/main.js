@@ -5,7 +5,7 @@ var __development = 0;
 require.config({
     baseUrl: 'src/js',
     paths: {
-        spleash: 'RevisedSplash',
+        commander: 'commander/Commander',
         familysearch: 'https://cdn.jsdelivr.net/familysearch-javascript-sdk/2.4.5/familysearch-javascript-sdk.min',
         jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min',
         bootstrap: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min'
@@ -23,7 +23,7 @@ require.config({
     }
 });
 
-require(['jquery', 'familysearch', 'bootstrap', 'spleash'],function($, FamilySearch, Bootstrap, Splash){
+require(['jquery', 'familysearch', 'bootstrap', 'commander'],function($, FamilySearch, Bootstrap, Commander){
     var header = "[]===================================================================[]";
     console.log(header, "\n\tFinalreFactory Code Base\n", header, "\n\n");
     var myUser = {_id: "bilbo", data: {age: '1232', height: '1232'}};
@@ -46,6 +46,9 @@ require(['jquery', 'familysearch', 'bootstrap', 'spleash'],function($, FamilySea
             environment: 'sandbox'
         });
     }
-    var splash = new Splash(FS);
-    splash.init();
+    console.log(Commander);
+    let commander = new Commander();
+    commander.init();
+    // var splash = new Splash(FS);
+    // splash.init();
 });

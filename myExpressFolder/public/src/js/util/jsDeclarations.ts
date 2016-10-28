@@ -3,3 +3,5 @@
  */
 
 declare var FS: any;
+declare var $: any;
+declare var Promise: any;

@@ -5,3 +5,4 @@
 declare var FS: any;
 declare var $: any;
 declare var Promise: any;
+// declare var require:(moduleId:string) => any;

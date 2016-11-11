@@ -7,168 +7,110 @@
 
 ///<reference path="../util/Signal.ts"
 
-define(['FamilySearchHandler','game/ViewTransform', 'ServerFacade', 'audio/AudioManager'],
-    function(FamilySearchHandler, ViewTransform, ServerFacade, AudioManager){
+define(['FamilySearchHandler','game/ViewTransform', 'ServerFacade', 'audio/AudioManager',"controllers/ControllerTypes",
+        "controllers/LoginController", "util/Signal","Scheduler","img/ImageManager","view/ViewManager"],
+    function(FamilySearchHandler, ViewTransform, ServerFacade, AudioManager, CONTROL,LoginController,Signal,Scheduler,
+    ImageManager,ViewManager){
 
+    class Commander {
 
-    function Commander(){
+        constructor() {
 
-        this.FSManager = null;
-        this.serverManager = null;
-        this.imageManager = null;
-        this.audioManager = null;
+            this.FSManager = null;
+            this.serverManager = null;
+            this.imageManager = null;
+            this.audioManager = null;
 
+            this.model = null;
+            this.currController = null;
+            this.viewController = null;
 
-        this.model = null;
-        this.currController = null;
-        this.viewController = null;
-    }
+            this.controllers = {};
 
-    Commander.prototype.start = function(eightGens, userInformation){
-        var self = this;
+            this.scheduler = null;
+        }
 
-        self.FSManager = new FamilySearchHandler();
-
-        // Open up the audio
-        self.audioManager = new AudioManager();
-        self.audioManager.init();
-        self.audioManager.play();
-        var doThis = function(resolution){
-            if(resolution) {
-                self.userData = resolution;
-                // self.currentFocusLevel.act = self.userData.data.furthestAct;
-                // self.currentFocusLevel.scene = self.userData.data.furthestScene;
-            }
-            else{
-                if(userInformation.data.__next_id == "cis.user.MMMM-6M3N") {
-                    console.log("<<CLIENT>> Forwarding around server");
-                    self.userData = {data:{furthestAct: 1, furthestAct: 1}};
-                    self.currentFocusLevel.act = self.currentFocusLevel.scene = 1;
-                }
-            }
-            console.log("<<COMMANDER - SETUP>> currentFocusLevel: ", self.currentFocusLevel);
-            self.viewController.assign(self);
-            self.eightGenerations = eightGens;
-            // Load up all of the images
-            self.imageManager.handle(new Sig(Sig.LD_IMGST, Sig.ALL_IMGS)).then(
-                function(failedArray){
-                    if(failedArray.length){
-                        var report = "The Following Image Load Batches Failed to Load: " + failedArray.toString();
-                        self.king.handle(new Sig(Sig.SFAILURE), Sig.CRT_FAIL, {report: report});
-                    }
-                    else {
-                        self.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC)); // Load the Main Menu Interface.
-                    }
-                }
-            );
+        init() {
+            this.imageManager = new ImageManager();
+            this.viewController = new ViewManager();
+            this.scheduler = new Scheduler();
+            this.scheduler.start();
+            this.controllers[CONTROL.LOGIN] = new LoginController(this);
+            this.switchControllerTo(CONTROL.LOGIN);
         };
-        ServerFacade.retrieveUserData(userInformation.data.__next_id).then(doThis,doThis);
-        //ServerFacade.postUserData(null);
-        //ServerFacade.retrieveUserData('bilbo');
-    };
+        // INSTANCE DEFINITIONS ==========================================================================================[]
 
-    Commander.prototype.handle = function(event){
-        var self = this;
-        switch(event.type){
-            case Sig.FTCH_IMG:
-                return self.imageManager.handle(event);
-                break;
-            case Sig.INTFC_LD:
-                switch(event.value){
-                    case Sig.START_GM:
-                        self.startGame(event.data);
-                        break;
-                }
-                break;
-            case Sig.UPD_USER:
-                self.updateUser(event);
-                break;
-            case Sig.LVL_CMND:
-                self.handleLevelCommand(event);
-                break;
-            case Sig.BTN_ACTN:
-                if (event.value == Sig.NEXT_BTN) self.nextLevel();
-                else if (event.value == Sig.AGAN_BTN) self.nextLevel();
-                else if (event.value == Sig.MENU_BTN) self.returnMainMenu();
-                else self.buttonFocus.handle(event);
-                break;
-            case Sig.ST_CLICK:
-                self.buttonFocus.handle(event);
-                break;
-            case Sig.CNVS_CLK:
-                self.buttonFocus.handle(event);
-                break;
-            case Sig.CNVS_DRG:
-                self.buttonFocus.handle(event);
-                break;
-            case Sig.KEY_ACTN:
-                self.buttonFocus.handle(event);
-                break;
-            case Sig.LD_SDBAR:
-                self.viewController.handle(event);
-                break;
-            case Sig.LD_TPBAR:
-                self.viewController.handle(event);
-                break;
-        }
-    };
+        switchControllerTo(controllerType) {
+            this.activeController = this.controllers[controllerType];
+            this.activeController.activate();
+        };
 
-    Commander.prototype.returnMainMenu = function(){
-        this.viewController.handle(new Sig(Sig.LD_INTFC, Sig.MM_INTFC));
-    };
+        handleClick(pt) {
+            return true;
+        };
 
-    Commander.prototype.updateUser = function(event){
-        var self = this;
-        if(event.value == Sig.LVL_VCTR){
-            self.currentFocusLevel = LevelDefinition.getNextSceneInfo(self.currentFocusLevel.act, self.currentFocusLevel.scene);
-            if (self.currentFocusLevel.act > self.userData.data.furthestAct){
-                self.userData.data.furthestAct = self.currentFocusLevel.act;
-                self.userData.data.furthestScene = 1;
+        handleDrag(pt1, pt2) {
+            return true;
+        };
+
+        handleKey(event) {
+            return true;
+        };
+
+        handle(signal) {
+            switch (signal.type) {
+                case Signal.FSREQUEST:
+                    if (signal.value == Signal.DO_LOGIN) {
+                        this.fsManager.login();
+                    }
+                    break;
             }
-            else if (self.currentFocusLevel.act == self.userData.data.furthestAct && self.currentFocusLevel.scene > self.userData.data.furthestScene){
-                self.userData.data.furthestScene = self.currentFocusLevel.scene;
-            }
-            self.userData.data.lastUpdate = Date.now();
-            ServerFacade.postUserData(this.userData);
+            console.log("Unrecognized command in the Commander", signal);
+        };
+
+        /**
+         * Schedules the event onto the clock. The event will fire once it's delay has expired.
+         * @pre event must implement the fire() method with no parameters.
+         * @param event The event to schedule.
+         * @param delay (OPTIONAL) A time delay (in milliseconds) to wait before the event should fire.
+         */
+        scheduleEvent(event, delay = 0){
+            if(!event.hasOwnProperty("fire")) return;
+            this.scheduler.addEvent(event, delay);
         }
-        else if(event.value == Sig.LVL_DEFT){
-            // Nothing to do at the moment. TODO: Make a database and update it.
+
+        /**
+         * Schedules the update for immediate execution
+         * @pre update must implement the update() method with no parameters.
+         * @param update the update to schedule for immediate execution.
+         */
+        scheduleUpdate(update){
+            if(!event.hasOwnProperty("update")) return;
+            this.scheduler.addUpdate(update);
         }
-    };
 
-    Commander.prototype.nextLevel = function(){
-        var self = this;
-        self.viewController.handle(new Sig(Sig.LD_TPBAR, Sig.GM_TPBAR));    // Change the interface
-        self.viewController.handle(new Sig(Sig.LD_SDBAR, Sig.EM_SDBAR));
-        var data = {};
-        data.act = this.currentFocusLevel.act;
-        data.scene = this.currentFocusLevel.scene;
-        data.playerInfo = {};
-        data.imageManager = self.imageManager;
-        self.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, data));
-    };
+        /**
+         * Schedules the render for immediate execution
+         * @pre render must implement the render() method with no parameters.
+         * @param render the render to schedule for immediate execution.
+         */
+        scheduleRender(render){
+            if(!render.hasOwnProperty("render")) return;
+            this.scheduler.addRender(render);
+        }
 
-    Commander.prototype.startGame = function(data){
-        var self = this;
-        //set up canvas/buttons
-        var canvas = data.canvas;
-        self.gameController = new GameController(self);
-        self.gameController.canvas = canvas;
-        self.gameController.init();
-        self.buttonFocus = self.gameController;
-        //set up viewTransform
-        var viewTransform = new ViewTransform(0,0,canvas);
-        this.viewController.canvasManager.viewTransform = viewTransform;
-        self.gameController.viewTransform = viewTransform;
-        self.gameController.eightGenerations = self.eightGenerations;
-        var data = {};
-        //this is temp for now. Starting level 1 scene 1. Will change this to selected level.
-        data.act = this.currentFocusLevel.act;
-        data.scene = this.currentFocusLevel.scene;
-        data.playerInfo = {};
-        data.imageManager = self.imageManager;
-        self.gameController.handle(new Sig(Sig.CMND_ACT, Sig.INIT_GAM, data));
-    };
+        /**
+         * Returns the ViewController if the current controller matches the input controller.
+         * @param controller
+         * @returns {*}
+         */
+        getView(controller){
+            return (controller === this.activeController) ? this.viewController : null;
+        }
 
+        getImageManager(){
+            return this.imageManager;
+        }
+    }
     return Commander;
 });

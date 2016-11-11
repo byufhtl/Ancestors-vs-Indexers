@@ -65,7 +65,7 @@ define(['indexers/Animations/IndexerAnimation', 'model/Projectile'],function (An
     };
 
     /**
-     * Performs all updates on an indexer
+     * Performs all __updates on an indexer
      * @param activeAncestors The list of ancestors currently on the field.
      * @param timeElapsed The amount of time elapsed since the last update.
      * @param activeProjectiles The projectiles active on the field.

@@ -4,6 +4,7 @@
 "use strict";
 ///<reference path="../util/jsDeclarations.ts"/>
 ///<reference path="../controllers/AbstractController.ts"/>
+///<amd-dependency path="" />
 var FSManager = (function () {
     function FSManager() {
         this.fs = FS;
@@ -154,5 +155,6 @@ var FSManager = (function () {
     ;
     return FSManager;
 }());
-module.exports = FSManager;
+exports.FSManager = FSManager;
+// export = FSManager; 
 //# sourceMappingURL=FSManager.js.map

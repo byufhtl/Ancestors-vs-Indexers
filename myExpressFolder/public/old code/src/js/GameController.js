@@ -11,7 +11,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
           this.timeElapsed = 0;
 
-          this.lastTime;
+          this.__lastTime;
           this.playerInfo;
           this.level = [];
           this.levelStructure;
@@ -35,7 +35,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
               if (e.keyCode == 27) { // escape key maps to keycode `27`
                   if (self.paused) {
                       self.paused = false;
-                      self.lastTime = Date.now();
+                      self.__lastTime = Date.now();
                   }
                   else {
                       self.paused = true;
@@ -73,7 +73,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
 
           this.timeElapsed = 0;
 
-          this.lastTime;
+          this.__lastTime;
           this.playerInfo;
           this.level = [];
 
@@ -94,7 +94,7 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           this.levelStructure = levelDefinition.getLevelStructure(level);
           this.nodeStructure = levelDefinition.getNodeStructure(level);
 
-          this.lastTime = Date.now();
+          this.__lastTime = Date.now();
       };
 
       GameController.prototype.updateCoordinates = function (dx, dy) {
@@ -106,8 +106,8 @@ define(['jquery','LevelDefinition', 'ViewController', 'Update', 'Render', 'model
           if (!this.paused) {
               //console.log("running loop");
               var now = Date.now();
-              var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
-              this.lastTime = now;
+              var delta_s = (now - this.__lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
+              this.__lastTime = now;
               this.timeElapsed += delta_s;
 
               this.myUpdate.update(this.activeAncestors, this.activeIndexers, this.activeProjectiles, this.activeRecords, this.activeBuildings, delta_s, this.level, this, this.levelStructure, this.defeatedAncestorInfo);

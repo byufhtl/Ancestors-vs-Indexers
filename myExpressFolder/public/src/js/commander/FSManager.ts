@@ -4,6 +4,7 @@
 
 ///<reference path="../util/jsDeclarations.ts"/>
 ///<reference path="../controllers/AbstractController.ts"/>
+///<amd-dependency path="" />
 class FSManager{
 
     private fs :any;
@@ -186,5 +187,5 @@ class FSManager{
     };
 }
 
-// export {FSManager};
-export = FSManager;
+export {FSManager};
+// export = FSManager;

@@ -62,7 +62,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
                     break;
                 case Sig.ENABL_UI:
                     self.paused = false;
-                    self.lastTime = Date.now();
+                    self.__lastTime = Date.now();
                     break;
                 case Sig.INIT_GAM:
                     self.initializeGame(data.act, data.scene, data.playerInfo, data.imageManager);
@@ -112,7 +112,7 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
               virus.setTarget(this.player);
           }
 
-          this.lastTime = Date.now();
+          this.__lastTime = Date.now();
 
           this.loop();
       };
@@ -125,8 +125,8 @@ define(['jquery','LevelDefinition', 'game/Update', 'game/Render', 'model/IAncest
       GameController.prototype.loop = function () {
           if (!this.paused) {
               var now = Date.now();
-              var delta_s = (now - this.lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
-              this.lastTime = now;
+              var delta_s = (now - this.__lastTime) / 1000; // obtain time elapsed since last check and convert to seconds
+              this.__lastTime = now;
 
               for(var virus of this.viruses) {
                   virus.move(delta_s, this.board);

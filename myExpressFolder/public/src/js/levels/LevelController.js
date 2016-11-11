@@ -36,7 +36,7 @@ define(['util/Sig'],function(Sig){
                     break;
                 case Sig.ENABL_UI:
                     self.paused = false;
-                    self.lastTime = Date.now();
+                    self.__lastTime = Date.now();
                     break;
                 case Sig.INIT_GAM:
                     self.initializeLevels(data.playerInfo, data.imageManager);

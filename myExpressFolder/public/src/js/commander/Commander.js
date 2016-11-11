@@ -2,14 +2,14 @@
  * Created by calvinm2 on 10/26/16.
  */
 "use strict";
-///<reference path="./FSManager.ts"/>
+///<reference path="FSManager.ts"/>
 ///<reference path="ICommander.ts"/>
 ///<reference path="../controllers/AbstractController.ts"/>
 ///<reference path="../controllers/LoginController.ts"/>
 var FSManager = require("./FSManager");
 var Commander = (function () {
     function Commander() {
-        this.fsManager = new FSManager();
+        this.fsManager = new FSManager.FSManager();
     }
     Commander.prototype.init = function () {
         this.controllers[CNTRLS.LOGIN] = new LoginController(this);

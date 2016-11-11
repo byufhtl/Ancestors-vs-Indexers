@@ -14,52 +14,7 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         this.status = "new";
     }
 
-    ImageManager.prototype.handle = function(event){
-        var self = this;
-        switch(event.type){
-            case Sig.CMND_ACT:
-                return self.obeyCommand(event.value, data);
-                break;
-            case Sig.LD_IMGST:
-                return self.launch(event.value);
-                break;
-            case Sig.FTCH_IMG:
-                return self.getImage(event.value);
-                break;
-            default:
-                console.log("ImageManager could not properly handle event:", event);
-        }
-    };
-
     // ENTRY POINTS ====================================================================================================
-
-    ImageManager.prototype.obeyCommand = function(value, data){
-        switch(value){
-            case Sig.GET_LODR:
-                return this.extractLoader();
-                break;
-            case Sig.SET_LODR:
-                return this.injectLoader(data.loader);
-                break;
-        }
-    };
-
-    /**
-     * Allows for a different LoaderUtils to be loaded, allowing us to take full advantage of prior file saving.
-     * @param loader
-     */
-    ImageManager.prototype.injectLoader = function(loader){
-        this.loader = loader;
-    };
-
-    /**
-     * Allows the LoaderUtils for this class to be extracted and stored externally, allowing us to preserve loaded
-     * files across several instances of the HTMLManager class if properly handled.
-     * @returns {*}
-     */
-    ImageManager.prototype.extractLoader = function(){
-        return this.loader;
-    };
 
     /**
      * A quick check to see if an image is loaded.
@@ -114,142 +69,21 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
         }
     };
 
-    ImageManager.prototype.loadFieldPieces = function(){
-        var self = this;
-        return new Promise(function(resolve, reject){
+    ImageManager.prototype.loadLoginImages = function() {
+        let self = this;
+        return new Promise(function(resolve,reject){
             var order = new Order;
-            order.addItem(ImageManager.TRI_ALPH, Order.IMAGE, 15);
-            order.addItem(ImageManager.TRI_BETA, Order.IMAGE, 15);
-            order.addItem(ImageManager.NODE_CIR, Order.IMAGE, 15);
-            order.addItem(ImageManager.UND_TREE, Order.IMAGE, 15);
+            order.addItem(ImageManager.LOGINSCN, Order.IMAGE, 10);
             self.loader.loadResources(order).then(
                 function(success){
                     resolve(success);
                 },
                 function(failure){
-                    reject(failure);
+                    resolve(failure);
                 }
             );
-        });
+        })
     };
-
-    ImageManager.prototype.loadBackgroundSkins = function(){
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var order = new Order;
-            order.addItem(ImageManager.BKGD_IMG, Order.IMAGE, 15);
-            // order.addItem(ImageManager.GM_FRGRD, Order.IMAGE, 15);
-            order.addItem(ImageManager.GM_VCTRY, Order.IMAGE, 15);
-            order.addItem(ImageManager.GM_DFEAT, Order.IMAGE, 15);
-            self.loader.loadResources(order).then(
-                function(success){
-                    resolve(success);
-                },
-                function(failure){
-                    reject(failure);
-                }
-            );
-        });
-    };
-
-    ImageManager.prototype.loadRecordSprites = function(){
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var order = new Order;
-            order.addItem(ImageManager.REC_BLUE, Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_BRWN, Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_GOLD, Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_GREN, Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_ORNG, Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_RED , Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_VLET, Order.IMAGE, 15);
-            order.addItem(ImageManager.REC_TRNS, Order.IMAGE, 15);
-            self.loader.loadResources(order).then(
-                function(success){
-                    resolve(success);
-                },
-                function(failure){
-                    reject(failure);
-                }
-            );
-        });
-    };
-
-    ImageManager.prototype.loadIndexerSprites = function(){
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var order = new Order;
-            order.addItem(ImageManager.STAN_IDX, Order.IMAGE, 15);
-            order.addItem(ImageManager.HOBB_IDX, Order.IMAGE, 15);
-            order.addItem(ImageManager.UBER_IDX, Order.IMAGE, 15);
-            order.addItem(ImageManager.DESK_SML, Order.IMAGE, 15);
-            order.addItem(ImageManager.DESK_MED, Order.IMAGE, 15);
-            order.addItem(ImageManager.DESK_LRG, Order.IMAGE, 15);
-            order.addItem(ImageManager.VRS_FORE, Order.IMAGE, 15);
-            order.addItem(ImageManager.VRS_BACK, Order.IMAGE, 15);
-            self.loader.loadResources(order).then(
-                function(success){
-                    resolve(success);
-                },
-                function(failure){
-                    reject(failure);
-                }
-            );
-        });
-    };
-
-    ImageManager.prototype.loadBuildingSprites = function(){
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var order = new Order;
-            order.addItem(ImageManager.BLD_FHCR, Order.IMAGE, 15);
-            order.addItem(ImageManager.BLD_LIBR, Order.IMAGE, 15);
-            self.loader.loadResources(order).then(
-                function(success){
-                    resolve(success);
-                },
-                function(failure){
-                    reject(failure);
-                }
-            );
-        });
-    };
-
-    ImageManager.prototype.loadAncestorSprites = function(){
-
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var order = new Order;
-            order.addItem(ImageManager.ANC_STAN, Order.IMAGE, 15);
-            order.addItem(ImageManager.ANC_NMLS, Order.IMAGE, 15);
-            order.addItem(ImageManager.ANC_MOTR, Order.IMAGE, 15);
-            self.loader.loadResources(order).then(
-                function(success){
-                    resolve(success);
-                },
-                function(failure){
-                    reject(failure);
-                }
-            );
-        });
-    };
-
-    ImageManager.prototype.loadStoryTellerSprites = function(){
-        var self = this;
-        return new Promise(function(resolve, reject){
-            var order = new Order;
-            order.addItem(ImageManager.STY_TELL, Order.IMAGE, 15);
-            self.loader.loadResources(order).then(
-                function(success){
-                    resolve(success);
-                },
-                function(failure){
-                    reject(failure);
-                }
-            );
-        });
-    };
-
     ImageManager.prototype.loadButtonsImgs = function() {
         var self = this;
         return new Promise(function(resolve, reject){
@@ -447,6 +281,10 @@ define(["../util/Order", "util/Sig", "util/LoaderUtils"], function(Order, Sig, L
             );
         });
     };
+
+
+    // LOGIN IMAGES
+    ImageManager.LOGINSCN =     "src/img/templogin.png";                    // Main Login backdrop
 
     ImageManager.MAIN_CHR =     "src/img/guy_480.png";                      // Main Male Character
     ImageManager.MAIN_GRL =     "src/img/Girl.png";                         // Main Female Character

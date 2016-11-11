@@ -2,12 +2,12 @@
  * Created by calvinm2 on 10/26/16.
  */
 
-///<reference path="./FSManager.ts"/>
+///<reference path="FSManager.ts"/>
 ///<reference path="ICommander.ts"/>
 ///<reference path="../controllers/AbstractController.ts"/>
 ///<reference path="../controllers/LoginController.ts"/>
 
-import FSManager = require("./FSManager");
+import FSManager= require("./FSManager");
 
 class Commander implements ICommander{
 
@@ -16,7 +16,7 @@ class Commander implements ICommander{
 
     // INSTANCE SETUP ================================================================================================[]
 
-    private fsManager : FSManager;
+    private fsManager : FSManager.FSManager;
     private serverManager : any;
     private gameModel : any;
 
@@ -24,7 +24,7 @@ class Commander implements ICommander{
     private activeController: AbstractController;
 
     public constructor(){
-        this.fsManager = new FSManager();
+        this.fsManager = new FSManager.FSManager();
     }
 
     public init(){

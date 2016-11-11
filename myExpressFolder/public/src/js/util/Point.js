@@ -8,3 +8,4 @@ var Point = (function () {
     }
     return Point;
 }());
+//# sourceMappingURL=Point.js.map
